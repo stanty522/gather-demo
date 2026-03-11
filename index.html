@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gather Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ── CSS Variables ── */
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #111111;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-neutral: #333;
+      --text-primary: #ffffff;
+      --text-secondary: #999999;
+      --text-muted: #555555;
+      --text-inactive: #666666;
+      --accent-emerald: #10b981;
+      --tab-active-bg: rgba(255, 255, 255, 0.05);
+      --tab-hover-text: #999999;
+      --radius-card: 12px;
+      --radius-tab: 8px;
+      --font-display: 'Instrument Serif', Georgia, serif;
+      --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --header-height: 64px;
+    }
+
+    /* ── Reset & Base ── */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      background: linear-gradient(180deg, #0a0a0a 0%, #111111 50%, #0a0a0a 100%);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ── Scanline Overlay ── */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.015) 2px,
+        rgba(0, 0, 0, 0.015) 4px
+      );
+    }
+
+    /* ── Custom Scrollbar ── */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    /* ── Header ── */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      height: var(--header-height);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(10, 10, 10, 0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .header-logo img {
+      height: 28px;
+      filter: brightness(0.85);
+    }
+
+    /* ── Tab Navigation ── */
+    .nav-tabs {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .nav-tab {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border: none;
+      background: none;
+      color: var(--text-inactive);
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 400;
+      cursor: pointer;
+      border-radius: var(--radius-tab);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      letter-spacing: 0.01em;
+    }
+
+    .nav-tab:hover {
+      color: var(--tab-hover-text);
+    }
+
+    .nav-tab.active {
+      color: var(--text-primary);
+      background: var(--tab-active-bg);
+    }
+
+    .nav-tab-number {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      opacity: 0.5;
+      letter-spacing: 0.05em;
+    }
+
+    .nav-tab.active .nav-tab-number {
+      opacity: 0.7;
+    }
+
+    /* ── Header Right Label ── */
+    .header-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    /* ── Scene Containers ── */
+    .scenes-wrapper {
+      margin-top: var(--header-height);
+      height: calc(100vh - var(--header-height));
+      position: relative;
+    }
+
+    .scene {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow-y: auto;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .scene.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* ── Scene Placeholder ── */
+    .scene-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .scene-placeholder-title {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      letter-spacing: -0.01em;
+    }
+
+    .scene-placeholder-sub {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-logo">
+      <img src="assets/gather-logo-light.svg" alt="Gather">
+    </div>
+
+    <nav class="nav-tabs">
+      <button class="nav-tab active" data-scene="1">
+        <span class="nav-tab-number">01</span> Pipeline Run
+      </button>
+      <button class="nav-tab" data-scene="2">
+        <span class="nav-tab-number">02</span> Persona Explorer
+      </button>
+      <button class="nav-tab" data-scene="3">
+        <span class="nav-tab-number">03</span> Brand Recreation
+      </button>
+      <button class="nav-tab" data-scene="4">
+        <span class="nav-tab-number">04</span> Scale Engine
+      </button>
+    </nav>
+
+    <div class="header-label">Gather Demo</div>
+  </header>
+
+  <!-- Scenes -->
+  <div class="scenes-wrapper">
+
+    <div id="scene-1" class="scene active">
+      <div class="scene-placeholder">
+        <div class="scene-placeholder-title">Pipeline Run</div>
+        <div class="scene-placeholder-sub">Loading...</div>
+      </div>
+    </div>
+
+    <div id="scene-2" class="scene">
+      <div class="scene-placeholder">
+        <div class="scene-placeholder-title">Persona Explorer</div>
+        <div class="scene-placeholder-sub">Loading...</div>
+      </div>
+    </div>
+
+    <div id="scene-3" class="scene">
+      <div class="scene-placeholder">
+        <div class="scene-placeholder-title">Brand Recreation</div>
+        <div class="scene-placeholder-sub">Loading...</div>
+      </div>
+    </div>
+
+    <div id="scene-4" class="scene">
+      <div class="scene-placeholder">
+        <div class="scene-placeholder-title">Scale Engine</div>
+        <div class="scene-placeholder-sub">Loading...</div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    (function () {
+      const tabs = document.querySelectorAll('.nav-tab');
+      const scenes = document.querySelectorAll('.scene');
+
+      function switchScene(index) {
+        if (index < 1 || index > 4) return;
+
+        tabs.forEach(tab => tab.classList.remove('active'));
+        scenes.forEach(scene => scene.classList.remove('active'));
+
+        const activeTab = document.querySelector(`.nav-tab[data-scene="${index}"]`);
+        const activeScene = document.getElementById(`scene-${index}`);
+
+        if (activeTab) activeTab.classList.add('active');
+        if (activeScene) activeScene.classList.add('active');
+      }
+
+      // Click navigation
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const sceneIndex = parseInt(tab.dataset.scene, 10);
+          switchScene(sceneIndex);
+        });
+      });
+
+      // Keyboard shortcuts 1-4
+      document.addEventListener('keydown', (e) => {
+        // Ignore if user is typing in an input/textarea
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) return;
+
+        const num = parseInt(e.key, 10);
+        if (num >= 1 && num <= 4) {
+          switchScene(num);
+        }
+      });
+    })();
+  </script>
+
+  <!-- Scene Scripts -->
+  <script src="scene-1-personas.js"></script>
+  <script src="scene-2-pipeline.js"></script>
+  <script src="scene-3-recreation.js"></script>
+  <script src="scene-4-scaleengine.js"></script>
+  <script>
+    // Initialize scenes (Scene 1 = Pipeline, Scene 2 = Personas, Scene 3 = Recreation, Scene 4 = Scale Engine)
+    document.addEventListener('DOMContentLoaded', () => {
+      const s1 = document.getElementById('scene-1');
+      if (s1 && typeof initScene2 === 'function') {
+        s1.innerHTML = '';
+        initScene2(s1);
+      }
+      const s2 = document.getElementById('scene-2');
+      if (s2 && typeof initScene1 === 'function') {
+        s2.innerHTML = '';
+        initScene1(s2);
+      }
+      const s3 = document.getElementById('scene-3');
+      if (s3 && typeof initScene3 === 'function') {
+        s3.innerHTML = '';
+        initScene3(s3);
+      }
+      const s4 = document.getElementById('scene-4');
+      if (s4 && typeof initScene4 === 'function') {
+        s4.innerHTML = '';
+        initScene4(s4);
+      }
+    });
+  </script>
+
+</body>
+</html>
