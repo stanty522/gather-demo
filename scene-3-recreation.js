@@ -59,9 +59,8 @@
         flex-shrink: 0;
         display: flex;
         flex-direction: column;
-        border-right: 1px solid rgba(255,255,255,0.08);
-        padding: 24px 16px;
-        overflow-y: auto;
+        border-right: 1px solid rgba(38,38,38,0.5);
+        overflow-x: hidden;
         position: relative;
       }
 
@@ -69,7 +68,7 @@
         display: flex;
         flex-direction: column;
         gap: 16px;
-        margin-bottom: 24px;
+        padding: 24px 20px 16px;
       }
 
       /* Brand picker */
@@ -128,28 +127,38 @@
       }
 
       /* Play button */
+      .scene3 .s3-play-area {
+        padding: 0 20px 20px;
+      }
       .scene3 .s3-play-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
         width: 100%;
-        padding: 10px;
+        padding: 8px 0;
         background: #fff;
         color: #000;
+        font-size: 14px;
+        font-weight: 500;
         border: none;
         border-radius: 8px;
-        font-size: 13px;
-        font-weight: 500;
         cursor: pointer;
         font-family: inherit;
-        transition: opacity 0.2s;
+        transition: background 0.15s;
       }
       .scene3 .s3-play-btn:hover {
-        opacity: 0.9;
+        background: #e5e5e5;
       }
 
       /* Timeline */
       .scene3 .s3-timeline {
         flex: 1;
+        overflow-y: auto;
+        padding: 0 12px;
+      }
+      .scene3 .s3-timeline-inner {
         position: relative;
-        padding: 8px 0;
       }
       .scene3 .s3-timeline-track {
         position: absolute;
@@ -164,30 +173,33 @@
         left: 19px;
         top: 0;
         width: 1px;
-        background: rgba(255,255,255,0.3);
-        transition: height 0.5s ease;
+        background: rgba(52,211,153,0.4);
+        transition: height 0.5s ease-out;
       }
       .scene3 .s3-stage-btn {
         display: flex;
         align-items: flex-start;
         gap: 12px;
         width: 100%;
-        padding: 10px 8px;
-        background: none;
+        padding: 12px 8px;
+        background: transparent;
         border: none;
         cursor: pointer;
         position: relative;
         text-align: left;
         border-radius: 8px;
-        transition: background 0.2s;
+        transition: background 0.15s;
         font-family: inherit;
+      }
+      .scene3 .s3-stage-btn:hover {
+        background: rgba(38,38,38,0.15);
       }
       .scene3 .s3-stage-btn.active {
         background: rgba(38,38,38,0.3);
       }
       .scene3 .s3-node {
-        width: 22px;
-        height: 22px;
+        width: 24px;
+        height: 24px;
         border-radius: 50%;
         flex-shrink: 0;
         display: flex;
@@ -198,6 +210,7 @@
         transition: all 0.3s ease;
         position: relative;
         z-index: 2;
+        margin-top: 2px;
       }
       .scene3 .s3-node.future {
         background: #262626;
@@ -206,72 +219,89 @@
       }
       .scene3 .s3-node.active {
         background: #fff;
-        border: 1px solid #fff;
-        box-shadow: 0 0 12px rgba(255,255,255,0.4);
+        box-shadow: 0 0 20px rgba(255,255,255,0.2);
         color: #000;
       }
       .scene3 .s3-node.past {
-        background: rgba(16,185,129,0.3);
-        border: 1px solid #10b981;
+        background: rgba(52,211,153,0.3);
+        border: 1px solid rgba(52,211,153,0.4);
         color: #10b981;
+      }
+      .scene3 .s3-dot-inner {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #000;
+      }
+      .scene3 .s3-dot-number {
+        font-size: 8px;
+        font-family: 'JetBrains Mono', monospace;
+        color: #525252;
       }
       .scene3 .s3-stage-text {
         display: flex;
         flex-direction: column;
         gap: 2px;
         padding-top: 2px;
+        min-width: 0;
       }
       .scene3 .s3-stage-title {
-        font-size: 13px;
-        color: #999;
+        font-size: 14px;
+        font-weight: 500;
+        color: #525252;
         transition: color 0.2s;
       }
       .scene3 .s3-stage-btn.active .s3-stage-title {
         color: #fff;
       }
       .scene3 .s3-stage-sub {
-        font-size: 10px;
-        color: #555;
+        font-size: 11px;
+        color: #525252;
         line-height: 1.4;
+      }
+      .scene3 .s3-stage-btn.active .s3-stage-sub {
+        color: #a3a3a3;
       }
 
       /* Stage counter */
       .scene3 .s3-counter {
-        padding-top: 16px;
-        border-top: 1px solid rgba(255,255,255,0.06);
-        margin-top: 16px;
+        padding: 16px 20px;
+        border-top: 1px solid rgba(38,38,38,0.5);
       }
       .scene3 .s3-counter-label {
-        font-family: 'JetBrains Mono', monospace;
         font-size: 10px;
-        text-transform: uppercase;
-        letter-spacing: 0.15em;
-        color: #555;
-        margin-bottom: 4px;
-      }
-      .scene3 .s3-counter-value {
         font-family: 'JetBrains Mono', monospace;
-        font-size: 20px;
-        font-weight: 300;
-        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: #525252;
+        display: block;
         margin-bottom: 8px;
       }
+      .scene3 .s3-counter-value {
+        font-size: 14px;
+        font-family: 'JetBrains Mono', monospace;
+        color: #fff;
+        font-variant-numeric: tabular-nums;
+      }
       .scene3 .s3-slider {
+        margin-top: 12px;
         width: 100%;
+        height: 4px;
         -webkit-appearance: none;
         appearance: none;
-        height: 4px;
         background: #262626;
-        border-radius: 2px;
+        border-radius: 9999px;
+        cursor: pointer;
         outline: none;
       }
       .scene3 .s3-slider::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
-        width: 14px;
-        height: 14px;
+        width: 12px;
+        height: 12px;
         border-radius: 50%;
         background: #fff;
+        cursor: pointer;
         cursor: pointer;
       }
       .scene3 .s3-slider::-moz-range-thumb {
@@ -1149,12 +1179,27 @@ ${personalityStr || 'N/A'}`;
     panel.appendChild(stageHeader('07', 'Ad Creatives'));
     panel.appendChild(el('p', { className: 's3-desc' }, '3 value propositions \u00d7 3 hook types = 9 captioned UGC ads, generated via Sora 2 with fal.ai auto-captions.'));
 
-    // Build matrix from creatives
+    // Build matrix from creatives — filter out empty/duplicate entries
+    const seen = new Set();
+    const validCreatives = (creatives || []).filter(c => {
+      if (!c.hook_type || !c.creative_id) return false;
+      const key = c.creative_id;
+      if (seen.has(key)) return false;
+      // Skip v2 duplicates
+      if (key.endsWith('-v2')) return false;
+      seen.add(key);
+      return true;
+    });
+
     const valuePropMap = {};
     const hookTypes = new Set();
-    (creatives || []).forEach(c => {
-      const vp = c.value_prop || 'Unknown';
-      const ht = c.hook_type || 'Unknown';
+    validCreatives.forEach(c => {
+      // Extract value prop from creative_id (e.g. "specter-mullvad-vpn-discovery" → "Network-level Mullvad VPN")
+      const parts = c.creative_id.replace(/^specter-/, '');
+      const vpSlug = parts.replace(/-(?:discovery|frustration|social_proof)$/, '');
+      const vpLabel = vpSlug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+      const vp = c.value_prop || vpLabel || 'Unknown';
+      const ht = c.hook_type;
       hookTypes.add(ht);
       if (!valuePropMap[vp]) valuePropMap[vp] = {};
       valuePropMap[vp][ht] = c;
@@ -1209,7 +1254,7 @@ ${personalityStr || 'N/A'}`;
       { value: 7, label: 'Pipeline stages' },
       { value: Object.keys(colors).length, label: 'Color tokens' },
       { value: moodCount, label: 'Research images' },
-      { value: (creatives || []).length, label: 'Ad creatives' },
+      { value: validCreatives.length, label: 'Ad creatives' },
     ];
 
     const statsGrid = el('div', { className: 's3-stats-grid' });
@@ -1287,24 +1332,31 @@ ${personalityStr || 'N/A'}`;
     });
 
     // Play button
-    playBtn = el('button', { className: 's3-play-btn' }, 'Play');
+    playBtn = el('button', { className: 's3-play-btn' });
+    updatePlayButton();
     playBtn.addEventListener('click', toggleAutoPlay);
-    sidebarTop.appendChild(playBtn);
+    const playArea = el('div', { className: 's3-play-area' }, playBtn);
 
     sidebar.appendChild(sidebarTop);
+    sidebar.appendChild(playArea);
 
     // Timeline
     const timeline = el('div', { className: 's3-timeline' });
-    timeline.appendChild(el('div', { className: 's3-timeline-track' }));
+    const timelineInner = el('div', { className: 's3-timeline-inner' });
+    timelineInner.appendChild(el('div', { className: 's3-timeline-track' }));
     timelineFill = el('div', { className: 's3-timeline-fill' });
-    timeline.appendChild(timelineFill);
+    timelineInner.appendChild(timelineFill);
 
     STAGES.forEach((stage, i) => {
       const btn = el('button', { className: 's3-stage-btn' + (i === 0 ? ' active' : '') });
       btn.addEventListener('click', () => setStage(i));
 
       const node = el('div', { className: 's3-node ' + (i === 0 ? 'active' : 'future') });
-      node.textContent = stage.number;
+      if (i === 0) {
+        node.appendChild(el('div', { className: 's3-dot-inner' }));
+      } else {
+        node.appendChild(el('span', { className: 's3-dot-number' }, stage.number));
+      }
       btn.appendChild(node);
 
       const text = el('div', { className: 's3-stage-text' });
@@ -1312,9 +1364,10 @@ ${personalityStr || 'N/A'}`;
       text.appendChild(el('span', { className: 's3-stage-sub' }, stage.subtitle));
       btn.appendChild(text);
 
-      timeline.appendChild(btn);
+      timelineInner.appendChild(btn);
       stageButtons.push({ btn, node });
     });
+    timeline.appendChild(timelineInner);
 
     sidebar.appendChild(timeline);
 
@@ -1348,12 +1401,17 @@ ${personalityStr || 'N/A'}`;
 
     function updateTimeline() {
       stageButtons.forEach(({ btn, node }, i) => {
-        btn.classList.toggle('active', i === activeStage);
-        node.className = 's3-node ' + (i === activeStage ? 'active' : (i < activeStage ? 'past' : 'future'));
-        if (i < activeStage) {
+        const isPast = i < activeStage;
+        const isActive = i === activeStage;
+        btn.classList.toggle('active', isActive);
+        node.className = 's3-node ' + (isPast ? 'past' : isActive ? 'active' : 'future');
+        node.innerHTML = '';
+        if (isPast) {
           node.innerHTML = checkSvg();
+        } else if (isActive) {
+          node.appendChild(el('div', { className: 's3-dot-inner' }));
         } else {
-          node.textContent = STAGES[i].number;
+          node.appendChild(el('span', { className: 's3-dot-number' }, STAGES[i].number));
         }
       });
 
@@ -1396,29 +1454,43 @@ ${personalityStr || 'N/A'}`;
 
     /* ── Auto-play ── */
 
-    function toggleAutoPlay() {
-      if (isPlaying) {
-        stopAutoPlay();
-      } else {
-        startAutoPlay();
-      }
+    function updatePlayButton() {
+      const isComplete = activeStage >= 6 && !isPlaying;
+      const icon = isPlaying
+        ? '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="3" y="2" width="3" height="10" rx="0.5" fill="currentColor"/><rect x="8" y="2" width="3" height="10" rx="0.5" fill="currentColor"/></svg>'
+        : '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 2L12 7L3 12V2Z" fill="currentColor"/></svg>';
+      const label = isPlaying ? 'Pause' : isComplete ? 'Replay' : 'Play';
+      playBtn.innerHTML = icon + ' ' + label;
     }
 
-    function startAutoPlay() {
-      isPlaying = true;
-      playBtn.textContent = 'Pause';
+    function toggleAutoPlay() {
+      if (activeStage >= 6 && !isPlaying) {
+        setStage(0);
+        isPlaying = true;
+        startAutoPlayTimer();
+      } else if (isPlaying) {
+        stopAutoPlay();
+      } else {
+        isPlaying = true;
+        startAutoPlayTimer();
+      }
+      updatePlayButton();
+    }
+
+    function startAutoPlayTimer() {
       autoPlayInterval = setInterval(() => {
         if (activeStage >= 6) {
           stopAutoPlay();
+          updatePlayButton();
           return;
         }
         setStage(activeStage + 1);
+        updatePlayButton();
       }, 4000);
     }
 
     function stopAutoPlay() {
       isPlaying = false;
-      playBtn.textContent = 'Play';
       if (autoPlayInterval) {
         clearInterval(autoPlayInterval);
         autoPlayInterval = null;
@@ -1459,6 +1531,7 @@ ${personalityStr || 'N/A'}`;
 
     async function loadBrand() {
       stopAutoPlay();
+      updatePlayButton();
       activeStage = 0;
       updateTimeline();
 

@@ -252,22 +252,22 @@
 
       /* ── Stage Header ── */
       .scene4 .s4-stage-header {
-        display: flex;
-        align-items: baseline;
-        gap: 16px;
-        margin-bottom: 24px;
+        margin-bottom: 32px;
       }
       .scene4 .s4-stage-number {
-        font-size: 11px;
         font-family: 'JetBrains Mono', monospace;
-        color: #404040;
-        font-variant-numeric: tabular-nums;
+        font-size: 11px;
+        color: #555;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        margin-bottom: 8px;
       }
       .scene4 .s4-stage-title {
-        font-size: 24px;
-        font-weight: 500;
+        font-family: 'Instrument Serif', Georgia, serif;
+        font-size: 36px;
+        font-weight: 400;
         color: #fff;
-        letter-spacing: -0.01em;
+        letter-spacing: -0.02em;
       }
 
       /* ── Card ── */
@@ -321,12 +321,12 @@
         text-transform: uppercase;
         letter-spacing: 0.15em;
         font-family: 'JetBrains Mono', monospace;
-        color: #525252;
-        background: rgba(38,38,38,0.4);
+        color: #737373;
+        background: rgba(64,64,64,0.4);
         border-radius: 4px;
       }
       .scene4 .s4-annotation p {
-        color: #525252;
+        color: #737373;
         font-size: 14px;
         line-height: 1.6;
         margin: 0;
@@ -519,15 +519,15 @@
   }
 
   function stageHeader(number, title) {
-    return el('div', { className: 's4-stage-header' },
-      el('span', { className: 's4-stage-number' }, number),
-      el('h2', { className: 's4-stage-title' }, title)
-    );
+    const wrap = el('div', { className: 's4-stage-header' });
+    wrap.appendChild(el('div', { className: 's4-stage-number' }, 'Stage ' + number));
+    wrap.appendChild(el('div', { className: 's4-stage-title' }, title));
+    return wrap;
   }
 
   function annotation(text) {
     const a = el('div', { className: 's4-annotation' },
-      el('span', { className: 's4-annotation-badge' }, 'Engine decided'),
+      el('span', { className: 's4-annotation-badge' }, 'AI decided'),
       el('p', null, text)
     );
     return a;
