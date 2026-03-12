@@ -16,14 +16,14 @@
 
   const triggerStage = {
     id:'trigger', pipeline:'shared', agent:'trigger', agentName:'Trigger Analyst', dur:3, isLaneStage:false,
-    lines:['Scanning life-transition triggers...','Building trigger event library: 14 switching moments identified','Library ready — distributing to all 3 pipelines']
+    lines:['Scanning for personas with unmet needs...','Building trigger event library: 14 switching moments identified','Clusters: pet wellness, digital privacy, gig economy, elder care','Library ready — distributing to all 3 pipelines']
   };
 
   const surgePipeline = [
     { id:'s1s', pipeline:'surge', agent:'surge', agentName:'Surge Trend Scanner', dur:3, isLaneStage:true,
-      lines:['Velocity-first scan for surges...','Found 8 active demand spikes','Flash moment scan: 3 triggers match','Qualified 6 surges above threshold'] },
+      lines:['Velocity-first scan for surges...','Found 8 active demand spikes','Spikes: pet supplements, VPN adoption, SIM-swap fears','Flash moment scan: 3 triggers match','Qualified 6 surges above threshold'] },
     { id:'s2s', pipeline:'surge', agent:'surge', agentName:'Surge Persona Builder', dur:3, isLaneStage:true,
-      lines:['Extracting demand variations from 6 surges...','24 surge personas with moment tags','Top: "TikTok Pet Wellness Convert"'] },
+      lines:['Extracting demand variations from 6 surges...','24 surge personas with moment tags','#2: "Privacy-First OPSEC Switcher" — Score 7.9','Top: "TikTok Pet Wellness Convert" — Score 8.1'] },
     { id:'s3s', pipeline:'surge', agent:'surge', agentName:'Surge Opportunity Analyst', dur:2, isLaneStage:true,
       lines:['Single-pass scoring...','Results: 4 GO, 2 MONITOR, 18 SKIP','Top GO: Score 8.1, window closing in 6 weeks'] },
     { id:'s4sa', pipeline:'surge', agent:'surge', agentName:'Surge Demand Analyst', dur:3, isLaneStage:true,
@@ -34,24 +34,24 @@
 
   const microPipeline = [
     { id:'s1m', pipeline:'micro', agent:'micro', agentName:'Micro-Trend Analyst', dur:5, isLaneStage:true,
-      lines:['PESTEL + Ansoff scan...','23 trend signals across Technology, Social, Economic','Moment-community scan from trigger library','Qualified 18 micro-trends'] },
+      lines:['PESTEL + Ansoff scan...','23 trend signals across Technology, Social, Economic','Signal: post-Snowden privacy awareness accelerating in mobile','Moment-community scan from trigger library','Qualified 18 micro-trends'] },
     { id:'s2m', pipeline:'micro', agent:'micro', agentName:'Micro-Trend Persona Builder', dur:5, isLaneStage:true,
-      lines:['Extracting identity variations...','Clustering by identity overlap','Deduplicating: merged 3 overlapping segments','Generated 94 unique persona cards'] },
+      lines:['Extracting identity variations...','Clustering by identity overlap','Privacy cluster: 3 segments — OPSEC pros, crypto-native, corporate whistleblowers','Deduplicating: merged 3 overlapping segments','Generated 94 unique persona cards'] },
     { id:'s3m', pipeline:'micro', agent:'micro', agentName:'Micro-Trend Opportunity Analyst', dur:4, isLaneStage:true,
-      lines:['Two-pass scoring...','8 INVEST, 12 EXPLORE, 14 NICHE, 60 IGNORE','Top: "Anxious Millennial Pet Parent" — Score 8.7'] },
+      lines:['Two-pass scoring...','8 INVEST, 12 EXPLORE, 14 NICHE, 60 IGNORE','#2: "Privacy-First Mobile Seeker" — Score 8.4','Top: "Anxious Millennial Pet Parent" — Score 8.7'] },
     { id:'s4ma', pipeline:'micro', agent:'micro', agentName:'Micro-Trend Identity Analyst', dur:5, isLaneStage:true,
-      lines:['4A-Lite: 4 factors, 20 Q&As...','Demand snapshot: $4.2B market, 12% CAGR'] },
+      lines:['4A-Lite: 4 factors, 20 Q&As...','Demand snapshot: $4.2B pet wellness market, 12% CAGR','Privacy mobile: $1.8B addressable, 28% CAGR'] },
     { id:'s4mb', pipeline:'micro', agent:'micro', agentName:'Micro-Trend Value Prop Designer', dur:4, isLaneStage:true,
-      lines:['Concept: "PetCalm Club" — monthly wellness box + vet chat','Interception: trigger at first vet visit','Go/No-Go: GO — Micro pipeline complete'] }
+      lines:['Concept A: "PetCalm Club" — monthly wellness box + vet chat','Concept B: "Specter" — privacy-first MVNO, E2E encrypted','Interception: trigger at SIM-swap event or carrier breach news','Go/No-Go: GO on both — Micro pipeline complete'] }
   ];
 
   const macroPipeline = [
     { id:'s1mt', pipeline:'macro', agent:'macro', agentName:'Macro-Trend Analyst', dur:5, isLaneStage:true,
-      lines:['PESTEL institutional scan...','Structural shift: humanization of pets as family members','Qualified: "Pet-as-Family Megatrend" — 85M U.S. pet owners'] },
+      lines:['PESTEL institutional scan...','Structural shift 1: humanization of pets as family members','Structural shift 2: post-breach privacy consciousness — 68% of adults concerned about carrier tracking','Qualified: "Pet-as-Family Megatrend" + "Privacy-First Digital Life"'] },
     { id:'s15mt', pipeline:'macro', agent:'macro', agentName:'Macro-Trend Moment Mapper', dur:3, isLaneStage:true,
-      lines:['Transition inventory...','Top transition: "First Pet Adoption" (Composite 4.2)'] },
+      lines:['Transition inventory...','Top transition: "First Pet Adoption" (Composite 4.2)','#2: "SIM-Swap Attack / Data Breach" (Composite 3.9)'] },
     { id:'s2mt', pipeline:'macro', agent:'macro', agentName:'Macro-Trend Persona Builder', dur:4, isLaneStage:true,
-      lines:['Two-tier extraction...','Tier 1: "Pet-as-Family Americans" (~85M, 30M+ addressable)','Identity Community Map: r/PetHealth (340K), BarkPost, @DrKarenBecker'] },
+      lines:['Two-tier extraction...','Tier 1: "Pet-as-Family Americans" (~85M, 30M+ addressable)','Tier 1: "Privacy-Conscious Professionals" (~12M, 5M+ addressable)','Identity Community Map: r/PetHealth, r/Privacy, r/OPSEC'] },
     { id:'s3mt', pipeline:'macro', agent:'macro', agentName:'Macro-Trend Opportunity Analyst', dur:4, isLaneStage:true,
       lines:['Identity Intensity: 4.2/5','Brand-Equity Potential: 4.5/5','Quadrant: BUILD — invest deeply in durable identity brand'] },
     { id:'s4mta', pipeline:'macro', agent:'macro', agentName:'Macro-Trend Identity Analyst', dur:5, isLaneStage:true,
@@ -62,7 +62,7 @@
 
   const sharedStages = [
     { id:'campaign', pipeline:'shared', agent:'campaign', agentName:'Tier 3 Campaign', dur:10, isLaneStage:false,
-      lines:['Ingesting outputs from all 3 pipelines...','Brief Writer: generating marketing briefs...','Landing Page Builder: 3 landing pages...','Surge page: urgency-coded, countdown timer','Micro page: community-coded, social proof','Macro page: premium-coded, trust signals','Ads Creative Studio: 9 ad variants...','Campaign plans ready'] },
+      lines:['Ingesting outputs from all 3 pipelines...','Brief Writer: generating marketing briefs...','2 brand tracks identified: PetCalm (wellness) + Specter (privacy mobile)','Landing Page Builder: 3 landing pages per track...','Ads Creative Studio: 9 ad variants per brand...','Campaign plans ready'] },
     { id:'partner', pipeline:'shared', agent:'partner', agentName:'Tier 4 Partners', dur:6, isLaneStage:false,
       lines:['Generating affiliate packages...','Surge: flash affiliate deal, 48-hour window','Micro: creator network, 20% rev share','Macro: premium partner program, co-branding','Influencer briefs: 30 creators across 3 tiers','All deliverables packaged'] }
   ];
@@ -81,10 +81,10 @@
     ],
     3: [
       { icon:'\u2705', title:'CTA Fix Validated', desc:'Above-fold CTA reduced bounce rate from 68% to 34%. Mobile conversion rate up 2.1x. Rolling out to all landing page variants.', agent:'Performance Analyst' },
-      { icon:'\ud83c\udfaf', title:'Micro-Segment Discovery', desc:'"First-time pet parents aged 28-34" converting at 2.3x average. Creating dedicated landing page variant for this segment.', agent:'Persona Refinement Agent' }
+      { icon:'\ud83c\udfaf', title:'Micro-Segment Discovery', desc:'"Privacy-first OPSEC professionals aged 25-50" identified as high-intent segment. Specter brand brief generated and passed to Brand Creation pipeline.', agent:'Persona Refinement Agent' }
     ],
     4: [
-      { icon:'\ud83d\ude80', title:'Scale Signal Detected', desc:'Unit economics positive across all 3 pipeline tracks. Blended CAC $26 vs LTV $180. Confidence: ready for 3x budget increase.', agent:'Growth Strategist' },
+      { icon:'\ud83d\ude80', title:'Scale Signal Detected', desc:'Unit economics positive across both brand tracks. PetCalm CAC $26 vs LTV $180. Specter CAC $31 vs LTV $220. Ready for Scale Engine.', agent:'Growth Strategist' },
       { icon:'\ud83d\udd04', title:'Flywheel Active', desc:'Affiliate-driven customers referring 1.4 new customers each. Organic acquisition now 22% of total. CAC trending toward $20.', agent:'Flywheel Monitor' }
     ]
   };
@@ -156,6 +156,10 @@
   color: #e2e2f0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   line-height: 1.5;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .scene2 * { box-sizing: border-box; }
@@ -188,7 +192,7 @@
 }
 
 .scene2 .sub-panel { display: none; }
-.scene2 .sub-panel.active { display: block; }
+.scene2 .sub-panel.active { display: flex; flex-direction: column; flex: 1; min-height: 0; }
 
 /* ── Demo 1 ── */
 .scene2 .input-phase {
@@ -196,7 +200,7 @@
   align-items: center;
   justify-content: center;
   gap: 12px;
-  min-height: calc(100vh - 200px);
+  flex: 1;
 }
 .scene2 .input-phase.hidden { display: none; }
 .scene2 .input-phase input {
@@ -234,7 +238,8 @@
   display: none;
   grid-template-columns: 320px 1fr 260px;
   gap: 16px;
-  height: calc(100vh - 140px);
+  flex: 1;
+  min-height: 0;
 }
 .scene2 .mission-control.visible { display: grid; }
 
@@ -356,7 +361,8 @@
 
 .scene2 .cost-reveal {
   display: none;
-  margin-top: 20px;
+  flex-shrink: 0;
+  margin-top: 16px;
   padding: 16px;
   border-radius: 12px;
   border: 1px solid rgba(16,185,129,0.2);
@@ -921,7 +927,7 @@
     // Input phase
     const inputDiv = el('div', 'input-phase');
     const inp = el('input');
-    inp.type = 'text'; inp.placeholder = 'Enter category (e.g. Pet Wellness)'; inp.value = 'Pet Wellness';
+    inp.type = 'text'; inp.placeholder = 'e.g. Personas with unmet needs'; inp.value = 'Personas with unmet needs';
     const btn = el('button', 'launch-btn', 'Launch Pipeline');
     inputDiv.appendChild(inp);
     inputDiv.appendChild(btn);
@@ -1415,9 +1421,9 @@
     const revDiv = panel.querySelector('#s2-revisions');
     const revisions = {
       1: ['Baseline campaign launched across all channels', 'A/B test initiated: 3 landing page variants', 'Influencer outreach queued for Day 3'],
-      2: ['CTA repositioned above fold on mobile variants', 'Budget shift: +20% to affiliate, -20% from paid search', 'New ad creative: UGC testimonial variant added', 'Micro-segment "first-time pet parents" flagged for testing'],
-      3: ['Dedicated landing page for first-time pet parents live', 'Influencer content performing 2.3x above benchmark', 'Bounce rate fix validated, rolling out to all variants', 'Email nurture sequence triggered for high-intent visitors'],
-      4: ['Scale budget approved: 3x increase recommended', 'Organic referral loop active: 1.4 customers per customer', 'All 3 pipeline tracks showing positive unit economics', 'Flywheel metrics: CAC trending toward $20 by Day 14']
+      2: ['CTA repositioned above fold on mobile variants', 'Budget shift: +20% to affiliate, -20% from paid search', 'New ad creative: UGC testimonial variant added', 'Specter privacy brand: passing to Brand Creation pipeline'],
+      3: ['Dedicated landing page for first-time pet parents live', 'Influencer content performing 2.3x above benchmark', 'Specter brand assets generated — queued for Scale Engine', 'Email nurture sequence triggered for high-intent visitors'],
+      4: ['Scale budget approved: 3x increase recommended', 'Organic referral loop active: 1.4 customers per customer', 'Both PetCalm + Specter tracks showing positive unit economics', 'Flywheel metrics: CAC trending toward $20 by Day 14']
     };
     let revHtml = '<h4>Auto-Generated Revisions</h4>';
     revisions[idx].forEach(r => {

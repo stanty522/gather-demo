@@ -1373,7 +1373,7 @@ ${personalityStr || 'N/A'}`;
 
     // Counter + slider
     const counter = el('div', { className: 's3-counter' });
-    counter.appendChild(el('div', { className: 's3-counter-label' }, 'Stage'));
+    counter.appendChild(el('div', { className: 's3-counter-label' }, 'Step'));
     counterValue = el('div', { className: 's3-counter-value' }, '1 / 7');
     counter.appendChild(counterValue);
     sliderEl = el('input', { className: 's3-slider', type: 'range', min: '0', max: '6', value: '0', step: '1' });

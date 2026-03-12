@@ -37,6 +37,17 @@ function initScene1(container) {
     {id:'m6',name:'The Senior Pet Caregiver',pipe:'micro',quad:'invest',desc:'Dedicated to extending and improving quality of life for aging pets. High emotional investment, willing to spend.',pop:'9.5M',popNum:9500000,popSource:'Senior pet population estimates',intensity:5,score:8.0,markers:['Pet 8+ years old','Mobility or health issues','Vet relationship active'],community:['r/SeniorDogs','pet arthritis support groups'],moment:'First mobility issue or chronic diagnosis',momentWindow:'Ongoing after trigger',confidence:{identity:75,price:30,channel:62}},
     {id:'m7',name:'The Pet Tech Early Adopter',pipe:'micro',quad:'explore',desc:'Uses smart pet devices, GPS trackers, auto-feeders. Interested in data-driven pet health.',pop:'4.3M',popNum:4300000,popSource:'Pet tech market analysis',intensity:3,score:6.5,markers:['Smart home user','Data-driven decisions','Early adopter personality'],community:['r/PetTech','ProductHunt pet category'],moment:'New pet tech device purchase',momentWindow:'1-2 months post-purchase',confidence:{identity:50,price:45,channel:65}},
 
+    {id:'m8',name:'The Privacy-First OPSEC Seeker',pipe:'micro',quad:'invest',desc:'Privacy-conscious professionals who actively manage their digital footprint. Frustrated by invasive carrier tracking, SIM-swap attacks, and lack of encryption at the network layer.',pop:'5.2M addressable',popNum:5200000,popSource:'Privacy market analysis + r/Privacy census',intensity:5,score:8.4,
+     markers:['Uses VPN/Tor daily','Has experienced SIM-swap or data breach','Willing to pay 2-3x for privacy guarantees','Distrust of Big Telecom'],
+     community:['r/Privacy (1.8M)','r/OPSEC','Signal/Telegram power users','Hacker News privacy threads'],
+     moment:'SIM-swap attack, carrier data breach, or Snowden-level news event',momentWindow:'2-4 weeks post-event',
+     confidence:{identity:82,price:45,channel:70},
+     interview:[
+      {q:'What frustrates you most about your current mobile carrier?',a:'They sell my location data. They have no encryption worth mentioning. I got SIM-swapped last year and lost access to everything for 72 hours. My carrier\u2019s response was "change your PIN." I want a carrier that treats my data like it\u2019s actually mine.',insight:'Deep distrust of incumbent carriers driven by personal experience. Privacy isn\u2019t a feature request — it\u2019s an identity.'},
+      {q:'What would your ideal mobile provider look like?',a:'End-to-end encrypted everything. No logs. Hardware-backed SIM security so a SIM-swap is physically impossible. I\u2019d pay $55/month easily — I already pay more than that for VPN and privacy tools separately.',insight:'Willingness to pay premium is high. Value prop = consolidation of existing privacy spend into one carrier.'},
+      {q:'Where do you go for recommendations?',a:'I don\u2019t trust ads. I trust r/Privacy, I trust OPSEC communities, I trust the Signal Foundation. If Moxie Marlinspike endorsed a carrier, I\u2019d switch tomorrow. Word of mouth in my community is everything.',insight:'Traditional marketing won\u2019t work. Community-first GTM through trusted privacy voices and open-source credibility is the only path.'}
+     ]},
+
     {id:'M1',name:'The Pet-as-Family Advocate',pipe:'macro',quad:'build',desc:'Deeply identifies as pet parent. Pet is integral to family identity. Seeks brands that validate this worldview.',pop:'85M pet owners (30M+ addressable)',popNum:30000000,popSource:'APPA National Pet Owners Survey',intensity:5,score:9.1,
      markers:['Pet = family member (not property)','Identity-driven purchasing','Community-organized','Long-term brand relationship seeker'],
      community:['r/PetHealth (340K)','BarkPost (12M reach)','@DrKarenBecker (4.2M)','Pet parent identity communities (est. 45M)'],
@@ -148,6 +159,8 @@ function initScene1(container) {
   color: #e2e2f0;
   position: relative;
   padding: 40px 0 60px;
+  overflow-y: auto;
+  height: 100%;
 }
 .scene1 *, .scene1 *::before, .scene1 *::after { box-sizing: border-box; }
 
@@ -510,7 +523,7 @@ function initScene1(container) {
   // Header
   var header = document.createElement('div');
   header.className = 's1-header';
-  header.innerHTML = '<h2>Persona Explorer</h2><div class="s1-subtitle">Pipeline Intelligence \u00b7 17 Personas</div>';
+  header.innerHTML = '<h2>Persona Explorer</h2><div class="s1-subtitle">Pipeline Intelligence \u00b7 ' + personas.length + ' Personas</div>';
   container.appendChild(header);
 
   // Filter bar

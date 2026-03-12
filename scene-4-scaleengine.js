@@ -565,7 +565,7 @@
     const wrapper = el('div', { className: 's4-fade-in' },
       stageHeader('01', 'The Input'),
       el('p', { style: { color: '#a3a3a3', fontSize: '14px', lineHeight: '1.6', marginBottom: '32px', maxWidth: '560px' } },
-        'Everything starts with a persona research document. No brand guidelines, no design direction \u2014 just audience insight and a value proposition.'
+        'Tests from Stage 3 indicate promising growth potential in the privacy-first mobile segment. The Scale Engine takes a validated persona brief and builds a full go-to-market operation \u2014 brand voice, compliance checks, and deployment artifacts \u2014 in a single automated run.'
       ),
       terminalCard('persona_research_specter.md',
         el('p', { style: { color: '#fff', marginBottom: '12px' } }, '# Specter \u2014 Privacy-First Mobile'),
@@ -577,9 +577,9 @@
         ),
         el('p', { style: { color: '#525252', marginBottom: '8px' } }, 'Tone: Dark, nocturnal, technical.'),
         el('p', { style: { color: '#525252', marginBottom: '8px' } }, 'Price point: $55/month premium positioning.'),
-        el('p', { style: { color: '#525252' } }, 'Carrier: T-Mobile via ConnectX infrastructure.')
+        el('p', { style: { color: '#525252' } }, 'Carrier: AT&T via ConnectX infrastructure.')
       ),
-      annotation('A two-paragraph persona brief enters the engine. Every subsequent decision \u2014 risk assessment, compliance, pricing, brand voice \u2014 cascades from this single input.')
+      annotation('A validated persona brief from the Brand Creation pipeline enters the engine. Every subsequent decision \u2014 risk assessment, compliance, pricing, brand voice \u2014 cascades from this single input.')
     );
     return wrapper;
   }
@@ -1332,7 +1332,7 @@
     });
 
     const counterSection = el('div', { className: 's4-counter' },
-      el('span', { className: 's4-label', style: { display: 'block', marginBottom: '8px' } }, 'Stage'),
+      el('span', { className: 's4-label', style: { display: 'block', marginBottom: '8px' } }, 'Step'),
       el('div', { style: { display: 'flex', alignItems: 'center', gap: '12px' } }, counterVal),
       slider
     );
