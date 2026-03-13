@@ -13,7 +13,7 @@
     { key: 'week1',    number: '02', title: 'Week 1 Kill Screen', subtitle: 'CPL thresholds determine which brands survive' },
     { key: 'creative', number: '03', title: 'Creative Iteration', subtitle: 'Surviving brands get new hooks & angles' },
     { key: 'week2',    number: '04', title: 'Week 2 Results',     subtitle: 'Final performance data after optimization' },
-    { key: 'verdict',  number: '05', title: 'FDT Verdict',        subtitle: 'Composite scoring decides launch readiness' },
+    { key: 'verdict',  number: '05', title: 'Test Verdict',        subtitle: 'Composite scoring decides launch readiness' },
   ];
 
   const BRANDS = [
@@ -1147,7 +1147,7 @@
 
   function renderStage4() {
     const panel = el('div', { className: 's5-panel' });
-    panel.appendChild(stageHeader('05', 'FDT Verdict'));
+    panel.appendChild(stageHeader('05', 'Test Verdict'));
     panel.appendChild(el('p', { className: 's5-desc' },
       'The FDT Index combines three weighted dimensions into a composite score. Brands scoring 75+ are cleared for launch into the Scale Engine.'));
 
