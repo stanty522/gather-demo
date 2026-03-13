@@ -236,7 +236,10 @@
         <span class="nav-tab-number">03</span> Brand Creation
       </button>
       <button class="nav-tab" data-scene="4">
-        <span class="nav-tab-number">04</span> Scale Engine
+        <span class="nav-tab-number">04</span> Brand Testing
+      </button>
+      <button class="nav-tab" data-scene="5">
+        <span class="nav-tab-number">05</span> Scale Engine
       </button>
     </nav>
 
@@ -269,6 +272,13 @@
 
     <div id="scene-4" class="scene">
       <div class="scene-placeholder">
+        <div class="scene-placeholder-title">Brand Testing</div>
+        <div class="scene-placeholder-sub">Loading...</div>
+      </div>
+    </div>
+
+    <div id="scene-5" class="scene">
+      <div class="scene-placeholder">
         <div class="scene-placeholder-title">Scale Engine</div>
         <div class="scene-placeholder-sub">Loading...</div>
       </div>
@@ -282,7 +292,7 @@
       const scenes = document.querySelectorAll('.scene');
 
       function switchScene(index) {
-        if (index < 1 || index > 4) return;
+        if (index < 1 || index > 5) return;
 
         tabs.forEach(tab => tab.classList.remove('active'));
         scenes.forEach(scene => scene.classList.remove('active'));
@@ -308,7 +318,7 @@
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) return;
 
         const num = parseInt(e.key, 10);
-        if (num >= 1 && num <= 4) {
+        if (num >= 1 && num <= 5) {
           switchScene(num);
         }
       });
@@ -319,9 +329,10 @@
   <script src="scene-1-personas.js"></script>
   <script src="scene-2-pipeline.js"></script>
   <script src="scene-3-recreation.js"></script>
+  <script src="scene-5-brandtesting.js"></script>
   <script src="scene-4-scaleengine.js"></script>
   <script>
-    // Initialize scenes (Scene 1 = Pipeline, Scene 2 = Personas, Scene 3 = Brand Creation, Scene 4 = Scale Engine)
+    // Initialize scenes (Scene 1 = Pipeline, Scene 2 = Personas, Scene 3 = Brand Creation, Scene 4 = Brand Testing, Scene 5 = Scale Engine)
     document.addEventListener('DOMContentLoaded', () => {
       const s1 = document.getElementById('scene-1');
       if (s1 && typeof initScene2 === 'function') {
@@ -339,9 +350,14 @@
         initScene3(s3);
       }
       const s4 = document.getElementById('scene-4');
-      if (s4 && typeof initScene4 === 'function') {
+      if (s4 && typeof initScene5 === 'function') {
         s4.innerHTML = '';
-        initScene4(s4);
+        initScene5(s4);
+      }
+      const s5 = document.getElementById('scene-5');
+      if (s5 && typeof initScene4 === 'function') {
+        s5.innerHTML = '';
+        initScene4(s5);
       }
     });
   </script>
