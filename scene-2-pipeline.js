@@ -236,6 +236,33 @@
 .scene2 .launch-btn:hover { background: rgba(16,185,129,0.18); border-color: rgba(16,185,129,0.5); }
 .scene2 .launch-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
+.scene2 .speed-control {
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #666;
+}
+.scene2 .speed-control.floating {
+  position: fixed; bottom: 16px; left: 16px; z-index: 200;
+  background: rgba(17,17,17,0.95); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px; padding: 8px 14px;
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+.scene2 .speed-label { white-space: nowrap; }
+.scene2 .speed-value { color: #10b981; min-width: 28px; text-align: center; }
+.scene2 .speed-slider {
+  -webkit-appearance: none; appearance: none;
+  width: 80px; height: 3px; border-radius: 2px;
+  background: rgba(255,255,255,0.1); outline: none;
+}
+.scene2 .speed-slider::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: #10b981; cursor: pointer; border: none;
+}
+.scene2 .speed-slider::-moz-range-thumb {
+  width: 12px; height: 12px; border-radius: 50%;
+  background: #10b981; cursor: pointer; border: none;
+}
+
 .scene2 .mission-control {
   display: none;
   grid-template-columns: 320px 1fr 260px;
@@ -948,7 +975,29 @@
      DEMO 1: Zero to Campaign
      ═══════════════════════════════════════════ */
 
+  let speedMultiplier = 1;
+
+  function buildSpeedControl(floating) {
+    const wrap = el('div', 'speed-control' + (floating ? ' floating' : ''));
+    const label = el('span', 'speed-label', 'Speed');
+    const slider = document.createElement('input');
+    slider.type = 'range'; slider.min = '1'; slider.max = '10'; slider.value = '1';
+    slider.className = 'speed-slider';
+    const valueEl = el('span', 'speed-value', '1x');
+    slider.addEventListener('input', () => {
+      const v = parseInt(slider.value, 10);
+      speedMultiplier = v;
+      valueEl.textContent = v + 'x';
+    });
+    wrap.appendChild(label);
+    wrap.appendChild(slider);
+    wrap.appendChild(valueEl);
+    return wrap;
+  }
+
   function buildDemo1(panel) {
+    panel.style.position = 'relative';
+
     // Input phase
     const inputDiv = el('div', 'input-phase');
     const inp = el('input');
@@ -956,7 +1005,13 @@
     const btn = el('button', 'launch-btn', 'Launch Pipeline');
     inputDiv.appendChild(inp);
     inputDiv.appendChild(btn);
+    inputDiv.appendChild(buildSpeedControl(false));
     panel.appendChild(inputDiv);
+
+    // Floating speed control (visible during run)
+    const floatingSpeed = buildSpeedControl(true);
+    floatingSpeed.style.display = 'none';
+    panel.appendChild(floatingSpeed);
 
     // Mission control
     const mc = el('div', 'mission-control');
@@ -1036,6 +1091,7 @@
       running = true;
       btn.disabled = true;
       inputDiv.classList.add('hidden');
+      floatingSpeed.style.display = '';
       mc.classList.add('visible');
       outputPanel.innerHTML = '';
       actFeed.innerHTML = '';
@@ -1121,18 +1177,24 @@
 
     addActivity(actFeed, elapsed(), `${stage.agentName} started`);
 
-    const dur = stage.dur * 200; // speed up for demo: dur * 200ms
-    const lineInterval = dur / (stage.lines.length + 1);
+    const baseDur = stage.dur * 200; // base duration in ms
     let lineIdx = 0;
 
     const start = Date.now();
+    let accumulated = 0;
+    let lastTick = start;
 
     return new Promise(resolve => {
       const interval = setInterval(() => {
         if (signal.aborted) { clearInterval(interval); resolve(); return; }
-        const prog = Math.min((Date.now() - start) / dur, 1);
+        const now = Date.now();
+        const delta = now - lastTick;
+        lastTick = now;
+        accumulated += delta * speedMultiplier;
+
+        const prog = Math.min(accumulated / baseDur, 1);
         fillEl.style.width = (prog * 100) + '%';
-        timerEl.textContent = formatTime((Date.now() - start) / 1000);
+        timerEl.textContent = formatTime(accumulated / 1000);
 
         // Emit lines
         const expectedLines = Math.floor(prog * (stage.lines.length + 0.5));
@@ -1151,7 +1213,7 @@
           card.classList.remove('running');
           card.classList.add('done');
           timerEl.className = 'stage-timer done';
-          timerEl.textContent = formatTime((Date.now() - start) / 1000);
+          timerEl.textContent = formatTime(accumulated / 1000);
           addActivity(actFeed, elapsed(), `${stage.agentName} complete`);
           resolve();
         }

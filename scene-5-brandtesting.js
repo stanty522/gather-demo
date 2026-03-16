@@ -369,6 +369,22 @@
       .scene5 .s5-carousel-nav:hover { background: rgba(0,0,0,0.8); }
       .scene5 .s5-carousel-prev { left: 8px; }
       .scene5 .s5-carousel-next { right: 8px; }
+      .scene5 .s5-carousel-play-overlay {
+        position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+        display: flex; align-items: center; justify-content: center;
+        z-index: 3; cursor: pointer; transition: opacity 0.3s ease;
+      }
+      .scene5 .s5-carousel-play-overlay.hidden { opacity: 0; pointer-events: none; }
+      .scene5 .s5-carousel-play-icon {
+        width: 48px; height: 48px; border-radius: 50%;
+        background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.2);
+        display: flex; align-items: center; justify-content: center;
+        backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+        transition: transform 0.2s ease, background 0.2s ease;
+      }
+      .scene5 .s5-carousel-play-overlay:hover .s5-carousel-play-icon {
+        transform: scale(1.1); background: rgba(0,0,0,0.8);
+      }
 
       /* Charts */
       .scene5 .s5-chart-section { margin-bottom: 32px; }
@@ -654,6 +670,17 @@
   /* ── Creative carousel (video) ── */
   function createCarousel(videos, labels) {
     const wrap = el('div', { className: 's5-carousel-wrap' });
+    let playing = false;
+
+    // Play overlay
+    const playOverlay = el('div', { className: 's5-carousel-play-overlay' });
+    const playIcon = el('div', { className: 's5-carousel-play-icon' });
+    playIcon.innerHTML = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7 4.5L16 10L7 15.5V4.5Z" fill="white"/></svg>';
+    playOverlay.appendChild(playIcon);
+
+    function showOverlay() { playing = false; playOverlay.classList.remove('hidden'); }
+    function hideOverlay() { playing = true; playOverlay.classList.add('hidden'); }
+
     const vids = videos.map((url, i) => {
       const vid = document.createElement('video');
       vid.className = 's5-carousel-vid' + (i === 0 ? ' active' : '');
@@ -663,14 +690,23 @@
       vid.playsInline = true;
       vid.preload = 'metadata';
       vid.setAttribute('playsinline', '');
-      // Click to play/pause
-      vid.addEventListener('click', () => {
-        if (vid.paused) { vid.play().catch(() => {}); } else { vid.pause(); }
-      });
-      vid.style.cursor = 'pointer';
+      vid.addEventListener('pause', showOverlay);
+      vid.addEventListener('play', hideOverlay);
       wrap.appendChild(vid);
       return vid;
     });
+
+    // Click overlay or video to toggle play/pause
+    function toggleCurrent() {
+      const vid = vids[current];
+      if (vid.paused) { vid.play().catch(() => {}); } else { vid.pause(); }
+    }
+    playOverlay.addEventListener('click', (e) => { e.stopPropagation(); toggleCurrent(); });
+    wrap.addEventListener('click', (e) => {
+      if (e.target.closest('.s5-carousel-nav') || e.target.closest('.s5-carousel-play-overlay')) return;
+      toggleCurrent();
+    });
+
     const labelEl = el('div', { className: 's5-carousel-label' }, labels[0] || '');
     const dotsWrap = el('div', { className: 's5-carousel-dots' });
     const dots = videos.map((_, i) => {
@@ -692,6 +728,7 @@
       vids[current].currentTime = 0;
       dots[current].classList.add('active');
       labelEl.textContent = labels[current] || '';
+      showOverlay();
     }
 
     // Nav arrows
@@ -705,6 +742,7 @@
 
     wrap.appendChild(prevBtn);
     wrap.appendChild(nextBtn);
+    wrap.appendChild(playOverlay);
 
     const outer = el('div');
     outer.appendChild(wrap);

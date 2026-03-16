@@ -158,14 +158,36 @@ function initScene1(container) {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   color: #e2e2f0;
   position: relative;
-  padding: 40px 0 60px;
+  padding: 0;
   overflow-y: auto;
   height: 100%;
+  display: flex;
 }
 .scene1 *, .scene1 *::before, .scene1 *::after { box-sizing: border-box; }
 
+/* Layout: main + sidebar */
+.s1-main {
+  flex: 1; min-width: 0; padding: 40px 0 60px; overflow-y: auto;
+}
+.s1-sidebar {
+  width: 380px; flex-shrink: 0; border-left: 1px solid rgba(255,255,255,0.06);
+  overflow-y: hidden; display: flex; flex-direction: column;
+  background: rgba(255,255,255,0.01);
+}
+.s1-sidebar-header {
+  padding: 20px 20px 12px; border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.s1-sidebar-header h3 {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 20px; font-weight: 400; color: #e2e2f0; margin: 0 0 4px;
+}
+.s1-sidebar-header .s1-sidebar-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: #555; letter-spacing: 0.08em; text-transform: uppercase;
+}
+
 /* Header */
-.s1-header { text-align: center; margin-bottom: 48px; }
+.s1-header { text-align: left; margin-bottom: 48px; padding-left: 24px; }
 .s1-header h2 {
   font-family: 'Instrument Serif', Georgia, serif;
   font-size: 42px; font-weight: 400; margin: 0 0 8px; color: #e2e2f0;
@@ -296,6 +318,125 @@ function initScene1(container) {
   margin-bottom: 8px;
 }
 .s1-surge-card p { font-size: 12px; color: #737373; margin: 0; line-height: 1.5; }
+
+/* Score & Select Section (sidebar) */
+.s1-scoring-section {
+  display: flex; flex-direction: column; height: 100%;
+}
+.s1-score-btn-wrap {
+  padding: 20px 20px 16px; border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.s1-score-btn {
+  font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600;
+  padding: 10px 20px; border-radius: 8px; cursor: pointer; width: 100%;
+  border: 1px solid rgba(16,185,129,0.3); background: rgba(16,185,129,0.08);
+  color: #10b981; transition: all 0.3s; letter-spacing: 0.03em;
+}
+.s1-score-btn:hover { background: rgba(16,185,129,0.18); border-color: rgba(16,185,129,0.5); }
+.s1-score-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.s1-scoring-panel {
+  display: none; text-align: left; flex: 1; overflow-y: auto;
+}
+.s1-scoring-panel.visible { display: flex; flex-direction: column; }
+
+.s1-scoring-header {
+  padding: 16px 20px 12px; border-bottom: 1px solid rgba(255,255,255,0.06);
+  display: flex; align-items: center; gap: 10px; flex-shrink: 0;
+}
+.s1-scoring-header h3 {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 18px; font-weight: 400; color: #e2e2f0; margin: 0;
+}
+.s1-scoring-status {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  color: #10b981; letter-spacing: 0.05em;
+}
+
+.s1-scoring-terminal {
+  padding: 12px 16px; font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: #737373; line-height: 1.7;
+  max-height: 100px; overflow-y: auto; border-bottom: 1px solid rgba(255,255,255,0.06);
+  flex-shrink: 0;
+}
+.s1-scoring-terminal .s1-term-line { opacity: 0; animation: s1TermFade 0.3s forwards; }
+@keyframes s1TermFade { to { opacity: 1; } }
+.s1-scoring-terminal .s1-term-line .s1-term-accent { color: #10b981; }
+
+.s1-scoring-rows { padding: 4px 0; flex: 1; overflow-y: auto; }
+
+.s1-scoring-row {
+  display: grid; grid-template-columns: 1fr 50px 56px;
+  gap: 8px; align-items: center; padding: 10px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  opacity: 0; transform: translateY(8px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.s1-scoring-row.revealed { opacity: 1; transform: translateY(0); }
+.s1-scoring-row.winner {
+  background: rgba(16,185,129,0.06);
+  border-left: 3px solid #10b981;
+}
+.s1-scoring-row-name {
+  font-size: 12px; color: #e2e2f0; font-weight: 500;
+}
+.s1-scoring-row-pipe {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  display: block; margin-top: 2px; padding: 1px 6px;
+  border-radius: 3px; width: fit-content;
+}
+.s1-scoring-row-bars {
+  display: flex; gap: 3px; align-items: center; height: 20px;
+}
+.s1-scoring-bar-group { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+.s1-scoring-bar-track {
+  height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px;
+  overflow: hidden; position: relative;
+}
+.s1-scoring-bar-fill {
+  height: 100%; border-radius: 2px; width: 0%;
+  transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.s1-scoring-composite {
+  font-family: 'JetBrains Mono', monospace; font-size: 14px;
+  font-weight: 600; color: #404040; text-align: right;
+  transition: color 0.3s;
+}
+.s1-scoring-composite.scored { color: #e2e2f0; }
+.s1-scoring-composite.top { color: #10b981; }
+.s1-scoring-badge {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  text-align: right; color: #404040;
+}
+.s1-scoring-badge.selected {
+  color: #10b981;
+}
+.s1-scoring-badge.passed {
+  color: #f0c27a;
+}
+.s1-scoring-badge.failed {
+  color: #ef4444;
+}
+
+.s1-scoring-verdict {
+  padding: 16px; border-top: 1px solid rgba(255,255,255,0.06);
+  display: flex; align-items: flex-start; gap: 12px;
+  opacity: 0; transition: opacity 0.5s ease; flex-shrink: 0;
+}
+.s1-scoring-verdict.visible { opacity: 1; }
+.s1-scoring-verdict-icon {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; flex-shrink: 0;
+}
+.s1-scoring-verdict-text h4 {
+  font-size: 12px; color: #10b981; font-weight: 600; margin: 0 0 4px;
+}
+.s1-scoring-verdict-text p {
+  font-size: 11px; color: #737373; margin: 0; line-height: 1.5;
+}
 
 /* Card Grid */
 .s1-grid {
@@ -520,11 +661,19 @@ function initScene1(container) {
   container.innerHTML = '';
   container.classList.add('scene1');
 
+  // Main content area
+  var mainArea = document.createElement('div');
+  mainArea.className = 's1-main';
+
+  // Sidebar
+  var sidebarArea = document.createElement('div');
+  sidebarArea.className = 's1-sidebar';
+
   // Header
   var header = document.createElement('div');
   header.className = 's1-header';
   header.innerHTML = '<h2>Persona Explorer</h2><div class="s1-subtitle">Pipeline Intelligence \u00b7 ' + personas.length + ' Personas</div>';
-  container.appendChild(header);
+  mainArea.appendChild(header);
 
   // Filter bar
   var filterBar = document.createElement('div');
@@ -561,7 +710,7 @@ function initScene1(container) {
   sortSel.addEventListener('change', function() { activeSort = sortSel.value; renderGrid(); });
   sortWrap.appendChild(sortSel);
   filterBar.appendChild(sortWrap);
-  container.appendChild(filterBar);
+  mainArea.appendChild(filterBar);
 
   // Context panels
   var contextSection = document.createElement('div');
@@ -592,12 +741,12 @@ function initScene1(container) {
   var contextBody = document.createElement('div');
   contextBody.className = 's1-context-body';
   contextSection.appendChild(contextBody);
-  container.appendChild(contextSection);
+  mainArea.appendChild(contextSection);
 
   // Grid
   var grid = document.createElement('div');
   grid.className = 's1-grid';
-  container.appendChild(grid);
+  mainArea.appendChild(grid);
 
   // Overlay
   var overlay = document.createElement('div');
@@ -614,7 +763,9 @@ function initScene1(container) {
   closeBtn.addEventListener('click', closeDeepDive);
   overlay.appendChild(closeBtn);
 
-  container.appendChild(overlay);
+  mainArea.appendChild(overlay);
+
+  container.appendChild(mainArea);
 
   // ─── RENDER FUNCTIONS ───────────────────────────────────────────────────────
 
@@ -846,6 +997,232 @@ function initScene1(container) {
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape' && deepDivePersona) closeDeepDive();
   });
+
+  // ─── SCORING SECTION ───────────────────────────────────────────────────────
+
+  var scoringSection = document.createElement('div');
+  scoringSection.className = 's1-scoring-section';
+
+  var scoreBtnWrap = document.createElement('div');
+  scoreBtnWrap.className = 's1-score-btn-wrap';
+  var scoreBtn = document.createElement('button');
+  scoreBtn.className = 's1-score-btn';
+  scoreBtn.textContent = 'Score & Select for Brand Creation';
+  scoreBtnWrap.appendChild(scoreBtn);
+  scoringSection.appendChild(scoreBtnWrap);
+
+  var scoringPanel = document.createElement('div');
+  scoringPanel.className = 's1-scoring-panel';
+  scoringSection.appendChild(scoringPanel);
+
+  var sidebarHeader = document.createElement('div');
+  sidebarHeader.className = 's1-sidebar-header';
+  sidebarHeader.innerHTML = '<h3>Brand Selection</h3><div class="s1-sidebar-sub">Score personas for brand creation</div>';
+  sidebarArea.appendChild(sidebarHeader);
+
+  sidebarArea.appendChild(scoringSection);
+  container.appendChild(sidebarArea);
+
+  // Candidate personas mapped to brands for scoring
+  var scoringCandidates = [
+    { persona: 'm8', brand: 'Specter', scores: { identity: 82, market: 68, confidence: 78, switching: 85, channel: 70 }, composite: 8.4, verdict: 'selected' },
+    { persona: 'M1', brand: 'Kin Mobile', scores: { identity: 85, market: 90, confidence: 55, switching: 45, channel: 55 }, composite: 7.8, verdict: 'passed' },
+    { persona: 'm1', brand: 'Solo', scores: { identity: 78, market: 75, confidence: 68, switching: 52, channel: 68 }, composite: 7.5, verdict: 'passed' },
+    { persona: 's4', brand: 'Soloist', scores: { identity: 71, market: 82, confidence: 60, switching: 65, channel: 60 }, composite: 7.2, verdict: 'passed' },
+    { persona: 'm6', brand: 'Mutt Mobile', scores: { identity: 75, market: 70, confidence: 62, switching: 48, channel: 62 }, composite: 6.9, verdict: 'passed' },
+    { persona: 'M2', brand: 'Vault', scores: { identity: 68, market: 55, confidence: 48, switching: 60, channel: 48 }, composite: 6.5, verdict: 'passed' },
+    { persona: 's2', brand: '—', scores: { identity: 55, market: 72, confidence: 45, switching: 38, channel: 45 }, composite: 5.8, verdict: 'failed' },
+    { persona: 's5', brand: '—', scores: { identity: 35, market: 58, confidence: 30, switching: 30, channel: 42 }, composite: 4.2, verdict: 'failed' },
+  ];
+
+  var dimColors = { identity: '#a29bfe', market: '#74b9ff', confidence: '#f0c27a', switching: '#e17055', channel: '#10b981' };
+  var dimLabels = { identity: 'Identity', market: 'Market', confidence: 'Confidence', switching: 'Switching', channel: 'Channel' };
+
+  function findPersona(id) {
+    for (var i = 0; i < personas.length; i++) { if (personas[i].id === id) return personas[i]; }
+    return null;
+  }
+
+  var scoringRunning = false;
+
+  scoreBtn.addEventListener('click', function() {
+    if (scoringRunning) return;
+    scoringRunning = true;
+    scoreBtn.disabled = true;
+    runScoringAnimation();
+  });
+
+  function runScoringAnimation() {
+    scoringPanel.innerHTML = '';
+    scoringPanel.classList.add('visible');
+
+    // Header
+    var header = document.createElement('div');
+    header.className = 's1-scoring-header';
+    header.innerHTML = '<h3>Brand Creation Selection</h3><span class="s1-scoring-status">Evaluating...</span>';
+    scoringPanel.appendChild(header);
+
+    var statusEl = header.querySelector('.s1-scoring-status');
+
+    // Terminal
+    var terminal = document.createElement('div');
+    terminal.className = 's1-scoring-terminal';
+    scoringPanel.appendChild(terminal);
+
+    // Rows container
+    var rowsContainer = document.createElement('div');
+    rowsContainer.className = 's1-scoring-rows';
+    scoringPanel.appendChild(rowsContainer);
+
+    // Build rows (hidden initially)
+    var rowEls = [];
+    var compositeEls = [];
+    var badgeEls = [];
+    var barFills = [];
+
+    scoringCandidates.forEach(function(c) {
+      var p = findPersona(c.persona);
+      var row = document.createElement('div');
+      row.className = 's1-scoring-row';
+
+      var nameCell = document.createElement('div');
+      var pipeClass = p ? p.pipe : 'micro';
+      var pipeColor = PIPE_COLORS[pipeClass] || '#74b9ff';
+      nameCell.innerHTML = '<span class="s1-scoring-row-name">' + esc(p ? p.name : c.persona) + '</span>' +
+        '<span class="s1-scoring-row-pipe" style="color:' + pipeColor + ';background:' + pipeColor + '15;border:1px solid ' + pipeColor + '30;">' + (p ? PIPE_LABELS[p.pipe] : '') + '</span>';
+
+      var barsCell = document.createElement('div');
+      barsCell.className = 's1-scoring-row-bars';
+      var fills = {};
+      Object.keys(dimColors).forEach(function(dim) {
+        var group = document.createElement('div');
+        group.className = 's1-scoring-bar-group';
+        group.title = dimLabels[dim] + ': ' + c.scores[dim] + '%';
+        var track = document.createElement('div');
+        track.className = 's1-scoring-bar-track';
+        var fill = document.createElement('div');
+        fill.className = 's1-scoring-bar-fill';
+        fill.style.background = dimColors[dim];
+        track.appendChild(fill);
+        group.appendChild(track);
+        barsCell.appendChild(group);
+        fills[dim] = fill;
+      });
+
+      var compCell = document.createElement('div');
+      compCell.className = 's1-scoring-composite';
+      compCell.textContent = '—';
+
+      var badgeCell = document.createElement('div');
+      badgeCell.className = 's1-scoring-badge';
+      badgeCell.textContent = c.brand !== '—' ? c.brand : '—';
+
+      row.appendChild(nameCell);
+      row.appendChild(barsCell);
+      row.appendChild(compCell);
+      row.appendChild(badgeCell);
+      rowsContainer.appendChild(row);
+
+      rowEls.push(row);
+      compositeEls.push(compCell);
+      badgeEls.push(badgeCell);
+      barFills.push(fills);
+    });
+
+    // Verdict area
+    var verdict = document.createElement('div');
+    verdict.className = 's1-scoring-verdict';
+    verdict.innerHTML = '<div class="s1-scoring-verdict-icon">&#10003;</div>' +
+      '<div class="s1-scoring-verdict-text">' +
+      '<h4>Specter selected as primary brand candidate</h4>' +
+      '<p>Highest composite score (8.4) driven by exceptional identity intensity and switching readiness. 6 brands total passed threshold for Brand Creation pipeline.</p>' +
+      '</div>';
+    scoringPanel.appendChild(verdict);
+
+    // Terminal lines
+    var termLines = [
+      'Initializing brand creation selection model...',
+      'Loading <span class="s1-term-accent">' + scoringCandidates.length + ' persona candidates</span> from pipeline output',
+      'Scoring dimensions: Identity Intensity (25%) · Market Size (20%) · Confidence (20%) · Switching Readiness (20%) · Channel Fit (15%)',
+      'Running composite scoring across all candidates...',
+      'Applying brand viability threshold: <span class="s1-term-accent">composite ≥ 6.0</span>',
+    ];
+
+    var delay = 0;
+
+    // Phase 1: Terminal typing
+    termLines.forEach(function(line, i) {
+      setTimeout(function() {
+        var lineEl = document.createElement('div');
+        lineEl.className = 's1-term-line';
+        lineEl.innerHTML = '> ' + line;
+        terminal.appendChild(lineEl);
+        terminal.scrollTop = terminal.scrollHeight;
+      }, delay);
+      delay += 600;
+    });
+
+    // Phase 2: Reveal rows one by one with bar animations
+    delay += 400;
+    scoringCandidates.forEach(function(c, i) {
+      var revealDelay = delay + i * 500;
+
+      // Reveal row
+      setTimeout(function() {
+        rowEls[i].classList.add('revealed');
+
+        // Terminal update
+        var p = findPersona(c.persona);
+        var lineEl = document.createElement('div');
+        lineEl.className = 's1-term-line';
+        lineEl.innerHTML = '> Scoring: <span class="s1-term-accent">' + esc(p ? p.name : c.persona) + '</span> → ' + c.composite.toFixed(1);
+        terminal.appendChild(lineEl);
+        terminal.scrollTop = terminal.scrollHeight;
+      }, revealDelay);
+
+      // Animate bars
+      setTimeout(function() {
+        Object.keys(dimColors).forEach(function(dim) {
+          barFills[i][dim].style.width = c.scores[dim] + '%';
+        });
+      }, revealDelay + 100);
+
+      // Show composite score
+      setTimeout(function() {
+        compositeEls[i].textContent = c.composite.toFixed(1);
+        compositeEls[i].classList.add('scored');
+        if (i === 0) compositeEls[i].classList.add('top');
+
+        // Show verdict badge
+        badgeEls[i].classList.add(c.verdict);
+      }, revealDelay + 800);
+    });
+
+    // Phase 3: Final verdict
+    var finalDelay = delay + scoringCandidates.length * 500 + 1200;
+    setTimeout(function() {
+      // Highlight winner row
+      rowEls[0].classList.add('winner');
+
+      // Terminal verdict
+      var lineEl = document.createElement('div');
+      lineEl.className = 's1-term-line';
+      lineEl.innerHTML = '> <span class="s1-term-accent">Selection complete.</span> 6 brands passed threshold. Specter leads with composite 8.4.';
+      terminal.appendChild(lineEl);
+      terminal.scrollTop = terminal.scrollHeight;
+
+      statusEl.textContent = 'Complete';
+    }, finalDelay);
+
+    setTimeout(function() {
+      verdict.classList.add('visible');
+      verdict.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }, finalDelay + 500);
+
+    setTimeout(function() {
+      scoringRunning = false;
+    }, finalDelay + 800);
+  }
 
   // ─── INITIAL RENDER ─────────────────────────────────────────────────────────
 

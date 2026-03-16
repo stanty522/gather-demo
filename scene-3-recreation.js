@@ -768,12 +768,30 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        position: relative;
+        cursor: pointer;
       }
       .scene3 .s3-ad-cell video {
         width: 100%;
         height: 100%;
         object-fit: cover;
         border-radius: 8px;
+      }
+      .scene3 .s3-ad-play-overlay {
+        position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+        display: flex; align-items: center; justify-content: center;
+        z-index: 2; transition: opacity 0.3s ease;
+      }
+      .scene3 .s3-ad-play-overlay.hidden { opacity: 0; pointer-events: none; }
+      .scene3 .s3-ad-play-icon {
+        width: 36px; height: 36px; border-radius: 50%;
+        background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.2);
+        display: flex; align-items: center; justify-content: center;
+        backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+        transition: transform 0.2s ease, background 0.2s ease;
+      }
+      .scene3 .s3-ad-play-overlay:hover .s3-ad-play-icon {
+        transform: scale(1.1); background: rgba(0,0,0,0.8);
       }
       .scene3 .s3-ad-novideotext {
         font-family: 'JetBrains Mono', monospace;
@@ -1318,11 +1336,17 @@ ${personalityStr || 'N/A'}`;
           const videoUrl = creative && (creative.captioned_video_url || creative.video_url);
           if (videoUrl) {
             const video = el('video', { src: videoUrl, muted: 'true', loop: 'true', playsinline: 'true', preload: 'metadata' });
-            video.style.cursor = 'pointer';
-            video.addEventListener('click', () => {
+            const overlay = el('div', { className: 's3-ad-play-overlay' });
+            const icon = el('div', { className: 's3-ad-play-icon' });
+            icon.innerHTML = '<svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M7 4.5L16 10L7 15.5V4.5Z" fill="white"/></svg>';
+            overlay.appendChild(icon);
+            video.addEventListener('play', () => overlay.classList.add('hidden'));
+            video.addEventListener('pause', () => overlay.classList.remove('hidden'));
+            cell.addEventListener('click', () => {
               if (video.paused) { video.play().catch(() => {}); } else { video.pause(); }
             });
             cell.appendChild(video);
+            cell.appendChild(overlay);
           } else {
             cell.appendChild(el('span', { className: 's3-ad-novideotext' }, 'No video'));
           }
@@ -1662,10 +1686,19 @@ ${personalityStr || 'N/A'}`;
       renderActivePanel();
     }
 
+    const ALLOWED_TEST_IDS = new Set([
+      'fdt_midnight_maker_1772597219',   // Specter
+      'fdt_crypto_persona_mmbvqf1o',     // Vault
+      'fdt_first_generation_immigrant_mmkltvgd', // Kin Mobile
+      'fdt_new persona_69b10d4c',        // Soloist
+      'fdt_new persona_69b21d07',        // Solo
+      'fdt_midnight_maker_1772638457',   // Mutt Mobile
+    ]);
+
     async function init() {
-      // Fetch brand list
+      // Fetch brand list (filtered to demo brands)
       const brands = await queryConvex('functions/brand_assets:listAllBrandAssets', {});
-      allBrands = brands || [];
+      allBrands = (brands || []).filter(b => ALLOWED_TEST_IDS.has(b.test_id));
       populateDropdown();
 
       // Load default brand
