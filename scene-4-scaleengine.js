@@ -1469,8 +1469,13 @@
       { label: 'Pre-deploy risk clearance', result: 'CLEAR \u2014 0 fatal, 1 should-resolve (approved)' },
       { label: 'Write pilot/brands/specter/', result: '' },
       { label: 'Generate QR code for @SpecterBot', result: '' },
-      { label: 'Connect Telegram bot webhook', result: '' },
-      { label: 'Verify journey config endpoints', result: '' },
+      { label: 'Connect messaging channel webhook', result: '' },
+      { label: 'QA agent \u2014 automated conversation test', result: 'PASS \u2014 4/4 exchanges, brand voice verified' },
+    ];
+
+    const gates = [
+      { label: 'eSIM Smoke Test', description: 'Verify activation on pre-provisioned test SIM', result: 'PASS \u2014 eSIM activated, data session confirmed' },
+      { label: 'E2E Journey Test', description: 'Full signup \u2192 activation \u2192 first call', result: 'PASS \u2014 journey complete in 3m 42s' },
     ];
 
     const fileTree = [
@@ -1478,29 +1483,78 @@
       '\u251C\u2500\u2500 product.md',
       '\u251C\u2500\u2500 faq.md',
       '\u251C\u2500\u2500 journey-config.yaml',
-      '\u251C\u2500\u2500 brand-meta.json',
-      '\u251C\u2500\u2500 checkout-config.json',
+      '\u251C\u2500\u2500 plan-spec.json',
+      '\u251C\u2500\u2500 legal.md',
+      '\u251C\u2500\u2500 bot-config.yaml',
+      '\u251C\u2500\u2500 economics.json',
       '\u2514\u2500\u2500 website/',
     ];
 
     const closingStats = [
-      { value: '7', label: 'Pipeline stages' },
+      { value: '5', label: 'Pipeline stages' },
       { value: '10', label: 'Risks assessed' },
-      { value: '7', label: 'Artifacts generated' },
-      { value: '1', label: 'Brand deployed' },
+      { value: '9', label: 'Artifacts generated' },
+      { value: '2', label: 'Gates passed' },
     ];
 
     const liveStats = [
       { value: '0', label: 'Subscribers', note: 'awaiting first activation' },
       { value: '$0', label: 'MRR', note: '' },
       { value: 'ONLINE', label: 'Bot', dot: true },
-      { value: '@SpecterBot', label: 'Telegram', note: '' },
     ];
 
     const checklistContainer = el('div', { style: { display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '40px' } });
+    const gatesSection = el('div', { style: { display: 'none', marginBottom: '40px' } });
     const liveSection = el('div', { style: { display: 'none' } });
     const closingSection = el('div', { style: { display: 'none' } });
     const timers = [];
+
+    // Build gate items
+    const gateSpinners = [];
+    const gateChecks = [];
+    const gateResults = [];
+
+    const gatesHeader = el('div', {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: '8px',
+        marginBottom: '16px',
+        paddingTop: '8px',
+        borderTop: '1px solid rgba(255,255,255,0.04)',
+      }
+    },
+      el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#f87171', textTransform: 'uppercase', letterSpacing: '0.05em' } }, '\u25cf Launch Gates')
+    );
+    gatesSection.appendChild(gatesHeader);
+
+    gates.forEach((gate, i) => {
+      const spinner = el('div', { style: { width: '16px', height: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: '0', marginTop: '2px' } },
+        el('div', { className: 's4-spinner' })
+      );
+      gateSpinners.push(spinner);
+
+      const checkSvg = el('div', { style: { display: 'none', flexShrink: '0', marginTop: '2px' } },
+        makeCheckSvg(16, '#34d399')
+      );
+      gateChecks.push(checkSvg);
+
+      const resultSpan = el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#34d399', marginLeft: '8px', display: 'none' } }, gate.result);
+      gateResults.push(resultSpan);
+
+      const row = el('div', { style: { marginBottom: '12px' } },
+        el('div', { style: { display: 'flex', alignItems: 'flex-start', gap: '12px' } },
+          spinner,
+          checkSvg,
+          el('div', null,
+            el('span', { style: { fontSize: '14px', color: '#fff' } }, gate.label),
+            resultSpan,
+            el('div', { style: { fontSize: '11px', color: '#525252', marginTop: '2px' } }, gate.description)
+          )
+        )
+      );
+      gatesSection.appendChild(row);
+    });
 
     // Build checklist items
     const checkIcons = [];
@@ -1558,6 +1612,138 @@
       );
     });
 
+    // Mock Telegram conversation preview
+    const chatMessages = [
+      { from: 'user', text: 'What makes Specter different from a regular phone plan?' },
+      { from: 'bot', text: 'Specter is built on zero-knowledge infrastructure. No metadata retention, no session logs, encrypted DNS by default. Your device is invisible at the network layer \u2014 not just your traffic.' },
+      { from: 'user', text: 'How do I activate?' },
+      { from: 'bot', text: 'It\u2019s eSIM-only \u2014 no physical SIM needed. I\u2019ll walk you through it: takes about 2 minutes. Ready to start?' },
+    ];
+
+    const channels = [
+      { name: 'Telegram', color: '#26A5E4' },
+      { name: 'iMessage', color: '#007AFF' },
+      { name: 'RCS', color: '#4285F4' },
+      { name: 'SMS', color: '#a3a3a3' },
+      { name: 'WhatsApp', color: '#25D366' },
+    ];
+    var activeChannel = channels[0];
+
+    // Channel label in chat header (mutable)
+    const channelDot = el('span', { style: { width: '6px', height: '6px', borderRadius: '50%', background: activeChannel.color, display: 'inline-block', marginRight: '6px' } });
+    const channelLabelText = el('span', null, activeChannel.name);
+    const channelLabel = el('div', { style: { marginLeft: 'auto', fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#a3a3a3', display: 'flex', alignItems: 'center' } }, channelDot, channelLabelText);
+
+    const chatBubbles = [];
+    const chatContainer = el('div', {
+      style: {
+        borderRadius: '12px',
+        overflow: 'hidden',
+        border: '1px solid rgba(255,255,255,0.06)',
+        background: '#0c0a14',
+        marginBottom: '32px',
+      }
+    },
+      // Chat header
+      el('div', {
+        style: {
+          display: 'flex',
+          alignItems: 'center',
+          gap: '10px',
+          padding: '12px 16px',
+          background: 'rgba(255,255,255,0.03)',
+          borderBottom: '1px solid rgba(255,255,255,0.04)',
+        }
+      },
+        el('div', {
+          style: {
+            width: '28px', height: '28px', borderRadius: '50%',
+            background: 'linear-gradient(135deg, #34d399, #059669)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontSize: '12px', color: '#fff', fontWeight: '600',
+          }
+        }, 'S'),
+        el('div', null,
+          el('div', { style: { fontSize: '13px', fontWeight: '500', color: '#e5e5e5' } }, 'SpecterBot'),
+          el('div', { style: { fontSize: '10px', color: '#34d399' } }, 'online')
+        ),
+        channelLabel
+      ),
+      // Messages area
+      el('div', { style: { padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px', minHeight: '60px' } },
+        ...chatMessages.map((msg, mi) => {
+          const isBot = msg.from === 'bot';
+          const bubble = el('div', {
+            style: {
+              display: 'none',
+              maxWidth: '80%',
+              alignSelf: isBot ? 'flex-start' : 'flex-end',
+              padding: '10px 14px',
+              borderRadius: isBot ? '4px 12px 12px 12px' : '12px 4px 12px 12px',
+              background: isBot ? 'rgba(52,211,153,0.08)' : 'rgba(255,255,255,0.05)',
+              border: '1px solid ' + (isBot ? 'rgba(52,211,153,0.15)' : 'rgba(255,255,255,0.06)'),
+              fontSize: '12px',
+              lineHeight: '1.5',
+              color: isBot ? '#d1d5db' : '#a3a3a3',
+            }
+          }, msg.text);
+          chatBubbles.push(bubble);
+          return bubble;
+        })
+      )
+    );
+
+    // Channel selector badges (above chat)
+    var channelBadgeEls = [];
+    var channelSelector = el('div', { style: { display: 'flex', justifyContent: 'center', gap: '6px', flexWrap: 'wrap', marginBottom: '12px' } },
+      channels.map(function (ch) {
+        var isActive = ch === activeChannel;
+        var dot = el('span', {
+          style: {
+            width: '7px', height: '7px', borderRadius: '50%',
+            background: ch.color,
+            flexShrink: '0',
+            opacity: isActive ? '1' : '0.35',
+            transition: 'opacity 0.2s ease-out',
+          }
+        });
+        var badge = el('span', {
+          style: {
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
+            fontSize: '11px',
+            fontFamily: "'JetBrains Mono', monospace",
+            padding: '5px 12px',
+            borderRadius: '6px',
+            cursor: 'pointer',
+            transition: 'all 0.2s ease-out',
+            border: '1px solid ' + (isActive ? ch.color + '4D' : 'rgba(255,255,255,0.06)'),
+            background: isActive ? ch.color + '14' : 'transparent',
+            color: isActive ? '#e5e5e5' : '#525252',
+          }
+        }, dot, ch.name);
+        badge._dot = dot;
+        badge._ch = ch;
+        badge.addEventListener('click', function () {
+          activeChannel = ch;
+          channelLabelText.textContent = ch.name;
+          channelDot.style.background = ch.color;
+          channelBadgeEls.forEach(function (b) {
+            var a = b._ch === ch;
+            b.style.border = '1px solid ' + (a ? b._ch.color + '4D' : 'rgba(255,255,255,0.06)');
+            b.style.background = a ? b._ch.color + '14' : 'transparent';
+            b.style.color = a ? '#e5e5e5' : '#525252';
+            b._dot.style.opacity = a ? '1' : '0.35';
+          });
+        });
+        channelBadgeEls.push(badge);
+        return badge;
+      })
+    );
+
+    const chatSection = el('div', { style: { display: 'none' } }, channelSelector, chatContainer);
+
     // Live state card
     const liveCard = el('div', {
       className: 's4-card',
@@ -1579,7 +1765,7 @@
           el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", textTransform: 'uppercase', letterSpacing: '0.05em', color: '#34d399' } }, 'LIVE')
         )
       ),
-      el('div', { className: 's4-grid-4' },
+      el('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px', textAlign: 'center' } },
         liveStats.map(stat =>
           el('div', null,
             el('div', { style: { display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' } },
@@ -1594,6 +1780,106 @@
     );
 
     liveSection.appendChild(liveCard);
+
+    // Post-launch ops section
+    const postLaunchLanes = [
+      {
+        lane: 'Legal & Compliance',
+        color: '#f87171',
+        tasks: [
+          { name: 'Full EUA Review', type: 'human', days: 5 },
+          { name: 'Privacy Counsel', type: 'human', days: 3 },
+          { name: 'Security Audit', type: 'human', days: 7 },
+        ]
+      },
+      {
+        lane: 'Carrier Ops',
+        color: '#fbbf24',
+        tasks: [
+          { name: 'AT&T Alpha Tag', type: 'human', days: 5 },
+          { name: 'eSIM Inventory', type: 'human', days: 3 },
+        ]
+      },
+      {
+        lane: 'Growth & GTM',
+        color: '#34d399',
+        tasks: [
+          { name: 'Community Seeding', type: 'human', days: 5 },
+          { name: 'Affiliate Outreach', type: 'human', days: 5 },
+          { name: 'Influencer Partners', type: 'human', days: 7 },
+          { name: 'Paid Ads Config', type: 'human', days: 3 },
+          { name: 'Content Calendar', type: 'agent', days: 1 },
+          { name: 'Email Drip', type: 'agent', days: 1 },
+          { name: 'Monitoring Setup', type: 'human', days: 2 },
+        ]
+      },
+    ];
+
+    const postLaunchSection = el('div', { style: { display: 'none', marginTop: '40px' } });
+
+    postLaunchSection.appendChild(
+      el('div', { style: { display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' } },
+        el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#525252', textTransform: 'uppercase', letterSpacing: '0.05em' } }, 'Post-Launch Ops'),
+        el('span', { style: { flex: '1', height: '1px', background: 'rgba(255,255,255,0.04)' } }),
+        // Legend
+        el('div', { style: { display: 'flex', gap: '12px', flexShrink: '0' } },
+          el('span', { style: { display: 'flex', alignItems: 'center', gap: '5px', fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#60a5fa' } },
+            el('span', { style: { width: '8px', height: '8px', borderRadius: '2px', background: 'rgba(96,165,250,0.15)', border: '1px solid rgba(96,165,250,0.3)', flexShrink: '0' } }),
+            'Agent'
+          ),
+          el('span', { style: { display: 'flex', alignItems: 'center', gap: '5px', fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#a78bfa' } },
+            el('span', { style: { width: '8px', height: '8px', borderRadius: '2px', background: 'rgba(167,139,250,0.15)', border: '1px solid rgba(167,139,250,0.3)', flexShrink: '0' } }),
+            'Human'
+          )
+        )
+      )
+    );
+
+    postLaunchLanes.forEach(function (lane, li) {
+      var laneEl = el('div', {
+        style: {
+          marginBottom: li < postLaunchLanes.length - 1 ? '16px' : '0',
+          opacity: '0',
+          animation: 's4FadeInRight 0.3s ease-out ' + (0.1 + li * 0.12) + 's forwards',
+        }
+      });
+
+      laneEl.appendChild(
+        el('div', { style: { display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' } },
+          el('span', { style: { width: '4px', height: '12px', borderRadius: '2px', background: '#525252', flexShrink: '0' } }),
+          el('span', { style: { fontSize: '11px', fontFamily: "'JetBrains Mono', monospace", color: '#a3a3a3', textTransform: 'uppercase', letterSpacing: '0.03em' } }, lane.lane)
+        )
+      );
+
+      var taskList = el('div', { style: { display: 'flex', flexWrap: 'wrap', gap: '6px', paddingLeft: '12px' } });
+      lane.tasks.forEach(function (task) {
+        var isAgent = task.type === 'agent';
+        taskList.appendChild(
+          el('span', {
+            style: {
+              fontSize: '11px',
+              fontFamily: "'JetBrains Mono', monospace",
+              padding: '3px 10px',
+              borderRadius: '4px',
+              border: '1px solid ' + (isAgent ? 'rgba(96,165,250,0.3)' : 'rgba(167,139,250,0.2)'),
+              background: isAgent ? 'rgba(96,165,250,0.1)' : 'rgba(167,139,250,0.05)',
+              color: isAgent ? '#60a5fa' : '#a78bfa',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+            }
+          },
+            el('span', { style: { width: '4px', height: '4px', borderRadius: '50%', background: isAgent ? '#60a5fa' : '#a78bfa', flexShrink: '0' } }),
+            task.name,
+            el('span', { style: { color: '#404040', fontSize: '10px' } }, task.days + 'd')
+          )
+        );
+      });
+      laneEl.appendChild(taskList);
+      postLaunchSection.appendChild(laneEl);
+    });
+
+    liveSection.appendChild(postLaunchSection);
 
     // Closing section
     const closingInner = el('div', { style: { borderTop: '1px solid rgba(38,38,38,0.5)', marginTop: '48px', paddingTop: '32px' } },
@@ -1615,39 +1901,91 @@
     const wrapper = el('div', { className: 's4-fade-in' },
       stageHeader('05', 'Deploy'),
       checklistContainer,
+      chatSection,
+      gatesSection,
       liveSection,
       closingSection,
       annotation('Total elapsed: persona brief to live brand in a single engine run. The bot is connected, the website is deployed, and the journey config is active. Post-launch monitoring begins automatically.')
     );
 
-    // Sequential auto-checks
-    checklist.forEach((_, i) => {
-      timers.push(setTimeout(() => {
-        spinners[i].style.display = 'none';
-        checkIcons[i].style.display = '';
-        if (checklist[i].result) {
-          resultSpans[i].style.display = '';
-        }
-        // Show file tree after item 1
-        if (i === 1) {
-          fileTreeContainer.style.display = '';
-        }
-      }, 700 * (i + 1)));
-    });
+    // Sequential auto-checks for items 1-4 (before QA)
+    var qaIndex = checklist.length - 1; // last item is the QA result
+    for (var ci = 0; ci < qaIndex; ci++) {
+      (function (i) {
+        timers.push(setTimeout(function () {
+          spinners[i].style.display = 'none';
+          checkIcons[i].style.display = '';
+          if (checklist[i].result) {
+            resultSpans[i].style.display = '';
+          }
+          if (i === 1) {
+            fileTreeContainer.style.display = '';
+          }
+        }, 700 * (i + 1)));
+      })(ci);
+    }
 
-    // Show live section
-    timers.push(setTimeout(() => {
-      liveSection.style.display = '';
-      liveSection.style.opacity = '0';
-      liveSection.style.animation = 's4FadeIn 0.5s ease-out forwards';
+    // After item 4, show chat preview (QA agent testing)
+    var chatStart = 700 * qaIndex + 600;
+    timers.push(setTimeout(function () {
+      chatSection.style.display = '';
+      chatSection.style.opacity = '0';
+      chatSection.style.animation = 's4FadeIn 0.4s ease-out forwards';
 
-      // Show closing after a short delay
-      setTimeout(() => {
-        closingSection.style.display = '';
-        closingSection.style.opacity = '0';
-        closingSection.style.animation = 's4FadeIn 0.4s ease-out forwards';
-      }, 400);
-    }, 700 * checklist.length + 1000));
+      // Stagger chat bubbles
+      chatBubbles.forEach(function (bubble, bi) {
+        timers.push(setTimeout(function () {
+          bubble.style.display = '';
+          bubble.style.opacity = '0';
+          bubble.style.animation = 's4FadeIn 0.3s ease-out forwards';
+        }, 600 * (bi + 1)));
+      });
+
+      // After chat completes, check off QA item
+      var qaCheckTime = 600 * chatBubbles.length + 600;
+      timers.push(setTimeout(function () {
+        spinners[qaIndex].style.display = 'none';
+        checkIcons[qaIndex].style.display = '';
+        resultSpans[qaIndex].style.display = '';
+
+        // Show gates after QA passes
+        timers.push(setTimeout(function () {
+          gatesSection.style.display = '';
+          gatesSection.style.opacity = '0';
+          gatesSection.style.animation = 's4FadeIn 0.4s ease-out forwards';
+
+          // Stagger gate completions
+          gates.forEach(function (_, gi) {
+            timers.push(setTimeout(function () {
+              gateSpinners[gi].style.display = 'none';
+              gateChecks[gi].style.display = '';
+              gateResults[gi].style.display = '';
+            }, 1200 * (gi + 1)));
+          });
+
+          // Show live card after all gates pass
+          timers.push(setTimeout(function () {
+            liveSection.style.display = '';
+            liveSection.style.opacity = '0';
+            liveSection.style.animation = 's4FadeIn 0.5s ease-out forwards';
+
+            // Show post-launch ops after live card
+            timers.push(setTimeout(function () {
+              postLaunchSection.style.display = '';
+              postLaunchSection.style.opacity = '0';
+              postLaunchSection.style.animation = 's4FadeIn 0.4s ease-out forwards';
+
+              // Show closing after post-launch
+              timers.push(setTimeout(function () {
+                closingSection.style.display = '';
+                closingSection.style.opacity = '0';
+                closingSection.style.animation = 's4FadeIn 0.4s ease-out forwards';
+              }, 800));
+            }, 600));
+          }, 1200 * gates.length + 800));
+        }, 600));
+      }, qaCheckTime));
+    }, chatStart));
 
     wrapper._cleanup = () => timers.forEach(clearTimeout);
 
@@ -1657,6 +1995,7 @@
   /* ═══════════════════════════════════════════
      STAGE BUILDER MAP
      ═══════════════════════════════════════════ */
+
 
   const STAGE_BUILDERS = [
     buildStageInput,
