@@ -147,10 +147,10 @@ function initScene1(container) {
 }
 
 /* Header */
-.s1-header { text-align: left; margin-bottom: 48px; padding-left: 24px; }
+.s1-header { text-align: left; margin-bottom: 16px; padding-left: 24px; }
 .s1-header h2 {
   font-family: 'Instrument Serif', Georgia, serif;
-  font-size: 42px; font-weight: 400; margin: 0 0 8px; color: #e2e2f0;
+  font-size: 36px; font-weight: 400; margin: 0 0 4px; color: #e2e2f0;
   letter-spacing: -0.5px;
 }
 .s1-header .s1-subtitle {
@@ -161,7 +161,7 @@ function initScene1(container) {
 /* Filter Bar */
 .s1-filterbar {
   display: flex; align-items: center; justify-content: center; gap: 12px;
-  margin-bottom: 32px; flex-wrap: wrap;
+  margin-bottom: 16px; flex-wrap: wrap;
 }
 .s1-pill {
   font-family: 'JetBrains Mono', monospace;
@@ -190,7 +190,7 @@ function initScene1(container) {
 .s1-pipeline-link {
   margin-left: 16px; font-family: 'JetBrains Mono', monospace; font-size: 12px;
   background: none; border: 1px solid rgba(16,185,129,0.3); color: #10b981;
-  padding: 6px 16px; border-radius: 20px; cursor: pointer; transition: all 0.2s ease;
+  padding: 6px 16px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease;
   letter-spacing: 0.5px;
 }
 .s1-pipeline-link:hover { color: #10b981; border-color: rgba(16,185,129,0.6); background: rgba(16,185,129,0.06); }
@@ -682,9 +682,7 @@ function initScene1(container) {
   pipelineLink.className = 's1-pipeline-link';
   pipelineLink.textContent = 'View Market Intelligence Run';
   pipelineLink.addEventListener('click', function() {
-    var tabs = document.querySelectorAll('.nav-tab');
     var scenes = document.querySelectorAll('.scene');
-    tabs.forEach(function(t) { t.classList.remove('active'); });
     scenes.forEach(function(s) { s.classList.remove('active'); });
     var scene1 = document.getElementById('scene-1');
     if (scene1) scene1.classList.add('active');
