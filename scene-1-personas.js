@@ -64,45 +64,6 @@ function initScene1(container) {
     {id:'M5',name:'The Pet Philosophy Thinker',pipe:'macro',quad:'compete',desc:'Intellectualizes pet ownership, interested in the cultural shift of human-animal relationships.',pop:'3.8M',popNum:3800000,popSource:'Academic + cultural analysis',intensity:2,score:5.8,markers:['Reads longform content','Cultural critic mindset','Values brand storytelling'],community:['literary pet essays','NYT pet culture readers'],moment:'Cultural moment or viral essay about pets',momentWindow:'Event-driven',confidence:{identity:60,price:50,channel:35}}
   ];
 
-  const triggerEvents = [
-    {rank:1,name:'Unexpected Vet Bill Shock',composite:4.6,axes:{compulsion:5,friction:5,intent:5,predictability:4,frequency:5,dataAccessibility:4},switchingType:'Reactive',emotionalState:'Panic + guilt',windowType:'Immediate (48-72 hours)',peakIntent:'Day of bill receipt',seasonal:'Year-round',annualVolume:'8.2M events/year',overlapFlags:['Insurance consideration','Preventive mindset shift'],interceptionChannels:['Vet clinic partnerships','Pet insurance retargeting','Reddit r/AskVet'],supportingSignals:['Vet payment data','Google search spikes','Insurance quote requests'],qualification:'Tier 1 — Highest emotional intensity. Preventive wellness pitch lands hardest within 72 hours of bill shock.'},
-    {rank:2,name:'Viral Pet Health Content Exposure',composite:4.5,axes:{compulsion:4,friction:3,intent:5,predictability:3,frequency:5,dataAccessibility:5},switchingType:'Impulse',emotionalState:'Anxiety + urgency',windowType:'Immediate (24-48 hours)',peakIntent:'Within hours of viewing',seasonal:'Viral cycle driven',annualVolume:'12M+ exposures/year',overlapFlags:['TikTok algorithm shift','Influencer campaign'],interceptionChannels:['TikTok comment sections','Vet influencer partnerships','Retargeting ads'],supportingSignals:['Social engagement spikes','Google Trends surges','Supplement search volume'],qualification:'Tier 1 — Massive volume with short capture window. Impulse purchase behavior dominates.'},
-    {rank:3,name:'New Pet Adoption',composite:4.4,axes:{compulsion:4,friction:3,intent:4,predictability:5,frequency:5,dataAccessibility:4},switchingType:'Expansion',emotionalState:'Joy + overwhelm',windowType:'First 30 days',peakIntent:'First week post-adoption',seasonal:'Holiday spikes (Dec, May)',annualVolume:'6.5M adoptions/year',overlapFlags:['First vet visit','Pet supply shopping spree'],interceptionChannels:['Shelter partnerships','Pet store POS','Chewy first-order targeting'],supportingSignals:['Adoption records','Pet store purchases','Vet registration data'],qualification:'Tier 1 — Highly predictable, large volume. New owners are building routines and open to brand discovery.'},
-    {rank:4,name:'Pet Aging Milestone (Senior Transition)',composite:4.3,axes:{compulsion:4,friction:4,intent:4,predictability:5,frequency:4,dataAccessibility:3},switchingType:'Gradual',emotionalState:'Concern + devotion',windowType:'Extended (3-6 months)',peakIntent:'First mobility or health issue',seasonal:'Year-round',annualVolume:'9.5M senior pets/year',overlapFlags:['Arthritis onset','Diet change needed'],interceptionChannels:['Vet recommendation','Senior dog communities','Pet health apps'],supportingSignals:['Vet visit frequency increase','Joint supplement searches','Senior pet food purchases'],qualification:'Tier 1 — High lifetime value. Emotional investment peaks as pet ages. Preventive wellness resonates deeply.'},
-    {rank:5,name:'Pet Health Diagnosis',composite:4.2,axes:{compulsion:5,friction:4,intent:5,predictability:3,frequency:3,dataAccessibility:2},switchingType:'Forced',emotionalState:'Fear + determination',windowType:'Immediate (1-2 weeks)',peakIntent:'Day of diagnosis',seasonal:'Year-round',annualVolume:'4.8M new diagnoses/year',overlapFlags:['Treatment plan start','Diet overhaul'],interceptionChannels:['Vet clinics','Pet health forums','Condition-specific communities'],supportingSignals:['Prescription data','Specialty food purchases','Online support group joins'],qualification:'Tier 1 — Highest willingness to pay. Owners will try anything post-diagnosis.'},
-    {rank:6,name:'Subscription Box Fatigue / Cancellation',composite:4.1,axes:{compulsion:3,friction:3,intent:4,predictability:4,frequency:4,dataAccessibility:4},switchingType:'Voluntary',emotionalState:'Frustration + seeking value',windowType:'1-2 weeks post-cancel',peakIntent:'Day of cancellation',seasonal:'January + post-holiday',annualVolume:'1.1M cancellations/year',overlapFlags:['Budget reassessment','Brand switching'],interceptionChannels:['Cancel flow retargeting','Reddit deal threads','Competitor comparison content'],supportingSignals:['Churn data estimates','Cancellation survey responses','Competitor search spikes'],qualification:'Tier 2 — Active switchers seeking better value. Targeted messaging about efficacy over novelty wins.'},
-    {rank:7,name:'First Vet Checkup Warning',composite:4.0,axes:{compulsion:4,friction:3,intent:4,predictability:4,frequency:4,dataAccessibility:3},switchingType:'Preventive',emotionalState:'Worry + motivation',windowType:'2-4 weeks post-visit',peakIntent:'Same day as vet visit',seasonal:'Spring wellness season',annualVolume:'15M vet visits with warnings/year',overlapFlags:['Weight management','Dental health','Joint concern'],interceptionChannels:['Vet clinic partnerships','Post-visit email sequences','Pet health app notifications'],supportingSignals:['Vet visit records','Prescription fills','Health product searches post-visit'],qualification:'Tier 2 — High trust moment (vet authority). Product recommendations carry maximum weight here.'},
-    {rank:8,name:'Pet Anxiety Episode',composite:3.9,axes:{compulsion:4,friction:3,intent:5,predictability:4,frequency:4,dataAccessibility:3},switchingType:'Event-driven',emotionalState:'Helplessness + urgency',windowType:'Immediate (hours)',peakIntent:'During/after episode',seasonal:'July 4th, thunderstorm season, NYE',annualVolume:'5.2M acute episodes/year',overlapFlags:['Separation anxiety onset','Noise phobia','Travel anxiety'],interceptionChannels:['Pet anxiety forums','Vet emergency lines','Social media during events'],supportingSignals:['CBD/calming product searches','Vet emergency visit data','Social media sentiment spikes'],qualification:'Tier 2 — Highly seasonal with predictable spikes. Calming product category entry point.'},
-    {rank:9,name:'Pet Food Recall Scare',composite:3.8,axes:{compulsion:4,friction:4,intent:5,predictability:2,frequency:2,dataAccessibility:5},switchingType:'Reactive',emotionalState:'Anger + distrust',windowType:'Immediate (1 week)',peakIntent:'Day of recall announcement',seasonal:'Unpredictable',annualVolume:'3-5 major recalls/year',overlapFlags:['Brand trust collapse','Whole-diet reassessment'],interceptionChannels:['News coverage','Pet forums','Social media outrage'],supportingSignals:['FDA recall data','Brand search spikes','Competitor search volume'],qualification:'Tier 2 — Unpredictable but high-intensity when occurring. Trust-focused messaging wins.'},
-    {rank:10,name:'Millennial First Pet (Child Substitute)',composite:3.7,axes:{compulsion:3,friction:2,intent:3,predictability:4,frequency:5,dataAccessibility:4},switchingType:'Identity',emotionalState:'Excitement + identity formation',windowType:'Extended (6-12 months)',peakIntent:'First 3 months of ownership',seasonal:'Year-round',annualVolume:'4.1M millennial first-time owners/year',overlapFlags:['Pet humanization','Premium spending onset'],interceptionChannels:['Instagram pet accounts','Millennial lifestyle content','Pet parent identity communities'],supportingSignals:['Social media pet account creation','Premium pet product purchases','Pet insurance enrollment'],qualification:'Tier 2 — Identity-driven purchasing begins here. Capture early = high LTV.'},
-    {rank:11,name:'Seasonal Allergy Flare-Up',composite:3.6,axes:{compulsion:3,friction:3,intent:4,predictability:5,frequency:4,dataAccessibility:3},switchingType:'Seasonal',emotionalState:'Sympathy + frustration',windowType:'2-4 weeks',peakIntent:'First week of symptoms',seasonal:'Spring + Fall peaks',annualVolume:'7.8M affected pets/year',overlapFlags:['Diet change consideration','Supplement trial'],interceptionChannels:['Vet clinics','Pet allergy forums','Seasonal ad campaigns'],supportingSignals:['Allergy medication searches','Vet visit spikes','Hypoallergenic food purchases'],qualification:'Tier 3 — Predictable and recurring. Supplement subscription entry point.'},
-    {rank:12,name:'Remote Work Shift (More Time with Pet)',composite:3.5,axes:{compulsion:2,friction:2,intent:3,predictability:3,frequency:3,dataAccessibility:3},switchingType:'Lifestyle',emotionalState:'Bonding + awareness',windowType:'Extended (1-3 months)',peakIntent:'First month of WFH',seasonal:'Year-round',annualVolume:'8.5M transitions/year',overlapFlags:['Noticing pet health issues','Increased spending willingness'],interceptionChannels:['WFH lifestyle content','Pet enrichment communities','Home office pet content'],supportingSignals:['Pet camera purchases decline','Enrichment toy sales','Daytime vet appointment bookings'],qualification:'Tier 3 — Subtle but large volume. Owners notice pet health details they previously missed.'},
-    {rank:13,name:'Pet Insurance Purchase',composite:3.4,axes:{compulsion:3,friction:3,intent:3,predictability:4,frequency:4,dataAccessibility:3},switchingType:'Preventive',emotionalState:'Responsibility + proactive',windowType:'1-2 months post-purchase',peakIntent:'First month of coverage',seasonal:'Year-round, slight Q1 peak',annualVolume:'3.2M new policies/year',overlapFlags:['Preventive care mindset','Wellness add-on consideration'],interceptionChannels:['Insurance partner bundles','Post-enrollment email','Vet wellness plan upsells'],supportingSignals:['Insurance enrollment data','Wellness plan searches','Preventive care product purchases'],qualification:'Tier 3 — Signals preventive mindset shift. Cross-sell wellness products with insurance bundles.'},
-    {rank:14,name:'Pet Weight Concern',composite:3.3,axes:{compulsion:3,friction:3,intent:3,predictability:3,frequency:4,dataAccessibility:3},switchingType:'Health',emotionalState:'Guilt + motivation',windowType:'Extended (1-3 months)',peakIntent:'After vet weigh-in or comparison photo',seasonal:'January (New Year resolutions)',annualVolume:'56M overweight pets (addressable)',overlapFlags:['Diet change','Exercise routine','Supplement consideration'],interceptionChannels:['Vet weight management programs','Pet fitness communities','Diet product advertising'],supportingSignals:['Weight management food purchases','Pet fitness tracker adoption','Vet nutrition consultations'],qualification:'Tier 3 — Massive addressable market. Weight management is gateway to broader wellness.'},
-    {rank:15,name:'Loss of Previous Pet',composite:3.2,axes:{compulsion:3,friction:4,intent:3,predictability:3,frequency:3,dataAccessibility:2},switchingType:'Emotional',emotionalState:'Grief + prevention focus',windowType:'Extended (when new pet arrives)',peakIntent:'First month with new pet',seasonal:'Year-round',annualVolume:'3.9M pet losses leading to re-adoption/year',overlapFlags:['New adoption','Preventive care obsession','Premium willingness'],interceptionChannels:['Pet loss support communities','Shelter re-adoption programs','Memorial product retargeting'],supportingSignals:['Pet memorial purchases','Re-adoption records','Premium product purchasing patterns'],qualification:'Tier 3 — Emotional intensity drives premium spending. "Not making the same mistake" mindset.'}
-  ];
-
-  const macroTrends = [
-    {id:'MT-01',name:'Pet Humanization Megatrend',signal:'Cultural',direction:'Accelerating',confidence:'95%',impact:'Structural'},
-    {id:'MT-02',name:'Preventive Pet Healthcare Shift',signal:'Health',direction:'Growing',confidence:'88%',impact:'High'},
-    {id:'MT-03',name:'DTC Pet Brand Proliferation',signal:'Market',direction:'Accelerating',confidence:'82%',impact:'High'},
-    {id:'MT-04',name:'Pet Insurance Adoption Wave',signal:'Financial',direction:'Growing',confidence:'79%',impact:'Medium'},
-    {id:'MT-05',name:'Clean Label Pet Products',signal:'Consumer',direction:'Accelerating',confidence:'85%',impact:'High'},
-    {id:'MT-06',name:'Pet Tech Integration',signal:'Technology',direction:'Emerging',confidence:'72%',impact:'Medium'},
-    {id:'MT-07',name:'Vet Telehealth Expansion',signal:'Health',direction:'Growing',confidence:'78%',impact:'Medium'},
-    {id:'MT-08',name:'Pet Mental Health Awareness',signal:'Cultural',direction:'Emerging',confidence:'65%',impact:'Medium'}
-  ];
-
-  const microTrends = [
-    {id:'MT-01',name:'Adaptogenic Pet Supplements',signal:'Product',velocity:'High',confidence:'78%',window:'12 months'},
-    {id:'MT-02',name:'Pet DNA Testing Boom',signal:'Technology',velocity:'High',confidence:'82%',window:'18 months'},
-    {id:'MT-03',name:'Raw/Fresh Pet Food Movement',signal:'Consumer',velocity:'Medium',confidence:'85%',window:'24+ months'},
-    {id:'MT-04',name:'Pet CBD Regulation Clarity',signal:'Policy',velocity:'Medium',confidence:'60%',window:'6-12 months'},
-    {id:'MT-05',name:'Pet Subscription Box Fatigue',signal:'Market',velocity:'High',confidence:'75%',window:'6 months'},
-    {id:'MT-06',name:'Vet-Influencer Trust Economy',signal:'Social',velocity:'Very High',confidence:'80%',window:'12 months'},
-    {id:'MT-07',name:'Pet Anxiety Treatment Market',signal:'Health',velocity:'High',confidence:'77%',window:'18 months'},
-    {id:'MT-08',name:'Multi-Species Household Trend',signal:'Demographic',velocity:'Medium',confidence:'70%',window:'24+ months'}
-  ];
 
   // ─── CONSTANTS ──────────────────────────────────────────────────────────────
 
@@ -115,7 +76,6 @@ function initScene1(container) {
 
   let activeFilter = 'all';
   let activeSort = 'score';
-  let activeContextTab = 'trigger';
   let deepDivePersona = null;
   let typewriterTimer = null;
 
@@ -227,6 +187,13 @@ function initScene1(container) {
   padding-right: 28px;
 }
 .s1-sort option { background: #1a1a2e; color: #e2e2f0; }
+.s1-pipeline-link {
+  margin-left: 16px; font-family: 'JetBrains Mono', monospace; font-size: 12px;
+  background: none; border: 1px solid rgba(16,185,129,0.3); color: #10b981;
+  padding: 6px 16px; border-radius: 20px; cursor: pointer; transition: all 0.2s ease;
+  letter-spacing: 0.5px;
+}
+.s1-pipeline-link:hover { color: #10b981; border-color: rgba(16,185,129,0.6); background: rgba(16,185,129,0.06); }
 
 /* Context Panels */
 .s1-context { margin-bottom: 40px; max-width: 1100px; margin-left: auto; margin-right: auto; padding: 0 24px; }
@@ -710,38 +677,21 @@ function initScene1(container) {
   sortSel.addEventListener('change', function() { activeSort = sortSel.value; renderGrid(); });
   sortWrap.appendChild(sortSel);
   filterBar.appendChild(sortWrap);
+
+  var pipelineLink = document.createElement('button');
+  pipelineLink.className = 's1-pipeline-link';
+  pipelineLink.textContent = 'View Market Intelligence Run';
+  pipelineLink.addEventListener('click', function() {
+    var tabs = document.querySelectorAll('.nav-tab');
+    var scenes = document.querySelectorAll('.scene');
+    tabs.forEach(function(t) { t.classList.remove('active'); });
+    scenes.forEach(function(s) { s.classList.remove('active'); });
+    var scene1 = document.getElementById('scene-1');
+    if (scene1) scene1.classList.add('active');
+  });
+  filterBar.appendChild(pipelineLink);
   mainArea.appendChild(filterBar);
 
-  // Context panels
-  var contextSection = document.createElement('div');
-  contextSection.className = 's1-context';
-
-  var contextTabs = document.createElement('div');
-  contextTabs.className = 's1-context-tabs';
-  var tabs = [
-    { key: 'trigger', label: 'Trigger Events' },
-    { key: 'macro', label: 'Macro-Trends' },
-    { key: 'micro', label: 'Micro-Trends' },
-    { key: 'surge', label: 'Surge' }
-  ];
-  tabs.forEach(function(t) {
-    var tab = document.createElement('div');
-    tab.className = 's1-context-tab' + (t.key === activeContextTab ? ' s1-context-tab--active' : '');
-    tab.textContent = t.label;
-    tab.dataset.tab = t.key;
-    tab.addEventListener('click', function() {
-      activeContextTab = t.key;
-      renderContextTabs();
-      renderContextBody();
-    });
-    contextTabs.appendChild(tab);
-  });
-  contextSection.appendChild(contextTabs);
-
-  var contextBody = document.createElement('div');
-  contextBody.className = 's1-context-body';
-  contextSection.appendChild(contextBody);
-  mainArea.appendChild(contextSection);
 
   // Grid
   var grid = document.createElement('div');
@@ -774,64 +724,6 @@ function initScene1(container) {
     pills.forEach(function(p) {
       p.classList.toggle('s1-pill--active', p.dataset.filter === activeFilter);
     });
-  }
-
-  function renderContextTabs() {
-    var tabEls = contextTabs.querySelectorAll('.s1-context-tab');
-    tabEls.forEach(function(t) {
-      t.classList.toggle('s1-context-tab--active', t.dataset.tab === activeContextTab);
-    });
-  }
-
-  function renderContextBody() {
-    var html = '';
-    if (activeContextTab === 'trigger') {
-      html += '<div class="s1-trigger-header"><span>#</span><span>Event</span><span>Score</span><span>Type</span><span>Volume</span><span>Emotion</span></div>';
-      triggerEvents.forEach(function(ev) {
-        html += '<div class="s1-trigger-row">' +
-          '<span class="s1-trigger-rank">' + ev.rank + '</span>' +
-          '<span class="s1-trigger-name">' + esc(ev.name) + '</span>' +
-          '<span class="s1-trigger-composite">' + ev.composite.toFixed(1) + '</span>' +
-          '<span class="s1-trigger-type">' + esc(ev.switchingType) + '</span>' +
-          '<span class="s1-trigger-vol">' + esc(ev.annualVolume) + '</span>' +
-          '<span class="s1-trigger-emotion">' + esc(ev.emotionalState) + '</span>' +
-          '</div>';
-      });
-    } else if (activeContextTab === 'macro') {
-      html += '<div class="s1-trend-header"><span>ID</span><span>Trend</span><span>Signal</span><span>Confidence</span><span>Impact</span></div>';
-      macroTrends.forEach(function(t) {
-        html += '<div class="s1-trend-row">' +
-          '<span class="s1-trend-id">' + esc(t.id) + '</span>' +
-          '<span class="s1-trend-name">' + esc(t.name) + '</span>' +
-          '<span class="s1-trend-signal">' + esc(t.signal) + '</span>' +
-          '<span class="s1-trend-conf">' + esc(t.confidence) + '</span>' +
-          '<span class="s1-trend-extra">' + esc(t.impact) + '</span>' +
-          '</div>';
-      });
-    } else if (activeContextTab === 'micro') {
-      html += '<div class="s1-trend-header"><span>ID</span><span>Trend</span><span>Signal</span><span>Confidence</span><span>Window</span></div>';
-      microTrends.forEach(function(t) {
-        html += '<div class="s1-trend-row">' +
-          '<span class="s1-trend-id">' + esc(t.id) + '</span>' +
-          '<span class="s1-trend-name">' + esc(t.name) + '</span>' +
-          '<span class="s1-trend-signal">' + esc(t.signal) + '</span>' +
-          '<span class="s1-trend-conf">' + esc(t.confidence) + '</span>' +
-          '<span class="s1-trend-extra">' + esc(t.window) + '</span>' +
-          '</div>';
-      });
-    } else if (activeContextTab === 'surge') {
-      var surgePersonas = personas.filter(function(p) { return p.pipe === 'surge'; });
-      html += '<div class="s1-surge-grid">';
-      surgePersonas.forEach(function(p) {
-        html += '<div class="s1-surge-card">' +
-          '<h4>' + esc(p.name) + '</h4>' +
-          '<div class="s1-surge-meta">' + esc(p.pop) + ' &middot; Score ' + p.score + ' &middot; Window: ' + esc(p.momentWindow) + '</div>' +
-          '<p>' + esc(p.moment) + '</p>' +
-          '</div>';
-      });
-      html += '</div>';
-    }
-    contextBody.innerHTML = html;
   }
 
   function renderGrid() {
@@ -1226,6 +1118,5 @@ function initScene1(container) {
 
   // ─── INITIAL RENDER ─────────────────────────────────────────────────────────
 
-  renderContextBody();
   renderGrid();
 }
