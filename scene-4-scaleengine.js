@@ -780,15 +780,15 @@
     return wrapper;
   }
 
-  function buildStageRisk() {
-    // Combined Risk Assessment + Compliance Scan
+  function buildStageLaunchRisk() {
+    // Risk Assessment — FDT-validated where applicable
     const risks = [
       { name: 'Value Risk', status: 'PASS', detail: 'Clear problem-solution fit for privacy/surveillance pain point', type: 'auto-evaluated' },
       { name: 'Feasibility Risk', status: 'PASS', detail: 'ConnectX eSIM + VPN routing technically validated', type: 'auto-evaluated' },
       { name: 'Viability Risk', status: 'PASS', detail: 'Privacy-first mobile is an accelerating, underserved niche', type: 'auto-evaluated' },
-      { name: 'Commercial Risk', status: 'WARNING', detail: '$55/mo premium positioning needs willingness-to-pay validation', type: 'auto-evaluated' },
-      { name: 'Channel Risk', status: 'GAP', detail: 'OPSEC forums, privacy podcasts, security conferences \u2014 unvalidated', type: 'writer-provided' },
-      { name: 'Trust Risk', status: 'GAP', detail: 'Needs day-1 credibility via security audit + open-source transparency', type: 'writer-provided' },
+      { name: 'Commercial Risk', status: 'PASS', detail: 'FDT: WTP signal $45\u201355/mo, price sensitivity LOW (2.3x above avg. premium tolerance). Recommended $49/mo.', type: 'fdt-validated' },
+      { name: 'Channel Risk', status: 'PASS', detail: 'FDT: r/Privacy, OPSEC communities, Signal/Telegram (lowest CPL). Broad Meta 3.2x more expensive \u2014 avoid.', type: 'fdt-validated' },
+      { name: 'Trust Risk', status: 'WARNING', detail: 'Privacy audience needs day-1 credibility proof point \u2014 security audit or open-source transparency', type: 'requires-action' },
       { name: 'Timing Risk', status: 'PASS', detail: 'Evergreen demand \u2014 privacy awareness growing post-regulation', type: 'auto-evaluated' },
     ];
 
@@ -818,10 +818,10 @@
     const summaryCard = card({ style: { padding: '16px', marginBottom: '24px', opacity: '0', animation: `s4FadeIn 0.4s ease-out ${summaryDelay}s forwards` } },
       el('div', { style: { display: 'flex', gap: '24px', marginBottom: '8px' } },
         el('span', { style: { fontSize: '14px', fontFamily: "'JetBrains Mono', monospace", color: '#34d399' } }, passCount + ' passed'),
-        el('span', { style: { fontSize: '14px', fontFamily: "'JetBrains Mono', monospace", color: '#fbbf24' } }, warnCount + ' warnings'),
+        el('span', { style: { fontSize: '14px', fontFamily: "'JetBrains Mono', monospace", color: '#fbbf24' } }, warnCount + ' requires action'),
         el('span', { style: { fontSize: '14px', fontFamily: "'JetBrains Mono', monospace", color: '#f87171' } }, fatalCount + ' fatal')
       ),
-      el('p', { style: { fontSize: '12px', color: '#a3a3a3' } }, 'No fatal blockers \u2014 deployment eligible pending operator review')
+      el('p', { style: { fontSize: '12px', color: '#a3a3a3' } }, 'No fatal blockers. One risk dimension requires an operator decision before launch planning can proceed.')
     );
 
     // Compliance section
@@ -858,12 +858,45 @@
       )
     );
 
+    // Trust Risk Decision — the only open decision
+    const trustDelay = complianceDelay + 0.4;
+    const trustOptionEls = [];
+
+    const trustOptions = ['Security Audit', 'Influencer Seeding'];
+    const trustBtns = trustOptions.map((opt, oi) => {
+      const btn = el('span', { className: 's4-option' }, opt);
+      trustOptionEls.push(btn);
+      return btn;
+    });
+
+    const trustDecision = card({ style: { padding: '20px', marginBottom: '24px', opacity: '0', animation: `s4FadeIn 0.4s ease-out ${trustDelay}s forwards`, borderColor: 'rgba(251,191,36,0.3)' } },
+      el('div', { style: { display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' } },
+        el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", textTransform: 'uppercase', letterSpacing: '0.1em', padding: '2px 8px', borderRadius: '4px', background: 'rgba(251,191,36,0.1)', color: '#fbbf24' } }, 'Operator Decision Required'),
+      ),
+      el('h3', { style: { color: '#fff', fontSize: '16px', fontWeight: '500', marginBottom: '8px' } }, 'Trust Signal Strategy'),
+      el('p', { style: { color: '#a3a3a3', fontSize: '13px', lineHeight: '1.6', marginBottom: '16px' } },
+        'FDT validates demand ($49/mo, privacy-first channels) but this audience won\u2019t convert without a day-1 credibility signal. This is the only risk dimension FDT couldn\u2019t resolve \u2014 it requires a strategic choice.'
+      ),
+      el('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '16px' } },
+        card({ style: { padding: '14px' } },
+          el('div', { style: { fontSize: '13px', fontWeight: '500', color: '#fff', marginBottom: '6px' } }, 'Security Audit'),
+          el('p', { style: { fontSize: '11px', color: '#525252', lineHeight: '1.5' } }, 'Commission third-party pentest, publish results on GitHub. High credibility, +10 days to critical path.'),
+        ),
+        card({ style: { padding: '14px' } },
+          el('div', { style: { fontSize: '13px', fontWeight: '500', color: '#fff', marginBottom: '6px' } }, 'Influencer Seeding'),
+          el('p', { style: { fontSize: '11px', color: '#525252', lineHeight: '1.5' } }, 'Privacy YouTuber / blogger early access. Faster but less durable. +5 days to critical path.'),
+        ),
+      ),
+      el('div', { style: { display: 'flex', gap: '8px', marginBottom: '8px' } }, trustBtns),
+      el('p', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#404040' } }, 'trust_risk \u2192 requires-action \u2192 selection feeds into launch plan')
+    );
+
     // Expert Assessment
     const confidenceBar = el('div', { className: 's4-confidence-track' },
       el('div', { className: 's4-confidence-fill' })
     );
 
-    const expertDelay = complianceDelay + 0.4;
+    const expertDelay = trustDelay + 0.3;
     const expertCard = card({ style: { padding: '20px', marginBottom: '24px', opacity: '0', animation: `s4FadeIn 0.4s ease-out ${expertDelay}s forwards` } },
       el('p', { className: 's4-label', style: { marginBottom: '16px', color: '#404040' } }, 'Expert Assessment'),
       el('div', { style: { marginBottom: '16px' } },
@@ -890,19 +923,20 @@
     );
 
     const wrapper = el('div', { className: 's4-fade-in' },
-      stageHeader('02', 'Risk & Compliance'),
+      stageHeader('02', 'Launch Risk & Strategy'),
       el('p', { style: { fontSize: '14px', color: '#a3a3a3', lineHeight: '1.6', marginBottom: '24px' } },
-        'The engine runs a feasibility scan across 7 risk dimensions, then checks regulatory compliance. Auto-evaluated risks use keyword and price analysis.'
+        'The engine scans 7 risk dimensions, cross-referencing FDT results. Validated risks are marked as passed. The one open dimension surfaces as an operator decision \u2014 its resolution feeds directly into the launch plan.'
       ),
       el('div', { className: 's4-grid-2', style: { marginBottom: '24px' } }, riskCards),
       summaryCard,
       complianceHeader,
       el('div', { style: { marginBottom: '24px' } }, checklistEls),
+      trustDecision,
       expertCard,
-      annotation('Risk assessment and compliance run as a single gate. No fatal blockers and no regulatory flags \u2014 deployment eligible. Confidence 0.87 exceeds the 0.70 threshold.')
+      annotation('FDT collapses 6 of 7 risk dimensions before the operator sees them. Only trust risk requires a new decision. Once resolved, the engine has everything it needs to generate a launch plan with a real critical path.')
     );
 
-    // Animate confidence bar after render
+    // Animate confidence bar
     requestAnimationFrame(() => {
       setTimeout(() => {
         const fill = confidenceBar.querySelector('.s4-confidence-fill');
@@ -910,114 +944,308 @@
       }, 600);
     });
 
+    // Auto-select trust option
+    setTimeout(() => {
+      trustOptionEls[0].classList.add('selected');
+    }, trustDelay * 1000 + 1200);
+
     return wrapper;
   }
 
-  function buildStageDecisions() {
-    const decisions = [
-      {
-        title: 'Launch Strategy',
-        context: 'Privacy community first or broad market? Channel and trust risks suggest a focused launch reduces exposure.',
-        absorbs: ['channel_risk', 'trust_risk'],
-        options: ['Community First', 'Broad Market'],
-        selectedIndex: 0,
-        selectDelay: 1500,
-      },
-      {
-        title: 'Pricing Validation',
-        context: '$55/mo premium positioning flagged by commercial risk. Validate willingness-to-pay before scaling ad spend.',
-        absorbs: ['commercial_risk'],
-        options: ['Pre-launch Survey', 'Launch & Observe'],
-        selectedIndex: 0,
-        selectDelay: 2000,
-      },
-      {
-        title: 'Partnership Approach',
-        context: 'Trust bootstrapping needs a day-1 credibility signal. Security audit vs. privacy influencer seeding.',
-        absorbs: ['trust_risk'],
-        options: ['Security Audit', 'Influencer Seeding'],
-        selectedIndex: 0,
-        selectDelay: 2500,
-      },
+  function buildStageLaunchPlan() {
+    // ── Task data ──
+    // Soft launch: ~3-day critical path. All artifacts are agent-generated (invariant layer)
+    // with no human dependencies. Human tasks are post-launch (variant layer).
+    // Lanes segmented by domain for clarity.
+    const TASKS = [
+      // Customer Journey — everything the customer touches
+      { id: 'website',        name: 'Website & Landing',  lane: 'Customer Journey',      type: 'agent', days: 1, deps: [],                  description: 'Landing page fork, pricing page, design system' },
+      { id: 'journey_config', name: 'Journey Config',     lane: 'Customer Journey',      type: 'agent', days: 1, deps: [],                  description: 'Onboarding steps, escalation rules, bot copy' },
+      { id: 'faq',            name: 'FAQ & Objections',   lane: 'Customer Journey',      type: 'agent', days: 1, deps: [],                  description: 'Objection matrix, audience-specific Q&A' },
+      { id: 'plan_config',    name: 'Plan Config',        lane: 'Customer Journey',      type: 'agent', days: 1, deps: [],                  description: 'eSIM config, data limits, pricing, Stripe product + payment wiring' },
+      { id: 'legal_docs',     name: 'Legal Docs',         lane: 'Customer Journey',      type: 'agent', days: 1, deps: [],                  description: 'ToS, privacy policy, compliance scan — generated from brief' },
+      { id: 'domain_dns',     name: 'Domain & DNS',       lane: 'Customer Journey',      type: 'human', days: 1, deps: ['website'],         description: 'Point brand domain to landing page' },
+
+      // Support — bot and knowledge base
+      { id: 'brand_voice',    name: 'Brand Voice',        lane: 'Support',               type: 'agent', days: 1, deps: [],                  description: 'Personality, tone, conversation starters' },
+      { id: 'product_kb',     name: 'Product KB',         lane: 'Support',               type: 'agent', days: 1, deps: [],                  description: 'Features, troubleshooting, use cases' },
+      { id: 'bot_deploy',     name: 'Bot Deploy',         lane: 'Support',               type: 'agent', days: 1, deps: ['brand_voice', 'journey_config'], description: 'Telegram webhook, escalation config, go live' },
+      { id: 'unit_econ',      name: 'Unit Economics',     lane: 'Support',               type: 'agent', days: 1, deps: [],                  description: 'CAC, LTV, margin model at $49/mo' },
+
+      // Launch Readiness — gates
+      { id: 'esim_test',      name: 'eSIM Smoke Test',    lane: 'Launch Readiness',      type: 'human', days: 1, deps: ['plan_config'],     description: 'Verify activation on pre-provisioned test SIM' },
+      { id: 'e2e_test',       name: 'E2E Journey Test',   lane: 'Launch Readiness',      type: 'gate',  days: 1, deps: ['journey_config', 'website', 'bot_deploy', 'domain_dns', 'esim_test'], description: 'Full signup \u2192 activation \u2192 first call' },
+      { id: 'soft_launch',    name: 'Soft Launch',        lane: 'Launch Readiness',      type: 'gate',  days: 0, deps: ['e2e_test'],        description: 'Bot live, website live, first cohort can activate' },
+
+      // Post-Launch: Legal & Compliance
+      { id: 'eua',            name: 'Full EUA Review',    lane: 'Legal & Compliance',    type: 'human', days: 5, deps: ['soft_launch'],     description: 'Legal counsel review \u2014 soft launch uses generated template', postLaunch: true },
+      { id: 'privacy_review', name: 'Privacy Counsel',    lane: 'Legal & Compliance',    type: 'human', days: 3, deps: ['soft_launch'],     description: 'External review of generated privacy policy', postLaunch: true },
+      { id: 'security_audit', name: 'Security Audit',     lane: 'Legal & Compliance',    type: 'human', days: 7, deps: ['soft_launch'],     description: 'Third-party pentest \u2014 trust signal for scale', postLaunch: true },
+
+      // Post-Launch: Carrier Ops
+      { id: 'alpha_tag',      name: 'AT&T Alpha Tag',     lane: 'Carrier Ops',           type: 'human', days: 5, deps: ['soft_launch'],     description: 'Brand name on caller ID \u2014 cosmetic, not blocking', postLaunch: true },
+      { id: 'esim_inventory', name: 'eSIM Inventory',     lane: 'Carrier Ops',           type: 'human', days: 3, deps: ['soft_launch'],     description: 'Bulk QR allocation for scale beyond test cohort', postLaunch: true },
+
+      // Post-Launch: Growth & GTM
+      { id: 'community_seed', name: 'Community Seeding',  lane: 'Growth & GTM',          type: 'human', days: 5, deps: ['soft_launch'],     description: 'r/Privacy, Signal/Telegram — FDT-validated channels', postLaunch: true },
+      { id: 'affiliate',      name: 'Affiliate Outreach', lane: 'Growth & GTM',          type: 'human', days: 5, deps: ['soft_launch'],     description: 'Privacy bloggers, VPN review sites, commission structure', postLaunch: true },
+      { id: 'influencer',     name: 'Influencer Partners',lane: 'Growth & GTM',          type: 'human', days: 7, deps: ['soft_launch'],     description: 'Creator outreach — privacy YouTubers, tech reviewers', postLaunch: true },
+      { id: 'paid_ads',       name: 'Paid Ads Config',    lane: 'Growth & GTM',          type: 'human', days: 3, deps: ['soft_launch'],     description: 'Meta, Reddit, privacy-focused ad networks — targeting + creatives', postLaunch: true },
+      { id: 'content_cal',    name: 'Content Calendar',   lane: 'Growth & GTM',          type: 'agent', days: 1, deps: ['soft_launch'],     description: 'Blog posts, social cadence, topic clusters from brief', postLaunch: true },
+      { id: 'email_drip',     name: 'Email Drip',         lane: 'Growth & GTM',          type: 'agent', days: 1, deps: ['soft_launch'],     description: 'Welcome sequence, activation nudges, re-engagement flows', postLaunch: true },
+      { id: 'monitoring',     name: 'Monitoring Setup',   lane: 'Growth & GTM',          type: 'human', days: 2, deps: ['soft_launch'],     description: 'Activation rate, churn, VPN usage dashboards', postLaunch: true },
     ];
 
-    const gtmRows = [
-      { color: '#fbbf24', label: 'Below-the-Line', desc: 'OPSEC community early access \u2014 $49/mo founding rate' },
-      { color: '#34d399', label: 'Trust Building', desc: 'Day-1 third-party security audit published on GitHub' },
-      { color: '#38bdf8', label: 'Monitoring', desc: 'Activation rate, VPN usage, churn by cohort' },
-    ];
+    // ── Compute start days (topological sort) ──
+    const taskMap = {};
+    TASKS.forEach(t => { taskMap[t.id] = t; t.start = 0; });
 
-    const optionEls = []; // store references for animation
+    function resolveStart(task) {
+      if (task._resolved) return task.start;
+      if (task.deps.length === 0) { task._resolved = true; return 0; }
+      task.start = Math.max(...task.deps.map(depId => {
+        const dep = taskMap[depId];
+        return resolveStart(dep) + dep.days;
+      }));
+      task._resolved = true;
+      return task.start;
+    }
+    TASKS.forEach(t => resolveStart(t));
 
-    const decisionCards = decisions.map((d, i) => {
-      const optBtns = d.options.map((opt, oi) => {
-        const btn = el('span', { className: 's4-option' }, opt);
-        optionEls.push({ el: btn, decIndex: i, optIndex: oi });
-        return btn;
-      });
+    const launchTasks = TASKS.filter(t => !t.postLaunch);
+    const postTasks = TASKS.filter(t => t.postLaunch);
+    const softLaunchDay = Math.max(...launchTasks.map(t => t.start + t.days));
+    const totalDays = Math.max(...TASKS.map(t => t.start + t.days));
 
-      return card({
+    // All pre-launch tasks are critical — if any slips, launch slips
+    const criticalSet = new Set(launchTasks.map(t => t.id));
+
+    // ── Lane ordering & colors ──
+    const LANE_ORDER = ['Customer Journey', 'Support', 'Launch Readiness', 'Legal & Compliance', 'Carrier Ops', 'Growth & GTM'];
+    const LANE_COLORS = {
+      'Customer Journey': '#7c6af0',
+      'Support': '#20b0d0',
+      'Launch Readiness': '#40c060',
+      'Legal & Compliance': '#6366f1',
+      'Carrier Ops': '#f06040',
+      'Growth & GTM': '#e8c840',
+    };
+    const POST_LANES = new Set(['Legal & Compliance', 'Carrier Ops', 'Growth & GTM']);
+
+    const TYPE_COLORS = { agent: '#34d399', human: '#fbbf24', gate: '#f87171', decision: '#f59e0b' };
+    const TYPE_LABELS = { agent: 'Agent', human: 'Human', gate: 'Gate', decision: 'Decision' };
+
+    // ── Build Gantt ──
+    const DAY_W = 56; // px per day
+    const LABEL_W = 148;
+    const gridWidth = totalDays * DAY_W;
+
+    // Tooltip element (shared)
+    const tooltipEl = el('div', { className: 's4-gantt-tooltip', style: { display: 'none' } });
+
+    // Day headers
+    const dayHeaders = el('div', { className: 's4-gantt-day-header', style: { marginLeft: LABEL_W + 'px', width: gridWidth + 'px' } });
+    for (let d = 0; d < totalDays; d++) {
+      const label = d < softLaunchDay ? 'D' + (d + 1) : (d === softLaunchDay ? '\u25b6 LIVE' : '+' + (d - softLaunchDay));
+      const color = d < softLaunchDay ? '#a3a3a3' : (d === softLaunchDay ? '#34d399' : '#404040');
+      dayHeaders.appendChild(el('span', { style: { width: DAY_W + 'px', textAlign: 'center', flexShrink: '0', color: color, fontWeight: d === softLaunchDay ? '600' : '400' } }, label));
+    }
+
+    // Day grid lines + soft launch marker
+    const gridLines = el('div', { style: { position: 'absolute', top: '0', bottom: '0', left: LABEL_W + 'px', width: gridWidth + 'px', pointerEvents: 'none' } });
+    for (let d = 0; d <= totalDays; d++) {
+      const isSoftLaunch = d === softLaunchDay;
+      gridLines.appendChild(el('div', {
         style: {
-          padding: '20px',
-          marginBottom: '16px',
-          opacity: '0',
-          animation: `s4FadeIn 0.4s ease-out ${0.2 + i * 0.15}s forwards`
+          position: 'absolute',
+          left: (d * DAY_W) + 'px',
+          top: '0',
+          bottom: '0',
+          width: isSoftLaunch ? '2px' : '1px',
+          background: isSoftLaunch ? 'rgba(52,211,153,0.4)' : 'rgba(255,255,255,0.03)',
         }
-      },
-        el('h3', { style: { color: '#fff', fontSize: '14px', fontWeight: '500', marginBottom: '4px' } }, d.title),
-        el('p', { style: { color: '#a3a3a3', fontSize: '12px', lineHeight: '1.5', marginBottom: '16px' } }, d.context),
-        el('div', { style: { display: 'flex', gap: '8px', marginBottom: '12px' } }, optBtns),
-        el('div', { style: { display: 'flex', gap: '8px' } },
-          d.absorbs.map(r => el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#404040' } }, r))
-        )
+      }));
+    }
+
+    // Build lanes
+    const lanesContainer = el('div', { style: { position: 'relative' } });
+    lanesContainer.appendChild(gridLines);
+
+    let animIdx = 0;
+    LANE_ORDER.forEach(laneName => {
+      const laneTasks = TASKS.filter(t => t.lane === laneName);
+      if (laneTasks.length === 0) return;
+
+      const isPostLane = POST_LANES.has(laneName);
+      const laneLabel = el('div', { className: 's4-gantt-lane-label', style: { opacity: '0', animation: `s4FadeIn 0.3s ease-out ${0.3 + animIdx * 0.06}s forwards` } },
+        el('span', { style: { color: LANE_COLORS[laneName] || '#525252' } }, laneName),
+        isPostLane ? el('span', { style: { fontSize: '9px', color: '#404040', marginLeft: '8px', fontStyle: 'italic', textTransform: 'none', letterSpacing: '0' } }, 'post-launch') : null
       );
+      lanesContainer.appendChild(laneLabel);
+
+      laneTasks.forEach(task => {
+        const isCritical = criticalSet.has(task.id);
+        const isPost = task.postLaunch;
+        const barClass = 's4-gantt-bar bar-' + task.type;
+        const barLeft = LABEL_W + task.start * DAY_W + 2;
+        const barWidth = Math.max(task.days * DAY_W - 4, 24);
+        const delay = 0.4 + animIdx * 0.06;
+
+        const bar = el('div', {
+          className: barClass,
+          style: {
+            left: barLeft + 'px',
+            width: '0px',
+            top: '4px',
+            opacity: '0',
+          }
+        }, task.days > 0 ? task.name : '\u25b6');
+
+        if (isPost) {
+          bar.style.opacity = '0';
+          bar.style.borderStyle = 'dashed';
+        }
+
+        // Pre-launch at full brightness, post-launch dimmed
+        const barOpacity = isPost ? '0.35' : '1';
+        setTimeout(() => {
+          bar.style.transition = 'width 0.5s ease-out, opacity 0.3s ease-out';
+          bar.style.opacity = barOpacity;
+          bar.style.width = barWidth + 'px';
+        }, delay * 1000);
+
+        // Hover tooltip
+        bar.addEventListener('mouseenter', (e) => {
+          bar.style.opacity = '1';
+          tooltipEl.style.display = 'block';
+          tooltipEl.innerHTML = '';
+          tooltipEl.appendChild(el('div', { style: { fontWeight: '500', color: '#fff', marginBottom: '4px' } }, task.name));
+          tooltipEl.appendChild(el('div', { style: { display: 'flex', gap: '12px', marginBottom: '6px' } },
+            el('span', { style: { color: TYPE_COLORS[task.type] } }, TYPE_LABELS[task.type]),
+            task.days > 0 ? el('span', { style: { color: '#525252' } }, task.days + (task.days === 1 ? ' day' : ' days')) : null,
+            isCritical ? el('span', { style: { color: '#f87171' } }, '\u25cf critical path') : null,
+            isPost ? el('span', { style: { color: '#525252', fontStyle: 'italic' } }, 'post-launch') : null
+          ));
+          tooltipEl.appendChild(el('div', { style: { color: '#a3a3a3', lineHeight: '1.4' } }, task.description));
+          if (task.deps.length > 0) {
+            tooltipEl.appendChild(el('div', { style: { color: '#404040', fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", marginTop: '6px' } },
+              'depends on: ' + task.deps.join(', ')
+            ));
+          }
+          // Position anchored to bar
+          var rect = bar.getBoundingClientRect();
+          var tx = rect.right + 8;
+          if (tx + 300 > window.innerWidth - 4) tx = rect.left - 308;
+          if (tx < 4) tx = 4;
+          tooltipEl.style.left = tx + 'px';
+          tooltipEl.style.top = (rect.top - 4) + 'px';
+        });
+        bar.addEventListener('mouseleave', () => {
+          bar.style.opacity = barOpacity;
+          tooltipEl.style.display = 'none';
+        });
+
+        const row = el('div', { className: 's4-gantt-row', style: { position: 'relative' } });
+
+        const taskLabel = el('div', {
+          style: {
+            width: LABEL_W + 'px',
+            flexShrink: '0',
+            fontSize: '11px',
+            color: isPost ? '#404040' : '#a3a3a3',
+            fontWeight: '400',
+            paddingLeft: '8px',
+            opacity: '0',
+            animation: `s4FadeInRight 0.3s ease-out ${delay}s forwards`,
+          }
+        },
+          el('span', { style: { display: 'flex', alignItems: 'center', gap: '6px' } },
+            el('span', { style: { width: '6px', height: '6px', borderRadius: '2px', background: isPost ? '#333' : TYPE_COLORS[task.type], flexShrink: '0' } }),
+            task.name
+          )
+        );
+        row.appendChild(taskLabel);
+        row.appendChild(bar);
+        lanesContainer.appendChild(row);
+        animIdx++;
+      });
     });
 
-    const gtmCard = card({
-      style: {
-        padding: '20px',
-        marginTop: '24px',
-        opacity: '0',
-        animation: 's4FadeIn 0.4s ease-out 0.6s forwards'
-      }
-    },
-      el('h3', { style: { color: '#fff', fontSize: '14px', fontWeight: '500', marginBottom: '16px' } }, 'GTM Strategy'),
-      el('div', { style: { display: 'flex', flexDirection: 'column', gap: '12px' } },
-        gtmRows.map(r =>
-          el('div', { style: { display: 'flex', alignItems: 'flex-start', gap: '12px' } },
-            el('span', { style: { width: '8px', height: '8px', borderRadius: '50%', background: r.color, flexShrink: '0', marginTop: '4px' } }),
-            el('div', null,
-              el('span', { style: { color: '#fff', fontSize: '12px', fontWeight: '500' } }, r.label),
-              el('span', { style: { color: '#525252', fontSize: '12px', marginLeft: '8px' } }, '\u2014 ' + r.desc)
-            )
-          )
-        )
+    // ── Legend ──
+    const legend = el('div', { className: 's4-gantt-legend' },
+      [
+        { color: '#34d399', label: 'Agent (engine)' },
+        { color: '#fbbf24', label: 'Human' },
+        { color: '#f87171', label: 'Gate' },
+        { color: '#404040', label: 'Post-launch', style: 'dashed' },
+      ].map(l => el('div', { className: 's4-gantt-legend-item' },
+        el('span', { className: 's4-gantt-legend-dot', style: { background: l.style === 'dashed' ? 'transparent' : l.color, border: l.style === 'dashed' ? '1px dashed ' + l.color : 'none' } }),
+        l.label
+      ))
+    );
+
+    // ── Summary stats ──
+    const agentCount = TASKS.filter(t => t.type === 'agent' && !t.postLaunch).length;
+    const humanLaunch = launchTasks.filter(t => t.type === 'human').length;
+    const gateCount = launchTasks.filter(t => t.type === 'gate').length;
+
+    const summarySection = el('div', { className: 's4-gantt-summary', style: { borderTop: 'none', marginTop: '0', paddingTop: '0', opacity: '0', animation: 's4FadeIn 0.4s ease-out 0.2s forwards' } },
+      el('div', { className: 's4-gantt-summary-stat' },
+        el('span', { style: { fontSize: '22px', fontFamily: "'JetBrains Mono', monospace", color: '#34d399' } }, agentCount + ' artifacts'),
+        el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#525252', textTransform: 'uppercase' } }, 'Agent \u2014 day 1 (parallel)')
+      ),
+      el('div', { className: 's4-gantt-summary-stat' },
+        el('span', { style: { fontSize: '22px', fontFamily: "'JetBrains Mono', monospace", color: '#fbbf24' } }, humanLaunch + ' task' + (humanLaunch > 1 ? 's' : '')),
+        el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#525252', textTransform: 'uppercase' } }, 'Human (pre-launch)')
+      ),
+      el('div', { className: 's4-gantt-summary-stat' },
+        el('span', { style: { fontSize: '22px', fontFamily: "'JetBrains Mono', monospace", color: '#f87171' } }, gateCount + ' gates'),
+        el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#525252', textTransform: 'uppercase' } }, 'Must pass')
+      ),
+      el('div', { className: 's4-gantt-summary-stat' },
+        el('span', { style: { fontSize: '22px', fontFamily: "'JetBrains Mono', monospace", color: '#fff' } }, softLaunchDay + ' days'),
+        el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#525252', textTransform: 'uppercase' } }, 'To soft launch')
+      )
+    );
+
+    // ── Critical path callout (phase-level, not individual tasks) ──
+    const cpPhases = ['Artifact Generation', 'Web & Bot Deployment', 'E2E Journey Test', 'Soft Launch'];
+
+    const cpCard = card({ style: { padding: '16px', marginBottom: '24px', borderColor: 'rgba(52,211,153,0.3)', opacity: '0', animation: 's4FadeIn 0.4s ease-out 0.3s forwards' } },
+      el('div', { style: { display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' } },
+        el('span', { style: { width: '8px', height: '8px', borderRadius: '50%', background: '#34d399' } }),
+        el('span', { style: { fontSize: '12px', fontWeight: '500', color: '#fff' } }, 'Critical Path \u2014 ' + softLaunchDay + ' days to soft launch'),
+      ),
+      el('div', { style: { display: 'flex', flexWrap: 'wrap', gap: '4px', alignItems: 'center' } },
+        cpPhases.map((name, i) => {
+          const els = [el('span', { style: { fontSize: '11px', fontFamily: "'JetBrains Mono', monospace", color: '#d4d4d4', padding: '2px 8px', background: 'rgba(52,211,153,0.1)', borderRadius: '4px' } }, name)];
+          if (i < cpPhases.length - 1) {
+            els.push(el('span', { style: { fontSize: '10px', color: '#404040', margin: '0 2px' } }, '\u2192'));
+          }
+          return els;
+        }).flat()
       )
     );
 
     const wrapper = el('div', { className: 's4-fade-in' },
-      stageHeader('03', 'Strategic Decisions'),
-      el('p', { style: { color: '#a3a3a3', fontSize: '14px', lineHeight: '1.6', marginBottom: '32px' } },
-        'Risk evidence is synthesized into 3 operator decisions. Each decision absorbs specific risks and blocks downstream artifacts until resolved.'
+      stageHeader('03', 'Launch Plan'),
+      el('p', { style: { fontSize: '14px', color: '#a3a3a3', lineHeight: '1.6', marginBottom: '24px' } },
+        'Same engine, different brand. Agents generate all brand-specific artifacts on day 1. Post-launch tasks \u2014 legal, carrier, growth \u2014 run without blocking first activation.'
       ),
-      ...decisionCards,
-      gtmCard,
-      annotation('Decisions gate artifact generation. Until \u2018Launch Strategy\u2019 is resolved, the GTM playbook and website copy remain blocked. This prevents wasted generation on a strategy the operator might reject.')
+      summarySection,
+      cpCard,
+      legend,
+      el('div', { className: 's4-gantt' },
+        dayHeaders,
+        lanesContainer,
+      ),
+      tooltipEl,
+      annotation('The engine (pipeline, infra, tooling) is shared across every brand. Everything brand-specific \u2014 artifacts, legal docs, carrier config, GTM \u2014 is generated by agents in hours. Humans handle ops over days, post-launch. Critical path compresses to ' + softLaunchDay + ' days because agent work parallelizes completely.')
     );
-
-    // Auto-select options with delays
-    decisions.forEach((d, i) => {
-      setTimeout(() => {
-        optionEls.forEach(o => {
-          if (o.decIndex === i && o.optIndex === d.selectedIndex) {
-            o.el.classList.add('selected');
-          }
-        });
-      }, d.selectDelay);
-    });
 
     return wrapper;
   }
+
 
   function buildStageGeneration() {
     const artifacts = [
