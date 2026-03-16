@@ -340,6 +340,10 @@
         0%, 100% { opacity: 0.5; }
         50% { opacity: 1; }
       }
+      @keyframes s3FadeIn {
+        from { opacity: 0; transform: translateY(8px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
 
       /* Stage panels */
       .scene3 .s3-panel {
@@ -926,11 +930,99 @@
      STAGE PANEL RENDERERS
      ═══════════════════════════════════════════ */
 
-  function renderStage0(brand) {
+  function renderStage0(brand, allBrands, onSelectBrand) {
     const panel = el('div', { className: 's3-panel' });
     panel.appendChild(stageHeader('01', 'The Input'));
-    panel.appendChild(el('p', { className: 's3-desc' }, 'Every brand begins as a persona brief — a structured prompt describing who the customer is, what they want, and how to reach them.'));
+    panel.appendChild(el('p', { className: 's3-desc' }, 'The pipeline generated 3 brand candidates from persona briefs. Select a brand to explore the full creation process.'));
 
+    // Brand selection cards
+    if (allBrands && allBrands.length > 0) {
+      const grid = el('div', { style: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+        gap: '16px',
+        marginBottom: '32px',
+      }});
+
+      allBrands.forEach((b, i) => {
+        const isActive = b.test_id === (brand && brand.test_id);
+        const vibe = (b.build_config && b.build_config._vibe) || 'default';
+        const personalityStr = (b.personality || []).join(', ');
+
+        const brandCard = el('div', {
+          className: 's3-card',
+          style: {
+            cursor: 'pointer',
+            padding: '20px',
+            border: isActive ? '1px solid rgba(16,185,129,0.4)' : '1px solid rgba(255,255,255,0.08)',
+            background: isActive ? 'rgba(16,185,129,0.06)' : 'rgba(255,255,255,0.02)',
+            transition: 'all 0.2s',
+            opacity: '0',
+            animation: `s3FadeIn 0.4s ease-out ${0.15 + i * 0.1}s forwards`,
+          }
+        });
+
+        brandCard.addEventListener('mouseenter', () => {
+          if (!isActive) brandCard.style.borderColor = 'rgba(255,255,255,0.2)';
+        });
+        brandCard.addEventListener('mouseleave', () => {
+          if (!isActive) brandCard.style.borderColor = 'rgba(255,255,255,0.08)';
+        });
+
+        const nameEl = el('div', { style: {
+          fontFamily: '"Instrument Serif", Georgia, serif',
+          fontSize: '28px',
+          color: '#fff',
+          marginBottom: '8px',
+        }}, b.brand_name || b.test_id);
+
+        const vibeEl = el('div', { style: {
+          fontSize: '10px',
+          fontFamily: "'JetBrains Mono', monospace",
+          textTransform: 'uppercase',
+          letterSpacing: '0.06em',
+          color: '#525252',
+          marginBottom: '12px',
+        }}, vibe);
+
+        const posEl = el('div', { style: {
+          fontSize: '12px',
+          color: '#a3a3a3',
+          lineHeight: '1.5',
+          marginBottom: '12px',
+        }}, b.positioning || '');
+
+        const pillWrap = el('div', { style: { display: 'flex', gap: '6px', flexWrap: 'wrap' }});
+        (b.personality || []).forEach(p => {
+          pillWrap.appendChild(el('span', { className: 's3-pill', style: { fontSize: '10px', padding: '2px 8px' } }, p));
+        });
+
+        brandCard.appendChild(nameEl);
+        brandCard.appendChild(vibeEl);
+        brandCard.appendChild(posEl);
+        brandCard.appendChild(pillWrap);
+
+        if (isActive) {
+          const selectedBadge = el('div', { style: {
+            marginTop: '12px',
+            fontSize: '10px',
+            fontFamily: "'JetBrains Mono', monospace",
+            color: '#10b981',
+          }}, '\u25b8 Currently selected');
+          brandCard.appendChild(selectedBadge);
+        }
+
+        brandCard.addEventListener('click', () => {
+          if (onSelectBrand) onSelectBrand(b.test_id);
+        });
+
+        grid.appendChild(brandCard);
+      });
+
+      panel.appendChild(grid);
+    }
+
+    // Current brand detail
     const vibe = (brand.build_config && brand.build_config._vibe) || 'default';
     const personalityStr = (brand.personality || []).join(', ');
 
@@ -1225,9 +1317,11 @@ ${personalityStr || 'N/A'}`;
           const creative = valuePropMap[vp][ht];
           const videoUrl = creative && (creative.captioned_video_url || creative.video_url);
           if (videoUrl) {
-            const video = el('video', { src: videoUrl, muted: 'true', loop: 'true', playsinline: 'true' });
-            video.addEventListener('mouseenter', () => video.play());
-            video.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
+            const video = el('video', { src: videoUrl, muted: 'true', loop: 'true', playsinline: 'true', preload: 'metadata' });
+            video.style.cursor = 'pointer';
+            video.addEventListener('click', () => {
+              if (video.paused) { video.play().catch(() => {}); } else { video.pause(); }
+            });
             cell.appendChild(video);
           } else {
             cell.appendChild(el('span', { className: 's3-ad-novideotext' }, 'No video'));
@@ -1437,7 +1531,19 @@ ${personalityStr || 'N/A'}`;
 
       const renderers = [renderStage0, renderStage1, renderStage2, renderStage3, renderStage4, renderStage5, renderStage6];
       const renderer = renderers[activeStage];
-      const panel = activeStage === 6 ? renderer(brand, creatives) : renderer(brand);
+      let panel;
+      if (activeStage === 0) {
+        panel = renderer(brand, allBrands, function(testId) {
+          if (testId !== currentTestId) {
+            currentTestId = testId;
+            loadBrand();
+          }
+        });
+      } else if (activeStage === 6) {
+        panel = renderer(brand, creatives);
+      } else {
+        panel = renderer(brand);
+      }
       mainContent.appendChild(panel);
       currentPanel = panel;
 

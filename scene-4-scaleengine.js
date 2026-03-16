@@ -9,13 +9,11 @@
      ═══════════════════════════════════════════ */
 
   const STAGES = [
-    { key: 'input',      number: '01', title: 'The Input',           subtitle: 'A persona brief enters the engine' },
-    { key: 'extraction', number: '02', title: 'Brief Extraction',    subtitle: '21 rules parse identity, audience, and plan' },
-    { key: 'risk',       number: '03', title: 'Risk Assessment',     subtitle: '10-risk framework scans for fatal blockers' },
-    { key: 'compliance', number: '04', title: 'Compliance Scan',     subtitle: 'Regulatory flags checked against value-add' },
-    { key: 'decisions',  number: '05', title: 'Strategic Decisions',  subtitle: 'Risk evidence synthesized into operator choices' },
-    { key: 'generation', number: '06', title: 'Artifact Generation', subtitle: '7 artifacts built in parallel — voice, KB, FAQ, journey' },
-    { key: 'deploy',     number: '07', title: 'Deploy',              subtitle: 'Risk clearance gate, file write, bot connect' },
+    { key: 'input',      number: '01', title: 'Input & Extraction',  subtitle: 'Persona brief parsed into deterministic schema' },
+    { key: 'risk',       number: '02', title: 'Risk & Compliance',   subtitle: 'Feasibility scan + regulatory check' },
+    { key: 'decisions',  number: '03', title: 'Strategic Decisions',  subtitle: 'Risk evidence synthesized into operator choices' },
+    { key: 'generation', number: '04', title: 'Artifact Generation', subtitle: '7 artifacts built in parallel — voice, KB, FAQ, journey' },
+    { key: 'deploy',     number: '05', title: 'Deploy',              subtitle: 'Risk clearance gate, file write, bot connect' },
   ];
 
   /* ═══════════════════════════════════════════
@@ -562,29 +560,7 @@
      ═══════════════════════════════════════════ */
 
   function buildStageInput() {
-    const wrapper = el('div', { className: 's4-fade-in' },
-      stageHeader('01', 'The Input'),
-      el('p', { style: { color: '#a3a3a3', fontSize: '14px', lineHeight: '1.6', marginBottom: '32px', maxWidth: '560px' } },
-        'Tests from Stage 3 indicate promising growth potential in the privacy-first mobile segment. The Scale Engine takes a validated persona brief and builds a full go-to-market operation \u2014 brand voice, compliance checks, and deployment artifacts \u2014 in a single automated run.'
-      ),
-      terminalCard('persona_research_specter.md',
-        el('p', { style: { color: '#fff', marginBottom: '12px' } }, '# Specter \u2014 Privacy-First Mobile'),
-        el('p', { style: { color: '#a3a3a3', marginBottom: '12px' } },
-          'Target: Privacy-conscious professionals and OPSEC enthusiasts aged 25-50 who actively manage their digital footprint. They currently suffer from invasive carrier tracking, SIM-swap attacks, and lack of encryption at the network layer.'
-        ),
-        el('p', { style: { color: '#a3a3a3', marginBottom: '12px' } },
-          'Value-add: End-to-end encrypted calls, hardware-backed SIM security, automatic VPN routing, and zero-knowledge account management with no identity verification required.'
-        ),
-        el('p', { style: { color: '#525252', marginBottom: '8px' } }, 'Tone: Dark, nocturnal, technical.'),
-        el('p', { style: { color: '#525252', marginBottom: '8px' } }, 'Price point: $55/month premium positioning.'),
-        el('p', { style: { color: '#525252' } }, 'Carrier: AT&T via ConnectX infrastructure.')
-      ),
-      annotation('A validated persona brief from the Brand Creation pipeline enters the engine. Every subsequent decision \u2014 risk assessment, compliance, pricing, brand voice \u2014 cascades from this single input.')
-    );
-    return wrapper;
-  }
-
-  function buildStageExtraction() {
+    // Combined Input + Brief Extraction
     const fields = [
       { key: 'slug', value: 'specter' },
       { key: 'assistant_name', value: 'Specter' },
@@ -660,17 +636,34 @@
       )
     );
 
-    return el('div', { className: 's4-fade-in' },
-      stageHeader('02', 'Brief Extraction'),
-      el('div', { style: { textAlign: 'center', marginBottom: '40px' } }, brandName, tagline),
+    const wrapper = el('div', { className: 's4-fade-in' },
+      stageHeader('01', 'Input & Extraction'),
+      el('p', { style: { color: '#a3a3a3', fontSize: '14px', lineHeight: '1.6', marginBottom: '32px', maxWidth: '560px' } },
+        'A validated persona brief from Brand Testing enters the engine. 21 extraction rules parse it into a deterministic schema \u2014 every downstream decision cascades from this single input.'
+      ),
+      terminalCard('persona_research_specter.md',
+        el('p', { style: { color: '#fff', marginBottom: '12px' } }, '# Specter \u2014 Privacy-First Mobile'),
+        el('p', { style: { color: '#a3a3a3', marginBottom: '12px' } },
+          'Target: Privacy-conscious professionals and OPSEC enthusiasts aged 25-50 who actively manage their digital footprint. They currently suffer from invasive carrier tracking, SIM-swap attacks, and lack of encryption at the network layer.'
+        ),
+        el('p', { style: { color: '#a3a3a3', marginBottom: '12px' } },
+          'Value-add: End-to-end encrypted calls, hardware-backed SIM security, automatic VPN routing, and zero-knowledge account management with no identity verification required.'
+        ),
+        el('p', { style: { color: '#525252', marginBottom: '8px' } }, 'Tone: Dark, nocturnal, technical.'),
+        el('p', { style: { color: '#525252', marginBottom: '8px' } }, 'Price point: $55/month premium positioning.'),
+        el('p', { style: { color: '#525252' } }, 'Carrier: AT&T via ConnectX infrastructure.')
+      ),
+      el('div', { style: { textAlign: 'center', margin: '32px 0 40px' } }, brandName, tagline),
       fieldsCard,
       traitContainer,
       classCard,
       annotation('21 extraction rules coerce LLM output into a deterministic BrandBrief schema. Field normalization handles common mismatches \u2014 name\u2192brand_name, price\u2192plan_price.')
     );
+    return wrapper;
   }
 
   function buildStageRisk() {
+    // Combined Risk Assessment + Compliance Scan
     const risks = [
       { name: 'Value Risk', status: 'PASS', detail: 'Clear problem-solution fit for privacy/surveillance pain point', type: 'auto-evaluated' },
       { name: 'Feasibility Risk', status: 'PASS', detail: 'ConnectX eSIM + VPN routing technically validated', type: 'auto-evaluated' },
@@ -713,38 +706,8 @@
       el('p', { style: { fontSize: '12px', color: '#a3a3a3' } }, 'No fatal blockers \u2014 deployment eligible pending operator review')
     );
 
-    const tierDelay = summaryDelay + 0.08;
-    const tierCard = card({ style: { padding: '16px', marginBottom: '24px', opacity: '0', animation: `s4FadeIn 0.4s ease-out ${tierDelay}s forwards` } },
-      el('p', { className: 's4-label', style: { marginBottom: '12px', color: '#404040' } }, 'Risk tiers'),
-      el('div', { style: { display: 'flex', flexDirection: 'column', gap: '8px' } },
-        [
-          { color: '#f87171', label: 'Fatal', desc: 'Blocks deployment. Must be resolved.' },
-          { color: '#fbbf24', label: 'Should Resolve', desc: 'Needs operator approval to proceed.' },
-          { color: '#34d399', label: 'Learnable', desc: 'Monitored post-launch.' },
-        ].map(t =>
-          el('div', { style: { display: 'flex', alignItems: 'center', gap: '12px' } },
-            el('span', { style: { width: '8px', height: '8px', borderRadius: '50%', background: t.color, flexShrink: '0' } }),
-            el('span', { style: { fontSize: '12px', color: '#d4d4d4', fontWeight: '500', width: '112px', flexShrink: '0' } }, t.label),
-            el('span', { style: { fontSize: '12px', color: '#525252' } }, t.desc)
-          )
-        )
-      )
-    );
-
-    return el('div', { className: 's4-fade-in' },
-      stageHeader('03', 'Risk Assessment'),
-      el('p', { style: { fontSize: '14px', color: '#a3a3a3', lineHeight: '1.6', marginBottom: '24px' } },
-        'The engine runs a 10-risk feasibility scan. Auto-evaluated risks use keyword and price analysis. Writer-provided gaps flag missing context.'
-      ),
-      el('div', { className: 's4-grid-2', style: { marginBottom: '24px' } }, riskCards),
-      summaryCard,
-      tierCard,
-      annotation('Auto-evaluated risks use keyword scanning and price analysis. Writer-provided gaps flag missing context from the brief. Each risk routes to a specific stakeholder for escalation.')
-    );
-  }
-
-  function buildStageCompliance() {
-    const items = [
+    // Compliance section
+    const complianceItems = [
       { label: 'TCPA', desc: 'N/A \u2014 no telemarketing component' },
       { label: 'Medical Claims', desc: 'N/A \u2014 no health advice' },
       { label: 'Financial Services', desc: 'N/A \u2014 no payment or lending features' },
@@ -752,18 +715,13 @@
       { label: 'Data Retention', desc: 'Zero-knowledge architecture \u2014 no PII stored' },
     ];
 
-    // Big CLEAR result
-    const clearCard = card({ style: { padding: '32px', display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '24px', opacity: '0', animation: 's4FadeIn 0.4s ease-out 0.15s forwards' } },
-      svgEl(`<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="24" cy="24" r="24" fill="rgba(52,211,153,0.1)"/>
-        <path d="M15 24.5L21 30.5L33 18.5" stroke="#34d399" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>`),
-      el('span', { style: { fontSize: '24px', fontFamily: "'JetBrains Mono', monospace", color: '#34d399', marginTop: '16px', marginBottom: '4px' } }, 'CLEAR'),
-      el('span', { style: { fontSize: '14px', color: '#a3a3a3' } }, 'No regulatory flags detected')
+    const complianceDelay = summaryDelay + 0.15;
+    const complianceHeader = el('div', { style: { display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px', opacity: '0', animation: `s4FadeIn 0.4s ease-out ${complianceDelay}s forwards` } },
+      el('span', { style: { fontSize: '14px', fontWeight: '500', color: '#fff' } }, 'Compliance Scan'),
+      el('span', { style: { fontSize: '12px', fontFamily: "'JetBrains Mono', monospace", padding: '2px 8px', borderRadius: '4px', background: 'rgba(52,211,153,0.15)', color: '#34d399' } }, 'CLEAR')
     );
 
-    // Checklist
-    const checklistEls = items.map((item, i) =>
+    const checklistEls = complianceItems.map((item, i) =>
       el('div', {
         className: 's4-card',
         style: {
@@ -773,7 +731,7 @@
           padding: '10px 16px',
           marginBottom: '8px',
           opacity: '0',
-          animation: `s4FadeIn 0.3s ease-out ${0.2 + i * 0.08}s forwards`
+          animation: `s4FadeIn 0.3s ease-out ${complianceDelay + 0.05 + i * 0.06}s forwards`
         }
       },
         el('span', { style: { width: '8px', height: '8px', borderRadius: '50%', background: '#34d399', flexShrink: '0' } }),
@@ -787,7 +745,8 @@
       el('div', { className: 's4-confidence-fill' })
     );
 
-    const expertCard = card({ style: { padding: '20px', marginBottom: '24px', opacity: '0', animation: 's4FadeIn 0.4s ease-out 0.4s forwards' } },
+    const expertDelay = complianceDelay + 0.4;
+    const expertCard = card({ style: { padding: '20px', marginBottom: '24px', opacity: '0', animation: `s4FadeIn 0.4s ease-out ${expertDelay}s forwards` } },
       el('p', { className: 's4-label', style: { marginBottom: '16px', color: '#404040' } }, 'Expert Assessment'),
       el('div', { style: { marginBottom: '16px' } },
         el('div', { style: { display: 'flex', justifyContent: 'space-between', marginBottom: '8px' } },
@@ -813,14 +772,16 @@
     );
 
     const wrapper = el('div', { className: 's4-fade-in' },
-      stageHeader('04', 'Compliance Scan'),
+      stageHeader('02', 'Risk & Compliance'),
       el('p', { style: { fontSize: '14px', color: '#a3a3a3', lineHeight: '1.6', marginBottom: '24px' } },
-        'The compliance agent checks the value-add service against regulatory frameworks. Privacy tools use standard encryption \u2014 no export control or novel cryptography flags.'
+        'The engine runs a feasibility scan across 7 risk dimensions, then checks regulatory compliance. Auto-evaluated risks use keyword and price analysis.'
       ),
-      clearCard,
-      el('div', { style: { marginBottom: '32px' } }, checklistEls),
+      el('div', { className: 's4-grid-2', style: { marginBottom: '24px' } }, riskCards),
+      summaryCard,
+      complianceHeader,
+      el('div', { style: { marginBottom: '24px' } }, checklistEls),
       expertCard,
-      annotation('Compliance is binary \u2014 clear or flagged. The expert assessment adds a quality gate: structural completeness and LLM-evaluated differentiation strength. Confidence 0.87 exceeds the 0.70 threshold for deployment eligibility.')
+      annotation('Risk assessment and compliance run as a single gate. No fatal blockers and no regulatory flags \u2014 deployment eligible. Confidence 0.87 exceeds the 0.70 threshold.')
     );
 
     // Animate confidence bar after render
@@ -917,7 +878,7 @@
     );
 
     const wrapper = el('div', { className: 's4-fade-in' },
-      stageHeader('05', 'Strategic Decisions'),
+      stageHeader('03', 'Strategic Decisions'),
       el('p', { style: { color: '#a3a3a3', fontSize: '14px', lineHeight: '1.6', marginBottom: '32px' } },
         'Risk evidence is synthesized into 3 operator decisions. Each decision absorbs specific risks and blocks downstream artifacts until resolved.'
       ),
@@ -1002,7 +963,7 @@
     );
 
     const wrapper = el('div', { className: 's4-fade-in' },
-      stageHeader('06', 'Artifact Generation'),
+      stageHeader('04', 'Artifact Generation'),
       el('p', { style: { color: '#a3a3a3', fontSize: '14px', lineHeight: '1.6', marginBottom: '32px' } },
         'With decisions resolved, the engine parallelizes 7 artifact generation tasks. Each artifact is purpose-built from the brief, brand voice, and strategic context.'
       ),
@@ -1202,7 +1163,7 @@
     closingSection.appendChild(closingInner);
 
     const wrapper = el('div', { className: 's4-fade-in' },
-      stageHeader('07', 'Deploy'),
+      stageHeader('05', 'Deploy'),
       checklistContainer,
       liveSection,
       closingSection,
@@ -1249,9 +1210,7 @@
 
   const STAGE_BUILDERS = [
     buildStageInput,
-    buildStageExtraction,
     buildStageRisk,
-    buildStageCompliance,
     buildStageDecisions,
     buildStageGeneration,
     buildStageDeploy,

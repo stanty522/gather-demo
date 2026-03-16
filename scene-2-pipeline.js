@@ -404,6 +404,76 @@
 .scene2 .agent-badge.partner { background: rgba(240,194,122,0.12); color: #f0c27a; }
 .scene2 .agent-badge.trigger { background: rgba(240,194,122,0.12); color: #f0c27a; }
 
+/* Pipeline Summary */
+.scene2 .pipeline-summary {
+  margin-top: 24px;
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid rgba(16,185,129,0.2);
+  background: rgba(16,185,129,0.04);
+  animation: scene2FadeIn 0.5s forwards;
+}
+.scene2 .summary-header {
+  font-family: 'Instrument Serif', serif;
+  font-size: 20px;
+  color: #e2e2f0;
+  margin-bottom: 20px;
+}
+.scene2 .summary-grid {
+  display: flex;
+  align-items: stretch;
+  gap: 16px;
+}
+.scene2 .summary-card {
+  flex: 1;
+  padding: 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+}
+.scene2 .summary-card.gather { border-color: rgba(16,185,129,0.25); }
+.scene2 .summary-card.human { border-color: rgba(255,255,255,0.08); }
+.scene2 .summary-card-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #666;
+  margin-bottom: 12px;
+}
+.scene2 .summary-stat-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.scene2 .summary-stat {
+  font-size: 11px;
+  color: #999;
+}
+.scene2 .summary-stat-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px;
+  font-weight: 500;
+  color: #fff;
+  margin-right: 4px;
+}
+.scene2 .summary-card.gather .summary-stat-value { color: #10b981; }
+.scene2 .summary-card.human .summary-stat-value { color: #f0c27a; }
+.scene2 .summary-detail {
+  font-size: 11px;
+  color: #666;
+  line-height: 1.5;
+}
+.scene2 .summary-vs {
+  display: flex;
+  align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #404040;
+  padding: 0 4px;
+}
+
 /* ── Demo 2 ── */
 .scene2 .split-view {
   display: grid;
@@ -1003,6 +1073,35 @@
 
     addLogLine(outputPanel, 'shared', 'Pipeline complete.');
     addActivity(actFeed, elapsed(), 'All deliverables packaged and ready');
+
+    // Show completion summary with human-effort comparison
+    const summaryDiv = el('div', 'pipeline-summary');
+    summaryDiv.innerHTML = `
+      <div class="summary-header">Pipeline Complete</div>
+      <div class="summary-grid">
+        <div class="summary-card gather">
+          <div class="summary-card-label">Gather AI Pipeline</div>
+          <div class="summary-stat-row">
+            <span class="summary-stat"><span class="summary-stat-value">18</span> AI agents</span>
+            <span class="summary-stat"><span class="summary-stat-value">14</span> hours</span>
+            <span class="summary-stat"><span class="summary-stat-value">~$850</span> compute</span>
+          </div>
+          <div class="summary-detail">3 parallel pipelines, 28 personas analyzed, 22 trigger events qualified, survey designed + analyzed, briefs generated</div>
+        </div>
+        <div class="summary-vs">vs</div>
+        <div class="summary-card human">
+          <div class="summary-card-label">Traditional Process</div>
+          <div class="summary-stat-row">
+            <span class="summary-stat"><span class="summary-stat-value">12</span> people</span>
+            <span class="summary-stat"><span class="summary-stat-value">4\u20136</span> months</span>
+            <span class="summary-stat"><span class="summary-stat-value">~$2.4M</span> fully loaded</span>
+          </div>
+          <div class="summary-detail">Brand strategists, ethnographers, survey designers, data analysts, copywriters, project managers \u2014 typical CPG launch research cycle</div>
+        </div>
+      </div>
+    `;
+    outputPanel.appendChild(summaryDiv);
+    outputPanel.scrollTop = outputPanel.scrollHeight;
   }
 
   async function runLaneSequential(items, outputPanel, actFeed, elapsed, signal) {

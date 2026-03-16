@@ -358,6 +358,17 @@
         transition: background 0.3s;
       }
       .scene5 .s5-carousel-dot.active { background: #999; }
+      .scene5 .s5-carousel-nav {
+        position: absolute; top: 50%; transform: translateY(-50%);
+        width: 28px; height: 28px; border-radius: 50%;
+        background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.15);
+        color: #fff; display: flex; align-items: center; justify-content: center;
+        cursor: pointer; z-index: 2; opacity: 0; transition: opacity 0.2s;
+      }
+      .scene5 .s5-carousel-wrap:hover .s5-carousel-nav { opacity: 1; }
+      .scene5 .s5-carousel-nav:hover { background: rgba(0,0,0,0.8); }
+      .scene5 .s5-carousel-prev { left: 8px; }
+      .scene5 .s5-carousel-next { right: 8px; }
 
       /* Charts */
       .scene5 .s5-chart-section { margin-bottom: 32px; }
@@ -650,9 +661,13 @@
       vid.muted = true;
       vid.loop = true;
       vid.playsInline = true;
-      vid.autoplay = (i === 0);
+      vid.preload = 'metadata';
       vid.setAttribute('playsinline', '');
-      if (i === 0) vid.play().catch(() => {});
+      // Click to play/pause
+      vid.addEventListener('click', () => {
+        if (vid.paused) { vid.play().catch(() => {}); } else { vid.pause(); }
+      });
+      vid.style.cursor = 'pointer';
       wrap.appendChild(vid);
       return vid;
     });
@@ -660,23 +675,36 @@
     const dotsWrap = el('div', { className: 's5-carousel-dots' });
     const dots = videos.map((_, i) => {
       const d = el('div', { className: 's5-carousel-dot' + (i === 0 ? ' active' : '') });
+      d.style.cursor = 'pointer';
+      d.addEventListener('click', () => goTo(i));
       dotsWrap.appendChild(d);
       return d;
     });
 
     let current = 0;
-    const interval = setInterval(() => {
+    function goTo(idx) {
+      if (idx === current) return;
       vids[current].classList.remove('active');
       vids[current].pause();
       dots[current].classList.remove('active');
-      current = (current + 1) % videos.length;
+      current = idx;
       vids[current].classList.add('active');
       vids[current].currentTime = 0;
-      vids[current].play().catch(() => {});
       dots[current].classList.add('active');
       labelEl.textContent = labels[current] || '';
-    }, 4000);
-    registerCleanup(() => clearInterval(interval));
+    }
+
+    // Nav arrows
+    const prevBtn = el('button', { className: 's5-carousel-nav s5-carousel-prev' });
+    prevBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>';
+    prevBtn.addEventListener('click', () => goTo((current - 1 + videos.length) % videos.length));
+
+    const nextBtn = el('button', { className: 's5-carousel-nav s5-carousel-next' });
+    nextBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4L10 8L6 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>';
+    nextBtn.addEventListener('click', () => goTo((current + 1) % videos.length));
+
+    wrap.appendChild(prevBtn);
+    wrap.appendChild(nextBtn);
 
     const outer = el('div');
     outer.appendChild(wrap);
@@ -1006,7 +1034,12 @@
       vid.muted = true;
       vid.loop = true;
       vid.playsInline = true;
+      vid.preload = 'metadata';
       vid.setAttribute('playsinline', '');
+      vid.style.cursor = 'pointer';
+      vid.addEventListener('click', () => {
+        if (vid.paused) { vid.play().catch(() => {}); } else { vid.pause(); }
+      });
       card.appendChild(vid);
       const labelDiv = html('div', { className: 's5-diffusion-label' }, newLabels[i] + '<span class="s5-new-badge">new</span>');
       card.appendChild(labelDiv);
@@ -1014,10 +1047,9 @@
       diffVids.push(vid);
     });
 
-    // Viewport-triggered stagger reveal
+    // Viewport-triggered stagger reveal (no autoplay — user clicks to play)
     onViewport(diffGrid, () => {
       diffVids.forEach((vid, i) => {
-        vid.play().catch(() => {});
         const delay = 600 + i * 1500;
         const timer = setTimeout(() => { vid.classList.add('revealed'); }, delay);
         registerCleanup(() => clearTimeout(timer));
