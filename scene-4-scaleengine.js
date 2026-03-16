@@ -9,11 +9,11 @@
      ═══════════════════════════════════════════ */
 
   const STAGES = [
-    { key: 'input',      number: '01', title: 'Input & Extraction',  subtitle: 'Persona brief parsed into deterministic schema' },
-    { key: 'risk',       number: '02', title: 'Risk & Compliance',   subtitle: 'Feasibility scan + regulatory check' },
-    { key: 'decisions',  number: '03', title: 'Strategic Decisions',  subtitle: 'Risk evidence synthesized into operator choices' },
-    { key: 'generation', number: '04', title: 'Artifact Generation', subtitle: '7 artifacts built in parallel — voice, KB, FAQ, journey' },
-    { key: 'deploy',     number: '05', title: 'Deploy',              subtitle: 'Risk clearance gate, file write, bot connect' },
+    { key: 'input',      number: '01', title: 'Input & Extraction',   subtitle: 'Persona brief parsed into deterministic schema' },
+    { key: 'risk',       number: '02', title: 'Launch Risk & Strategy', subtitle: 'Risk scan + the one decision FDT left open' },
+    { key: 'plan',       number: '03', title: 'Launch Plan',          subtitle: 'Critical path — agent tasks, human tasks, gates' },
+    { key: 'generation', number: '04', title: 'Artifact Review',      subtitle: '9 artifacts generated — human checkpoint before deploy' },
+    { key: 'deploy',     number: '05', title: 'Deploy',               subtitle: 'Risk clearance gate, file write, bot connect' },
   ];
 
   /* ═══════════════════════════════════════════
@@ -473,6 +473,124 @@
         border-top: 1px solid #525252;
         border-radius: 50%;
         animation: s4Spin 0.6s linear infinite;
+      }
+
+      /* ── Gantt Timeline ── */
+      .scene4 .s4-gantt {
+        position: relative;
+        overflow-x: auto;
+        margin-bottom: 24px;
+      }
+      .scene4 .s4-gantt-lane-label {
+        font-size: 10px;
+        font-family: 'JetBrains Mono', monospace;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #525252;
+        padding: 6px 0 4px;
+        border-bottom: 1px solid rgba(38,38,38,0.5);
+        margin-bottom: 4px;
+      }
+      .scene4 .s4-gantt-row {
+        position: relative;
+        height: 28px;
+        display: flex;
+        align-items: center;
+      }
+      .scene4 .s4-gantt-bar {
+        position: absolute;
+        height: 20px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        padding: 0 8px;
+        font-size: 10px;
+        font-family: 'JetBrains Mono', monospace;
+        white-space: nowrap;
+        overflow: hidden;
+        cursor: pointer;
+        transition: filter 0.15s, transform 0.15s;
+      }
+      .scene4 .s4-gantt-bar:hover {
+        filter: brightness(1.3);
+        transform: scaleY(1.15);
+        z-index: 5;
+      }
+      .scene4 .s4-gantt-bar.bar-agent {
+        background: rgba(52,211,153,0.25);
+        border: 1px solid rgba(52,211,153,0.5);
+        color: #34d399;
+      }
+      .scene4 .s4-gantt-bar.bar-human {
+        background: rgba(251,191,36,0.15);
+        border: 1px solid rgba(251,191,36,0.4);
+        color: #fbbf24;
+      }
+      .scene4 .s4-gantt-bar.bar-gate {
+        background: rgba(248,113,113,0.15);
+        border: 1px solid rgba(248,113,113,0.4);
+        color: #f87171;
+      }
+      .scene4 .s4-gantt-bar.bar-decision {
+        background: rgba(245,158,11,0.15);
+        border: 1px solid rgba(245,158,11,0.4);
+        color: #f59e0b;
+      }
+      .scene4 .s4-gantt-bar.on-critical-path {
+        box-shadow: 0 0 10px rgba(52,211,153,0.35);
+        border-color: rgba(52,211,153,0.8);
+      }
+      .scene4 .s4-gantt-tooltip {
+        position: fixed;
+        z-index: 9999;
+        pointer-events: none;
+        padding: 12px 16px;
+        background: rgba(23,23,23,0.95);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 10px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+        backdrop-filter: blur(8px);
+        font-size: 12px;
+        min-width: 240px;
+        max-width: 380px;
+        white-space: normal;
+      }
+      .scene4 .s4-gantt-legend {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+      .scene4 .s4-gantt-legend-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 10px;
+        font-family: 'JetBrains Mono', monospace;
+        color: #525252;
+      }
+      .scene4 .s4-gantt-legend-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 2px;
+      }
+      .scene4 .s4-gantt-day-header {
+        display: flex;
+        font-size: 9px;
+        font-family: 'JetBrains Mono', monospace;
+        color: #404040;
+        margin-bottom: 4px;
+      }
+      .scene4 .s4-gantt-summary {
+        display: flex;
+        gap: 24px;
+        padding: 16px 0;
+        border-top: 1px solid rgba(38,38,38,0.5);
+        margin-top: 16px;
+      }
+      .scene4 .s4-gantt-summary-stat {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
       }
     `;
     document.head.appendChild(style);
