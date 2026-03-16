@@ -1249,113 +1249,217 @@
 
   function buildStageGeneration() {
     const artifacts = [
-      { name: 'Brand Voice', filename: 'brand.md', duration: 2500, description: 'Personality, tone, conversation starters' },
-      { name: 'Product KB', filename: 'product.md', duration: 3000, description: 'Features, troubleshooting, use cases' },
-      { name: 'FAQ', filename: 'faq.md', duration: 2000, description: 'Objection matrices, audience-specific Q&A' },
-      { name: 'Journey Config', filename: 'journey-config.yaml', duration: 3500, description: 'Bot copy, onboarding steps, escalation rules' },
-      { name: 'Website', filename: 'page-spec.json', duration: 4000, description: 'Landing page, pricing, design system' },
-      { name: 'Unit Economics', filename: 'economics.json', duration: 2800, description: 'CAC, LTV, margin analysis' },
-      { name: 'Plan Spec', filename: 'plan-spec.json', duration: 3200, description: 'ConnectX config, data limits, FUP' },
+      { name: 'Website & Landing', filename: 'page-spec.json', description: 'Landing page fork, pricing page, design system',
+        preview: '{\n  "brand": "Specter",\n  "pages": {\n    "landing": {\n      "hero": "Network-layer invisibility.",\n      "cta": "Get Specter",\n      "pricing": "$49/mo"\n    },\n    "design_system": {\n      "palette": "dark-cyber",\n      "font": "JetBrains Mono"\n    }\n  }\n}' },
+      { name: 'Journey Config', filename: 'journey-config.yaml', description: 'Onboarding steps, escalation rules, bot copy',
+        preview: 'onboarding:\n  steps:\n    - verify_email\n    - select_plan\n    - install_esim\n    - activate\n\nescalation:\n  timeout: 120s\n  fallback: human_agent\n\nbot_copy:\n  greeting: "Welcome to Specter."\n  tone: technical, direct' },
+      { name: 'FAQ & Objections', filename: 'faq.md', description: 'Objection matrix, audience-specific Q&A',
+        preview: '# FAQ \u2014 Specter\n\n## Is this actually private?\nSpecter runs on zero-knowledge infrastructure.\nNo logs. No metadata retention. Verified by\nthird-party audit.\n\n## Why not just use a VPN?\nVPNs encrypt traffic. Specter makes your\ndevice invisible at the network layer.' },
+      { name: 'Plan Config', filename: 'plan-spec.json', description: 'eSIM config, data limits, pricing, Stripe + payment wiring',
+        preview: '{\n  "plan": "specter-core",\n  "price_cents": 4900,\n  "currency": "usd",\n  "data_limit_gb": "unlimited",\n  "fup_threshold_gb": 50,\n  "esim_provider": "connectx",\n  "stripe_product": "prod_specter_core"\n}' },
+      { name: 'Legal Docs', filename: 'legal.md', description: 'ToS, privacy policy, compliance scan',
+        preview: '# Terms of Service \u2014 Specter\n\nEffective: Launch date\n\n## Data Collection\nSpecter collects no personally identifiable\ninformation beyond what is required for\nbilling and eSIM provisioning.\n\n## Privacy Policy\nZero-knowledge architecture. No session logs.' },
+      { name: 'Brand Voice', filename: 'brand.md', description: 'Personality, tone, conversation starters',
+        preview: '# Specter \u2014 retro-cyber\n\n## Positioning\nFor OPSEC practitioners, Specter is the\nMVNO architected for network-layer\ninvisibility.\n\n## Personality\nTechnical, Transparent, Uncompromising' },
+      { name: 'Product KB', filename: 'product.md', description: 'Features, troubleshooting, use cases',
+        preview: '# Product Knowledge Base\n\n## Core Features\n- eSIM-only activation (no physical SIM)\n- Zero-knowledge network architecture\n- No metadata retention\n- Encrypted DNS by default\n\n## Troubleshooting\n### eSIM not activating?\n1. Check device compatibility\n2. Restart device after install' },
+      { name: 'Bot Deploy', filename: 'bot-config.yaml', description: 'Telegram webhook, escalation config, go live',
+        preview: 'bot:\n  platform: telegram\n  handle: "@SpecterBot"\n  webhook: /api/webhook/specter\n\nescalation:\n  provider: sunshine\n  timeout: 120s\n  sync_history: true\n\nstatus: ready' },
+      { name: 'Unit Economics', filename: 'economics.json', description: 'CAC, LTV, margin model',
+        preview: '{\n  "price_monthly": 49,\n  "cogs_monthly": 18.50,\n  "gross_margin": 0.622,\n  "estimated_cac": 32,\n  "ltv_12mo": 366,\n  "ltv_cac_ratio": 11.4,\n  "payback_months": 0.65\n}' },
     ];
 
-    const staggerOffset = 200;
-    const progressFills = [];
-    const statusLabels = [];
-    const checkIcons = [];
-    let completionArea;
+    const rows = [];
+    const statusEls = [];
+    const checkEls = [];
+    const previewEls = [];
+    let summaryEl;
+    let activePreview = null;
 
-    const artifactCards = artifacts.map((a, i) => {
-      const fill = el('div', { className: 's4-progress-fill', style: { width: '0%' } });
-      progressFills.push(fill);
+    artifacts.forEach((a, i) => {
+      const statusBadge = el('span', {
+        style: {
+          fontSize: '10px',
+          fontFamily: "'JetBrains Mono', monospace",
+          padding: '2px 8px',
+          borderRadius: '4px',
+          background: 'rgba(52,211,153,0.1)',
+          color: '#34d399',
+          transition: 'all 0.3s ease-out',
+        }
+      }, 'generated');
+      statusEls.push(statusBadge);
 
-      const statusLabel = el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#404040' } }, 'generating...');
-      statusLabels.push(statusLabel);
+      const checkEl = el('span', { style: { display: 'none', marginLeft: '8px' } });
+      checkEl.appendChild(makeCheckSvg(12, '#34d399'));
+      checkEls.push(checkEl);
 
-      const checkIcon = el('span', { style: { display: 'none' } });
-      checkIcon.appendChild(makeCheckSvg(14, '#34d399'));
-      checkIcons.push(checkIcon);
-
-      const isLast = i === artifacts.length - 1 && artifacts.length % 2 !== 0;
-      const cardStyle = {
-        padding: '16px',
-        opacity: '0',
-        animation: `s4FadeIn 0.3s ease-out ${0.15 + i * 0.05}s forwards`,
-      };
-      if (isLast) {
-        cardStyle.gridColumn = '1 / -1';
-        cardStyle.maxWidth = '50%';
-        cardStyle.margin = '0 auto';
-      }
-
-      return card({ style: cardStyle },
-        el('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' } },
-          el('span', { style: { fontSize: '14px', fontWeight: '500', color: '#fff' } }, a.name),
-          el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#404040' } }, a.filename)
+      // Terminal-style preview pane
+      const previewPane = el('div', {
+        style: {
+          display: 'none',
+          margin: '0 16px 8px 16px',
+          borderRadius: '8px',
+          overflow: 'hidden',
+          border: '1px solid rgba(255,255,255,0.06)',
+          background: '#0c0a14',
+        }
+      },
+        // Title bar with traffic lights
+        el('div', {
+          style: {
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
+            padding: '8px 12px',
+            background: 'rgba(255,255,255,0.03)',
+            borderBottom: '1px solid rgba(255,255,255,0.04)',
+          }
+        },
+          el('span', { style: { width: '8px', height: '8px', borderRadius: '50%', background: '#ff5f57' } }),
+          el('span', { style: { width: '8px', height: '8px', borderRadius: '50%', background: '#febc2e' } }),
+          el('span', { style: { width: '8px', height: '8px', borderRadius: '50%', background: '#28c840' } }),
+          el('span', { style: { fontSize: '11px', fontFamily: "'JetBrains Mono', monospace", color: '#525252', marginLeft: '8px' } }, a.filename)
         ),
-        el('p', { style: { fontSize: '11px', color: '#525252', marginBottom: '12px' } }, a.description),
-        el('div', { className: 's4-progress-track' }, fill),
-        el('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '8px' } },
-          statusLabel,
-          checkIcon
+        // File content
+        el('pre', {
+          style: {
+            margin: '0',
+            padding: '16px',
+            fontSize: '12px',
+            fontFamily: "'JetBrains Mono', monospace",
+            color: '#a3a3a3',
+            lineHeight: '1.6',
+            whiteSpace: 'pre-wrap',
+            maxHeight: '200px',
+            overflow: 'hidden',
+          }
+        }, a.preview)
+      );
+      previewEls.push(previewPane);
+
+      const rowHeader = el('div', {
+        style: {
+          display: 'flex',
+          alignItems: 'center',
+          padding: '10px 16px',
+          cursor: 'pointer',
+          transition: 'background 0.2s ease-out',
+          opacity: '0',
+          animation: 's4FadeInRight 0.3s ease-out ' + (0.1 + i * 0.06) + 's forwards',
+        }
+      },
+        // Status indicator dot
+        el('span', { style: { width: '6px', height: '6px', borderRadius: '50%', background: '#34d399', flexShrink: '0', marginRight: '12px' } }),
+        // Name + filename
+        el('div', { style: { flex: '1', minWidth: '0' } },
+          el('div', { style: { display: 'flex', alignItems: 'baseline', gap: '8px' } },
+            el('span', { style: { fontSize: '13px', fontWeight: '500', color: '#e5e5e5' } }, a.name),
+            el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#404040' } }, a.filename)
+          ),
+          el('div', { style: { fontSize: '11px', color: '#525252', marginTop: '2px' } }, a.description)
+        ),
+        // Status badge + check
+        el('div', { style: { display: 'flex', alignItems: 'center', flexShrink: '0', marginLeft: '16px' } },
+          statusBadge,
+          checkEl
         )
       );
+
+      rowHeader.addEventListener('mouseenter', () => { rowHeader.style.background = 'rgba(255,255,255,0.02)'; });
+      rowHeader.addEventListener('mouseleave', () => { rowHeader.style.background = ''; });
+      rowHeader.addEventListener('click', () => {
+        if (activePreview === previewPane) {
+          previewPane.style.display = 'none';
+          activePreview = null;
+        } else {
+          if (activePreview) activePreview.style.display = 'none';
+          previewPane.style.display = '';
+          activePreview = previewPane;
+        }
+      });
+
+      const rowContainer = el('div', {
+        style: { borderBottom: '1px solid rgba(255,255,255,0.04)' }
+      }, rowHeader, previewPane);
+
+      rows.push(rowContainer);
     });
 
-    completionArea = el('div', { style: { textAlign: 'center', marginBottom: '32px', display: 'none' } },
-      el('p', { style: { color: '#fff', fontSize: '14px', fontWeight: '500', marginBottom: '8px' } }, '7/7 artifacts ready'),
-      el('div', { style: { display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '8px' } },
-        artifacts.map(a => el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#404040' } }, a.filename))
+    const listContainer = card({ style: { padding: '0', overflow: 'hidden' } },
+      // Header row
+      el('div', {
+        style: {
+          display: 'flex',
+          justifyContent: 'space-between',
+          padding: '12px 16px',
+          borderBottom: '1px solid rgba(255,255,255,0.06)',
+          fontSize: '10px',
+          fontFamily: "'JetBrains Mono', monospace",
+          color: '#525252',
+          textTransform: 'uppercase',
+          letterSpacing: '0.05em',
+        }
+      },
+        el('span', null, 'Artifact'),
+        el('span', null, 'Status')
+      ),
+      ...rows
+    );
+
+    summaryEl = el('div', {
+      style: {
+        display: 'none',
+        textAlign: 'center',
+        padding: '16px',
+        marginTop: '16px',
+        borderRadius: '8px',
+        border: '1px solid rgba(52,211,153,0.2)',
+        background: 'rgba(52,211,153,0.05)',
+      }
+    },
+      el('span', { style: { fontSize: '13px', fontFamily: "'JetBrains Mono', monospace", color: '#34d399' } },
+        artifacts.length + '/' + artifacts.length + ' reviewed \u2014 ready to deploy'
       )
     );
 
     const wrapper = el('div', { className: 's4-fade-in' },
-      stageHeader('04', 'Artifact Generation'),
-      el('p', { style: { color: '#a3a3a3', fontSize: '14px', lineHeight: '1.6', marginBottom: '32px' } },
-        'With decisions resolved, the engine parallelizes 7 artifact generation tasks. Each artifact is purpose-built from the brief, brand voice, and strategic context.'
+      stageHeader('04', 'Artifact Review'),
+      el('p', { style: { color: '#a3a3a3', fontSize: '14px', lineHeight: '1.6', marginBottom: '24px' } },
+        artifacts.length + ' artifacts generated from the brief. Each is verified against brand voice, strategic context, and compliance rules before deploy.'
       ),
-      el('div', { className: 's4-grid-2', style: { marginBottom: '32px' } }, artifactCards),
-      completionArea,
-      annotation('Parallel generation is the key optimization. A linear pipeline would take ~45 seconds. Parallel execution completes in under 15 \u2014 gated only by the slowest artifact (website).')
+      listContainer,
+      summaryEl,
+      annotation('All artifacts are generated in parallel in under 15 seconds. This stage is the human checkpoint \u2014 review what the engine built before it goes live.')
     );
 
-    // Animate progress bars
-    let startTime = null;
-    let rafId = null;
+    // Staggered review animation: generated → reviewed
+    const reviewDelay = 800; // initial pause
+    const reviewInterval = 400; // per-artifact stagger
+    const timeouts = [];
 
-    function animateProgress(timestamp) {
-      if (!startTime) startTime = timestamp;
-      const elapsed = timestamp - startTime;
-      let allDone = true;
+    artifacts.forEach((a, i) => {
+      const t = setTimeout(() => {
+        statusEls[i].textContent = 'reviewed';
+        statusEls[i].style.background = 'rgba(52,211,153,0.15)';
+        statusEls[i].style.color = '#34d399';
+        checkEls[i].style.display = '';
 
-      artifacts.forEach((a, i) => {
-        const artifactStart = i * staggerOffset;
-        const artifactElapsed = Math.max(0, elapsed - artifactStart);
-        const pct = Math.min(100, (artifactElapsed / a.duration) * 100);
-        progressFills[i].style.width = pct + '%';
-
-        if (pct >= 100) {
-          statusLabels[i].textContent = 'complete';
-          checkIcons[i].style.display = '';
-        } else {
-          allDone = false;
+        // Check if all done
+        if (i === artifacts.length - 1) {
+          setTimeout(() => {
+            summaryEl.style.display = '';
+            summaryEl.style.opacity = '0';
+            summaryEl.style.animation = 's4FadeIn 0.4s ease-out forwards';
+          }, 300);
         }
-      });
+      }, reviewDelay + i * reviewInterval);
+      timeouts.push(t);
+    });
 
-      if (allDone) {
-        completionArea.style.display = '';
-        completionArea.style.opacity = '0';
-        completionArea.style.animation = 's4FadeIn 0.4s ease-out forwards';
-      } else {
-        rafId = requestAnimationFrame(animateProgress);
-      }
-    }
-
-    // Store cleanup reference
     wrapper._cleanup = () => {
-      if (rafId) cancelAnimationFrame(rafId);
+      timeouts.forEach(t => clearTimeout(t));
     };
-
-    rafId = requestAnimationFrame(animateProgress);
 
     return wrapper;
   }
