@@ -15,56 +15,58 @@
   };
 
   const triggerStage = {
-    id:'trigger', pipeline:'shared', agent:'trigger', agentName:'Trigger Analyst', dur:3, isLaneStage:false,
-    lines:['Scanning for personas with unmet needs...','Building trigger event library: 14 switching moments identified','Clusters: pet wellness, digital privacy, gig economy, elder care','Library ready — distributing to all 3 pipelines']
+    id:'trigger', pipeline:'shared', agent:'trigger', agentName:'Trigger Analyst', dur:90, isLaneStage:false,
+    lines:['Step 1: Scanning life-transitions across 6 dimensions — geographic, relationship, family, financial, career, crisis','Step 2: Scoring trigger events — decomposing Switching Intent (Compulsion × Friction), Predictability, Frequency, Data Accessibility','Step 2.5: Classifying events — tagging Switching Type, Telco Pain, Switching Origin, Emotional State','Step 3: Classifying windows — Flash / Short / Extended / Rolling with peak-intent timing','Step 4: Mapping overlaps — flagging compound moments that amplify switching intent','Step 5: Qualifying triggers — 22 events passed all gates (Intent ≥ 3.0, Frequency ≥ 2, 3+ signals)','Library ready — distributing trigger event library to all 3 pipelines']
   };
 
   const surgePipeline = [
-    { id:'s1s', pipeline:'surge', agent:'surge', agentName:'Surge Trend Scanner', dur:3, isLaneStage:true,
-      lines:['Velocity-first scan for surges...','Found 8 active demand spikes','Spikes: pet supplements, VPN adoption, SIM-swap fears','Flash moment scan: 3 triggers match','Qualified 6 surges above threshold'] },
-    { id:'s2s', pipeline:'surge', agent:'surge', agentName:'Surge Persona Builder', dur:3, isLaneStage:true,
-      lines:['Extracting demand variations from 6 surges...','24 surge personas with moment tags','#2: "Privacy-First OPSEC Switcher" — Score 7.9','Top: "TikTok Pet Wellness Convert" — Score 8.1'] },
-    { id:'s3s', pipeline:'surge', agent:'surge', agentName:'Surge Opportunity Analyst', dur:2, isLaneStage:true,
-      lines:['Single-pass scoring...','Results: 4 GO, 2 MONITOR, 18 SKIP','Top GO: Score 8.1, window closing in 6 weeks'] },
-    { id:'s4sa', pipeline:'surge', agent:'surge', agentName:'Surge Demand Analyst', dur:3, isLaneStage:true,
-      lines:['Compressed brief: 2 factors, 6 Q&As...','Demand snapshot: $180M spike, 8-week window'] },
-    { id:'s4sb', pipeline:'surge', agent:'surge', agentName:'Surge Offer Designer', dur:3, isLaneStage:true,
-      lines:['1 concept + wind-down plan...','Offer: "PetBoost Starter Kit" — $29 intro bundle','Surge pipeline complete'] }
+    { id:'s1s', pipeline:'surge', agent:'surge', agentName:'Surge Trend Scanner', dur:90, isLaneStage:true,
+      lines:['Step 1: Velocity-first environmental scan — social trending, search spikes, app store surges, news acceleration, spend evidence','Step 2: Velocity scoring — demand acceleration, signal recency, independent signal volume, spend/sign-up evidence','Step 3: Classifying surge sub-types — Opportunity-Window / Escalating / Structural / Innovation Wave','Step 4: Compressed sustainability check — community, infrastructure, identity, institutional loops assessed','Step 5: Comparable precedent lookup — matching 1-2 historical surges with actual outcomes','Step 6: Decay indicator assessment — signal decay + arc trajectory for Innovation Wave candidates','Qualification gates passed: 12 surges qualified (Velocity 3.0+, spend evidence, enduring window Short+)'] },
+    { id:'s2s', pipeline:'surge', agent:'surge', agentName:'Surge Persona Builder', dur:60, isLaneStage:true,
+      lines:['Step 1: Demand variation extraction — listing distinct buying populations per surge by trigger, urgency, price sensitivity','Step 2: Deduplication & merge — merging on demand-signal overlap, keeping separate when demand dynamics differ','Step 3: Surge-persona card generation — 7 core fields per card: name, demand signal, window, velocity, volume, channels, originating surges','Output: 28 surge-personas after dedup, organized by originating surge'] },
+    { id:'s3s', pipeline:'surge', agent:'surge', agentName:'Surge Opportunity Analyst', dur:60, isLaneStage:true,
+      lines:['Single-pass scoring on 4 dimensions — Demand Velocity (35%), Window Economics (30%), Capture Feasibility (20%), Competitive Speed (15%)','Speed-adjusted confidence rated — High / Medium / Low based on demand-signal reliability','GO/MONITOR/SKIP assignment — composite 3.5+ with Medium+ confidence = GO','Days-to-launch estimated for GO and MONITOR surge-personas vs. remaining window','Results: 4 GO, 3 MONITOR, 21 SKIP — top GO composite 4.2, window 6 weeks'] },
+    { id:'s4sa', pipeline:'surge', agent:'surge', agentName:'Surge Demand Analyst', dur:60, isLaneStage:true,
+      lines:['Section 1: Expanded demand snapshot — trigger, volume, decay trajectory model, seasonal pattern, precedent outcomes, revenue window','Section 2: Factor analysis — Factor 2 (Spending & Financial Habits) + Factor 5 (Product Landscape & Switching), 3 Q&As each','Section 3: Surge brief summary — price sensitivity, acquisition channels, launch timeline, go/no-go reaffirmation','Output: 800-1,500 word surge briefs for each GO persona'] },
+    { id:'s4sb', pipeline:'surge', agent:'surge', agentName:'Surge Offer Designer', dur:90, isLaneStage:true,
+      lines:['Step 1: Demand-response mapping — they want / we offer / the hook / the proof','Step 2: Offer architecture — single plan, 3-5 features, single price point, same-day activation, no contracts','Step 3: Minimal brand — name + tagline + one color, disposable','Step 4: Non-telco bundle evaluation — 1 candidate scored on 5 dimensions','Step 5: Transition plan — trigger, timeline, evolved offer, migration path, pipeline handoff to Micro/Macro','Step 7: Campaign economics — budget, conversions, revenue window, break-even, ROAS target, kill threshold','Step 8: 3 validation hypotheses — switching intent (Gate), offer resonance (Optimize), price point (Optimize)','Step 9: Launch kit assembled — ad copy, channel sequence, budget allocation, A/B tests, kill criteria'] }
   ];
 
   const microPipeline = [
-    { id:'s1m', pipeline:'micro', agent:'micro', agentName:'Micro-Trend Analyst', dur:5, isLaneStage:true,
-      lines:['PESTEL + Ansoff scan...','23 trend signals across Technology, Social, Economic','Signal: post-Snowden privacy awareness accelerating in mobile','Moment-community scan from trigger library','Qualified 18 micro-trends'] },
-    { id:'s2m', pipeline:'micro', agent:'micro', agentName:'Micro-Trend Persona Builder', dur:5, isLaneStage:true,
-      lines:['Extracting identity variations...','Clustering by identity overlap','Privacy cluster: 3 segments — OPSEC pros, crypto-native, corporate whistleblowers','Deduplicating: merged 3 overlapping segments','Generated 94 unique persona cards'] },
-    { id:'s3m', pipeline:'micro', agent:'micro', agentName:'Micro-Trend Opportunity Analyst', dur:4, isLaneStage:true,
-      lines:['Two-pass scoring...','8 INVEST, 12 EXPLORE, 14 NICHE, 60 IGNORE','#2: "Privacy-First Mobile Seeker" — Score 8.4','Top: "Anxious Millennial Pet Parent" — Score 8.7'] },
-    { id:'s4ma', pipeline:'micro', agent:'micro', agentName:'Micro-Trend Identity Analyst', dur:5, isLaneStage:true,
-      lines:['4A-Lite: 4 factors, 20 Q&As...','Demand snapshot: $4.2B pet wellness market, 12% CAGR','Privacy mobile: $1.8B addressable, 28% CAGR'] },
-    { id:'s4mb', pipeline:'micro', agent:'micro', agentName:'Micro-Trend Value Prop Designer', dur:4, isLaneStage:true,
-      lines:['Concept A: "PetCalm Club" — monthly wellness box + vet chat','Concept B: "Specter" — privacy-first MVNO, E2E encrypted','Interception: trigger at SIM-swap event or carrier breach news','Go/No-Go: GO on both — Micro pipeline complete'] }
+    { id:'s1m', pipeline:'micro', agent:'micro', agentName:'Micro-Trend Analyst', dur:90, isLaneStage:true,
+      lines:['Step 1: PESTEL environmental scan — Political, Economic, Social, Technological, Environmental, Legal signals with sources','Step 1B: Moment-community scan — filtering trigger event library for Short/Extended windows with Intent ≥ 3.0, checking community evidence','Step 2: Ansoff signal scoring — relevance, impact, time horizon for each identified signal','Step 3: Trend pyramid classification — filtering to micro-trend tier (3 months – 3 years only)','Step 3B: Sustainability assessment — reclassifying surges with structural drivers + 2+ reinforcement loops as early micro-trends','Step 4: Rogers adoption lifecycle positioning — Innovators through Laggards placement','Step 5: Qualification gates — micro-trend tier + 3+ sourced signals + identity community check','Dual-entry tagging: Path A (PESTEL), Path B (moment-driven), Path A+B entries flagged for 1.15x confidence boost','Output: 22 qualified micro-trends with identity community evidence'] },
+    { id:'s2m', pipeline:'micro', agent:'micro', agentName:'Micro-Trend Persona Builder', dur:75, isLaneStage:true,
+      lines:['Step 1: Population extraction — listing 3-8 distinct populations per micro-trend, asking "who is living this trend?"','Step 2: Deduplication & merge — merging on identity overlap ("would they recognize each other as same group?"), keeping separate when identity differs','Step 3: Persona card generation — 8 fields per card: name, description, population, demand window, originating trends, acquisition moment, window type, switching origin','Acquisition moment fields populated from trigger event library; N/A for personas without moment enrichment','Output: 98 persona cards after dedup, organized by originating micro-trend'] },
+    { id:'s3m', pipeline:'micro', agent:'micro', agentName:'Micro-Trend Opportunity Analyst', dur:75, isLaneStage:true,
+      lines:['Pass 1: Persona attractiveness — Identity Intensity (40%), Carrier Mobility (25%), Pain & Demand (20%), Market Size (15%)','Pass 2: Competitive landscape — Carrier Presence, Differentiation Potential, Regulatory Barriers','Confidence modifier applied — data quality rated 1-5, combined score multiplied by confidence/5','2x2 quadrant assignment — INVEST / EXPLORE / NICHE / IGNORE based on attractiveness × competitive landscape','Path A+B personas receiving 1.15x confidence multiplier','Results: 8 INVEST, 12 EXPLORE, 14 NICHE, 64 IGNORE — shortlisted top 6 with rationale'] },
+    { id:'s4ma', pipeline:'micro', agent:'micro', agentName:'Micro-Trend Identity Analyst', dur:90, isLaneStage:true,
+      lines:['4A-Lite: Demand snapshot — demand signal, trigger, addressable population, window duration','Factor 2: Spending & Financial Habits — quantitative data + 5 Q&As (40-60 words each, first-person voice)','Factor 3: Needs & Aspirations — stated needs, unstated needs, identity aspirations, self-perception gaps','Factor 4: Fears & Pain Points — anxieties, barriers, emotional tensions surfaced through interviews','Factor 5: Product Landscape & Switching Behavior — current solutions, switching triggers, competitive gaps','Switching Profile Module: trigger mechanism + force score, annual volume, interception channels, window structure (moment-enriched personas only)','Executive brief: key insights, top 3 needs, go/no-go recommendation incorporating switching profile findings','Output: 2,000-4,000 word rapid persona briefs per shortlisted persona'] },
+    { id:'s4mb', pipeline:'micro', agent:'micro', agentName:'Micro-Trend Value Prop Designer', dur:90, isLaneStage:true,
+      lines:['Step R1: Job extraction — top 3 jobs from 4A-Lite brief using "When I [situation], help me [job], so I can [outcome]"','Step R2: Alternatives snapshot — mapping current solutions per job, verdict: unserved / underserved / well-served','Step R3: Viability gate — demand window, competitive intensity, feasibility check','Step R4: Concept design — 1-2 identity concepts with single plan, non-telco bundle evaluation (5 dimensions, threshold 3.0+), micro-brand, pricing','Step R5: Wind-down plan — sunset trigger, migration path, estimated sunset date, subscriber communication','Step R6: Interception concept — moment job map, offer-window fit, channel-specific interception design (moment-enriched personas only)','Step R7: Campaign activation plan — primary channel, lead message, budget range, success metric per concept','Step R8: Hypothesis generation — 5-7 testable hypotheses per concept, classified Gate vs Optimize, prioritized TEST NOW / VALIDATE / PARK / SKIP'] }
   ];
 
   const macroPipeline = [
-    { id:'s1mt', pipeline:'macro', agent:'macro', agentName:'Macro-Trend Analyst', dur:5, isLaneStage:true,
-      lines:['PESTEL institutional scan...','Structural shift 1: humanization of pets as family members','Structural shift 2: post-breach privacy consciousness — 68% of adults concerned about carrier tracking','Qualified: "Pet-as-Family Megatrend" + "Privacy-First Digital Life"'] },
-    { id:'s15mt', pipeline:'macro', agent:'macro', agentName:'Macro-Trend Moment Mapper', dur:3, isLaneStage:true,
-      lines:['Transition inventory...','Top transition: "First Pet Adoption" (Composite 4.2)','#2: "SIM-Swap Attack / Data Breach" (Composite 3.9)'] },
-    { id:'s2mt', pipeline:'macro', agent:'macro', agentName:'Macro-Trend Persona Builder', dur:4, isLaneStage:true,
-      lines:['Two-tier extraction...','Tier 1: "Pet-as-Family Americans" (~85M, 30M+ addressable)','Tier 1: "Privacy-Conscious Professionals" (~12M, 5M+ addressable)','Identity Community Map: r/PetHealth, r/Privacy, r/OPSEC'] },
-    { id:'s3mt', pipeline:'macro', agent:'macro', agentName:'Macro-Trend Opportunity Analyst', dur:4, isLaneStage:true,
-      lines:['Identity Intensity: 4.2/5','Brand-Equity Potential: 4.5/5','Quadrant: BUILD — invest deeply in durable identity brand'] },
-    { id:'s4mta', pipeline:'macro', agent:'macro', agentName:'Macro-Trend Identity Analyst', dur:5, isLaneStage:true,
-      lines:['Full 5-factor + switching profile, 50 Q&As...','Factor 5: wants brand that validates pet-parent identity'] },
-    { id:'s4mtb', pipeline:'macro', agent:'macro', agentName:'Macro-Trend Value Prop Designer', dur:4, isLaneStage:true,
-      lines:['Concept: "PetFamily+" — premium wellness ecosystem','Brand strategy: durable identity brand — Macro pipeline complete'] }
+    { id:'s1mt', pipeline:'macro', agent:'macro', agentName:'Macro-Trend Analyst', dur:120, isLaneStage:true,
+      lines:['Step 1: PESTEL scan with institutional weighting — prioritizing signals with policy, regulatory, and demographic backing (5-10 year lookback)','Step 1B: Durable moment-community scan — filtering trigger events for Rolling/Extended windows, Intent ≥ 3.5, volume ≥ 1M/year, 3+ year community persistence','Step 2: Ansoff signal scoring with elevated Level 3+ threshold — opportunity shape visible, population estimable','Step 3: Trend pyramid classification — filtering to macro-trend (3-10 yr) and megatrend (10-30+ yr) only','Step 4: Rogers adoption positioning — strategic focus on Early Adopters and Early Majority as prime investment windows','Step 5: Identity community scan — self-labels, tribal language, rituals, gathering points, identity tension scored 1-5','Step 6: Qualification gates — Ansoff 3+, macro/megatrend tier, 4+ sourced signals, identity community 3+, Rogers positioning','Dual-entry tagging: Path A (PESTEL+institutional), Path B (moment-born), Path A+B flagged for 1.15x confidence','Output: 14 qualified macro-trends/megatrends with identity community evidence'] },
+    { id:'s15mt', pipeline:'macro', agent:'macro', agentName:'Macro-Trend Moment Mapper', dur:90, isLaneStage:true,
+      lines:['Step 1: Transition inventory — identifying 3-5 recurring life transitions per macro-trend across 6 dimensions','Scoring: decomposed Switching Intent (Compulsion × 0.6 + Friction × 0.4), Predictability, Frequency, Data Accessibility','Classification tags assigned: Switching Type, Telco Pain, Switching Origin, Emotional State per transition','Window classification: Flash / Short / Extended / Rolling with peak-intent timing and intent decay','Step 2: Telco pain map — mapping primary and secondary telco friction per transition','Step 3: Cross-pipeline integration — checking overlap with Moments trigger events (High/Medium/Low/Gap)','Step 4: Moment-enriched trend summary — highest-intent, highest-volume, most detectable transitions identified','Telco relevance score assigned per macro-trend (1-5)'] },
+    { id:'s2mt', pipeline:'macro', agent:'macro', agentName:'Macro-Trend Persona Builder', dur:75, isLaneStage:true,
+      lines:['Step 0: Ingesting Macro-Moment Map — noting best acquisition moments, window types, pipeline gaps per trend','Step 1A: Tier 1 broad persona extraction — full addressable population per macro-trend (30M-50M+ target)','Step 1B: Tier 2 identity-community variation — 1-2 distinct self-organizing communities per Tier 1 persona','Step 2: Deduplication & merge at both tiers — identity overlap test with merge rationale','Step 3: Persona card generation — 9 fields: name, description, population, identity markers, community infrastructure, originating trends, acquisition moment, window type, switching origin','Identity Community Map output: platforms, gathering points, tribal language, rituals per persona','Output: 12 Tier 1 broad personas + 22 Tier 2 identity-community sub-segments'] },
+    { id:'s3mt', pipeline:'macro', agent:'macro', agentName:'Macro-Trend Opportunity Analyst', dur:90, isLaneStage:true,
+      lines:['Pass 1: Persona attractiveness — Identity Intensity (35%), Carrier Mobility (20%), Pain & Demand (20%), Market Size (15%), Brand-Equity Potential (10%)','Pass 2: Enhanced competitive landscape — Carrier Presence, Differentiation Potential, Regulatory Barriers, Brand Loyalty of Incumbents','Confidence modifier applied — institutional and longitudinal data quality weighted, multiplied by confidence/5','Path A+B personas receiving 1.15x confidence multiplier','2x2 quadrant assignment: BUILD / COMPETE / NICHE / IGNORE','BUILD personas route to full 4M-T-A (50 Q&As, 5 factors) + full 4M-T-B (3-5 concepts)','Results: 4 BUILD, 3 COMPETE, 3 NICHE, 24 IGNORE — shortlisted top 7 with rationale'] },
+    { id:'s4mta', pipeline:'macro', agent:'macro', agentName:'Macro-Trend Identity Analyst', dur:120, isLaneStage:true,
+      lines:['Section 1: Segment overview — definition, market sizing, 4-tier stratification totaling 100%, 5 notable profiles, named persona','Factor 1: Social Life & Leisure (anchor) — community participation, social signaling, influence networks, identity expression, 10 Q&As','Factor 2: Spending & Financial Habits — identity-driven spending, price sensitivity, subscription behavior, 10 Q&As','Factor 3: Needs & Aspirations — stated needs, unstated needs, identity aspirations, self-perception gaps, 10 Q&As','Factor 4: Fears & Pain Points — identity threats, practical frustrations, market failures, 10 Q&As','Factor 5: Product Landscape & Switching — current solutions, satisfaction gaps, switching history, 10 Q&As','Factor 6: Switching Profile — 6 dimensions: trigger mechanism, volume, interception channels, window structure, decision architecture, moment personas (moment-enriched only)','Tier-variant interview — 10 additional Q&As covering Factors 2, 3, 5 across stratification tiers','Section 3: Executive summary — 5-7 key insights, identity tensions, strategic recommendations, success metrics, go/no-go','Output: 5,000-8,000 word full ethnographic persona reports'] },
+    { id:'s4mtb', pipeline:'macro', agent:'macro', agentName:'Macro-Trend Value Prop Designer', dur:120, isLaneStage:true,
+      lines:['Step 1: Full JTBD job map — 3-5 core jobs ranked by Frequency × Importance × Emotional Intensity','Step 2: Alternatives analysis — competitive landscape per job, named competitors, unserved/underserved/well-served verdicts','Step 3: Full Kano classification — Table Stakes / Differentiators / Delighters with identity-fit scoring and ritual testing','Step 4: Concept design (3-5 concepts) — multi-tier plans, 3 non-telco candidates evaluated per concept, full micro-brand identity','Step 5: Interception concepts — 1-2 moment-driven concepts with moment job map, offer-window fit, channel-specific interception (moment-enriched only)','Step 6: Community strategy — how the brand integrates with existing identity community infrastructure','Step 7: Campaign activation + hypotheses — 7-10 testable hypotheses per concept, Gate vs Optimize, TEST NOW / VALIDATE / PARK / SKIP','No wind-down plan — macro-trend brands are durable by design','Output: 10,000-15,000 word full value proposition packages'] }
   ];
 
   const sharedStages = [
-    { id:'campaign', pipeline:'shared', agent:'campaign', agentName:'Tier 3 Campaign', dur:10, isLaneStage:false,
-      lines:['Ingesting outputs from all 3 pipelines...','Brief Writer: generating marketing briefs...','2 brand tracks identified: PetCalm (wellness) + Specter (privacy mobile)','Landing Page Builder: 3 landing pages per track...','Ads Creative Studio: 9 ad variants per brand...','Campaign plans ready'] },
-    { id:'partner', pipeline:'shared', agent:'partner', agentName:'Tier 4 Partners', dur:6, isLaneStage:false,
-      lines:['Generating affiliate packages...','Surge: flash affiliate deal, 48-hour window','Micro: creator network, 20% rev share','Macro: premium partner program, co-branding','Influencer briefs: 30 creators across 3 tiers','All deliverables packaged'] }
+    { id:'survey-arch', pipeline:'shared', agent:'shared', agentName:'Survey Architect', dur:120, isLaneStage:false,
+      lines:['Ingesting Stage 4 outputs from all 3 pipelines — identity briefs, value prop packages, opportunity scores','Screening section (S1-S5): designing 3-5 behavioral screeners with Prolific prescreener integration, targeting 60-80% qualification rate','Section A: Segment validation — 5-7 questions confirming persona clusters exist and behave as hypothesized','Section B: Needs prioritization — MaxDiff best-worst scaling (12 items, 3 sets of 4), forced-choice, Likert grids','Section C: Value proposition testing — positioning variant test, message resonance grid with generic control, Van Westendorp pricing (4 open-ended)','Section D-E: Demographics for tier stratification + open-ended questions (biggest frustration, credibility test)','Analysis plan: 11 sections — power analysis, hypothesis testing plan, Van Westendorp/MaxDiff specs, Green/Yellow/Red decision framework','Study parameters: n=300-600, under 5 minutes, 20-25 questions, 3-day iteration cycles, max 3 iterations per persona'] },
+    { id:'survey-anal', pipeline:'shared', agent:'shared', agentName:'Survey Analyst', dur:120, isLaneStage:false,
+      lines:['Running statistical toolkit — MaxDiff hierarchical Bayes, Van Westendorp price curves, chi-square, Wilcoxon, logistic regression','Hypothesis verdicts assigned: CONFIRMED / PARTIALLY CONFIRMED / REFUTED with test statistic, p-value, effect size','Van Westendorp analysis: computing PMC, IDP, OPP, PME intersection points with 2+ subgroup splits','MaxDiff utility rankings: aggregate and subgroup scores, top/bottom 3, cluster analysis','Composite switching intent model: logistic regression with switching intent predictors','3-tier decision framework: Green (proceed to campaign) / Yellow (revise and retest in 2-3 days) / Red (deprioritize)','Feedback loops triggered — updating Opportunity Analyst confidence scores, Persona Builder card fields, Value Prop pricing adjustments','Verdicts: 3 Green, 2 Yellow (next iteration specified), 1 Red — feedback dispatched to pipeline agents'] },
+    { id:'brief', pipeline:'shared', agent:'campaign', agentName:'Brief Writer', dur:90, isLaneStage:false,
+      lines:['Step 1: Locating 4A persona reports and 4B value prop packages across all 3 pipelines','Step 2: Extracting from 4A — segment definition, market sizing, stratification, named persona, notable profiles, executive summary','Step 3: Extracting from 4B — job hierarchy, alternatives analysis, opportunity scoring, tiered value canvas, positioning, competitive landscape','Step 4: Ranking concepts — primary sort by execution feasibility (Proven > Untested > Unproven), tiebreak by non-telco viability score','Step 5: Generating briefs in parallel — one per concept with brand identity, plan architecture, features, non-telco bundle, competitive context','Step 6: Converting to PDF — pandoc + weasyprint with branded CSS styling','Output: marketing briefs generated for all Green-light concepts across pipelines'] }
   ];
 
   const iterations = {
@@ -359,53 +361,6 @@
 .scene2 .log-tag.macro { background: rgba(162,155,254,0.15); color: #a29bfe; }
 .scene2 .log-tag.shared { background: rgba(240,194,122,0.15); color: #f0c27a; }
 
-.scene2 .cost-reveal {
-  display: none;
-  flex-shrink: 0;
-  margin-top: 16px;
-  padding: 16px;
-  border-radius: 12px;
-  border: 1px solid rgba(16,185,129,0.2);
-  background: rgba(16,185,129,0.04);
-}
-.scene2 .cost-reveal.visible { display: block; }
-.scene2 .cost-reveal h4 {
-  font-family: 'Instrument Serif', serif;
-  font-size: 16px;
-  color: #e2e2f0;
-  margin-bottom: 12px;
-  font-weight: 400;
-}
-.scene2 .cost-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-.scene2 .cost-card {
-  padding: 14px;
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(255,255,255,0.03);
-  text-align: center;
-}
-.scene2 .cost-card .cost-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: #737373;
-  margin-bottom: 6px;
-}
-.scene2 .cost-card .cost-value {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 22px;
-  font-weight: 600;
-}
-.scene2 .cost-card .cost-sub {
-  font-size: 10px;
-  color: #737373;
-  margin-top: 4px;
-}
 
 /* Activity feed */
 .scene2 .activity-feed {
@@ -927,7 +882,7 @@
     // Input phase
     const inputDiv = el('div', 'input-phase');
     const inp = el('input');
-    inp.type = 'text'; inp.placeholder = 'e.g. Personas with unmet needs'; inp.value = 'Personas with unmet needs';
+    inp.type = 'text'; inp.placeholder = 'e.g. analyze surge, micro and macro persona trends'; inp.value = 'analyze surge, micro and macro persona trends';
     const btn = el('button', 'launch-btn', 'Launch Pipeline');
     inputDiv.appendChild(inp);
     inputDiv.appendChild(btn);
@@ -943,24 +898,6 @@
     mc.appendChild(actFeed);
     panel.appendChild(mc);
 
-    // Cost reveal
-    const costReveal = el('div', 'cost-reveal');
-    costReveal.innerHTML = `
-      <h4>Cost Comparison</h4>
-      <div class="cost-grid">
-        <div class="cost-card">
-          <div class="cost-label">Traditional Agency</div>
-          <div class="cost-value" style="color:#e17055">$45,000</div>
-          <div class="cost-sub">6-8 weeks timeline</div>
-        </div>
-        <div class="cost-card">
-          <div class="cost-label">Gather Pipeline</div>
-          <div class="cost-value" style="color:#10b981">$2.40</div>
-          <div class="cost-sub">90 seconds, 14 AI agents</div>
-        </div>
-      </div>
-    `;
-    panel.appendChild(costReveal);
 
     // Build pipeline cards
     function buildStageCards() {
@@ -1032,19 +969,18 @@
       mc.classList.add('visible');
       outputPanel.innerHTML = '';
       actFeed.innerHTML = '';
-      costReveal.classList.remove('visible');
 
       const { trigCard, laneCards, sharedCards } = buildStageCards();
       abortController = new AbortController();
 
-      runPipeline(trigCard, triggerStage, laneCards, sharedCards, outputPanel, actFeed, costReveal, abortController.signal).then(() => {
+      runPipeline(trigCard, triggerStage, laneCards, sharedCards, outputPanel, actFeed, abortController.signal).then(() => {
         running = false;
         btn.disabled = false;
       });
     });
   }
 
-  async function runPipeline(trigCard, trigStage, laneCards, sharedCards, outputPanel, actFeed, costReveal, signal) {
+  async function runPipeline(trigCard, trigStage, laneCards, sharedCards, outputPanel, actFeed, signal) {
     const startTime = Date.now();
     function elapsed() { return ((Date.now() - startTime) / 1000).toFixed(1); }
 
@@ -1065,10 +1001,8 @@
       if (signal.aborted) return;
     }
 
-    // Cost reveal
-    addLogLine(outputPanel, 'shared', 'Pipeline complete. Total cost: $2.40');
+    addLogLine(outputPanel, 'shared', 'Pipeline complete.');
     addActivity(actFeed, elapsed(), 'All deliverables packaged and ready');
-    costReveal.classList.add('visible');
   }
 
   async function runLaneSequential(items, outputPanel, actFeed, elapsed, signal) {
