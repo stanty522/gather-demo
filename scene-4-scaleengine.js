@@ -1999,8 +1999,8 @@
 
   const STAGE_BUILDERS = [
     buildStageInput,
-    buildStageRisk,
-    buildStageDecisions,
+    buildStageLaunchRisk,
+    buildStageLaunchPlan,
     buildStageGeneration,
     buildStageDeploy,
   ];
