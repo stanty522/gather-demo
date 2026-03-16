@@ -86,7 +86,7 @@
       { icon:'\ud83c\udfaf', title:'Micro-Segment Discovery', desc:'"Privacy-first OPSEC professionals aged 25-50" identified as high-intent segment. Specter brand brief generated and passed to Brand Creation pipeline.', agent:'Persona Refinement Agent' }
     ],
     4: [
-      { icon:'\ud83d\ude80', title:'Scale Signal Detected', desc:'Unit economics positive across both brand tracks. PetCalm CAC $26 vs LTV $180. Specter CAC $31 vs LTV $220. Ready for Scale Engine.', agent:'Growth Strategist' },
+      { icon:'\ud83d\ude80', title:'Scale Signal Detected', desc:'Unit economics positive across both brand tracks. PetCalm CAC $26 vs LTV $180. Specter CAC $31 vs LTV $220. Ready for Launch.', agent:'Growth Strategist' },
       { icon:'\ud83d\udd04', title:'Flywheel Active', desc:'Affiliate-driven customers referring 1.4 new customers each. Organic acquisition now 22% of total. CAC trending toward $20.', agent:'Flywheel Monitor' }
     ]
   };
@@ -1517,7 +1517,7 @@
     const revisions = {
       1: ['Baseline campaign launched across all channels', 'A/B test initiated: 3 landing page variants', 'Influencer outreach queued for Day 3'],
       2: ['CTA repositioned above fold on mobile variants', 'Budget shift: +20% to affiliate, -20% from paid search', 'New ad creative: UGC testimonial variant added', 'Specter privacy brand: passing to Brand Creation pipeline'],
-      3: ['Dedicated landing page for first-time pet parents live', 'Influencer content performing 2.3x above benchmark', 'Specter brand assets generated — queued for Scale Engine', 'Email nurture sequence triggered for high-intent visitors'],
+      3: ['Dedicated landing page for first-time pet parents live', 'Influencer content performing 2.3x above benchmark', 'Specter brand assets generated — queued for Launch', 'Email nurture sequence triggered for high-intent visitors'],
       4: ['Scale budget approved: 3x increase recommended', 'Organic referral loop active: 1.4 customers per customer', 'Both PetCalm + Specter tracks showing positive unit economics', 'Flywheel metrics: CAC trending toward $20 by Day 14']
     };
     let revHtml = '<h4>Auto-Generated Revisions</h4>';

@@ -1,4 +1,4 @@
-// scene-5-brandtesting.js — Brand Testing / Fake Door Testing (Scene 5)
+// scene-5-brandtesting.js — Fake Door Testing (Scene 5)
 // Exports: window.initScene5(container)
 
 (function () {
@@ -1219,7 +1219,7 @@
     const panel = el('div', { className: 's5-panel' });
     panel.appendChild(stageHeader('05', 'Test Verdict'));
     panel.appendChild(el('p', { className: 's5-desc' },
-      'The FDT Index combines three weighted dimensions into a composite score. Brands scoring 75+ are cleared for launch into the Scale Engine.'));
+      'The FDT Index combines three weighted dimensions into a composite score. Brands scoring 75+ are cleared for launch.'));
 
     // Formula terminal
     panel.appendChild(typewriterBox('fdt-index.formula', [
@@ -1228,7 +1228,7 @@
       '          + (Scale Potential × 0.25)',
       '',
       'Verdicts:',
-      '  75-100  →  LAUNCH   (proceed to Scale Engine)',
+      '  75-100  →  LAUNCH   (proceed to Launch pipeline)',
       '  50-74   →  ITERATE  (retest with new creative)',
       '  25-49   →  WEAK     (pivot concept)',
       '   0-24   →  DEAD     (abandon)',
@@ -1293,7 +1293,36 @@
     });
     panel.appendChild(verdictGrid);
 
-    panel.appendChild(annotation('AI decided', 'Specter clears the 75-point launch threshold with FDT Index 77.9. This brand proceeds to Stage 5: Scale Engine. Vault scores 55.2 — marked for iteration and retest.'));
+    panel.appendChild(annotation('AI decided', 'Specter clears the 75-point launch threshold with FDT Index 77.9. This brand proceeds to Stage 5: Launch. Vault scores 55.2 — marked for iteration and retest.'));
+
+    // Strategic Insights — bridges to Launch stage
+    const insightsSection = el('div', { style: { marginTop: '32px' } });
+    insightsSection.appendChild(el('div', { className: 's5-section-title' }, 'Strategic Insights for Launch'));
+
+    const insightTerminal = typewriterBox('strategic-insights', [
+      'Compiling FDT signals into launch brief...',
+      '',
+      'RISK ASSESSMENT:',
+      '  Regulatory: LOW — Specter privacy claims are substantiated by Mullvad VPN integration',
+      '  Market: MODERATE — Privacy MVNO is niche; scale depends on community-first GTM',
+      '  Competitive: LOW — No incumbent carrier offers hardware-backed SIM security',
+      '',
+      'PRICING VALIDATION (from FDT):',
+      '  Willingness-to-pay signal: $45-55/mo (derived from CPL $4.50 × conversion funnel)',
+      '  Price sensitivity: LOW — privacy audience indexes 2.3x above avg. for premium tolerance',
+      '  Recommended launch price: $49/mo single plan, no contract',
+      '',
+      'CHANNEL STRATEGY:',
+      '  Primary: r/Privacy, OPSEC communities, Signal/Telegram groups (lowest CPL channels)',
+      '  Secondary: Privacy-focused YouTube creators, Hacker News sponsorships',
+      '  Avoid: Broad Meta targeting — CPL 3.2x higher vs. community-sourced traffic',
+      '',
+      'LAUNCH READINESS: Specter brief queued for artifact generation →',
+    ], 16);
+    insightsSection.appendChild(insightTerminal);
+
+    panel.appendChild(insightsSection);
+
     return panel;
   }
 
@@ -1318,7 +1347,7 @@
 
     const sidebarTop = el('div', { className: 's5-sidebar-top' });
     sidebarTop.appendChild(el('div', { className: 's5-sidebar-label' }, 'Stage 04'));
-    sidebarTop.appendChild(el('div', { className: 's5-sidebar-title' }, 'Brand Testing'));
+    sidebarTop.appendChild(el('div', { className: 's5-sidebar-title' }, 'Fake Door Testing'));
     sidebar.appendChild(sidebarTop);
 
     const playArea = el('div', { className: 's5-play-area' });

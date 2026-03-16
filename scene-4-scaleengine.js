@@ -1,4 +1,4 @@
-// scene-4-scaleengine.js — Scale Engine Demo (Scene 4)
+// scene-4-scaleengine.js — Launch Demo (Scene 4)
 // Exports: window.initScene4(container)
 
 (function () {
@@ -639,7 +639,7 @@
     const wrapper = el('div', { className: 's4-fade-in' },
       stageHeader('01', 'Input & Extraction'),
       el('p', { style: { color: '#a3a3a3', fontSize: '14px', lineHeight: '1.6', marginBottom: '32px', maxWidth: '560px' } },
-        'A validated persona brief from Brand Testing enters the engine. 21 extraction rules parse it into a deterministic schema \u2014 every downstream decision cascades from this single input.'
+        'A validated persona brief from Fake Door Testing enters the engine. 21 extraction rules parse it into a deterministic schema \u2014 every downstream decision cascades from this single input.'
       ),
       terminalCard('persona_research_specter.md',
         el('p', { style: { color: '#fff', marginBottom: '12px' } }, '# Specter \u2014 Privacy-First Mobile'),

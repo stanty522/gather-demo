@@ -1315,7 +1315,7 @@ ${personalityStr || 'N/A'}`;
       valuePropMap[vp][ht] = c;
     });
     const hookArr = Array.from(hookTypes);
-    const vpArr = Object.keys(valuePropMap);
+    const vpArr = Object.keys(valuePropMap).slice(0, 1); // Show first value prop only (3 ads)
 
     if (vpArr.length && hookArr.length) {
       const matrixWrap = el('div', { className: 's3-ad-matrix' });
