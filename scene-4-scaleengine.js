@@ -9,11 +9,11 @@
      ═══════════════════════════════════════════ */
 
   const STAGES = [
-    { key: 'input',      number: '01', title: 'Input & Extraction',  subtitle: 'Persona brief parsed into deterministic schema' },
-    { key: 'risk',       number: '02', title: 'Risk & Compliance',   subtitle: 'Feasibility scan + regulatory check' },
-    { key: 'decisions',  number: '03', title: 'Strategic Decisions',  subtitle: 'Risk evidence synthesized into operator choices' },
-    { key: 'generation', number: '04', title: 'Artifact Generation', subtitle: '7 artifacts built in parallel — voice, KB, FAQ, journey' },
-    { key: 'deploy',     number: '05', title: 'Deploy',              subtitle: 'Risk clearance gate, file write, bot connect' },
+    { key: 'input',      number: '01', title: 'Input & Extraction',   subtitle: 'Persona brief parsed into deterministic schema' },
+    { key: 'risk',       number: '02', title: 'Launch Risk & Strategy', subtitle: 'Risk scan + the one decision FDT left open' },
+    { key: 'plan',       number: '03', title: 'Launch Plan',          subtitle: 'Critical path — agent tasks, human tasks, gates' },
+    { key: 'generation', number: '04', title: 'Artifact Review',      subtitle: '9 artifacts generated — human checkpoint before deploy' },
+    { key: 'deploy',     number: '05', title: 'Deploy',               subtitle: 'Risk clearance gate, file write, bot connect' },
   ];
 
   /* ═══════════════════════════════════════════
@@ -474,6 +474,124 @@
         border-radius: 50%;
         animation: s4Spin 0.6s linear infinite;
       }
+
+      /* ── Gantt Timeline ── */
+      .scene4 .s4-gantt {
+        position: relative;
+        overflow-x: auto;
+        margin-bottom: 24px;
+      }
+      .scene4 .s4-gantt-lane-label {
+        font-size: 10px;
+        font-family: 'JetBrains Mono', monospace;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #525252;
+        padding: 6px 0 4px;
+        border-bottom: 1px solid rgba(38,38,38,0.5);
+        margin-bottom: 4px;
+      }
+      .scene4 .s4-gantt-row {
+        position: relative;
+        height: 28px;
+        display: flex;
+        align-items: center;
+      }
+      .scene4 .s4-gantt-bar {
+        position: absolute;
+        height: 20px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        padding: 0 8px;
+        font-size: 10px;
+        font-family: 'JetBrains Mono', monospace;
+        white-space: nowrap;
+        overflow: hidden;
+        cursor: pointer;
+        transition: filter 0.15s, transform 0.15s;
+      }
+      .scene4 .s4-gantt-bar:hover {
+        filter: brightness(1.3);
+        transform: scaleY(1.15);
+        z-index: 5;
+      }
+      .scene4 .s4-gantt-bar.bar-agent {
+        background: rgba(52,211,153,0.25);
+        border: 1px solid rgba(52,211,153,0.5);
+        color: #34d399;
+      }
+      .scene4 .s4-gantt-bar.bar-human {
+        background: rgba(251,191,36,0.15);
+        border: 1px solid rgba(251,191,36,0.4);
+        color: #fbbf24;
+      }
+      .scene4 .s4-gantt-bar.bar-gate {
+        background: rgba(248,113,113,0.15);
+        border: 1px solid rgba(248,113,113,0.4);
+        color: #f87171;
+      }
+      .scene4 .s4-gantt-bar.bar-decision {
+        background: rgba(245,158,11,0.15);
+        border: 1px solid rgba(245,158,11,0.4);
+        color: #f59e0b;
+      }
+      .scene4 .s4-gantt-bar.on-critical-path {
+        box-shadow: 0 0 10px rgba(52,211,153,0.35);
+        border-color: rgba(52,211,153,0.8);
+      }
+      .scene4 .s4-gantt-tooltip {
+        position: fixed;
+        z-index: 9999;
+        pointer-events: none;
+        padding: 12px 16px;
+        background: rgba(23,23,23,0.95);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 10px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+        backdrop-filter: blur(8px);
+        font-size: 12px;
+        min-width: 240px;
+        max-width: 380px;
+        white-space: normal;
+      }
+      .scene4 .s4-gantt-legend {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+      .scene4 .s4-gantt-legend-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 10px;
+        font-family: 'JetBrains Mono', monospace;
+        color: #525252;
+      }
+      .scene4 .s4-gantt-legend-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 2px;
+      }
+      .scene4 .s4-gantt-day-header {
+        display: flex;
+        font-size: 9px;
+        font-family: 'JetBrains Mono', monospace;
+        color: #404040;
+        margin-bottom: 4px;
+      }
+      .scene4 .s4-gantt-summary {
+        display: flex;
+        gap: 24px;
+        padding: 16px 0;
+        border-top: 1px solid rgba(38,38,38,0.5);
+        margin-top: 16px;
+      }
+      .scene4 .s4-gantt-summary-stat {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
     `;
     document.head.appendChild(style);
   }
@@ -662,15 +780,15 @@
     return wrapper;
   }
 
-  function buildStageRisk() {
-    // Combined Risk Assessment + Compliance Scan
+  function buildStageLaunchRisk() {
+    // Risk Assessment — FDT-validated where applicable
     const risks = [
       { name: 'Value Risk', status: 'PASS', detail: 'Clear problem-solution fit for privacy/surveillance pain point', type: 'auto-evaluated' },
       { name: 'Feasibility Risk', status: 'PASS', detail: 'ConnectX eSIM + VPN routing technically validated', type: 'auto-evaluated' },
       { name: 'Viability Risk', status: 'PASS', detail: 'Privacy-first mobile is an accelerating, underserved niche', type: 'auto-evaluated' },
-      { name: 'Commercial Risk', status: 'WARNING', detail: '$55/mo premium positioning needs willingness-to-pay validation', type: 'auto-evaluated' },
-      { name: 'Channel Risk', status: 'GAP', detail: 'OPSEC forums, privacy podcasts, security conferences \u2014 unvalidated', type: 'writer-provided' },
-      { name: 'Trust Risk', status: 'GAP', detail: 'Needs day-1 credibility via security audit + open-source transparency', type: 'writer-provided' },
+      { name: 'Commercial Risk', status: 'PASS', detail: 'FDT: WTP signal $45\u201355/mo, price sensitivity LOW (2.3x above avg. premium tolerance). Recommended $49/mo.', type: 'fdt-validated' },
+      { name: 'Channel Risk', status: 'PASS', detail: 'FDT: r/Privacy, OPSEC communities, Signal/Telegram (lowest CPL). Broad Meta 3.2x more expensive \u2014 avoid.', type: 'fdt-validated' },
+      { name: 'Trust Risk', status: 'WARNING', detail: 'Privacy audience needs day-1 credibility proof point \u2014 security audit or open-source transparency', type: 'requires-action' },
       { name: 'Timing Risk', status: 'PASS', detail: 'Evergreen demand \u2014 privacy awareness growing post-regulation', type: 'auto-evaluated' },
     ];
 
@@ -700,10 +818,10 @@
     const summaryCard = card({ style: { padding: '16px', marginBottom: '24px', opacity: '0', animation: `s4FadeIn 0.4s ease-out ${summaryDelay}s forwards` } },
       el('div', { style: { display: 'flex', gap: '24px', marginBottom: '8px' } },
         el('span', { style: { fontSize: '14px', fontFamily: "'JetBrains Mono', monospace", color: '#34d399' } }, passCount + ' passed'),
-        el('span', { style: { fontSize: '14px', fontFamily: "'JetBrains Mono', monospace", color: '#fbbf24' } }, warnCount + ' warnings'),
+        el('span', { style: { fontSize: '14px', fontFamily: "'JetBrains Mono', monospace", color: '#fbbf24' } }, warnCount + ' requires action'),
         el('span', { style: { fontSize: '14px', fontFamily: "'JetBrains Mono', monospace", color: '#f87171' } }, fatalCount + ' fatal')
       ),
-      el('p', { style: { fontSize: '12px', color: '#a3a3a3' } }, 'No fatal blockers \u2014 deployment eligible pending operator review')
+      el('p', { style: { fontSize: '12px', color: '#a3a3a3' } }, 'No fatal blockers. One risk dimension requires an operator decision before launch planning can proceed.')
     );
 
     // Compliance section
@@ -740,12 +858,45 @@
       )
     );
 
+    // Trust Risk Decision — the only open decision
+    const trustDelay = complianceDelay + 0.4;
+    const trustOptionEls = [];
+
+    const trustOptions = ['Security Audit', 'Influencer Seeding'];
+    const trustBtns = trustOptions.map((opt, oi) => {
+      const btn = el('span', { className: 's4-option' }, opt);
+      trustOptionEls.push(btn);
+      return btn;
+    });
+
+    const trustDecision = card({ style: { padding: '20px', marginBottom: '24px', opacity: '0', animation: `s4FadeIn 0.4s ease-out ${trustDelay}s forwards`, borderColor: 'rgba(251,191,36,0.3)' } },
+      el('div', { style: { display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' } },
+        el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", textTransform: 'uppercase', letterSpacing: '0.1em', padding: '2px 8px', borderRadius: '4px', background: 'rgba(251,191,36,0.1)', color: '#fbbf24' } }, 'Operator Decision Required'),
+      ),
+      el('h3', { style: { color: '#fff', fontSize: '16px', fontWeight: '500', marginBottom: '8px' } }, 'Trust Signal Strategy'),
+      el('p', { style: { color: '#a3a3a3', fontSize: '13px', lineHeight: '1.6', marginBottom: '16px' } },
+        'FDT validates demand ($49/mo, privacy-first channels) but this audience won\u2019t convert without a day-1 credibility signal. This is the only risk dimension FDT couldn\u2019t resolve \u2014 it requires a strategic choice.'
+      ),
+      el('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '16px' } },
+        card({ style: { padding: '14px' } },
+          el('div', { style: { fontSize: '13px', fontWeight: '500', color: '#fff', marginBottom: '6px' } }, 'Security Audit'),
+          el('p', { style: { fontSize: '11px', color: '#525252', lineHeight: '1.5' } }, 'Commission third-party pentest, publish results on GitHub. High credibility, +10 days to critical path.'),
+        ),
+        card({ style: { padding: '14px' } },
+          el('div', { style: { fontSize: '13px', fontWeight: '500', color: '#fff', marginBottom: '6px' } }, 'Influencer Seeding'),
+          el('p', { style: { fontSize: '11px', color: '#525252', lineHeight: '1.5' } }, 'Privacy YouTuber / blogger early access. Faster but less durable. +5 days to critical path.'),
+        ),
+      ),
+      el('div', { style: { display: 'flex', gap: '8px', marginBottom: '8px' } }, trustBtns),
+      el('p', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#404040' } }, 'trust_risk \u2192 requires-action \u2192 selection feeds into launch plan')
+    );
+
     // Expert Assessment
     const confidenceBar = el('div', { className: 's4-confidence-track' },
       el('div', { className: 's4-confidence-fill' })
     );
 
-    const expertDelay = complianceDelay + 0.4;
+    const expertDelay = trustDelay + 0.3;
     const expertCard = card({ style: { padding: '20px', marginBottom: '24px', opacity: '0', animation: `s4FadeIn 0.4s ease-out ${expertDelay}s forwards` } },
       el('p', { className: 's4-label', style: { marginBottom: '16px', color: '#404040' } }, 'Expert Assessment'),
       el('div', { style: { marginBottom: '16px' } },
@@ -772,19 +923,20 @@
     );
 
     const wrapper = el('div', { className: 's4-fade-in' },
-      stageHeader('02', 'Risk & Compliance'),
+      stageHeader('02', 'Launch Risk & Strategy'),
       el('p', { style: { fontSize: '14px', color: '#a3a3a3', lineHeight: '1.6', marginBottom: '24px' } },
-        'The engine runs a feasibility scan across 7 risk dimensions, then checks regulatory compliance. Auto-evaluated risks use keyword and price analysis.'
+        'The engine scans 7 risk dimensions, cross-referencing FDT results. Validated risks are marked as passed. The one open dimension surfaces as an operator decision \u2014 its resolution feeds directly into the launch plan.'
       ),
       el('div', { className: 's4-grid-2', style: { marginBottom: '24px' } }, riskCards),
       summaryCard,
       complianceHeader,
       el('div', { style: { marginBottom: '24px' } }, checklistEls),
+      trustDecision,
       expertCard,
-      annotation('Risk assessment and compliance run as a single gate. No fatal blockers and no regulatory flags \u2014 deployment eligible. Confidence 0.87 exceeds the 0.70 threshold.')
+      annotation('FDT collapses 6 of 7 risk dimensions before the operator sees them. Only trust risk requires a new decision. Once resolved, the engine has everything it needs to generate a launch plan with a real critical path.')
     );
 
-    // Animate confidence bar after render
+    // Animate confidence bar
     requestAnimationFrame(() => {
       setTimeout(() => {
         const fill = confidenceBar.querySelector('.s4-confidence-fill');
@@ -792,224 +944,522 @@
       }, 600);
     });
 
+    // Auto-select trust option
+    setTimeout(() => {
+      trustOptionEls[0].classList.add('selected');
+    }, trustDelay * 1000 + 1200);
+
     return wrapper;
   }
 
-  function buildStageDecisions() {
-    const decisions = [
-      {
-        title: 'Launch Strategy',
-        context: 'Privacy community first or broad market? Channel and trust risks suggest a focused launch reduces exposure.',
-        absorbs: ['channel_risk', 'trust_risk'],
-        options: ['Community First', 'Broad Market'],
-        selectedIndex: 0,
-        selectDelay: 1500,
-      },
-      {
-        title: 'Pricing Validation',
-        context: '$55/mo premium positioning flagged by commercial risk. Validate willingness-to-pay before scaling ad spend.',
-        absorbs: ['commercial_risk'],
-        options: ['Pre-launch Survey', 'Launch & Observe'],
-        selectedIndex: 0,
-        selectDelay: 2000,
-      },
-      {
-        title: 'Partnership Approach',
-        context: 'Trust bootstrapping needs a day-1 credibility signal. Security audit vs. privacy influencer seeding.',
-        absorbs: ['trust_risk'],
-        options: ['Security Audit', 'Influencer Seeding'],
-        selectedIndex: 0,
-        selectDelay: 2500,
-      },
+  function buildStageLaunchPlan() {
+    // ── Task data ──
+    // Soft launch: ~3-day critical path. All artifacts are agent-generated (invariant layer)
+    // with no human dependencies. Human tasks are post-launch (variant layer).
+    // Lanes segmented by domain for clarity.
+    const TASKS = [
+      // Customer Journey — everything the customer touches
+      { id: 'website',        name: 'Website & Landing',  lane: 'Customer Journey',      type: 'agent', days: 1, deps: [],                  description: 'Landing page fork, pricing page, design system' },
+      { id: 'journey_config', name: 'Journey Config',     lane: 'Customer Journey',      type: 'agent', days: 1, deps: [],                  description: 'Onboarding steps, escalation rules, bot copy' },
+      { id: 'faq',            name: 'FAQ & Objections',   lane: 'Customer Journey',      type: 'agent', days: 1, deps: [],                  description: 'Objection matrix, audience-specific Q&A' },
+      { id: 'plan_config',    name: 'Plan Config',        lane: 'Customer Journey',      type: 'agent', days: 1, deps: [],                  description: 'eSIM config, data limits, pricing, Stripe product + payment wiring' },
+      { id: 'legal_docs',     name: 'Legal Docs',         lane: 'Customer Journey',      type: 'agent', days: 1, deps: [],                  description: 'ToS, privacy policy, compliance scan — generated from brief' },
+      { id: 'domain_dns',     name: 'Domain & DNS',       lane: 'Customer Journey',      type: 'human', days: 1, deps: ['website'],         description: 'Point brand domain to landing page' },
+
+      // Support — bot and knowledge base
+      { id: 'brand_voice',    name: 'Brand Voice',        lane: 'Support',               type: 'agent', days: 1, deps: [],                  description: 'Personality, tone, conversation starters' },
+      { id: 'product_kb',     name: 'Product KB',         lane: 'Support',               type: 'agent', days: 1, deps: [],                  description: 'Features, troubleshooting, use cases' },
+      { id: 'bot_deploy',     name: 'Bot Deploy',         lane: 'Support',               type: 'agent', days: 1, deps: ['brand_voice', 'journey_config'], description: 'Telegram webhook, escalation config, go live' },
+      { id: 'unit_econ',      name: 'Unit Economics',     lane: 'Support',               type: 'agent', days: 1, deps: [],                  description: 'CAC, LTV, margin model at $49/mo' },
+
+      // Launch Readiness — gates
+      { id: 'esim_test',      name: 'eSIM Smoke Test',    lane: 'Launch Readiness',      type: 'human', days: 1, deps: ['plan_config'],     description: 'Verify activation on pre-provisioned test SIM' },
+      { id: 'e2e_test',       name: 'E2E Journey Test',   lane: 'Launch Readiness',      type: 'gate',  days: 1, deps: ['journey_config', 'website', 'bot_deploy', 'domain_dns', 'esim_test'], description: 'Full signup \u2192 activation \u2192 first call' },
+      { id: 'soft_launch',    name: 'Soft Launch',        lane: 'Launch Readiness',      type: 'gate',  days: 0, deps: ['e2e_test'],        description: 'Bot live, website live, first cohort can activate' },
+
+      // Post-Launch: Legal & Compliance
+      { id: 'eua',            name: 'Full EUA Review',    lane: 'Legal & Compliance',    type: 'human', days: 5, deps: ['soft_launch'],     description: 'Legal counsel review \u2014 soft launch uses generated template', postLaunch: true },
+      { id: 'privacy_review', name: 'Privacy Counsel',    lane: 'Legal & Compliance',    type: 'human', days: 3, deps: ['soft_launch'],     description: 'External review of generated privacy policy', postLaunch: true },
+      { id: 'security_audit', name: 'Security Audit',     lane: 'Legal & Compliance',    type: 'human', days: 7, deps: ['soft_launch'],     description: 'Third-party pentest \u2014 trust signal for scale', postLaunch: true },
+
+      // Post-Launch: Carrier Ops
+      { id: 'alpha_tag',      name: 'AT&T Alpha Tag',     lane: 'Carrier Ops',           type: 'human', days: 5, deps: ['soft_launch'],     description: 'Brand name on caller ID \u2014 cosmetic, not blocking', postLaunch: true },
+      { id: 'esim_inventory', name: 'eSIM Inventory',     lane: 'Carrier Ops',           type: 'human', days: 3, deps: ['soft_launch'],     description: 'Bulk QR allocation for scale beyond test cohort', postLaunch: true },
+
+      // Post-Launch: Growth & GTM
+      { id: 'community_seed', name: 'Community Seeding',  lane: 'Growth & GTM',          type: 'human', days: 5, deps: ['soft_launch'],     description: 'r/Privacy, Signal/Telegram — FDT-validated channels', postLaunch: true },
+      { id: 'affiliate',      name: 'Affiliate Outreach', lane: 'Growth & GTM',          type: 'human', days: 5, deps: ['soft_launch'],     description: 'Privacy bloggers, VPN review sites, commission structure', postLaunch: true },
+      { id: 'influencer',     name: 'Influencer Partners',lane: 'Growth & GTM',          type: 'human', days: 7, deps: ['soft_launch'],     description: 'Creator outreach — privacy YouTubers, tech reviewers', postLaunch: true },
+      { id: 'paid_ads',       name: 'Paid Ads Config',    lane: 'Growth & GTM',          type: 'human', days: 3, deps: ['soft_launch'],     description: 'Meta, Reddit, privacy-focused ad networks — targeting + creatives', postLaunch: true },
+      { id: 'content_cal',    name: 'Content Calendar',   lane: 'Growth & GTM',          type: 'agent', days: 1, deps: ['soft_launch'],     description: 'Blog posts, social cadence, topic clusters from brief', postLaunch: true },
+      { id: 'email_drip',     name: 'Email Drip',         lane: 'Growth & GTM',          type: 'agent', days: 1, deps: ['soft_launch'],     description: 'Welcome sequence, activation nudges, re-engagement flows', postLaunch: true },
+      { id: 'monitoring',     name: 'Monitoring Setup',   lane: 'Growth & GTM',          type: 'human', days: 2, deps: ['soft_launch'],     description: 'Activation rate, churn, VPN usage dashboards', postLaunch: true },
     ];
 
-    const gtmRows = [
-      { color: '#fbbf24', label: 'Below-the-Line', desc: 'OPSEC community early access \u2014 $49/mo founding rate' },
-      { color: '#34d399', label: 'Trust Building', desc: 'Day-1 third-party security audit published on GitHub' },
-      { color: '#38bdf8', label: 'Monitoring', desc: 'Activation rate, VPN usage, churn by cohort' },
-    ];
+    // ── Compute start days (topological sort) ──
+    const taskMap = {};
+    TASKS.forEach(t => { taskMap[t.id] = t; t.start = 0; });
 
-    const optionEls = []; // store references for animation
+    function resolveStart(task) {
+      if (task._resolved) return task.start;
+      if (task.deps.length === 0) { task._resolved = true; return 0; }
+      task.start = Math.max(...task.deps.map(depId => {
+        const dep = taskMap[depId];
+        return resolveStart(dep) + dep.days;
+      }));
+      task._resolved = true;
+      return task.start;
+    }
+    TASKS.forEach(t => resolveStart(t));
 
-    const decisionCards = decisions.map((d, i) => {
-      const optBtns = d.options.map((opt, oi) => {
-        const btn = el('span', { className: 's4-option' }, opt);
-        optionEls.push({ el: btn, decIndex: i, optIndex: oi });
-        return btn;
-      });
+    const launchTasks = TASKS.filter(t => !t.postLaunch);
+    const postTasks = TASKS.filter(t => t.postLaunch);
+    const softLaunchDay = Math.max(...launchTasks.map(t => t.start + t.days));
+    const totalDays = Math.max(...TASKS.map(t => t.start + t.days));
 
-      return card({
+    // All pre-launch tasks are critical — if any slips, launch slips
+    const criticalSet = new Set(launchTasks.map(t => t.id));
+
+    // ── Lane ordering & colors ──
+    const LANE_ORDER = ['Customer Journey', 'Support', 'Launch Readiness', 'Legal & Compliance', 'Carrier Ops', 'Growth & GTM'];
+    const LANE_COLORS = {
+      'Customer Journey': '#7c6af0',
+      'Support': '#20b0d0',
+      'Launch Readiness': '#40c060',
+      'Legal & Compliance': '#6366f1',
+      'Carrier Ops': '#f06040',
+      'Growth & GTM': '#e8c840',
+    };
+    const POST_LANES = new Set(['Legal & Compliance', 'Carrier Ops', 'Growth & GTM']);
+
+    const TYPE_COLORS = { agent: '#34d399', human: '#fbbf24', gate: '#f87171', decision: '#f59e0b' };
+    const TYPE_LABELS = { agent: 'Agent', human: 'Human', gate: 'Gate', decision: 'Decision' };
+
+    // ── Build Gantt ──
+    const DAY_W = 56; // px per day
+    const LABEL_W = 148;
+    const gridWidth = totalDays * DAY_W;
+
+    // Tooltip element (shared)
+    const tooltipEl = el('div', { className: 's4-gantt-tooltip', style: { display: 'none' } });
+
+    // Day headers
+    const dayHeaders = el('div', { className: 's4-gantt-day-header', style: { marginLeft: LABEL_W + 'px', width: gridWidth + 'px' } });
+    for (let d = 0; d < totalDays; d++) {
+      const label = d < softLaunchDay ? 'D' + (d + 1) : (d === softLaunchDay ? '\u25b6 LIVE' : '+' + (d - softLaunchDay));
+      const color = d < softLaunchDay ? '#a3a3a3' : (d === softLaunchDay ? '#34d399' : '#404040');
+      dayHeaders.appendChild(el('span', { style: { width: DAY_W + 'px', textAlign: 'center', flexShrink: '0', color: color, fontWeight: d === softLaunchDay ? '600' : '400' } }, label));
+    }
+
+    // Day grid lines + soft launch marker
+    const gridLines = el('div', { style: { position: 'absolute', top: '0', bottom: '0', left: LABEL_W + 'px', width: gridWidth + 'px', pointerEvents: 'none' } });
+    for (let d = 0; d <= totalDays; d++) {
+      const isSoftLaunch = d === softLaunchDay;
+      gridLines.appendChild(el('div', {
         style: {
-          padding: '20px',
-          marginBottom: '16px',
-          opacity: '0',
-          animation: `s4FadeIn 0.4s ease-out ${0.2 + i * 0.15}s forwards`
+          position: 'absolute',
+          left: (d * DAY_W) + 'px',
+          top: '0',
+          bottom: '0',
+          width: isSoftLaunch ? '2px' : '1px',
+          background: isSoftLaunch ? 'rgba(52,211,153,0.4)' : 'rgba(255,255,255,0.03)',
         }
-      },
-        el('h3', { style: { color: '#fff', fontSize: '14px', fontWeight: '500', marginBottom: '4px' } }, d.title),
-        el('p', { style: { color: '#a3a3a3', fontSize: '12px', lineHeight: '1.5', marginBottom: '16px' } }, d.context),
-        el('div', { style: { display: 'flex', gap: '8px', marginBottom: '12px' } }, optBtns),
-        el('div', { style: { display: 'flex', gap: '8px' } },
-          d.absorbs.map(r => el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#404040' } }, r))
-        )
+      }));
+    }
+
+    // Build lanes
+    const lanesContainer = el('div', { style: { position: 'relative' } });
+    lanesContainer.appendChild(gridLines);
+
+    let animIdx = 0;
+    LANE_ORDER.forEach(laneName => {
+      const laneTasks = TASKS.filter(t => t.lane === laneName);
+      if (laneTasks.length === 0) return;
+
+      const isPostLane = POST_LANES.has(laneName);
+      const laneLabel = el('div', { className: 's4-gantt-lane-label', style: { opacity: '0', animation: `s4FadeIn 0.3s ease-out ${0.3 + animIdx * 0.06}s forwards` } },
+        el('span', { style: { color: LANE_COLORS[laneName] || '#525252' } }, laneName),
+        isPostLane ? el('span', { style: { fontSize: '9px', color: '#404040', marginLeft: '8px', fontStyle: 'italic', textTransform: 'none', letterSpacing: '0' } }, 'post-launch') : null
       );
+      lanesContainer.appendChild(laneLabel);
+
+      laneTasks.forEach(task => {
+        const isCritical = criticalSet.has(task.id);
+        const isPost = task.postLaunch;
+        const barClass = 's4-gantt-bar bar-' + task.type;
+        const barLeft = LABEL_W + task.start * DAY_W + 2;
+        const barWidth = Math.max(task.days * DAY_W - 4, 24);
+        const delay = 0.4 + animIdx * 0.06;
+
+        const bar = el('div', {
+          className: barClass,
+          style: {
+            left: barLeft + 'px',
+            width: '0px',
+            top: '4px',
+            opacity: '0',
+          }
+        }, task.days > 0 ? task.name : '\u25b6');
+
+        if (isPost) {
+          bar.style.opacity = '0';
+          bar.style.borderStyle = 'dashed';
+        }
+
+        // Pre-launch at full brightness, post-launch dimmed
+        const barOpacity = isPost ? '0.35' : '1';
+        setTimeout(() => {
+          bar.style.transition = 'width 0.5s ease-out, opacity 0.3s ease-out';
+          bar.style.opacity = barOpacity;
+          bar.style.width = barWidth + 'px';
+        }, delay * 1000);
+
+        // Hover tooltip
+        bar.addEventListener('mouseenter', (e) => {
+          bar.style.opacity = '1';
+          tooltipEl.style.display = 'block';
+          tooltipEl.innerHTML = '';
+          tooltipEl.appendChild(el('div', { style: { fontWeight: '500', color: '#fff', marginBottom: '4px' } }, task.name));
+          tooltipEl.appendChild(el('div', { style: { display: 'flex', gap: '12px', marginBottom: '6px' } },
+            el('span', { style: { color: TYPE_COLORS[task.type] } }, TYPE_LABELS[task.type]),
+            task.days > 0 ? el('span', { style: { color: '#525252' } }, task.days + (task.days === 1 ? ' day' : ' days')) : null,
+            isCritical ? el('span', { style: { color: '#f87171' } }, '\u25cf critical path') : null,
+            isPost ? el('span', { style: { color: '#525252', fontStyle: 'italic' } }, 'post-launch') : null
+          ));
+          tooltipEl.appendChild(el('div', { style: { color: '#a3a3a3', lineHeight: '1.4' } }, task.description));
+          if (task.deps.length > 0) {
+            tooltipEl.appendChild(el('div', { style: { color: '#404040', fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", marginTop: '6px' } },
+              'depends on: ' + task.deps.join(', ')
+            ));
+          }
+          // Position anchored to bar
+          var rect = bar.getBoundingClientRect();
+          var tx = rect.right + 8;
+          if (tx + 300 > window.innerWidth - 4) tx = rect.left - 308;
+          if (tx < 4) tx = 4;
+          tooltipEl.style.left = tx + 'px';
+          tooltipEl.style.top = (rect.top - 4) + 'px';
+        });
+        bar.addEventListener('mouseleave', () => {
+          bar.style.opacity = barOpacity;
+          tooltipEl.style.display = 'none';
+        });
+
+        const row = el('div', { className: 's4-gantt-row', style: { position: 'relative' } });
+
+        const taskLabel = el('div', {
+          style: {
+            width: LABEL_W + 'px',
+            flexShrink: '0',
+            fontSize: '11px',
+            color: isPost ? '#404040' : '#a3a3a3',
+            fontWeight: '400',
+            paddingLeft: '8px',
+            opacity: '0',
+            animation: `s4FadeInRight 0.3s ease-out ${delay}s forwards`,
+          }
+        },
+          el('span', { style: { display: 'flex', alignItems: 'center', gap: '6px' } },
+            el('span', { style: { width: '6px', height: '6px', borderRadius: '2px', background: isPost ? '#333' : TYPE_COLORS[task.type], flexShrink: '0' } }),
+            task.name
+          )
+        );
+        row.appendChild(taskLabel);
+        row.appendChild(bar);
+        lanesContainer.appendChild(row);
+        animIdx++;
+      });
     });
 
-    const gtmCard = card({
-      style: {
-        padding: '20px',
-        marginTop: '24px',
-        opacity: '0',
-        animation: 's4FadeIn 0.4s ease-out 0.6s forwards'
-      }
-    },
-      el('h3', { style: { color: '#fff', fontSize: '14px', fontWeight: '500', marginBottom: '16px' } }, 'GTM Strategy'),
-      el('div', { style: { display: 'flex', flexDirection: 'column', gap: '12px' } },
-        gtmRows.map(r =>
-          el('div', { style: { display: 'flex', alignItems: 'flex-start', gap: '12px' } },
-            el('span', { style: { width: '8px', height: '8px', borderRadius: '50%', background: r.color, flexShrink: '0', marginTop: '4px' } }),
-            el('div', null,
-              el('span', { style: { color: '#fff', fontSize: '12px', fontWeight: '500' } }, r.label),
-              el('span', { style: { color: '#525252', fontSize: '12px', marginLeft: '8px' } }, '\u2014 ' + r.desc)
-            )
-          )
-        )
+    // ── Legend ──
+    const legend = el('div', { className: 's4-gantt-legend' },
+      [
+        { color: '#34d399', label: 'Agent (engine)' },
+        { color: '#fbbf24', label: 'Human' },
+        { color: '#f87171', label: 'Gate' },
+        { color: '#404040', label: 'Post-launch', style: 'dashed' },
+      ].map(l => el('div', { className: 's4-gantt-legend-item' },
+        el('span', { className: 's4-gantt-legend-dot', style: { background: l.style === 'dashed' ? 'transparent' : l.color, border: l.style === 'dashed' ? '1px dashed ' + l.color : 'none' } }),
+        l.label
+      ))
+    );
+
+    // ── Summary stats ──
+    const agentCount = TASKS.filter(t => t.type === 'agent' && !t.postLaunch).length;
+    const humanLaunch = launchTasks.filter(t => t.type === 'human').length;
+    const gateCount = launchTasks.filter(t => t.type === 'gate').length;
+
+    const summarySection = el('div', { className: 's4-gantt-summary', style: { borderTop: 'none', marginTop: '0', paddingTop: '0', opacity: '0', animation: 's4FadeIn 0.4s ease-out 0.2s forwards' } },
+      el('div', { className: 's4-gantt-summary-stat' },
+        el('span', { style: { fontSize: '22px', fontFamily: "'JetBrains Mono', monospace", color: '#34d399' } }, agentCount + ' artifacts'),
+        el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#525252', textTransform: 'uppercase' } }, 'Agent \u2014 day 1 (parallel)')
+      ),
+      el('div', { className: 's4-gantt-summary-stat' },
+        el('span', { style: { fontSize: '22px', fontFamily: "'JetBrains Mono', monospace", color: '#fbbf24' } }, humanLaunch + ' task' + (humanLaunch > 1 ? 's' : '')),
+        el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#525252', textTransform: 'uppercase' } }, 'Human (pre-launch)')
+      ),
+      el('div', { className: 's4-gantt-summary-stat' },
+        el('span', { style: { fontSize: '22px', fontFamily: "'JetBrains Mono', monospace", color: '#f87171' } }, gateCount + ' gates'),
+        el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#525252', textTransform: 'uppercase' } }, 'Must pass')
+      ),
+      el('div', { className: 's4-gantt-summary-stat' },
+        el('span', { style: { fontSize: '22px', fontFamily: "'JetBrains Mono', monospace", color: '#fff' } }, softLaunchDay + ' days'),
+        el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#525252', textTransform: 'uppercase' } }, 'To soft launch')
+      )
+    );
+
+    // ── Critical path callout (phase-level, not individual tasks) ──
+    const cpPhases = ['Artifact Generation', 'Web & Bot Deployment', 'E2E Journey Test', 'Soft Launch'];
+
+    const cpCard = card({ style: { padding: '16px', marginBottom: '24px', borderColor: 'rgba(52,211,153,0.3)', opacity: '0', animation: 's4FadeIn 0.4s ease-out 0.3s forwards' } },
+      el('div', { style: { display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' } },
+        el('span', { style: { width: '8px', height: '8px', borderRadius: '50%', background: '#34d399' } }),
+        el('span', { style: { fontSize: '12px', fontWeight: '500', color: '#fff' } }, 'Critical Path \u2014 ' + softLaunchDay + ' days to soft launch'),
+      ),
+      el('div', { style: { display: 'flex', flexWrap: 'wrap', gap: '4px', alignItems: 'center' } },
+        cpPhases.map((name, i) => {
+          const els = [el('span', { style: { fontSize: '11px', fontFamily: "'JetBrains Mono', monospace", color: '#d4d4d4', padding: '2px 8px', background: 'rgba(52,211,153,0.1)', borderRadius: '4px' } }, name)];
+          if (i < cpPhases.length - 1) {
+            els.push(el('span', { style: { fontSize: '10px', color: '#404040', margin: '0 2px' } }, '\u2192'));
+          }
+          return els;
+        }).flat()
       )
     );
 
     const wrapper = el('div', { className: 's4-fade-in' },
-      stageHeader('03', 'Strategic Decisions'),
-      el('p', { style: { color: '#a3a3a3', fontSize: '14px', lineHeight: '1.6', marginBottom: '32px' } },
-        'Risk evidence is synthesized into 3 operator decisions. Each decision absorbs specific risks and blocks downstream artifacts until resolved.'
+      stageHeader('03', 'Launch Plan'),
+      el('p', { style: { fontSize: '14px', color: '#a3a3a3', lineHeight: '1.6', marginBottom: '24px' } },
+        'Same engine, different brand. Agents generate all brand-specific artifacts on day 1. Post-launch tasks \u2014 legal, carrier, growth \u2014 run without blocking first activation.'
       ),
-      ...decisionCards,
-      gtmCard,
-      annotation('Decisions gate artifact generation. Until \u2018Launch Strategy\u2019 is resolved, the GTM playbook and website copy remain blocked. This prevents wasted generation on a strategy the operator might reject.')
+      summarySection,
+      cpCard,
+      legend,
+      el('div', { className: 's4-gantt' },
+        dayHeaders,
+        lanesContainer,
+      ),
+      tooltipEl,
+      annotation('The engine (pipeline, infra, tooling) is shared across every brand. Everything brand-specific \u2014 artifacts, legal docs, carrier config, GTM \u2014 is generated by agents in hours. Humans handle ops over days, post-launch. Critical path compresses to ' + softLaunchDay + ' days because agent work parallelizes completely.')
     );
-
-    // Auto-select options with delays
-    decisions.forEach((d, i) => {
-      setTimeout(() => {
-        optionEls.forEach(o => {
-          if (o.decIndex === i && o.optIndex === d.selectedIndex) {
-            o.el.classList.add('selected');
-          }
-        });
-      }, d.selectDelay);
-    });
 
     return wrapper;
   }
+
 
   function buildStageGeneration() {
     const artifacts = [
-      { name: 'Brand Voice', filename: 'brand.md', duration: 2500, description: 'Personality, tone, conversation starters' },
-      { name: 'Product KB', filename: 'product.md', duration: 3000, description: 'Features, troubleshooting, use cases' },
-      { name: 'FAQ', filename: 'faq.md', duration: 2000, description: 'Objection matrices, audience-specific Q&A' },
-      { name: 'Journey Config', filename: 'journey-config.yaml', duration: 3500, description: 'Bot copy, onboarding steps, escalation rules' },
-      { name: 'Website', filename: 'page-spec.json', duration: 4000, description: 'Landing page, pricing, design system' },
-      { name: 'Unit Economics', filename: 'economics.json', duration: 2800, description: 'CAC, LTV, margin analysis' },
-      { name: 'Plan Spec', filename: 'plan-spec.json', duration: 3200, description: 'ConnectX config, data limits, FUP' },
+      { name: 'Website & Landing', filename: 'page-spec.json', description: 'Landing page fork, pricing page, design system',
+        preview: '{\n  "brand": "Specter",\n  "pages": {\n    "landing": {\n      "hero": "Network-layer invisibility.",\n      "cta": "Get Specter",\n      "pricing": "$49/mo"\n    },\n    "design_system": {\n      "palette": "dark-cyber",\n      "font": "JetBrains Mono"\n    }\n  }\n}' },
+      { name: 'Journey Config', filename: 'journey-config.yaml', description: 'Onboarding steps, escalation rules, bot copy',
+        preview: 'onboarding:\n  steps:\n    - verify_email\n    - select_plan\n    - install_esim\n    - activate\n\nescalation:\n  timeout: 120s\n  fallback: human_agent\n\nbot_copy:\n  greeting: "Welcome to Specter."\n  tone: technical, direct' },
+      { name: 'FAQ & Objections', filename: 'faq.md', description: 'Objection matrix, audience-specific Q&A',
+        preview: '# FAQ \u2014 Specter\n\n## Is this actually private?\nSpecter runs on zero-knowledge infrastructure.\nNo logs. No metadata retention. Verified by\nthird-party audit.\n\n## Why not just use a VPN?\nVPNs encrypt traffic. Specter makes your\ndevice invisible at the network layer.' },
+      { name: 'Plan Config', filename: 'plan-spec.json', description: 'eSIM config, data limits, pricing, Stripe + payment wiring',
+        preview: '{\n  "plan": "specter-core",\n  "price_cents": 4900,\n  "currency": "usd",\n  "data_limit_gb": "unlimited",\n  "fup_threshold_gb": 50,\n  "esim_provider": "connectx",\n  "stripe_product": "prod_specter_core"\n}' },
+      { name: 'Legal Docs', filename: 'legal.md', description: 'ToS, privacy policy, compliance scan',
+        preview: '# Terms of Service \u2014 Specter\n\nEffective: Launch date\n\n## Data Collection\nSpecter collects no personally identifiable\ninformation beyond what is required for\nbilling and eSIM provisioning.\n\n## Privacy Policy\nZero-knowledge architecture. No session logs.' },
+      { name: 'Brand Voice', filename: 'brand.md', description: 'Personality, tone, conversation starters',
+        preview: '# Specter \u2014 retro-cyber\n\n## Positioning\nFor OPSEC practitioners, Specter is the\nMVNO architected for network-layer\ninvisibility.\n\n## Personality\nTechnical, Transparent, Uncompromising' },
+      { name: 'Product KB', filename: 'product.md', description: 'Features, troubleshooting, use cases',
+        preview: '# Product Knowledge Base\n\n## Core Features\n- eSIM-only activation (no physical SIM)\n- Zero-knowledge network architecture\n- No metadata retention\n- Encrypted DNS by default\n\n## Troubleshooting\n### eSIM not activating?\n1. Check device compatibility\n2. Restart device after install' },
+      { name: 'Bot Deploy', filename: 'bot-config.yaml', description: 'Telegram webhook, escalation config, go live',
+        preview: 'bot:\n  platform: telegram\n  handle: "@SpecterBot"\n  webhook: /api/webhook/specter\n\nescalation:\n  provider: sunshine\n  timeout: 120s\n  sync_history: true\n\nstatus: ready' },
+      { name: 'Unit Economics', filename: 'economics.json', description: 'CAC, LTV, margin model',
+        preview: '{\n  "price_monthly": 49,\n  "cogs_monthly": 18.50,\n  "gross_margin": 0.622,\n  "estimated_cac": 32,\n  "ltv_12mo": 366,\n  "ltv_cac_ratio": 11.4,\n  "payback_months": 0.65\n}' },
     ];
 
-    const staggerOffset = 200;
-    const progressFills = [];
-    const statusLabels = [];
-    const checkIcons = [];
-    let completionArea;
+    const rows = [];
+    const statusEls = [];
+    const checkEls = [];
+    const previewEls = [];
+    let summaryEl;
+    let activePreview = null;
 
-    const artifactCards = artifacts.map((a, i) => {
-      const fill = el('div', { className: 's4-progress-fill', style: { width: '0%' } });
-      progressFills.push(fill);
+    artifacts.forEach((a, i) => {
+      const statusBadge = el('span', {
+        style: {
+          fontSize: '10px',
+          fontFamily: "'JetBrains Mono', monospace",
+          padding: '2px 8px',
+          borderRadius: '4px',
+          background: 'rgba(52,211,153,0.1)',
+          color: '#34d399',
+          transition: 'all 0.3s ease-out',
+        }
+      }, 'generated');
+      statusEls.push(statusBadge);
 
-      const statusLabel = el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#404040' } }, 'generating...');
-      statusLabels.push(statusLabel);
+      const checkEl = el('span', { style: { display: 'none', marginLeft: '8px' } });
+      checkEl.appendChild(makeCheckSvg(12, '#34d399'));
+      checkEls.push(checkEl);
 
-      const checkIcon = el('span', { style: { display: 'none' } });
-      checkIcon.appendChild(makeCheckSvg(14, '#34d399'));
-      checkIcons.push(checkIcon);
-
-      const isLast = i === artifacts.length - 1 && artifacts.length % 2 !== 0;
-      const cardStyle = {
-        padding: '16px',
-        opacity: '0',
-        animation: `s4FadeIn 0.3s ease-out ${0.15 + i * 0.05}s forwards`,
-      };
-      if (isLast) {
-        cardStyle.gridColumn = '1 / -1';
-        cardStyle.maxWidth = '50%';
-        cardStyle.margin = '0 auto';
-      }
-
-      return card({ style: cardStyle },
-        el('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' } },
-          el('span', { style: { fontSize: '14px', fontWeight: '500', color: '#fff' } }, a.name),
-          el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#404040' } }, a.filename)
+      // Terminal-style preview pane
+      const previewPane = el('div', {
+        style: {
+          display: 'none',
+          margin: '0 16px 8px 16px',
+          borderRadius: '8px',
+          overflow: 'hidden',
+          border: '1px solid rgba(255,255,255,0.06)',
+          background: '#0c0a14',
+        }
+      },
+        // Title bar with traffic lights
+        el('div', {
+          style: {
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
+            padding: '8px 12px',
+            background: 'rgba(255,255,255,0.03)',
+            borderBottom: '1px solid rgba(255,255,255,0.04)',
+          }
+        },
+          el('span', { style: { width: '8px', height: '8px', borderRadius: '50%', background: '#ff5f57' } }),
+          el('span', { style: { width: '8px', height: '8px', borderRadius: '50%', background: '#febc2e' } }),
+          el('span', { style: { width: '8px', height: '8px', borderRadius: '50%', background: '#28c840' } }),
+          el('span', { style: { fontSize: '11px', fontFamily: "'JetBrains Mono', monospace", color: '#525252', marginLeft: '8px' } }, a.filename)
         ),
-        el('p', { style: { fontSize: '11px', color: '#525252', marginBottom: '12px' } }, a.description),
-        el('div', { className: 's4-progress-track' }, fill),
-        el('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '8px' } },
-          statusLabel,
-          checkIcon
+        // File content
+        el('pre', {
+          style: {
+            margin: '0',
+            padding: '16px',
+            fontSize: '12px',
+            fontFamily: "'JetBrains Mono', monospace",
+            color: '#a3a3a3',
+            lineHeight: '1.6',
+            whiteSpace: 'pre-wrap',
+            maxHeight: '200px',
+            overflow: 'hidden',
+          }
+        }, a.preview)
+      );
+      previewEls.push(previewPane);
+
+      const rowHeader = el('div', {
+        style: {
+          display: 'flex',
+          alignItems: 'center',
+          padding: '10px 16px',
+          cursor: 'pointer',
+          transition: 'background 0.2s ease-out',
+          opacity: '0',
+          animation: 's4FadeInRight 0.3s ease-out ' + (0.1 + i * 0.06) + 's forwards',
+        }
+      },
+        // Status indicator dot
+        el('span', { style: { width: '6px', height: '6px', borderRadius: '50%', background: '#34d399', flexShrink: '0', marginRight: '12px' } }),
+        // Name + filename
+        el('div', { style: { flex: '1', minWidth: '0' } },
+          el('div', { style: { display: 'flex', alignItems: 'baseline', gap: '8px' } },
+            el('span', { style: { fontSize: '13px', fontWeight: '500', color: '#e5e5e5' } }, a.name),
+            el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#404040' } }, a.filename)
+          ),
+          el('div', { style: { fontSize: '11px', color: '#525252', marginTop: '2px' } }, a.description)
+        ),
+        // Status badge + check
+        el('div', { style: { display: 'flex', alignItems: 'center', flexShrink: '0', marginLeft: '16px' } },
+          statusBadge,
+          checkEl
         )
       );
+
+      rowHeader.addEventListener('mouseenter', () => { rowHeader.style.background = 'rgba(255,255,255,0.02)'; });
+      rowHeader.addEventListener('mouseleave', () => { rowHeader.style.background = ''; });
+      rowHeader.addEventListener('click', () => {
+        if (activePreview === previewPane) {
+          previewPane.style.display = 'none';
+          activePreview = null;
+        } else {
+          if (activePreview) activePreview.style.display = 'none';
+          previewPane.style.display = '';
+          activePreview = previewPane;
+        }
+      });
+
+      const rowContainer = el('div', {
+        style: { borderBottom: '1px solid rgba(255,255,255,0.04)' }
+      }, rowHeader, previewPane);
+
+      rows.push(rowContainer);
     });
 
-    completionArea = el('div', { style: { textAlign: 'center', marginBottom: '32px', display: 'none' } },
-      el('p', { style: { color: '#fff', fontSize: '14px', fontWeight: '500', marginBottom: '8px' } }, '7/7 artifacts ready'),
-      el('div', { style: { display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '8px' } },
-        artifacts.map(a => el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#404040' } }, a.filename))
+    const listContainer = card({ style: { padding: '0', overflow: 'hidden' } },
+      // Header row
+      el('div', {
+        style: {
+          display: 'flex',
+          justifyContent: 'space-between',
+          padding: '12px 16px',
+          borderBottom: '1px solid rgba(255,255,255,0.06)',
+          fontSize: '10px',
+          fontFamily: "'JetBrains Mono', monospace",
+          color: '#525252',
+          textTransform: 'uppercase',
+          letterSpacing: '0.05em',
+        }
+      },
+        el('span', null, 'Artifact'),
+        el('span', null, 'Status')
+      ),
+      ...rows
+    );
+
+    summaryEl = el('div', {
+      style: {
+        display: 'none',
+        textAlign: 'center',
+        padding: '16px',
+        marginTop: '16px',
+        borderRadius: '8px',
+        border: '1px solid rgba(52,211,153,0.2)',
+        background: 'rgba(52,211,153,0.05)',
+      }
+    },
+      el('span', { style: { fontSize: '13px', fontFamily: "'JetBrains Mono', monospace", color: '#34d399' } },
+        artifacts.length + '/' + artifacts.length + ' reviewed \u2014 ready to deploy'
       )
     );
 
     const wrapper = el('div', { className: 's4-fade-in' },
-      stageHeader('04', 'Artifact Generation'),
-      el('p', { style: { color: '#a3a3a3', fontSize: '14px', lineHeight: '1.6', marginBottom: '32px' } },
-        'With decisions resolved, the engine parallelizes 7 artifact generation tasks. Each artifact is purpose-built from the brief, brand voice, and strategic context.'
+      stageHeader('04', 'Artifact Review'),
+      el('p', { style: { color: '#a3a3a3', fontSize: '14px', lineHeight: '1.6', marginBottom: '24px' } },
+        artifacts.length + ' artifacts generated from the brief. Each is verified against brand voice, strategic context, and compliance rules before deploy.'
       ),
-      el('div', { className: 's4-grid-2', style: { marginBottom: '32px' } }, artifactCards),
-      completionArea,
-      annotation('Parallel generation is the key optimization. A linear pipeline would take ~45 seconds. Parallel execution completes in under 15 \u2014 gated only by the slowest artifact (website).')
+      listContainer,
+      summaryEl,
+      annotation('All artifacts are generated in parallel in under 15 seconds. This stage is the human checkpoint \u2014 review what the engine built before it goes live.')
     );
 
-    // Animate progress bars
-    let startTime = null;
-    let rafId = null;
+    // Staggered review animation: generated → reviewed
+    const reviewDelay = 800; // initial pause
+    const reviewInterval = 400; // per-artifact stagger
+    const timeouts = [];
 
-    function animateProgress(timestamp) {
-      if (!startTime) startTime = timestamp;
-      const elapsed = timestamp - startTime;
-      let allDone = true;
+    artifacts.forEach((a, i) => {
+      const t = setTimeout(() => {
+        statusEls[i].textContent = 'reviewed';
+        statusEls[i].style.background = 'rgba(52,211,153,0.15)';
+        statusEls[i].style.color = '#34d399';
+        checkEls[i].style.display = '';
 
-      artifacts.forEach((a, i) => {
-        const artifactStart = i * staggerOffset;
-        const artifactElapsed = Math.max(0, elapsed - artifactStart);
-        const pct = Math.min(100, (artifactElapsed / a.duration) * 100);
-        progressFills[i].style.width = pct + '%';
-
-        if (pct >= 100) {
-          statusLabels[i].textContent = 'complete';
-          checkIcons[i].style.display = '';
-        } else {
-          allDone = false;
+        // Check if all done
+        if (i === artifacts.length - 1) {
+          setTimeout(() => {
+            summaryEl.style.display = '';
+            summaryEl.style.opacity = '0';
+            summaryEl.style.animation = 's4FadeIn 0.4s ease-out forwards';
+          }, 300);
         }
-      });
+      }, reviewDelay + i * reviewInterval);
+      timeouts.push(t);
+    });
 
-      if (allDone) {
-        completionArea.style.display = '';
-        completionArea.style.opacity = '0';
-        completionArea.style.animation = 's4FadeIn 0.4s ease-out forwards';
-      } else {
-        rafId = requestAnimationFrame(animateProgress);
-      }
-    }
-
-    // Store cleanup reference
     wrapper._cleanup = () => {
-      if (rafId) cancelAnimationFrame(rafId);
+      timeouts.forEach(t => clearTimeout(t));
     };
-
-    rafId = requestAnimationFrame(animateProgress);
 
     return wrapper;
   }
@@ -1019,8 +1469,13 @@
       { label: 'Pre-deploy risk clearance', result: 'CLEAR \u2014 0 fatal, 1 should-resolve (approved)' },
       { label: 'Write pilot/brands/specter/', result: '' },
       { label: 'Generate QR code for @SpecterBot', result: '' },
-      { label: 'Connect Telegram bot webhook', result: '' },
-      { label: 'Verify journey config endpoints', result: '' },
+      { label: 'Connect messaging channel webhook', result: '' },
+      { label: 'QA agent \u2014 automated conversation test', result: 'PASS \u2014 4/4 exchanges, brand voice verified' },
+    ];
+
+    const gates = [
+      { label: 'eSIM Smoke Test', description: 'Verify activation on pre-provisioned test SIM', result: 'PASS \u2014 eSIM activated, data session confirmed' },
+      { label: 'E2E Journey Test', description: 'Full signup \u2192 activation \u2192 first call', result: 'PASS \u2014 journey complete in 3m 42s' },
     ];
 
     const fileTree = [
@@ -1028,29 +1483,78 @@
       '\u251C\u2500\u2500 product.md',
       '\u251C\u2500\u2500 faq.md',
       '\u251C\u2500\u2500 journey-config.yaml',
-      '\u251C\u2500\u2500 brand-meta.json',
-      '\u251C\u2500\u2500 checkout-config.json',
+      '\u251C\u2500\u2500 plan-spec.json',
+      '\u251C\u2500\u2500 legal.md',
+      '\u251C\u2500\u2500 bot-config.yaml',
+      '\u251C\u2500\u2500 economics.json',
       '\u2514\u2500\u2500 website/',
     ];
 
     const closingStats = [
-      { value: '7', label: 'Pipeline stages' },
+      { value: '5', label: 'Pipeline stages' },
       { value: '10', label: 'Risks assessed' },
-      { value: '7', label: 'Artifacts generated' },
-      { value: '1', label: 'Brand deployed' },
+      { value: '9', label: 'Artifacts generated' },
+      { value: '2', label: 'Gates passed' },
     ];
 
     const liveStats = [
       { value: '0', label: 'Subscribers', note: 'awaiting first activation' },
       { value: '$0', label: 'MRR', note: '' },
       { value: 'ONLINE', label: 'Bot', dot: true },
-      { value: '@SpecterBot', label: 'Telegram', note: '' },
     ];
 
     const checklistContainer = el('div', { style: { display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '40px' } });
+    const gatesSection = el('div', { style: { display: 'none', marginBottom: '40px' } });
     const liveSection = el('div', { style: { display: 'none' } });
     const closingSection = el('div', { style: { display: 'none' } });
     const timers = [];
+
+    // Build gate items
+    const gateSpinners = [];
+    const gateChecks = [];
+    const gateResults = [];
+
+    const gatesHeader = el('div', {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: '8px',
+        marginBottom: '16px',
+        paddingTop: '8px',
+        borderTop: '1px solid rgba(255,255,255,0.04)',
+      }
+    },
+      el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#f87171', textTransform: 'uppercase', letterSpacing: '0.05em' } }, '\u25cf Launch Gates')
+    );
+    gatesSection.appendChild(gatesHeader);
+
+    gates.forEach((gate, i) => {
+      const spinner = el('div', { style: { width: '16px', height: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: '0', marginTop: '2px' } },
+        el('div', { className: 's4-spinner' })
+      );
+      gateSpinners.push(spinner);
+
+      const checkSvg = el('div', { style: { display: 'none', flexShrink: '0', marginTop: '2px' } },
+        makeCheckSvg(16, '#34d399')
+      );
+      gateChecks.push(checkSvg);
+
+      const resultSpan = el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#34d399', marginLeft: '8px', display: 'none' } }, gate.result);
+      gateResults.push(resultSpan);
+
+      const row = el('div', { style: { marginBottom: '12px' } },
+        el('div', { style: { display: 'flex', alignItems: 'flex-start', gap: '12px' } },
+          spinner,
+          checkSvg,
+          el('div', null,
+            el('span', { style: { fontSize: '14px', color: '#fff' } }, gate.label),
+            resultSpan,
+            el('div', { style: { fontSize: '11px', color: '#525252', marginTop: '2px' } }, gate.description)
+          )
+        )
+      );
+      gatesSection.appendChild(row);
+    });
 
     // Build checklist items
     const checkIcons = [];
@@ -1108,6 +1612,138 @@
       );
     });
 
+    // Mock Telegram conversation preview
+    const chatMessages = [
+      { from: 'user', text: 'What makes Specter different from a regular phone plan?' },
+      { from: 'bot', text: 'Specter is built on zero-knowledge infrastructure. No metadata retention, no session logs, encrypted DNS by default. Your device is invisible at the network layer \u2014 not just your traffic.' },
+      { from: 'user', text: 'How do I activate?' },
+      { from: 'bot', text: 'It\u2019s eSIM-only \u2014 no physical SIM needed. I\u2019ll walk you through it: takes about 2 minutes. Ready to start?' },
+    ];
+
+    const channels = [
+      { name: 'Telegram', color: '#26A5E4' },
+      { name: 'iMessage', color: '#007AFF' },
+      { name: 'RCS', color: '#4285F4' },
+      { name: 'SMS', color: '#a3a3a3' },
+      { name: 'WhatsApp', color: '#25D366' },
+    ];
+    var activeChannel = channels[0];
+
+    // Channel label in chat header (mutable)
+    const channelDot = el('span', { style: { width: '6px', height: '6px', borderRadius: '50%', background: activeChannel.color, display: 'inline-block', marginRight: '6px' } });
+    const channelLabelText = el('span', null, activeChannel.name);
+    const channelLabel = el('div', { style: { marginLeft: 'auto', fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#a3a3a3', display: 'flex', alignItems: 'center' } }, channelDot, channelLabelText);
+
+    const chatBubbles = [];
+    const chatContainer = el('div', {
+      style: {
+        borderRadius: '12px',
+        overflow: 'hidden',
+        border: '1px solid rgba(255,255,255,0.06)',
+        background: '#0c0a14',
+        marginBottom: '32px',
+      }
+    },
+      // Chat header
+      el('div', {
+        style: {
+          display: 'flex',
+          alignItems: 'center',
+          gap: '10px',
+          padding: '12px 16px',
+          background: 'rgba(255,255,255,0.03)',
+          borderBottom: '1px solid rgba(255,255,255,0.04)',
+        }
+      },
+        el('div', {
+          style: {
+            width: '28px', height: '28px', borderRadius: '50%',
+            background: 'linear-gradient(135deg, #34d399, #059669)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontSize: '12px', color: '#fff', fontWeight: '600',
+          }
+        }, 'S'),
+        el('div', null,
+          el('div', { style: { fontSize: '13px', fontWeight: '500', color: '#e5e5e5' } }, 'SpecterBot'),
+          el('div', { style: { fontSize: '10px', color: '#34d399' } }, 'online')
+        ),
+        channelLabel
+      ),
+      // Messages area
+      el('div', { style: { padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px', minHeight: '60px' } },
+        ...chatMessages.map((msg, mi) => {
+          const isBot = msg.from === 'bot';
+          const bubble = el('div', {
+            style: {
+              display: 'none',
+              maxWidth: '80%',
+              alignSelf: isBot ? 'flex-start' : 'flex-end',
+              padding: '10px 14px',
+              borderRadius: isBot ? '4px 12px 12px 12px' : '12px 4px 12px 12px',
+              background: isBot ? 'rgba(52,211,153,0.08)' : 'rgba(255,255,255,0.05)',
+              border: '1px solid ' + (isBot ? 'rgba(52,211,153,0.15)' : 'rgba(255,255,255,0.06)'),
+              fontSize: '12px',
+              lineHeight: '1.5',
+              color: isBot ? '#d1d5db' : '#a3a3a3',
+            }
+          }, msg.text);
+          chatBubbles.push(bubble);
+          return bubble;
+        })
+      )
+    );
+
+    // Channel selector badges (above chat)
+    var channelBadgeEls = [];
+    var channelSelector = el('div', { style: { display: 'flex', justifyContent: 'center', gap: '6px', flexWrap: 'wrap', marginBottom: '12px' } },
+      channels.map(function (ch) {
+        var isActive = ch === activeChannel;
+        var dot = el('span', {
+          style: {
+            width: '7px', height: '7px', borderRadius: '50%',
+            background: ch.color,
+            flexShrink: '0',
+            opacity: isActive ? '1' : '0.35',
+            transition: 'opacity 0.2s ease-out',
+          }
+        });
+        var badge = el('span', {
+          style: {
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
+            fontSize: '11px',
+            fontFamily: "'JetBrains Mono', monospace",
+            padding: '5px 12px',
+            borderRadius: '6px',
+            cursor: 'pointer',
+            transition: 'all 0.2s ease-out',
+            border: '1px solid ' + (isActive ? ch.color + '4D' : 'rgba(255,255,255,0.06)'),
+            background: isActive ? ch.color + '14' : 'transparent',
+            color: isActive ? '#e5e5e5' : '#525252',
+          }
+        }, dot, ch.name);
+        badge._dot = dot;
+        badge._ch = ch;
+        badge.addEventListener('click', function () {
+          activeChannel = ch;
+          channelLabelText.textContent = ch.name;
+          channelDot.style.background = ch.color;
+          channelBadgeEls.forEach(function (b) {
+            var a = b._ch === ch;
+            b.style.border = '1px solid ' + (a ? b._ch.color + '4D' : 'rgba(255,255,255,0.06)');
+            b.style.background = a ? b._ch.color + '14' : 'transparent';
+            b.style.color = a ? '#e5e5e5' : '#525252';
+            b._dot.style.opacity = a ? '1' : '0.35';
+          });
+        });
+        channelBadgeEls.push(badge);
+        return badge;
+      })
+    );
+
+    const chatSection = el('div', { style: { display: 'none' } }, channelSelector, chatContainer);
+
     // Live state card
     const liveCard = el('div', {
       className: 's4-card',
@@ -1129,7 +1765,7 @@
           el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", textTransform: 'uppercase', letterSpacing: '0.05em', color: '#34d399' } }, 'LIVE')
         )
       ),
-      el('div', { className: 's4-grid-4' },
+      el('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px', textAlign: 'center' } },
         liveStats.map(stat =>
           el('div', null,
             el('div', { style: { display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' } },
@@ -1144,6 +1780,106 @@
     );
 
     liveSection.appendChild(liveCard);
+
+    // Post-launch ops section
+    const postLaunchLanes = [
+      {
+        lane: 'Legal & Compliance',
+        color: '#f87171',
+        tasks: [
+          { name: 'Full EUA Review', type: 'human', days: 5 },
+          { name: 'Privacy Counsel', type: 'human', days: 3 },
+          { name: 'Security Audit', type: 'human', days: 7 },
+        ]
+      },
+      {
+        lane: 'Carrier Ops',
+        color: '#fbbf24',
+        tasks: [
+          { name: 'AT&T Alpha Tag', type: 'human', days: 5 },
+          { name: 'eSIM Inventory', type: 'human', days: 3 },
+        ]
+      },
+      {
+        lane: 'Growth & GTM',
+        color: '#34d399',
+        tasks: [
+          { name: 'Community Seeding', type: 'human', days: 5 },
+          { name: 'Affiliate Outreach', type: 'human', days: 5 },
+          { name: 'Influencer Partners', type: 'human', days: 7 },
+          { name: 'Paid Ads Config', type: 'human', days: 3 },
+          { name: 'Content Calendar', type: 'agent', days: 1 },
+          { name: 'Email Drip', type: 'agent', days: 1 },
+          { name: 'Monitoring Setup', type: 'human', days: 2 },
+        ]
+      },
+    ];
+
+    const postLaunchSection = el('div', { style: { display: 'none', marginTop: '40px' } });
+
+    postLaunchSection.appendChild(
+      el('div', { style: { display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' } },
+        el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#525252', textTransform: 'uppercase', letterSpacing: '0.05em' } }, 'Post-Launch Ops'),
+        el('span', { style: { flex: '1', height: '1px', background: 'rgba(255,255,255,0.04)' } }),
+        // Legend
+        el('div', { style: { display: 'flex', gap: '12px', flexShrink: '0' } },
+          el('span', { style: { display: 'flex', alignItems: 'center', gap: '5px', fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#60a5fa' } },
+            el('span', { style: { width: '8px', height: '8px', borderRadius: '2px', background: 'rgba(96,165,250,0.15)', border: '1px solid rgba(96,165,250,0.3)', flexShrink: '0' } }),
+            'Agent'
+          ),
+          el('span', { style: { display: 'flex', alignItems: 'center', gap: '5px', fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#a78bfa' } },
+            el('span', { style: { width: '8px', height: '8px', borderRadius: '2px', background: 'rgba(167,139,250,0.15)', border: '1px solid rgba(167,139,250,0.3)', flexShrink: '0' } }),
+            'Human'
+          )
+        )
+      )
+    );
+
+    postLaunchLanes.forEach(function (lane, li) {
+      var laneEl = el('div', {
+        style: {
+          marginBottom: li < postLaunchLanes.length - 1 ? '16px' : '0',
+          opacity: '0',
+          animation: 's4FadeInRight 0.3s ease-out ' + (0.1 + li * 0.12) + 's forwards',
+        }
+      });
+
+      laneEl.appendChild(
+        el('div', { style: { display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' } },
+          el('span', { style: { width: '4px', height: '12px', borderRadius: '2px', background: '#525252', flexShrink: '0' } }),
+          el('span', { style: { fontSize: '11px', fontFamily: "'JetBrains Mono', monospace", color: '#a3a3a3', textTransform: 'uppercase', letterSpacing: '0.03em' } }, lane.lane)
+        )
+      );
+
+      var taskList = el('div', { style: { display: 'flex', flexWrap: 'wrap', gap: '6px', paddingLeft: '12px' } });
+      lane.tasks.forEach(function (task) {
+        var isAgent = task.type === 'agent';
+        taskList.appendChild(
+          el('span', {
+            style: {
+              fontSize: '11px',
+              fontFamily: "'JetBrains Mono', monospace",
+              padding: '3px 10px',
+              borderRadius: '4px',
+              border: '1px solid ' + (isAgent ? 'rgba(96,165,250,0.3)' : 'rgba(167,139,250,0.2)'),
+              background: isAgent ? 'rgba(96,165,250,0.1)' : 'rgba(167,139,250,0.05)',
+              color: isAgent ? '#60a5fa' : '#a78bfa',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+            }
+          },
+            el('span', { style: { width: '4px', height: '4px', borderRadius: '50%', background: isAgent ? '#60a5fa' : '#a78bfa', flexShrink: '0' } }),
+            task.name,
+            el('span', { style: { color: '#404040', fontSize: '10px' } }, task.days + 'd')
+          )
+        );
+      });
+      laneEl.appendChild(taskList);
+      postLaunchSection.appendChild(laneEl);
+    });
+
+    liveSection.appendChild(postLaunchSection);
 
     // Closing section
     const closingInner = el('div', { style: { borderTop: '1px solid rgba(38,38,38,0.5)', marginTop: '48px', paddingTop: '32px' } },
@@ -1165,39 +1901,91 @@
     const wrapper = el('div', { className: 's4-fade-in' },
       stageHeader('05', 'Deploy'),
       checklistContainer,
+      chatSection,
+      gatesSection,
       liveSection,
       closingSection,
       annotation('Total elapsed: persona brief to live brand in a single engine run. The bot is connected, the website is deployed, and the journey config is active. Post-launch monitoring begins automatically.')
     );
 
-    // Sequential auto-checks
-    checklist.forEach((_, i) => {
-      timers.push(setTimeout(() => {
-        spinners[i].style.display = 'none';
-        checkIcons[i].style.display = '';
-        if (checklist[i].result) {
-          resultSpans[i].style.display = '';
-        }
-        // Show file tree after item 1
-        if (i === 1) {
-          fileTreeContainer.style.display = '';
-        }
-      }, 700 * (i + 1)));
-    });
+    // Sequential auto-checks for items 1-4 (before QA)
+    var qaIndex = checklist.length - 1; // last item is the QA result
+    for (var ci = 0; ci < qaIndex; ci++) {
+      (function (i) {
+        timers.push(setTimeout(function () {
+          spinners[i].style.display = 'none';
+          checkIcons[i].style.display = '';
+          if (checklist[i].result) {
+            resultSpans[i].style.display = '';
+          }
+          if (i === 1) {
+            fileTreeContainer.style.display = '';
+          }
+        }, 700 * (i + 1)));
+      })(ci);
+    }
 
-    // Show live section
-    timers.push(setTimeout(() => {
-      liveSection.style.display = '';
-      liveSection.style.opacity = '0';
-      liveSection.style.animation = 's4FadeIn 0.5s ease-out forwards';
+    // After item 4, show chat preview (QA agent testing)
+    var chatStart = 700 * qaIndex + 600;
+    timers.push(setTimeout(function () {
+      chatSection.style.display = '';
+      chatSection.style.opacity = '0';
+      chatSection.style.animation = 's4FadeIn 0.4s ease-out forwards';
 
-      // Show closing after a short delay
-      setTimeout(() => {
-        closingSection.style.display = '';
-        closingSection.style.opacity = '0';
-        closingSection.style.animation = 's4FadeIn 0.4s ease-out forwards';
-      }, 400);
-    }, 700 * checklist.length + 1000));
+      // Stagger chat bubbles
+      chatBubbles.forEach(function (bubble, bi) {
+        timers.push(setTimeout(function () {
+          bubble.style.display = '';
+          bubble.style.opacity = '0';
+          bubble.style.animation = 's4FadeIn 0.3s ease-out forwards';
+        }, 600 * (bi + 1)));
+      });
+
+      // After chat completes, check off QA item
+      var qaCheckTime = 600 * chatBubbles.length + 600;
+      timers.push(setTimeout(function () {
+        spinners[qaIndex].style.display = 'none';
+        checkIcons[qaIndex].style.display = '';
+        resultSpans[qaIndex].style.display = '';
+
+        // Show gates after QA passes
+        timers.push(setTimeout(function () {
+          gatesSection.style.display = '';
+          gatesSection.style.opacity = '0';
+          gatesSection.style.animation = 's4FadeIn 0.4s ease-out forwards';
+
+          // Stagger gate completions
+          gates.forEach(function (_, gi) {
+            timers.push(setTimeout(function () {
+              gateSpinners[gi].style.display = 'none';
+              gateChecks[gi].style.display = '';
+              gateResults[gi].style.display = '';
+            }, 1200 * (gi + 1)));
+          });
+
+          // Show live card after all gates pass
+          timers.push(setTimeout(function () {
+            liveSection.style.display = '';
+            liveSection.style.opacity = '0';
+            liveSection.style.animation = 's4FadeIn 0.5s ease-out forwards';
+
+            // Show post-launch ops after live card
+            timers.push(setTimeout(function () {
+              postLaunchSection.style.display = '';
+              postLaunchSection.style.opacity = '0';
+              postLaunchSection.style.animation = 's4FadeIn 0.4s ease-out forwards';
+
+              // Show closing after post-launch
+              timers.push(setTimeout(function () {
+                closingSection.style.display = '';
+                closingSection.style.opacity = '0';
+                closingSection.style.animation = 's4FadeIn 0.4s ease-out forwards';
+              }, 800));
+            }, 600));
+          }, 1200 * gates.length + 800));
+        }, 600));
+      }, qaCheckTime));
+    }, chatStart));
 
     wrapper._cleanup = () => timers.forEach(clearTimeout);
 
@@ -1208,10 +1996,11 @@
      STAGE BUILDER MAP
      ═══════════════════════════════════════════ */
 
+
   const STAGE_BUILDERS = [
     buildStageInput,
-    buildStageRisk,
-    buildStageDecisions,
+    buildStageLaunchRisk,
+    buildStageLaunchPlan,
     buildStageGeneration,
     buildStageDeploy,
   ];
