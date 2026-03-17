@@ -1,0 +1,952 @@
+[
+  {
+    "id": "p004",
+    "name": "Identity-First Homeschool Parent",
+    "pipe": "micro",
+    "quad": "invest",
+    "desc": "Classical Conversations families with strong community identity building classical education curricula at home. Seeking connectivity infrastructure designed for school-hours multi-device usage.",
+    "pop": "1.5M identity-affiliated families",
+    "popNum": 1500000,
+    "popSource": "EdChoice 2024",
+    "intensity": 5,
+    "score": 7.5,
+    "markers": [
+      "Classical Conversations",
+      "Homeschool identity",
+      "Community-driven",
+      "Educational technology power users"
+    ],
+    "community": [
+      "Homeschool Facebook groups (400K+)",
+      "Curriculum fairs",
+      "Local co-ops",
+      "Online homeschool networks"
+    ],
+    "moment": "Co-op entry and curriculum commitment",
+    "momentWindow": "18-36 months",
+    "confidence": {
+      "identity": 75,
+      "price": 45,
+      "channel": 60
+    },
+    "interview": [
+      {
+        "q": "What is the biggest gap in products available to someone like you?",
+        "a": "A phone plan that treats my household as a school. I need real data during school hours and parental controls managed from my phone, not a separate app subscription. And I want it from a provider that actually knows what Classical Conversations is. That would feel like someone finally sees us.",
+        "insight": "Core unmet need: carrier-level product design around school-day usage patterns and identity recognition"
+      },
+      {
+        "q": "Walk me through a recent decision to try a new product.",
+        "a": "I switched from Circle parental controls to Bark about eight months ago. Another mom in my CC community posted that Bark monitors for keywords. I signed up within a week. That's how it works: someone you trust makes a recommendation, and you move.",
+        "insight": "Community recommendation is the only acquisition channel that works; peer trust is the conversion mechanism"
+      },
+      {
+        "q": "What are your biggest challenges managing work and personal life?",
+        "a": "The hardest part is that homeschooling never stops. There's no commute, no clocking out. I am the school. The mental load is enormous. And the invisible judgment — people asking about socialization like I haven't thought about it every day for six years.",
+        "insight": "Identity-driven persona feels invisible to institutions including carriers; desires recognition"
+      }
+    ]
+  },
+  {
+    "id": "p006",
+    "name": "Black & Latino Homeschool Parent",
+    "pipe": "micro",
+    "quad": "invest",
+    "desc": "NBHE and Latino homeschool network members building culturally affirming education. Fastest-growing sub-population in homeschooling (36% of new homeschoolers). Need daytime school-hours connectivity.",
+    "pop": "200K active network members",
+    "popNum": 200000,
+    "popSource": "NHERI 2025",
+    "intensity": 4,
+    "score": 7,
+    "markers": [
+      "NBHE member",
+      "Culturally affirming curriculum",
+      "Dual-income household",
+      "Co-op participation"
+    ],
+    "community": [
+      "National Black Home Educators (NBHE)",
+      "Latino homeschool networks",
+      "Texas/Florida co-ops"
+    ],
+    "moment": "Compounding school system inequity + pandemic schooling discovery",
+    "momentWindow": "18-36 months",
+    "confidence": {
+      "identity": 72,
+      "price": 45,
+      "channel": 48
+    },
+    "interview": [
+      {
+        "q": "Do you feel like your current phone plan fits how your family uses data?",
+        "a": "Not even close. My kids are on devices from nine to noon doing curriculum, Khan Academy, watching documentaries. That's when we burn through data. My plan doesn't know that. We've had virtual co-op sessions drop because of throttling.",
+        "insight": "Daytime multi-device data consumption is an actual functional pain point; school-day usage pattern goes unrecognized by carriers"
+      },
+      {
+        "q": "What would it mean if a company built something specifically for Black and Latino homeschool families?",
+        "a": "It would feel like being seen for the first time in that category. We spend money on curriculum that sees us, books that see us. The utility stuff — phone, internet — it's all generic. If a carrier built something for us specifically, I would tell everybody.",
+        "insight": "Identity recognition is a primary switching trigger and community recommendation amplifier"
+      },
+      {
+        "q": "What would a homeschool family plan need to have to earn that name?",
+        "a": "Data prioritization for curriculum apps during school hours. Parental visibility without a separate subscription. A discount for co-op families, like companies do group rates. We operate like a small school. Treat us like one.",
+        "insight": "Community-based pricing and school-day data architecture are fundamental design requirements"
+      }
+    ]
+  },
+  {
+    "id": "p008",
+    "name": "DIY Device Repair Community",
+    "pipe": "micro",
+    "quad": "niche",
+    "desc": "Active self-repairers rejecting device upgrade cycles and carrier lock-in. Values device sovereignty and long-term device lifecycles. Large BYOD-seeking population with high research intensity.",
+    "pop": "8-12M BYOD-aligned",
+    "popNum": 10000000,
+    "popSource": "iFixit 2025 / CTIA 2025",
+    "intensity": 3,
+    "score": 6.5,
+    "markers": [
+      "DIY device repair",
+      "BYOD plan user",
+      "Unlocked phone owner",
+      "Right-to-repair advocate"
+    ],
+    "community": [
+      "iFixit community (70M+ global)",
+      "r/nocontract",
+      "r/DIY",
+      "Repair Cafes",
+      "r/MVNOs"
+    ],
+    "moment": "Legislative momentum on right-to-repair",
+    "momentWindow": "18-36 months",
+    "confidence": {
+      "identity": 48,
+      "price": 62,
+      "channel": 50
+    },
+    "interview": [
+      {
+        "q": "What would make you willing to pay more for a wireless plan?",
+        "a": "If I could verify the extra money was buying something real — like actual network priority or a feature I'd use, spelled out clearly. But no carrier has ever shown me that. I'd probably pay up to -45 if the value was transparent.",
+        "insight": "Price transparency and value verification are prerequisites for premium positioning"
+      },
+      {
+        "q": "Is there something about how you use devices that you wish a carrier understood?",
+        "a": "I've had the same phone number for eight years and been through four physical devices — all refurbished or repaired. No carrier has ever said \"nice.\" They've all tried to get me on a new device. I want a carrier that built plans around keeping this phone for four years minimum.",
+        "insight": "Unstated need is recognition of extended device lifecycles as normal and valuable"
+      },
+      {
+        "q": "When you imagine switching carriers, what worries you most?",
+        "a": "Finding out three months in there's a catch I missed — a deprioritization policy or hidden cap. I want a carrier that tells me the bad news upfront before I ask.",
+        "insight": "Trust barrier is information asymmetry; transparency is the highest-signal differentiator"
+      }
+    ]
+  },
+  {
+    "id": "p009",
+    "name": "Bitcoin Maximalist",
+    "pipe": "micro",
+    "quad": "invest",
+    "desc": "Committed crypto holders organizing consumer life around financial sovereignty and institutional distrust. High income, BYOD preference, privacy-first values. Seeking carrier alignment with decentralization ideology.",
+    "pop": "~5M committed maximalists",
+    "popNum": 5000000,
+    "popSource": "Morning Consult 2026 / r/Bitcoin 8M+ members",
+    "intensity": 5,
+    "score": 7.8,
+    "markers": [
+      "Bitcoin maximalist",
+      "Financial sovereignty",
+      "SIM swap vulnerability awareness",
+      "Institutional skepticism"
+    ],
+    "community": [
+      "Bitcoin conferences",
+      "r/Bitcoin (8M+)",
+      "What Bitcoin Did podcast",
+      "Nostr network"
+    ],
+    "moment": "Bitcoin crossing K milestone; cultural legitimization",
+    "momentWindow": "18-36 months",
+    "confidence": {
+      "identity": 72,
+      "price": 58,
+      "channel": 52
+    },
+    "interview": [
+      {
+        "q": "What do you actually want from a phone plan that you can't find right now?",
+        "a": "A carrier that gets it without explanation. I don't want a privacy checklist — I want a warrant canary. A transparency report showing government requests. A company built around not-knowing things about me, not around surveillance trying to let me opt out.",
+        "insight": "Privacy must be architectural, not promised; warrant canaries and transparency reports are non-negotiable table stakes"
+      },
+      {
+        "q": "What would make you switch immediately?",
+        "a": "Bitcoin or Lightning payment, no SSN, actual SIM swap hardening with biometric confirmation in app, and a warrant canary. If I saw that, I'd post about it that day and probably have 50 people from my timeline signing up the same week.",
+        "insight": "Clear product requirements are achievable; community advocacy engine can be earned through product integrity"
+      },
+      {
+        "q": "If you found the right carrier, how would you tell people?",
+        "a": "I'd post on Nostr first, then X, then mention it in Telegram groups. If I really trusted it I'd reach out to podcast hosts. Bitcoin community spreads info through trusted recommendations. But it has to be real. The community will fact-check immediately.",
+        "insight": "Community-driven distribution through high-trust channels; any perceived inauthenticity generates immediate backlash"
+      }
+    ]
+  },
+  {
+    "id": "p014",
+    "name": "DOGE'd Federal Employee",
+    "pipe": "micro",
+    "quad": "invest",
+    "desc": "Mid-career federal workers displaced by 2025 DOGE wave. Identity-shifting from institutional employee to independent contractor. Moment-driven switching from employer plan dissolution + budget restructuring.",
+    "pop": "~120K wireless-switching-eligible",
+    "popNum": 120000,
+    "popSource": "CBPP/Newsweek 2025 / GAO data",
+    "intensity": 4,
+    "score": 8.2,
+    "markers": [
+      "Federal worker identity",
+      "Post-displacement",
+      "DOGE'd self-identifier",
+      "Employer plan terminated"
+    ],
+    "community": [
+      "r/fednews (180K+)",
+      "r/DOGE_layoffs (50K+)",
+      "Partnership for Public Service",
+      "LinkedIn federal transition groups"
+    ],
+    "moment": "Forced employer plan dissolution",
+    "momentWindow": "12-24 months (peak Q1-Q2 2026)",
+    "confidence": {
+      "identity": 65,
+      "price": 62,
+      "channel": 65
+    },
+    "interview": [
+      {
+        "q": "How are you thinking about saving during this period?",
+        "a": "We have savings which helps, but I'm treating every dollar differently now. I want month-to-month — the idea of a two-year contract right now feels wrong. I need flexibility.",
+        "insight": "Contract aversion and month-to-month requirement are hard product filters, not preferences"
+      },
+      {
+        "q": "What would make you choose one carrier over another?",
+        "a": "Simple pricing, no surprises. Month-to-month. Fast porting. Some acknowledgment that they understand the situation. I saw an MVNO for veterans and thought: why isn't there one for federal workers?",
+        "insight": "Brand narrative vacuum is the competitive gap; persona desires recognition of transition moment as distinct category"
+      },
+      {
+        "q": "What would the ideal wireless product look like for your situation?",
+        "a": "Thirty to forty dollars, no contract, AT&T or T-Mobile network. Porting that takes an hour. Clear billing. And something that acknowledges the situation — not pity, but solidarity and forward momentum.",
+        "insight": "Emotional validation of transition moment is a switching trigger; autonomy-building framing resonates"
+      }
+    ]
+  },
+  {
+    "id": "p018",
+    "name": "First-Gen Professional New Grad",
+    "pipe": "micro",
+    "quad": "invest",
+    "desc": "First-generation college graduate transitioning from student to professional, navigating adult financial decisions without inherited guidance. Entering wireless market independently for the first time.",
+    "pop": "430-560K annually switching",
+    "popNum": 750000,
+    "popSource": "NCES 2025 / WhistleOut 2025",
+    "intensity": 4,
+    "score": 7.2,
+    "markers": [
+      "First-gen college graduate",
+      "Financial anxiety + ambition",
+      "Intensive research behavior",
+      "Mentor-seeking"
+    ],
+    "community": [
+      "r/firstgenprofessionals",
+      "LinkedIn first-gen groups",
+      "University first-gen centers"
+    ],
+    "moment": "College graduation / First full-time job",
+    "momentWindow": "3-18 months post-graduation; peak May-August",
+    "confidence": {
+      "identity": 62,
+      "price": 58,
+      "channel": 48
+    },
+    "interview": [
+      {
+        "q": "How do you typically manage your finances?",
+        "a": "I track everything. I have a spreadsheet going back to my first paycheck. My friends think I'm intense, but I didn't grow up with any margin for error. I check YNAB every morning before Slack.",
+        "insight": "Intensive financial tracking stems from lack of inherited safety net; treats financial decisions as existential"
+      },
+      {
+        "q": "What are your most important needs right now for your work?",
+        "a": "To not feel like I'm faking it. Walking into the office and seeing people who just move through it like they've always belonged — it's a specific loneliness. I'm still working on believing I earned the right to be here.",
+        "insight": "Imposter syndrome is about identity legitimacy. A brand that validates her membership in professional space wins loyalty."
+      },
+      {
+        "q": "What's the biggest gap in products available to someone like you?",
+        "a": "Everything assumes you have someone to ask. Financial products, wireless plans — all assume inherited knowledge I don't have. The gap isn't features. It's someone building for people doing this without a map.",
+        "insight": "Core unmet need is an advisor role, not a product feature. White space for identity-based positioning."
+      }
+    ]
+  },
+  {
+    "id": "p023",
+    "name": "Returning Citizen Identity Advocate",
+    "pipe": "micro",
+    "quad": "invest",
+    "desc": "Formerly incarcerated individual navigating reentry through employment and community. Connectivity is non-optional infrastructure for parole compliance, employment, and rebuilding family relationships.",
+    "pop": "600K annual releases; 1.2M switching-eligible",
+    "popNum": 1200000,
+    "popSource": "Bureau of Justice Statistics 2023",
+    "intensity": 5,
+    "score": 7.5,
+    "markers": [
+      "Formerly incarcerated",
+      "Second-chance community member",
+      "Parole-compliance dependent",
+      "Identity reclamation"
+    ],
+    "community": [
+      "Safer Foundation",
+      "FICPFM",
+      "Second Chance Business Coalition",
+      "Reentry peer groups"
+    ],
+    "moment": "Incarceration release / Reentry",
+    "momentWindow": "Day 0-1 for acquisition; 24-36 months for identity engagement",
+    "confidence": {
+      "identity": 78,
+      "price": 55,
+      "channel": 62
+    },
+    "interview": [
+      {
+        "q": "What does \"returning citizen\" mean to you?",
+        "a": "It means I'm not defined by what happened. I made choices and the system responded — but that's not all I am. \"Returning citizen\" says I left, I paid my debt, and I'm back. Back with rights, back with responsibilities. There's a whole community of people who have made the same choice.",
+        "insight": "Identity label is active reclamation. The returning citizen wants recognition as an agent, not a problem category."
+      },
+      {
+        "q": "What do you need your phone to do practically?",
+        "a": "Parole check-ins — I need to be reachable and confirm my location. My site supervisor needs to reach me. I'm in a recovery support group and we text constantly. And I'm reconnecting with my kids — every call matters. My phone isn't entertainment. It's how I stay out of trouble and rebuild my life.",
+        "insight": "Connectivity is compliance and reintegration infrastructure. Service failure carries existential consequences."
+      },
+      {
+        "q": "What does it feel like when a brand actually recognizes your experience?",
+        "a": "It's rare. One employer at a job fair said: we recruit from reentry programs on purpose because you bring something most people don't. That hit different. Imagine if someone said: we built this for returning citizens, not despite your history but because of who you are. I'd be loyal for life.",
+        "insight": "Recognition reframes from high-risk to high-value. Identity-first positioning creates loyalty that price competition cannot displace."
+      }
+    ]
+  },
+  {
+    "id": "p026",
+    "name": "Economically Anxious Young Man",
+    "pipe": "micro",
+    "quad": "ignore",
+    "desc": "27-year-old warehouse supervisor experiencing wage stagnation. Navigates economic anxiety through Reddit research and low-cost optimization. Skeptical of carrier marketing, deeply concerned about surprise charges.",
+    "pop": "8-12M wireless-relevant subset",
+    "popNum": 10000000,
+    "popSource": "Equimundo 2025 / BLS 2025",
+    "intensity": 3,
+    "score": 5,
+    "markers": [
+      "Economically anxious",
+      "MVNO user",
+      "High price sensitivity",
+      "Distrust of marketing"
+    ],
+    "community": [
+      "r/personalfinance",
+      "r/frugal",
+      "r/malelivingspace",
+      "MVNO Reddit communities"
+    ],
+    "moment": "Job loss / Sudden unemployment (subset only)",
+    "momentWindow": "30-90 days post-job-loss",
+    "confidence": {
+      "identity": 32,
+      "price": 68,
+      "channel": 45
+    },
+    "interview": [
+      {
+        "q": "How do you think about your phone plan?",
+        "a": "What's the cheapest I can get that still works. I'm on Mint, /month for 5GB. I tried to get on my dad's Verizon plan but he said new lines were too expensive. So here I am.",
+        "insight": "Price is the initial sorting criterion. Family plan rejection signals he lacks inherited financial support."
+      },
+      {
+        "q": "What do you actually want from your carrier?",
+        "a": "I want it to work. I don't want to think about it. I don't want to call customer service ever. I don't want to open my bill and see something unexpected. Sounds simple but I've had all three problems with every carrier except Mint.",
+        "insight": "The unstated need is avoiding negative surprises, not low price. Predictability is the premium."
+      },
+      {
+        "q": "If you could add one thing to your plan that doesn't exist?",
+        "a": "Gaming mode. Something that actually prioritizes my traffic when I'm in a game. I'd pay for that — not a lot, like five extra bucks. And I'd want proof it works. Show me the ping numbers.",
+        "insight": "Gaming performance is the only paid feature he would adopt. Requirement for proof over promise is critical."
+      }
+    ]
+  },
+  {
+    "id": "p028",
+    "name": "Committed Digital Minimalist",
+    "pipe": "micro",
+    "quad": "invest",
+    "desc": "UX researcher deliberately reducing technology footprint while maintaining professional connectedness. Seeks carrier aligned with privacy, data minimization, and intentional technology use.",
+    "pop": "3-5M committed minimalists",
+    "popNum": 4000000,
+    "popSource": "Pew Research 2023 / r/digitalminimalism 130K+",
+    "intensity": 4,
+    "score": 7.3,
+    "markers": [
+      "Intentional technology reduction",
+      "Cal Newport follower",
+      "Privacy-conscious",
+      "Values-driven consumer"
+    ],
+    "community": [
+      "r/digitalminimalism",
+      "r/nosurf",
+      "Cal Newport ecosystem",
+      "Privacy-focused tech communities"
+    ],
+    "moment": "No discrete trigger; identity-driven",
+    "momentWindow": "12-24 months",
+    "confidence": {
+      "identity": 72,
+      "price": 48,
+      "channel": 62
+    },
+    "interview": [
+      {
+        "q": "What does your ideal relationship with your phone look like?",
+        "a": "I think about it as a tool, not an environment. I want to pick it up, do the thing — call someone, check the map — put it down. My home screen is literally five apps. But the part I can't control is what's happening underneath — the carrier stuff, the data. That still bothers me.",
+        "insight": "She has achieved device-level minimalism but remains troubled by infrastructure-level extraction. The carrier layer is an unresolved identity contradiction."
+      },
+      {
+        "q": "What would it mean to have a carrier that shared your values?",
+        "a": "I've never even thought that was possible. If one actually built something for people like me, I think I'd feel — relief. Like I'm not alone in thinking the current system is broken. I'd probably tell everyone I know. That community would go wild for it.",
+        "insight": "Identity-aligned carrier would resolve cognitive dissonance and unlock organic advocacy."
+      },
+      {
+        "q": "How would you find out about a carrier built for digital minimalists?",
+        "a": "Reddit first. r/digitalminimalism or r/nosurf. If the comments were positive — genuinely thoughtful, not shilly — I'd look into it. The channel has to match the product — if you're selling minimalism, don't reach me through algorithmic ads.",
+        "insight": "Acquisition channel must be congruent with values. Social ads would undermine credibility."
+      }
+    ]
+  },
+  {
+    "id": "p033",
+    "name": "Tiny Home Resident",
+    "pipe": "micro",
+    "quad": "invest",
+    "desc": "Remote worker living intentionally in a 280 sq ft tiny home where cellular hotspot is the primary home internet. Navigating the contradiction between total housing intentionality and communications infrastructure designed for someone with home WiFi.",
+    "pop": "500K-1M tiny home residents",
+    "popNum": 750000,
+    "popSource": "SkyQuestt 2025 / THIA 2024",
+    "intensity": 4,
+    "score": 7.4,
+    "markers": [
+      "Intentional minimalist housing",
+      "Remote worker",
+      "Rural/exurban infrastructure gap",
+      "Values-driven consumer"
+    ],
+    "community": [
+      "r/TinyHouses (180K+)",
+      "THIA",
+      "Tiny home builder networks",
+      "YouTube ecosystem"
+    ],
+    "moment": "Interstate relocation / Tiny home move",
+    "momentWindow": "4-6 weeks around move-in",
+    "confidence": {
+      "identity": 72,
+      "price": 48,
+      "channel": 62
+    },
+    "interview": [
+      {
+        "q": "What does your monthly budget look like?",
+        "a": "Land lease is , tiny home loan , utilities . My phone bill is  — more than my electric. That feels backwards. But I can't work without it, so it's non-negotiable.",
+        "insight": "Wireless is recognized as non-discretionary infrastructure. Overpayment relative to actual use case creates resentment."
+      },
+      {
+        "q": "Why did you choose alternative housing?",
+        "a": "I wanted to own something without a 30-year mortgage. Living here lets me take design contracts I actually find interesting. The tiny home is what makes that possible.",
+        "insight": "Housing choice is freedom-enabling, not deprivation. This is a values persona choosing intentionality, not a budget persona."
+      },
+      {
+        "q": "If you found a carrier clearly built for tiny home residents, would you recommend it?",
+        "a": "Immediately. r/TinyHouses asks about connectivity solutions constantly — it's a top-5 topic. If I found something that worked, I'd write a detailed post: actual data usage, coverage test results from my lot, cost breakdown. That's how decisions get made here.",
+        "insight": "Community is the distribution channel. Organic advocacy through detailed technical posts is the highest-credibility signal."
+      }
+    ]
+  },
+  {
+    "id": "p036",
+    "name": "Bankruptcy Fresh-Start Filer",
+    "pipe": "micro",
+    "quad": "invest",
+    "desc": "HVAC technician navigating financial recovery 11 months post-Chapter 7 bankruptcy discharge. Structurally locked out of postpaid wireless due to credit damage, forced into prepaid/MVNO tier.",
+    "pop": "~420K new filers annually",
+    "popNum": 420000,
+    "popSource": "AOUSC 2024 / Epiq Global 2025",
+    "intensity": 5,
+    "score": 7.5,
+    "markers": [
+      "Bankruptcy discharge",
+      "Credit rebuilder identity",
+      "Dignity-seeking",
+      "Trust in attorney/counselor channels"
+    ],
+    "community": [
+      "r/debtfree (250K+)",
+      "r/personalfinance bankruptcy threads",
+      "NFCC credit counseling agencies"
+    ],
+    "moment": "Bankruptcy discharge date",
+    "momentWindow": "12-24 months peak, 0-6 months acute",
+    "confidence": {
+      "identity": 65,
+      "price": 48,
+      "channel": 50
+    },
+    "interview": [
+      {
+        "q": "How do you manage your finances day-to-day?",
+        "a": "I live by my spreadsheet now. It's open every morning. Every dollar gets a job — utilities, gas, food, phone. The phone comes out of the same bucket as utilities. Not \"extra.\" It's essential.",
+        "insight": "Persona has adopted intense budget discipline. Wireless is treated as essential infrastructure, not discretionary spend."
+      },
+      {
+        "q": "What are your biggest fears about the future?",
+        "a": "A setback I can't control. Last month I almost let the TracFone top-up lapse — two hours from cutoff. The anxiety doesn't go away because the bankruptcy is over. It just follows you differently.",
+        "insight": "Psychological weight of financial recovery persists. Hypervigilant about cost certainty and service interruption."
+      },
+      {
+        "q": "What would it take to switch carriers again?",
+        "a": "Same or lower price, no credit check — non-negotiable — and completely predictable billing. And honestly? If a carrier felt like it understood where I'm coming from — built for people who are rebuilding — I'd switch tomorrow. The feeling is enough.",
+        "insight": "Identity-level positioning (\"rebuilders,\" not \"subprime\") is more switching-motivating than feature improvements."
+      }
+    ]
+  },
+  {
+    "id": "p041",
+    "name": "CrossFit Functional Athlete",
+    "pipe": "micro",
+    "quad": "explore",
+    "desc": "Software engineer; 3-year CrossFit member competing in the Open. Identity deeply enmeshed in functional fitness community. Connectivity needs tied to WOD tracking, leaderboard competition, and gym-community coordination.",
+    "pop": "4-6M CrossFit; 6-10M total functional fitness",
+    "popNum": 6000000,
+    "popSource": "CrossFit LLC 2025 / Mintel 2024",
+    "intensity": 4,
+    "score": 6.2,
+    "markers": [
+      "Identity-intensive CrossFitter",
+      "High fitness spend (-4500/yr)",
+      "Community-dependent",
+      "Performance tracking obsession"
+    ],
+    "community": [
+      "CrossFit affiliates (6000-7500 boxes)",
+      "SugarWOD/Wodify (1M+ users)",
+      "Functional fitness Instagram/Facebook"
+    ],
+    "moment": "Gym affiliation; not event-driven",
+    "momentWindow": "18-30 months",
+    "confidence": {
+      "identity": 72,
+      "price": 35,
+      "channel": 48
+    },
+    "interview": [
+      {
+        "q": "How do you decide what's worth spending money on?",
+        "a": "Fitness is the last thing I cut. I'll eat out less, skip a concert — but my gym membership is /month and I don't even think about it. If something makes me better at CrossFit, the price question almost doesn't register.",
+        "insight": "Fitness spending is non-negotiable. A carrier positioned within the CrossFit identity cluster could justify premium pricing."
+      },
+      {
+        "q": "Is there something you want from your fitness community that you're not getting?",
+        "a": "Coordination is a mess. Our coach uses four different channels — Instagram, group text, Wodify app, sometimes just yelling. I want one place where I know what's happening. I'd pay for that clarity.",
+        "insight": "Core pain point is community fragmentation across platforms. A carrier that positioned as community coordination hub could unlock switching."
+      },
+      {
+        "q": "If your phone service was designed for CrossFit athletes, what would it need?",
+        "a": "Reliable connectivity at the gym — our box is in a metal warehouse and reception is terrible. And the group coordination piece. Not Instagram. Something built for this specific culture.",
+        "insight": "Two specific pain points: dead-zone coverage in metal buildings and community coordination visibility. Both solvable."
+      }
+    ]
+  },
+  {
+    "id": "p046",
+    "name": "Newly Separated Plan-Splitter",
+    "pipe": "micro",
+    "quad": "invest",
+    "desc": "Office manager, 4 weeks post-separation from 12-year marriage. Forced to split wireless plan from ex-husband's AT&T account. Wireless is symbolic of agency recovery.",
+    "pop": "430-560K at any given time",
+    "popNum": 430000,
+    "popSource": "CDC/NCHS 2023 / CTIA 2024",
+    "intensity": 5,
+    "score": 8.5,
+    "markers": [
+      "Forced account split",
+      "Financial disentanglement urgency",
+      "Dignity-seeking",
+      "Trust in legal/mediator channels"
+    ],
+    "community": [
+      "r/Divorce (200K+)",
+      "HelloDivorce platform",
+      "Family law attorney networks"
+    ],
+    "moment": "Divorce / Legal separation (Intent 4.6)",
+    "momentWindow": "Short 2-6 weeks peak; 0-90 days acute",
+    "confidence": {
+      "identity": 68,
+      "price": 62,
+      "channel": 65
+    },
+    "interview": [
+      {
+        "q": "What are your most important needs for getting your own wireless account?",
+        "a": "Speed and simplicity, full stop. I don't want to explain my situation to a stranger at a carrier store. I just want to go online, pick a plan, move my number, and be done in less than half an hour. I should not have to talk to my ex for that to happen.",
+        "insight": "The persona needs process design that acknowledges the moment. Standard carrier flows are humiliating because they assume account-holder cooperation."
+      },
+      {
+        "q": "What are your biggest day-to-day frustrations right now?",
+        "a": "Every admin task takes three times as long because something is in Derek's name. I tried twice to change the billing address on the wireless plan and hit a wall. It should not be this hard to take your own name off a shared account.",
+        "insight": "Carrier policy architecture is the switching agent. AT&T's authorization requirement is not friction — it is the decision-making force."
+      },
+      {
+        "q": "What would a perfect wireless plan look like right now?",
+        "a": "Affordable — under /month. Easy to set up online without needing my ex's cooperation or a credit check. My number moves over. If something goes wrong I can get help quickly. And the plan is mine — no joint anything.",
+        "insight": "Three non-negotiable requirements: price, account autonomy, speed. The emotional need — independence — translates directly into product feature requirements."
+      }
+    ]
+  },
+  {
+    "id": "p048",
+    "name": "Newly Single Parent Post-Divorce",
+    "pipe": "micro",
+    "quad": "invest",
+    "desc": "Paralegal, 4 months post-divorce, managing two children alone. Forced to rebuild wireless infrastructure for 2-3 lines with 25-40% income reduction. Core pain is operational independence from ex-partner.",
+    "pop": "325-455K/year switching-compelled",
+    "popNum": 325000,
+    "popSource": "CDC/NCHS 2022-2023 / Pew 2023",
+    "intensity": 5,
+    "score": 8,
+    "markers": [
+      "Forced multi-line split",
+      "Parental control need",
+      "Financial constraint (25-40% income drop)",
+      "Sole custody complexity"
+    ],
+    "community": [
+      "DivorceCare (1M+ alumni)",
+      "Single-parent Facebook communities",
+      "OurFamilyWizard / TalkingParents"
+    ],
+    "moment": "Divorce / Legal separation (Intent elevated by parenting complexity)",
+    "momentWindow": "Days 14-90 peak; 6-24 months individual window",
+    "confidence": {
+      "identity": 72,
+      "price": 58,
+      "channel": 62
+    },
+    "interview": [
+      {
+        "q": "What do you most want from a wireless plan right now?",
+        "a": "Something I set up once and it just works. I want to open the app and see all three of us in one place, know everyone's covered, know the bill is the same every month, and not think about it again. My phone plan should not be one more thing to manage.",
+        "insight": "Persona is in cognitive overload. Simplicity and consolidation are not features — they are prerequisites to purchase."
+      },
+      {
+        "q": "Is there anything about your wireless setup that still connects you to your ex?",
+        "a": "Owen is still on Derek's T-Mobile account because the court order was vague. Every time I need to add data or check usage, I have to ask Derek. It's a weekly irritant. I want to own my children's phone situation completely.",
+        "insight": "Operational independence from the ex-partner is more urgent than stated needs. Wireless solution must enable full consolidation."
+      },
+      {
+        "q": "What do you wish a carrier knew about you before you walked in?",
+        "a": "That I'm starting over, not just switching. That I have kids and I'm doing this alone. The last time I called a carrier, they kept trying to upsell me on a smartwatch line. Nobody asked the right questions.",
+        "insight": "The persona wants to be recognized and guided, not sold to. Carrier that acknowledges \"starting over\" achieves conversion through validation."
+      }
+    ]
+  },
+  {
+    "id": "p057",
+    "name": "Social Commerce Creator / Live Host",
+    "pipe": "micro",
+    "quad": "invest",
+    "desc": "Professional live commerce host; 3 streams/week on TikTok Shop. Uses cellular as primary broadcast infrastructure. Connectivity failures directly threaten income and professional reputation.",
+    "pop": "200-500K active live commerce hosts",
+    "popNum": 200000,
+    "popSource": "TikTok Shop creator program / eMarketer 2025",
+    "intensity": 4,
+    "score": 7.5,
+    "markers": [
+      "Professional broadcaster identity",
+      "Upload-constrained",
+      "Peak-hours dependent",
+      "Performance-obsessed"
+    ],
+    "community": [
+      "TikTok Shop creator ecosystem (300K+)",
+      "r/TikTokShop",
+      "Creator Discord/Slack communities"
+    ],
+    "moment": "Role adoption as professional live host",
+    "momentWindow": "18-36 months",
+    "confidence": {
+      "identity": 62,
+      "price": 48,
+      "channel": 52
+    },
+    "interview": [
+      {
+        "q": "How do you think about your wireless plan in terms of work expenses?",
+        "a": "My phone plan is just cost of doing business — same as my ring light. I write it off. When I had that drop in December, I lost probably eight hundred bucks in one night. So if there's a plan  more/month but never drops a stream, that math is obvious.",
+        "insight": "Stream reliability has a direct  value per failure. Price-premium messaging works if paired with reliability guarantees."
+      },
+      {
+        "q": "When you imagine streaming working perfectly, what does that look like?",
+        "a": "I never think about my connection. That's what perfect looks like — invisible. Right now I have this low-level anxiety every single stream, checking the signal bar every few minutes. Perfect is when I'm 100% in the room with my audience.",
+        "insight": "The anxiety is constant and embodied. A carrier that removes this anxiety achieves loyalty at the identity level."
+      },
+      {
+        "q": "What would it take for you to switch today?",
+        "a": "Performance proof. Specific numbers — \"we guarantee five megabits upload during live events or we credit your bill.\" Something testable. I could switch in an afternoon. The friction isn't mechanics — it's that no carrier has given me a reason specific to my situation.",
+        "insight": "Persona is explicitly requesting an SLA for upload bandwidth — a product architecture no current carrier offers."
+      }
+    ]
+  },
+  {
+    "id": "p061",
+    "name": "DV Survivor Establishing Safety Plan",
+    "pipe": "micro",
+    "quad": "invest",
+    "desc": "Domestic violence survivors who have left an abusive relationship and need an independent wireless plan as critical safety planning. This is a safety infrastructure decision made during crisis transition.",
+    "pop": "1-2M annually require wireless independence",
+    "popNum": 1500000,
+    "popSource": "CDC NISVS 2022 / NDVH 2023",
+    "intensity": 5,
+    "score": 7.5,
+    "markers": [
+      "Recently fled abusive household",
+      "No prior financial independence",
+      "Extreme safety consciousness",
+      "Cash-payment only"
+    ],
+    "community": [
+      "DV shelter networks",
+      "National Domestic Violence Hotline",
+      "Victim advocacy organizations"
+    ],
+    "moment": "Domestic violence / Intimate partner displacement",
+    "momentWindow": "Flash (0-72 hours post-shelter entry)",
+    "confidence": {
+      "identity": 68,
+      "price": 65,
+      "channel": 48
+    },
+    "interview": [
+      {
+        "q": "What does your financial situation look like right now?",
+        "a": "I have about  in cash from the shelter's emergency fund. I don't have a bank account I can safely use — he checks the joint account. I need something I can pay for with cash or a prepaid card. /month max. No contract. I cannot be locked in right now.",
+        "insight": "Survivors operate under extreme financial constraint and distrust banking infrastructure. Cash-only payment is non-negotiable."
+      },
+      {
+        "q": "What's the most important thing a phone plan needs to do for you right now?",
+        "a": "Give me a number my kids can call and that nobody else can find. My kids don't know my new number yet. Every hour they can't reach me is hard. I need a number that's mine and that nobody can pull from his account or some database.",
+        "insight": "Primary need is establishing communication with children completely isolated from abuser's surveillance."
+      },
+      {
+        "q": "What would make the sign-up process work for you?",
+        "a": "Being able to do it entirely digitally without anything going to a physical address or to any email in my old life. And sign-up in 20 minutes on the shelter's Wi-Fi without being on the phone with customer service for an hour.",
+        "insight": "Activation experience is the primary product surface. Sign-up must be faster and simpler than any consumer wireless product."
+      }
+    ]
+  },
+  {
+    "id": "p073",
+    "name": "Credit Rebuilder Post-Bankruptcy",
+    "pipe": "micro",
+    "quad": "invest",
+    "desc": "Individuals in active credit-rebuilding phase (12-36 months post-bankruptcy discharge) migrating from prepaid to postpaid because they need the account to report to credit bureaus as evidence of financial recovery.",
+    "pop": "800K-1.2M in active credit-building mode",
+    "popNum": 1000000,
+    "popSource": "AOUSC FY 2024 / Experian 2024",
+    "intensity": 3,
+    "score": 6.8,
+    "markers": [
+      "Recently discharged bankruptcy",
+      "Credit score 580-650 range",
+      "On secured credit cards",
+      "Hyper-aware of credit strategies"
+    ],
+    "community": [
+      "NFCC credit counseling agencies",
+      "Secured card issuers (Discover, Capital One)",
+      "r/Bankruptcy, r/CRedit"
+    ],
+    "moment": "Credit score milestone at 580-620",
+    "momentWindow": "Extended 12-24 months; declining after score hits ~680",
+    "confidence": {
+      "identity": 58,
+      "price": 62,
+      "channel": 48
+    },
+    "interview": [
+      {
+        "q": "What role does your credit score play in spending decisions?",
+        "a": "It's basically my second job. I check Credit Karma every morning. If something affects my score — even by a few points — I want to understand why. Every bill I pay on time feels like putting a brick back in the wall.",
+        "insight": "Post-bankruptcy consumers obsessively track credit impact. Bureau reporting is not nice-to-have; it is the primary JTBD."
+      },
+      {
+        "q": "What would it mean to have a postpaid phone plan — personally?",
+        "a": "It's kind of dumb but it would feel like joining back. Postpaid is what normal adults have, right? Prepaid feels like something you use when you can't qualify. Getting a postpaid plan is part of coming back.",
+        "insight": "Identity aspiration: postpaid represents re-inclusion in mainstream financial legitimacy. This is about status and identity recovery."
+      },
+      {
+        "q": "What would have to be true for you to say this carrier is helping my credit rebuild?",
+        "a": "Clear evidence that the plan reports to all three bureaus with a dashboard showing it. No hard inquiry upfront. Guaranteed no deposit. If I could check eligibility with a soft pull, that removes the biggest barrier.",
+        "insight": "Transparency and psychological safety are the differentiators. Proof of bureau reporting and soft-pull eligibility convert intent into action."
+      }
+    ]
+  },
+  {
+    "id": "p080",
+    "name": "Dumb Phone Adopter",
+    "pipe": "micro",
+    "quad": "invest",
+    "desc": "Individuals who have intentionally downgraded from smartphones to feature phones (Light Phone II, Punkt) as identity-driven rejection of algorithmic engagement and constant connectivity.",
+    "pop": "500K-1.5M US adults",
+    "popNum": 1000000,
+    "popSource": "Pew 2024 / r/dumbphones 80K+ / Light Phone sales data",
+    "intensity": 5,
+    "score": 7.3,
+    "markers": [
+      "Owns feature/dumb phone",
+      "Rejects AI and algorithms",
+      "Anti-mainstream tech",
+      "Active in minimalist communities"
+    ],
+    "community": [
+      "r/dumbphones (80K+)",
+      "Light Phone community forums",
+      "Cal Newport reader communities"
+    ],
+    "moment": "Cumulative AI saturation; personal screen-time breaking point",
+    "momentWindow": "12-24 months ascending adoption",
+    "confidence": {
+      "identity": 68,
+      "price": 45,
+      "channel": 55
+    },
+    "interview": [
+      {
+        "q": "What are you paying and how does it match what you use?",
+        "a": "I'm still on T-Mobile unlimited, paying /month. My Light Phone can barely use data. So I'm paying for fifty gigs I'll never touch. Every time I look at plan options, they all assume you have a smartphone. It's infuriating.",
+        "insight": "42% of dumb phone adopters are still on smartphone plans — not from indifference but from decision fatigue."
+      },
+      {
+        "q": "What would make you immediately distrust a \"minimalist\" carrier?",
+        "a": "If their app had push notifications. If they talked about \"AI-powered\" anything. The whole UX of carrier accounts is designed to get you to do more. I want a carrier relationship that's invisible.",
+        "insight": "Anti-marketing is the trust signal. Any feature that creates new friction or attention-seeking is disqualifying."
+      },
+      {
+        "q": "If a carrier reached you through r/dumbphones with a plan built for feature phones?",
+        "a": "I'd be curious and suspicious. But if the plan was genuinely simple — posted on a page with no animations, transparent pricing, and someone in the community vouching — I'd probably try it. The endorsement matters more than the ad.",
+        "insight": "Community trust is the only acquisition channel. One authentic community endorsement is worth 10,000 paid impressions."
+      }
+    ]
+  },
+  {
+    "id": "p086",
+    "name": "Reentry Housing Navigator",
+    "pipe": "micro",
+    "quad": "invest",
+    "desc": "Returning citizens released from incarceration in active housing search during first 30-90 days post-release. The phone is a case management tool — the operational prerequisite for securing stable housing.",
+    "pop": "300-500K facing acute housing instability",
+    "popNum": 600000,
+    "popSource": "Bureau of Justice Statistics 2024 / Urban Institute 2023",
+    "intensity": 5,
+    "score": 7.5,
+    "markers": [
+      "Recently released (0-30 days)",
+      "Active housing search",
+      "Minimal financial resources (-200 gate money)",
+      "No credit history or standard ID"
+    ],
+    "community": [
+      "Safer Foundation",
+      "Center for Employment Opportunities",
+      "State DOC discharge programs",
+      "Transitional housing facilities"
+    ],
+    "moment": "Incarceration release / Reentry (Intent 5.0)",
+    "momentWindow": "Flash (0-14 days; peak first 72 hours)",
+    "confidence": {
+      "identity": 68,
+      "price": 65,
+      "channel": 48
+    },
+    "interview": [
+      {
+        "q": "What are you trying to accomplish in the next two weeks?",
+        "a": "Housing first. Everything else is secondary. I have a contact at a transitional program — she said there's a spot, but I need to call her back by tomorrow. After that, parole officer. Both need a working phone. If I miss that housing window, I'm looking at shelter or the street.",
+        "insight": "Housing navigation window is extremely time-bound. Placements close in 24-48 hours without follow-up. The phone is the access point."
+      },
+      {
+        "q": "What's your biggest fear right now about connectivity?",
+        "a": "Running out of minutes or data before I get the housing placement confirmed. I can't afford for my phone to go dead when the housing coordinator is trying to reach me. Everything hinges on that one call.",
+        "insight": "Consequences of plan failure extend beyond inconvenience. Parole compliance and housing placement both depend on reliable connectivity."
+      },
+      {
+        "q": "What would make you trust a carrier enough to sign up?",
+        "a": "If someone I already trusted — like a reentry program counselor — told me to use it. Or if it was built for people in my situation. Not just cheap — specifically built for people coming out who need it to work on day one.",
+        "insight": "B2B channel partnership with reentry organizations is non-optional. Digital-only acquisition will fail for this population."
+      }
+    ]
+  },
+  {
+    "id": "p087",
+    "name": "Fitness App Heavy User",
+    "pipe": "micro",
+    "quad": "niche",
+    "desc": "Sustained engagement in fitness apps and wearables (Whoop, Strava, Garmin) measuring carrier value in workout data ecosystem reliability rather than traditional metrics.",
+    "pop": "8-12M addressable sub-segment",
+    "popNum": 25000000,
+    "popSource": "Pew 2024 / Strava 40M US users / IHRSA 2023",
+    "intensity": 3,
+    "score": 5.5,
+    "markers": [
+      "Active in 2+ fitness apps",
+      "Wearable device ownership",
+      "-40/month fitness app spend",
+      "Quantified self methodology"
+    ],
+    "community": [
+      "Strava athlete community (40M+)",
+      "Whoop community (1.5M+ paid)",
+      "Quantified-self communities"
+    ],
+    "moment": "Recurring connectivity failure during workout sync",
+    "momentWindow": "18-30 months ascending phase",
+    "confidence": {
+      "identity": 40,
+      "price": 45,
+      "channel": 48
+    },
+    "interview": [
+      {
+        "q": "What do you actually spend on your fitness setup each month?",
+        "a": "Whoop is /month. Strava is . MyFitnessPal during training cycles. Maybe -40/month in apps. I pay  to T-Mobile and think about it zero. But after a failed Whoop sync I think \"what am I paying for?\"",
+        "insight": "Fitness ecosystem = essential; wireless = invisible until it fails. Would pay -80 if plan bundled Strava or offered wearable sync priority."
+      },
+      {
+        "q": "What would perfect wireless look like during your training week?",
+        "a": "I want it to disappear. Go for a run, Garmin tracking perfectly, Whoop syncing, upload Strava segment at finish — none of that should require thought. Right now I probably lose one sync or segment a week.",
+        "insight": "Persona measures carrier value in units carriers don't track: successful segment uploads, reliable wearable syncs, HRV data integrity."
+      },
+      {
+        "q": "What would it take for you to leave T-Mobile?",
+        "a": "A carrier that specifically understood my use case. Right now switching requires explaining \"I want to change because my Strava sometimes doesn't sync\" — not a winning argument. But \"I found a plan designed for fitness, includes Strava subscription,  more\" — that's a conversation.",
+        "insight": "Primary switching barrier is family plan entanglement (55% on multi-line). A bundled fitness subscription creates the narrative justification to trigger the family conversation."
+      }
+    ]
+  }
+]

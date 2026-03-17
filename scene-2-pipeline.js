@@ -15,7 +15,7 @@
   };
 
   const triggerStage = {
-    id:'trigger', pipeline:'shared', agent:'trigger', agentName:'Trigger Analyst', dur:90, isLaneStage:false,
+    id:'trigger', pipeline:'trigger', agent:'trigger', agentName:'Trigger Analyst', dur:90, isLaneStage:false,
     lines:['Step 1: Scanning life-transitions across 6 dimensions — geographic, relationship, family, financial, career, crisis','Step 2: Scoring trigger events — decomposing Switching Intent (Compulsion × Friction), Predictability, Frequency, Data Accessibility','Step 2.5: Classifying events — tagging Switching Type, Telco Pain, Switching Origin, Emotional State','Step 3: Classifying windows — Flash / Short / Extended / Rolling with peak-intent timing','Step 4: Mapping overlaps — flagging compound moments that amplify switching intent','Step 5: Qualifying triggers — 22 events passed all gates (Intent ≥ 3.0, Frequency ≥ 2, 3+ signals)','Library ready — distributing trigger event library to all 3 pipelines']
   };
 
@@ -61,11 +61,7 @@
   ];
 
   const sharedStages = [
-    { id:'survey-arch', pipeline:'shared', agent:'shared', agentName:'Survey Architect', dur:120, isLaneStage:false,
-      lines:['Ingesting Stage 4 outputs from all 3 pipelines — identity briefs, value prop packages, opportunity scores','Screening section (S1-S5): designing 3-5 behavioral screeners with Prolific prescreener integration, targeting 60-80% qualification rate','Section A: Segment validation — 5-7 questions confirming persona clusters exist and behave as hypothesized','Section B: Needs prioritization — MaxDiff best-worst scaling (12 items, 3 sets of 4), forced-choice, Likert grids','Section C: Value proposition testing — positioning variant test, message resonance grid with generic control, Van Westendorp pricing (4 open-ended)','Section D-E: Demographics for tier stratification + open-ended questions (biggest frustration, credibility test)','Analysis plan: 11 sections — power analysis, hypothesis testing plan, Van Westendorp/MaxDiff specs, Green/Yellow/Red decision framework','Study parameters: n=300-600, under 5 minutes, 20-25 questions, 3-day iteration cycles, max 3 iterations per persona'] },
-    { id:'survey-anal', pipeline:'shared', agent:'shared', agentName:'Survey Analyst', dur:120, isLaneStage:false,
-      lines:['Running statistical toolkit — MaxDiff hierarchical Bayes, Van Westendorp price curves, chi-square, Wilcoxon, logistic regression','Hypothesis verdicts assigned: CONFIRMED / PARTIALLY CONFIRMED / REFUTED with test statistic, p-value, effect size','Van Westendorp analysis: computing PMC, IDP, OPP, PME intersection points with 2+ subgroup splits','MaxDiff utility rankings: aggregate and subgroup scores, top/bottom 3, cluster analysis','Composite switching intent model: logistic regression with switching intent predictors','3-tier decision framework: Green (proceed to campaign) / Yellow (revise and retest in 2-3 days) / Red (deprioritize)','Feedback loops triggered — updating Opportunity Analyst confidence scores, Persona Builder card fields, Value Prop pricing adjustments','Verdicts: 3 Green, 2 Yellow (next iteration specified), 1 Red — feedback dispatched to pipeline agents'] },
-    { id:'brief', pipeline:'shared', agent:'campaign', agentName:'Brief Writer', dur:90, isLaneStage:false,
+    { id:'brief', pipeline:'brief', agent:'campaign', agentName:'Marketing Brief Writer', dur:90, isLaneStage:false,
       lines:['Step 1: Locating 4A persona reports and 4B value prop packages across all 3 pipelines','Step 2: Extracting from 4A — segment definition, market sizing, stratification, named persona, notable profiles, executive summary','Step 3: Extracting from 4B — job hierarchy, alternatives analysis, opportunity scoring, tiered value canvas, positioning, competitive landscape','Step 4: Ranking concepts — primary sort by execution feasibility (Proven > Untested > Unproven), tiebreak by non-telco viability score','Step 5: Generating briefs in parallel — one per concept with brand identity, plan architecture, features, non-telco bundle, competitive context','Step 6: Converting to PDF — pandoc + weasyprint with branded CSS styling','Output: marketing briefs generated for all Green-light concepts across pipelines'] }
   ];
 
@@ -154,7 +150,7 @@
 
 .scene2 {
   width: 100%;
-  padding: 40px 40px;
+  padding: 24px 24px 24px;
   color: #e2e2f0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -170,7 +166,7 @@
 .scene2 .sub-tabs {
   display: flex;
   gap: 4px;
-  margin-bottom: 28px;
+  margin-bottom: 12px;
   border-bottom: 1px solid rgba(255,255,255,0.06);
   padding-bottom: 0;
 }
@@ -208,12 +204,12 @@
 .scene2 .input-phase input {
   flex: 1;
   max-width: 360px;
-  padding: 10px 16px;
+  padding: 6px 16px;
   border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.08);
   background: rgba(255,255,255,0.04);
   color: #e2e2f0;
-  font-size: 14px;
+  font-size: 12px;
   font-family: 'JetBrains Mono', monospace;
   outline: none;
   transition: border-color 0.3s;
@@ -221,12 +217,12 @@
 .scene2 .input-phase input:focus { border-color: rgba(255,255,255,0.25); }
 .scene2 .input-phase input::placeholder { color: #555; }
 .scene2 .launch-btn {
-  padding: 10px 24px;
+  padding: 6px 16px;
   border-radius: 10px;
   border: 1px solid rgba(16,185,129,0.3);
   background: rgba(16,185,129,0.1);
   color: #10b981;
-  font-size: 13px;
+  font-size: 12px;
   font-family: 'JetBrains Mono', monospace;
   font-weight: 600;
   cursor: pointer;
@@ -265,7 +261,7 @@
 
 .scene2 .mission-control {
   display: none;
-  grid-template-columns: 320px 1fr 260px;
+  grid-template-columns: 320px 1fr;
   gap: 16px;
   flex: 1;
   min-height: 0;
@@ -353,6 +349,8 @@
 .scene2 .stage-card.micro .progress-fill { background: linear-gradient(90deg, #74b9ff, #74b9ffcc); }
 .scene2 .stage-card.macro .progress-fill { background: linear-gradient(90deg, #a29bfe, #a29bfecc); }
 .scene2 .stage-card.shared .progress-fill { background: linear-gradient(90deg, #f0c27a, #f0c27acc); }
+.scene2 .stage-card.trigger .progress-fill { background: linear-gradient(90deg, #f59e0b, #f59e0bcc); }
+.scene2 .stage-card.brief .progress-fill { background: linear-gradient(90deg, #10b981, #10b981cc); }
 
 /* Output panel */
 .scene2 .output-panel {
@@ -387,6 +385,8 @@
 .scene2 .log-tag.micro { background: rgba(116,185,255,0.15); color: #74b9ff; }
 .scene2 .log-tag.macro { background: rgba(162,155,254,0.15); color: #a29bfe; }
 .scene2 .log-tag.shared { background: rgba(240,194,122,0.15); color: #f0c27a; }
+.scene2 .log-tag.trigger { background: rgba(245,158,11,0.15); color: #f59e0b; }
+.scene2 .log-tag.brief { background: rgba(16,185,129,0.15); color: #10b981; }
 
 
 /* Activity feed */
@@ -940,6 +940,249 @@
   margin-top: 8px;
 }
 
+/* ── Page Header ── */
+.scene2 .page-header { text-align: left; margin-bottom: 16px; }
+.scene2 .page-title-row { display: flex; align-items: center; gap: 16px; }
+.scene2 .page-back-btn {
+  font-size: 24px; font-weight: 700; line-height: 1;
+  background: none; border: none; color: #737373;
+  padding: 0; cursor: pointer; transition: color 0.2s ease;
+}
+.scene2 .page-back-btn:hover { color: #e2e2f0; }
+.scene2 .page-header h2 {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 36px; font-weight: 400; margin: 0 0 4px; color: #e2e2f0;
+  letter-spacing: -0.5px;
+}
+.scene2 .page-header .page-subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; color: #737373; letter-spacing: 2px; text-transform: uppercase;
+}
+
+/* ── Architecture Tab ── */
+.scene2 .arch-wrap { padding: 0 0 24px; }
+.scene2 .arch-diagram-title {
+  font-family: 'Instrument Serif', Georgia, serif; font-size: 28px; font-weight: 400;
+  color: #e2e2f0; text-align: center; margin-bottom: 24px; letter-spacing: -0.3px;
+}
+.scene2 .arch-section { margin-bottom: 16px; }
+.scene2 .arch-section-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600;
+  letter-spacing: 1.5px; text-transform: uppercase; color: #555; margin-bottom: 10px;
+  text-align: center;
+}
+.scene2 .arch-arrow-down {
+  width: 2px; height: 20px; margin: 0 auto 16px;
+  background: linear-gradient(180deg, #555, #333);
+}
+.scene2 .arch-node {
+  padding: 14px 20px; border-radius: 8px; text-align: center; position: relative;
+}
+.scene2 .arch-node-name {
+  font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 4px;
+}
+.scene2 .arch-node-detail {
+  font-size: 10px; color: rgba(255,255,255,0.75); line-height: 1.5;
+}
+.scene2 .arch-node--master {
+  background: rgba(30,41,59,0.6); border: 1px solid rgba(51,65,85,0.5); max-width: 500px; margin: 0 auto;
+}
+.scene2 .arch-node--moments {
+  background: rgba(245,158,11,0.15); border: 1.5px solid rgba(180,83,9,0.4);
+  max-width: 700px; margin: 0 auto;
+}
+.scene2 .arch-node--shared {
+  background: rgba(107,114,128,0.15); border: 1px solid rgba(107,114,128,0.3); flex: 1;
+}
+.scene2 .arch-node--tier3 {
+  background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.25); flex: 1;
+}
+.scene2 .arch-node--tier4 {
+  background: rgba(20,184,166,0.12); border: 1px solid rgba(20,184,166,0.25); flex: 1;
+}
+
+/* Badges */
+.scene2 .arch-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px; border-radius: 50%;
+  font-size: 10px; font-weight: 700; color: #fff;
+}
+.scene2 .arch-badge--moments { background: #b45309; position: absolute; top: 10px; right: 12px; }
+.scene2 .arch-badge--surge { background: #dc2626; margin-left: 8px; }
+.scene2 .arch-badge--micro { background: #2563eb; margin-left: 8px; }
+.scene2 .arch-badge--macro { background: #7c3aed; margin-left: 8px; }
+.scene2 .arch-badge--shared { background: #4b5563; }
+.scene2 .arch-badge--tier3 { background: #059669; }
+.scene2 .arch-badge--tier4 { background: #0d9488; }
+
+/* Fan arrows */
+.scene2 .arch-fan-arrows {
+  display: flex; justify-content: space-around; padding: 8px 60px 16px;
+}
+.scene2 .arch-fan-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 600;
+  color: #d97706; letter-spacing: 0.5px;
+}
+
+/* 3-column pipelines */
+.scene2 .arch-pipelines {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+}
+.scene2 .arch-pipeline {
+  border-radius: 10px; padding: 0 0 8px; overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.scene2 .arch-pipeline-header {
+  padding: 10px 14px; font-size: 12px; font-weight: 700; color: #fff;
+  display: flex; align-items: center; justify-content: center;
+}
+.scene2 .arch-pipeline-header--surge { background: rgba(220,38,38,0.15); color: #ef4444; }
+.scene2 .arch-pipeline-header--micro { background: rgba(37,99,235,0.15); color: #60a5fa; }
+.scene2 .arch-pipeline-header--macro { background: rgba(124,58,237,0.15); color: #a78bfa; }
+.scene2 .arch-pipeline-tempo {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #666;
+  font-style: italic; text-align: center; padding: 6px 0 10px;
+}
+.scene2 .arch-stage {
+  margin: 0 8px 6px; padding: 10px 12px; border-radius: 6px;
+}
+.scene2 .arch-stage--surge { background: rgba(220,38,38,0.15); border: 1px solid rgba(220,38,38,0.25); }
+.scene2 .arch-stage--micro { background: rgba(37,99,235,0.15); border: 1px solid rgba(37,99,235,0.25); }
+.scene2 .arch-stage--macro { background: rgba(124,58,237,0.15); border: 1px solid rgba(124,58,237,0.25); }
+.scene2 .arch-stage--macro-light {
+  background: rgba(124,58,237,0.15); border: 1px solid rgba(124,58,237,0.25);
+}
+.scene2 .arch-stage-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 8px; font-weight: 600;
+  letter-spacing: 0.8px; color: rgba(255,255,255,0.5); text-transform: uppercase; margin-bottom: 3px;
+}
+.scene2 .arch-stage-name { font-size: 11px; font-weight: 600; color: #ccc; margin-bottom: 2px; }
+.scene2 .arch-stage-detail { font-size: 9px; color: #888; }
+.scene2 .arch-stage-moment { font-size: 9px; color: rgba(253,232,138,0.5); margin-top: 2px; }
+
+/* Callout */
+.scene2 .arch-callout {
+  margin: 16px 0; padding: 10px 16px; border-radius: 6px; text-align: center;
+  background: rgba(251,191,36,0.06); border: 1px solid rgba(251,191,36,0.2);
+  font-size: 10px; color: #d97706;
+}
+
+/* Convergence bar */
+.scene2 .arch-convergence {
+  margin: 16px 0; padding: 6px 0; border-radius: 4px; text-align: center;
+  background: rgba(55,65,81,0.4); font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; font-weight: 700; color: #fff; letter-spacing: 1px; text-transform: uppercase;
+}
+
+/* Shared rows */
+.scene2 .arch-shared-row {
+  display: flex; gap: 12px; align-items: stretch;
+}
+
+/* Footer */
+.scene2 .arch-footer {
+  margin-top: 24px; text-align: center;
+  font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #666;
+}
+
+/* ── Pipeline Output Tab ── */
+.scene2 .output-wrap {
+  max-width: 1100px; margin: 0 auto; padding: 0 24px;
+}
+.scene2 .output-header { margin-bottom: 20px; }
+.scene2 .output-tabs {
+  display: flex; gap: 0; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 0;
+}
+.scene2 .output-tab {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 1px;
+  text-transform: uppercase; color: #737373; padding: 10px 20px; cursor: pointer;
+  border: none; background: none; border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+.scene2 .output-tab:hover { color: #e2e2f0; }
+.scene2 .output-tab.active { color: #e2e2f0; border-bottom-color: #f0c27a; }
+.scene2 .output-body {
+  background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
+  border-top: none; border-radius: 0 0 12px 12px; padding: 24px;
+  max-height: 600px; overflow-y: auto;
+}
+.scene2 .output-body::-webkit-scrollbar { width: 4px; }
+.scene2 .output-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+
+/* Output table rows */
+.scene2 .out-tbl-trigger {
+  display: grid; grid-template-columns: 40px 1fr 80px 100px 120px 120px;
+  gap: 12px; align-items: center;
+}
+.scene2 .out-tbl-trend {
+  display: grid; grid-template-columns: 60px 1fr 90px 100px 90px;
+  gap: 12px; align-items: center;
+}
+.scene2 .out-tbl-surge {
+  display: grid; grid-template-columns: 1fr 80px 120px 120px 100px;
+  gap: 12px; align-items: center;
+}
+.scene2 .out-tbl-header {
+  padding: 0 0 8px; border-bottom: 1px solid rgba(255,255,255,0.08);
+  font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #404040;
+  text-transform: uppercase; letter-spacing: 1px;
+}
+.scene2 .out-tbl-row {
+  padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+  font-size: 13px; transition: background 0.15s;
+}
+.scene2 .out-tbl-row:hover { background: rgba(255,255,255,0.02); }
+.scene2 .out-rank {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #737373; text-align: center;
+}
+.scene2 .out-name { color: #e2e2f0; font-weight: 500; }
+.scene2 .out-score {
+  font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #f0c27a; text-align: center;
+}
+.scene2 .out-type {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.5px;
+  text-transform: uppercase; color: #737373;
+}
+.scene2 .out-vol { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #737373; }
+.scene2 .out-emotion { font-size: 11px; color: #737373; font-style: italic; }
+.scene2 .out-id { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #404040; }
+.scene2 .out-conf { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #10b981; }
+.scene2 .out-extra { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #737373; }
+
+/* ── Architecture Animation States ── */
+.scene2 .arch-running {
+  box-shadow: 0 0 12px rgba(240,194,122,0.3);
+  border-color: rgba(240,194,122,0.6) !important;
+  animation: archPulse 1.5s ease-in-out infinite;
+}
+.scene2 .arch-running .arch-stage-name,
+.scene2 .arch-running .arch-node-name { color: #fff; }
+@keyframes archPulse {
+  0%, 100% { box-shadow: 0 0 6px rgba(240,194,122,0.2); }
+  50% { box-shadow: 0 0 16px rgba(240,194,122,0.4); }
+}
+
+/* ── Combined Tab ── */
+.scene2 .combined-layout {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+  flex: 1; min-height: 0;
+}
+.scene2 .combined-left {
+  overflow-y: auto; border-right: 1px solid rgba(255,255,255,0.06);
+  padding: 0 16px;
+}
+.scene2 .combined-left::-webkit-scrollbar { width: 4px; }
+.scene2 .combined-left::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 2px; }
+.scene2 .combined-right {
+  display: flex; flex-direction: column; min-height: 0;
+}
+.scene2 .combined-input {
+  flex: 0 0 auto; justify-content: flex-start; padding: 0 0 8px;
+}
+.scene2 .combined-log {
+  flex: 1; min-height: 0;
+}
+
 /* Responsive */
 @media (max-width: 900px) {
   .scene2 .mission-control { grid-template-columns: 1fr; }
@@ -1017,10 +1260,8 @@
     const mc = el('div', 'mission-control');
     const pipeCol = el('div', 'pipeline-col');
     const outputPanel = el('div', 'output-panel');
-    const actFeed = el('div', 'activity-feed');
     mc.appendChild(pipeCol);
     mc.appendChild(outputPanel);
-    mc.appendChild(actFeed);
     panel.appendChild(mc);
 
 
@@ -1094,41 +1335,53 @@
       floatingSpeed.style.display = '';
       mc.classList.add('visible');
       outputPanel.innerHTML = '';
-      actFeed.innerHTML = '';
 
       const { trigCard, laneCards, sharedCards } = buildStageCards();
       abortController = new AbortController();
 
-      runPipeline(trigCard, triggerStage, laneCards, sharedCards, outputPanel, actFeed, abortController.signal).then(() => {
+      runPipeline(trigCard, triggerStage, laneCards, sharedCards, outputPanel, abortController.signal).then(() => {
         running = false;
         btn.disabled = false;
       });
     });
   }
 
-  async function runPipeline(trigCard, trigStage, laneCards, sharedCards, outputPanel, actFeed, signal) {
+  async function runPipeline(trigCard, trigStage, laneCards, sharedCards, outputPanel, signal, activeLanes) {
+    const lanes = activeLanes || ['surge', 'micro', 'macro'];
+    const prev = document.querySelector('.pipeline-summary');
+    if (prev) prev.remove();
     const startTime = Date.now();
     function elapsed() { return ((Date.now() - startTime) / 1000).toFixed(1); }
 
     // Run trigger
-    await runStage(trigCard, trigStage, outputPanel, actFeed, elapsed, signal);
+    await runStage(trigCard, trigStage, outputPanel, elapsed, signal);
     if (signal.aborted) return;
 
-    // Run 3 lanes in parallel
-    const lanePromises = ['surge', 'micro', 'macro'].map(key => {
-      return runLaneSequential(laneCards[key], outputPanel, actFeed, elapsed, signal);
+    // Run selected lanes in parallel
+    const lanePromises = lanes.map(key => {
+      return runLaneSequential(laneCards[key], outputPanel, elapsed, signal);
     });
     await Promise.all(lanePromises);
     if (signal.aborted) return;
 
     // Run shared downstream sequentially
     for (const { card, stage } of sharedCards) {
-      await runStage(card, stage, outputPanel, actFeed, elapsed, signal);
+      await runStage(card, stage, outputPanel, elapsed, signal);
       if (signal.aborted) return;
     }
 
     addLogLine(outputPanel, 'shared', 'Pipeline complete.');
-    addActivity(actFeed, elapsed(), 'All deliverables packaged and ready');
+
+    // Calculate dynamic stats based on active lanes
+    let agentCount = 2; // Trigger Analyst + Marketing Brief Writer
+    const pipelineNames = [];
+    const details = [];
+    if (lanes.includes('surge')) { agentCount += 5; pipelineNames.push('Surge'); details.push('28 surge-personas'); }
+    if (lanes.includes('micro')) { agentCount += 5; pipelineNames.push('Micro'); details.push('98 micro-trend personas'); }
+    if (lanes.includes('macro')) { agentCount += 6; pipelineNames.push('Macro'); details.push('12 Tier 1 + 22 Tier 2 personas'); }
+    const hours = lanes.length === 1 ? (lanes.includes('macro') ? 6 : 5) : lanes.length === 2 ? 9 : 14;
+    const cost = lanes.length === 1 ? 280 : lanes.length === 2 ? 550 : 850;
+    const pipelineCount = lanes.length;
 
     // Show completion summary with human-effort comparison
     const summaryDiv = el('div', 'pipeline-summary');
@@ -1138,11 +1391,11 @@
         <div class="summary-card gather">
           <div class="summary-card-label">Gather AI Pipeline</div>
           <div class="summary-stat-row">
-            <span class="summary-stat"><span class="summary-stat-value">18</span> AI agents</span>
-            <span class="summary-stat"><span class="summary-stat-value">14</span> hours</span>
-            <span class="summary-stat"><span class="summary-stat-value">~$850</span> compute</span>
+            <span class="summary-stat"><span class="summary-stat-value">${agentCount}</span> AI agents</span>
+            <span class="summary-stat"><span class="summary-stat-value">${hours}</span> hours</span>
+            <span class="summary-stat"><span class="summary-stat-value">~$${cost}</span> compute</span>
           </div>
-          <div class="summary-detail">3 parallel pipelines, 28 personas analyzed, 22 trigger events qualified, survey designed + analyzed, briefs generated</div>
+          <div class="summary-detail">${pipelineCount} pipeline${pipelineCount > 1 ? 's' : ''} (${pipelineNames.join(' + ')}), ${details.join(', ')}, 22 trigger events qualified, briefs generated</div>
         </div>
         <div class="summary-vs">vs</div>
         <div class="summary-card human">
@@ -1156,18 +1409,24 @@
         </div>
       </div>
     `;
-    outputPanel.appendChild(summaryDiv);
-    outputPanel.scrollTop = outputPanel.scrollHeight;
+    const archWrap = document.getElementById('arch-wrap');
+    if (archWrap) {
+      archWrap.appendChild(summaryDiv);
+      archWrap.parentElement.scrollTop = archWrap.parentElement.scrollHeight;
+    } else {
+      outputPanel.appendChild(summaryDiv);
+      outputPanel.scrollTop = outputPanel.scrollHeight;
+    }
   }
 
-  async function runLaneSequential(items, outputPanel, actFeed, elapsed, signal) {
+  async function runLaneSequential(items, outputPanel, elapsed, signal) {
     for (const { card, stage } of items) {
-      await runStage(card, stage, outputPanel, actFeed, elapsed, signal);
+      await runStage(card, stage, outputPanel, elapsed, signal);
       if (signal.aborted) return;
     }
   }
 
-  async function runStage(card, stage, outputPanel, actFeed, elapsed, signal) {
+  async function runStage(card, stage, outputPanel, elapsed, signal) {
     // Start
     card.classList.remove('pending');
     card.classList.add('running');
@@ -1175,7 +1434,12 @@
     const fillEl = card.querySelector('.progress-fill');
     timerEl.className = 'stage-timer running';
 
-    addActivity(actFeed, elapsed(), `${stage.agentName} started`);
+    // Animate architecture diagram element
+    const archEl = document.querySelector(`[data-stage-id="${stage.id}"]`);
+    if (archEl) {
+      archEl.classList.add('arch-running');
+      archEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
 
     const baseDur = stage.dur * 200; // base duration in ms
     let lineIdx = 0;
@@ -1214,7 +1478,9 @@
           card.classList.add('done');
           timerEl.className = 'stage-timer done';
           timerEl.textContent = formatTime(accumulated / 1000);
-          addActivity(actFeed, elapsed(), `${stage.agentName} complete`);
+          if (archEl) {
+            archEl.classList.remove('arch-running');
+          }
           resolve();
         }
       }, 50);
@@ -1532,16 +1798,491 @@
      MAIN INIT
      ═══════════════════════════════════════════ */
 
+  /* ═══════════════════════════════════════════
+     TAB: ARCHITECTURE
+     ═══════════════════════════════════════════ */
+
+  function buildArchitectureTab(panel) {
+    panel.style.overflow = 'auto';
+    const wrap = el('div', 'arch-wrap');
+    wrap.id = 'arch-wrap';
+
+    // Tier 1: Growth Master
+    wrap.innerHTML = `
+      <div class="arch-diagram-title">Autonomous Multi-Agent Pipelines</div>
+
+      <div class="arch-section">
+        <div class="arch-section-label">Tier 1: Orchestration</div>
+        <div class="arch-node arch-node--master">
+          <div class="arch-node-name">Growth Master</div>
+          <div class="arch-node-detail">Selects pipeline(s), sequences stages, runs Trigger Analyst prerequisite</div>
+        </div>
+      </div>
+
+      <div class="arch-arrow-down"></div>
+
+      <div class="arch-section">
+        <div class="arch-section-label">Shared Service: Moments</div>
+        <div class="arch-node arch-node--moments" data-stage-id="trigger">
+          <div class="arch-node-name">Trigger Analyst</div>
+          <div class="arch-node-detail">Life-transition scan across 6 dimensions | Decomposed Switching Intent (Compulsion x Friction)</div>
+          <div class="arch-node-detail">Weighted composite scoring | Classification tags | Window types | Trigger Event Library</div>
+        </div>
+      </div>
+
+      <div class="arch-fan-arrows">
+        <div class="arch-fan-label">Flash moments</div>
+        <div class="arch-fan-label">Short/Extended moments</div>
+        <div class="arch-fan-label">Rolling/Durable moments</div>
+      </div>
+
+      <div class="arch-section">
+        <div class="arch-section-label">Tier 2: Three Parallel Pipelines</div>
+        <div class="arch-pipelines">
+
+          <div class="arch-pipeline arch-pipeline--surge">
+            <div class="arch-pipeline-header arch-pipeline-header--surge">
+              Surge Trends Pipeline
+            </div>
+            <div class="arch-pipeline-tempo">Tempo: days-weeks | &lt; 3 months</div>
+            <div class="arch-stage arch-stage--surge" data-stage-id="s1s">
+              <div class="arch-stage-label">Stage 1S</div>
+              <div class="arch-stage-name">Surge Trend Scanner</div>
+              <div class="arch-stage-detail">Velocity-first scan, recency-weighted</div>
+              <div class="arch-stage-moment">+ Step 1B: Flash Moment Scan</div>
+            </div>
+            <div class="arch-stage arch-stage--surge" data-stage-id="s2s">
+              <div class="arch-stage-label">Stage 2S</div>
+              <div class="arch-stage-name">Surge Persona Builder</div>
+              <div class="arch-stage-detail">Demand-signal dedup, ~20-40 personas + moment tags</div>
+            </div>
+            <div class="arch-stage arch-stage--surge" data-stage-id="s3s">
+              <div class="arch-stage-label">Stage 3S</div>
+              <div class="arch-stage-name">Surge Opportunity Analyst</div>
+              <div class="arch-stage-detail">Single-pass, GO / MONITOR / SKIP</div>
+            </div>
+            <div class="arch-stage arch-stage--surge" data-stage-id="s4sa">
+              <div class="arch-stage-label">Stage 4S-A</div>
+              <div class="arch-stage-name">Surge Demand Analyst</div>
+              <div class="arch-stage-detail">2 factors, 6 Q&As, 800-1,500 words</div>
+              <div class="arch-stage-moment">+ compressed switching profile</div>
+            </div>
+            <div class="arch-stage arch-stage--surge" data-stage-id="s4sb">
+              <div class="arch-stage-label">Stage 4S-B</div>
+              <div class="arch-stage-name">Surge Offer Designer</div>
+              <div class="arch-stage-detail">1 concept, launch kit, transition plan</div>
+              <div class="arch-stage-moment">+ offer-window fit assessment</div>
+            </div>
+          </div>
+
+          <div class="arch-pipeline arch-pipeline--micro">
+            <div class="arch-pipeline-header arch-pipeline-header--micro">
+              Micro-Trends Identity
+            </div>
+            <div class="arch-pipeline-tempo">Tempo: weeks-months | 3mo - 3yr</div>
+            <div class="arch-stage arch-stage--micro" data-stage-id="s1m">
+              <div class="arch-stage-label">Stage 1</div>
+              <div class="arch-stage-name">Micro-Trend Analyst</div>
+              <div class="arch-stage-detail">PESTEL + Ansoff + Rogers</div>
+              <div class="arch-stage-moment">+ Step 1B: Moment-Community Scan (Path B)</div>
+            </div>
+            <div class="arch-stage arch-stage--micro" data-stage-id="s2m">
+              <div class="arch-stage-label">Stage 2</div>
+              <div class="arch-stage-name">Micro-Trend Persona Builder</div>
+              <div class="arch-stage-detail">Identity-overlap dedup, ~100 personas</div>
+              <div class="arch-stage-moment">+ acquisition moment, window type, switching origin</div>
+            </div>
+            <div class="arch-stage arch-stage--micro" data-stage-id="s3m">
+              <div class="arch-stage-label">Stage 3</div>
+              <div class="arch-stage-name">Micro-Trend Opportunity Analyst</div>
+              <div class="arch-stage-detail">Two-pass, INVEST / EXPLORE / NICHE / IGNORE</div>
+            </div>
+            <div class="arch-stage arch-stage--micro" data-stage-id="s4ma">
+              <div class="arch-stage-label">Stage 4A-Lite</div>
+              <div class="arch-stage-name">Micro-Trend Identity Analyst</div>
+              <div class="arch-stage-detail">4 factors, 20 Q&As, 2,000-4,000 words</div>
+              <div class="arch-stage-moment">+ switching profile module (4-dim)</div>
+            </div>
+            <div class="arch-stage arch-stage--micro" data-stage-id="s4mb">
+              <div class="arch-stage-label">Stage 4B-Rapid</div>
+              <div class="arch-stage-name">Micro-Trend Value Prop Designer</div>
+              <div class="arch-stage-detail">1-2 concepts, single plan, 3-5K words</div>
+              <div class="arch-stage-moment">+ 1 interception concept</div>
+            </div>
+          </div>
+
+          <div class="arch-pipeline arch-pipeline--macro">
+            <div class="arch-pipeline-header arch-pipeline-header--macro">
+              Macro-Trends Identity
+            </div>
+            <div class="arch-pipeline-tempo">Tempo: months analysis, years investment | 3-30+ yr</div>
+            <div class="arch-stage arch-stage--macro" data-stage-id="s1mt">
+              <div class="arch-stage-label">Stage 1M-T</div>
+              <div class="arch-stage-name">Macro-Trend Analyst</div>
+              <div class="arch-stage-detail">Institutional weighting, Ansoff Level 3+</div>
+              <div class="arch-stage-moment">+ Step 1B: Durable Moment-Community Scan</div>
+            </div>
+            <div class="arch-stage arch-stage--macro-light" data-stage-id="s15mt">
+              <div class="arch-stage-label">Stage 1.5M-T</div>
+              <div class="arch-stage-name">Macro-Trend Moment Mapper</div>
+              <div class="arch-stage-detail">Transition inventory, telco pain map, cross-pipeline integration</div>
+            </div>
+            <div class="arch-stage arch-stage--macro" data-stage-id="s2mt">
+              <div class="arch-stage-label">Stage 2M-T</div>
+              <div class="arch-stage-name">Macro-Trend Persona Builder</div>
+              <div class="arch-stage-detail">Identity-community mapping, ~10-20 personas</div>
+              <div class="arch-stage-moment">+ acquisition moment & window type tags</div>
+            </div>
+            <div class="arch-stage arch-stage--macro" data-stage-id="s3mt">
+              <div class="arch-stage-label">Stage 3M-T</div>
+              <div class="arch-stage-name">Macro-Trend Opportunity Analyst</div>
+              <div class="arch-stage-detail">Two-pass, BUILD / COMPETE / NICHE / IGNORE</div>
+            </div>
+            <div class="arch-stage arch-stage--macro" data-stage-id="s4mta">
+              <div class="arch-stage-label">Stage 4M-T-A</div>
+              <div class="arch-stage-name">Macro-Trend Identity Analyst</div>
+              <div class="arch-stage-detail">5 factors, 50 Q&As, 5,000-8,000 words</div>
+              <div class="arch-stage-moment">+ Factor 6: Switching Profile (6-dim)</div>
+            </div>
+            <div class="arch-stage arch-stage--macro" data-stage-id="s4mtb">
+              <div class="arch-stage-label">Stage 4M-T-B</div>
+              <div class="arch-stage-name">Macro-Trend Value Prop Designer</div>
+              <div class="arch-stage-detail">3-5 concepts, 2-3 tiers, 10-15K words</div>
+              <div class="arch-stage-moment">+ 1-2 interception concepts</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="arch-callout" data-stage-id="shared-callout">
+        <strong>Dual-Entry Qualification</strong> &mdash;
+        Path A: PESTEL/Velocity-driven | Path B: Moment-driven identity communities | [Path A+B] = 1.15x confidence boost at Stage 3
+      </div>
+
+      <div class="arch-convergence">Convergence</div>
+
+      <div class="arch-arrow-down"></div>
+
+      <div class="arch-section">
+        <div class="arch-section-label">Output</div>
+        <div class="arch-shared-row" style="justify-content:center;">
+          <div class="arch-node arch-node--tier3" style="max-width:400px;" data-stage-id="brief">
+            <div class="arch-node-name">Marketing Brief Writer</div>
+            <div class="arch-node-detail">Marketing briefs from any pipeline's Stage 4</div>
+          </div>
+        </div>
+      </div>
+    `;
+    panel.appendChild(wrap);
+  }
+
+  /* ═══════════════════════════════════════════
+     TAB: PIPELINE OUTPUT
+     ═══════════════════════════════════════════ */
+
+  const outputTriggerEvents = [
+    {rank:1,name:'Unexpected Vet Bill Shock',composite:4.6,switchingType:'Reactive',annualVolume:'8.2M events/year',emotionalState:'Panic + guilt'},
+    {rank:2,name:'Viral Pet Health Content Exposure',composite:4.5,switchingType:'Impulse',annualVolume:'12M+ exposures/year',emotionalState:'Anxiety + urgency'},
+    {rank:3,name:'New Pet Adoption',composite:4.4,switchingType:'Expansion',annualVolume:'6.5M adoptions/year',emotionalState:'Joy + overwhelm'},
+    {rank:4,name:'Pet Aging Milestone (Senior Transition)',composite:4.3,switchingType:'Gradual',annualVolume:'9.5M senior pets/year',emotionalState:'Concern + devotion'},
+    {rank:5,name:'Pet Health Diagnosis',composite:4.2,switchingType:'Forced',annualVolume:'4.8M new diagnoses/year',emotionalState:'Fear + determination'},
+    {rank:6,name:'Subscription Box Fatigue / Cancellation',composite:4.1,switchingType:'Voluntary',annualVolume:'1.1M cancellations/year',emotionalState:'Frustration + seeking value'},
+    {rank:7,name:'First Vet Checkup Warning',composite:4.0,switchingType:'Preventive',annualVolume:'15M vet visits with warnings/year',emotionalState:'Worry + motivation'},
+    {rank:8,name:'Pet Anxiety Episode',composite:3.9,switchingType:'Event-driven',annualVolume:'5.2M acute episodes/year',emotionalState:'Helplessness + urgency'},
+    {rank:9,name:'Pet Food Recall Scare',composite:3.8,switchingType:'Reactive',annualVolume:'3-5 major recalls/year',emotionalState:'Anger + distrust'},
+    {rank:10,name:'Millennial First Pet (Child Substitute)',composite:3.7,switchingType:'Identity',annualVolume:'4.1M first-time owners/year',emotionalState:'Excitement + identity formation'}
+  ];
+
+  const outputMacroTrends = [
+    {id:'MT-01',name:'Pet Humanization Megatrend',signal:'Cultural',direction:'Accelerating',confidence:'95%',impact:'Structural'},
+    {id:'MT-02',name:'Preventive Pet Healthcare Shift',signal:'Health',direction:'Growing',confidence:'88%',impact:'High'},
+    {id:'MT-03',name:'DTC Pet Brand Proliferation',signal:'Market',direction:'Accelerating',confidence:'82%',impact:'High'},
+    {id:'MT-04',name:'Pet Insurance Adoption Wave',signal:'Financial',direction:'Growing',confidence:'79%',impact:'Medium'},
+    {id:'MT-05',name:'Clean Label Pet Products',signal:'Consumer',direction:'Accelerating',confidence:'85%',impact:'High'},
+    {id:'MT-06',name:'Pet Tech Integration',signal:'Technology',direction:'Emerging',confidence:'72%',impact:'Medium'},
+    {id:'MT-07',name:'Vet Telehealth Expansion',signal:'Health',direction:'Growing',confidence:'78%',impact:'Medium'},
+    {id:'MT-08',name:'Pet Mental Health Awareness',signal:'Cultural',direction:'Emerging',confidence:'65%',impact:'Medium'}
+  ];
+
+  const outputMicroTrends = [
+    {id:'MT-01',name:'Adaptogenic Pet Supplements',signal:'Product',velocity:'High',confidence:'78%',window:'12 months'},
+    {id:'MT-02',name:'Pet DNA Testing Boom',signal:'Technology',velocity:'High',confidence:'82%',window:'18 months'},
+    {id:'MT-03',name:'Raw/Fresh Pet Food Movement',signal:'Consumer',velocity:'Medium',confidence:'85%',window:'24+ months'},
+    {id:'MT-04',name:'Pet CBD Regulation Clarity',signal:'Policy',velocity:'Medium',confidence:'60%',window:'6-12 months'},
+    {id:'MT-05',name:'Pet Subscription Box Fatigue',signal:'Market',velocity:'High',confidence:'75%',window:'6 months'},
+    {id:'MT-06',name:'Vet-Influencer Trust Economy',signal:'Social',velocity:'Very High',confidence:'80%',window:'12 months'},
+    {id:'MT-07',name:'Pet Anxiety Treatment Market',signal:'Health',velocity:'High',confidence:'77%',window:'18 months'},
+    {id:'MT-08',name:'Multi-Species Household Trend',signal:'Demographic',velocity:'Medium',confidence:'70%',window:'24+ months'}
+  ];
+
+  const outputSurgeSignals = [
+    {name:'TikTok Pet Supplement Viral Wave',velocity:'4.6',subType:'Escalating',window:'Short (1-6mo)',decay:'Accelerating'},
+    {name:'VPN/Privacy Post-Breach Spike',velocity:'4.2',subType:'Structural',window:'Short (1-6mo)',decay:'Peak'},
+    {name:'Pet DNA Kit Holiday Rush',velocity:'3.8',subType:'Opportunity-Window',window:'Short (1-3mo)',decay:'Accelerating'},
+    {name:'Vet Telehealth Adoption Surge',velocity:'3.5',subType:'Innovation Wave',window:'Medium (3-12mo)',decay:'Expanding'}
+  ];
+
+  function buildOutputTab(panel) {
+    panel.style.overflow = 'auto';
+    const wrap = el('div', 'output-wrap');
+
+    const header = el('div', 'output-header');
+    header.innerHTML = '<h2 class="arch-title">Pipeline Output</h2><div class="arch-sub">Scored and ranked results from the latest pipeline run</div>';
+    wrap.appendChild(header);
+
+    // Output sub-tabs
+    const tabBar = el('div', 'output-tabs');
+    const tabs = [
+      {key:'trigger', label:'Trigger Events'},
+      {key:'macro', label:'Macro-Trends'},
+      {key:'micro', label:'Micro-Trends'},
+      {key:'surge', label:'Surge Signals'}
+    ];
+    let activeOutputTab = 'trigger';
+
+    const body = el('div', 'output-body');
+
+    function renderOutputTabs() {
+      tabBar.querySelectorAll('.output-tab').forEach(t => {
+        t.classList.toggle('active', t.dataset.key === activeOutputTab);
+      });
+    }
+
+    function renderOutputBody() {
+      let html = '';
+      if (activeOutputTab === 'trigger') {
+        html += '<div class="out-tbl-header out-tbl-trigger"><span>#</span><span>Event</span><span>Score</span><span>Type</span><span>Volume</span><span>Emotion</span></div>';
+        outputTriggerEvents.forEach(ev => {
+          html += `<div class="out-tbl-row out-tbl-trigger">
+            <span class="out-rank">${ev.rank}</span>
+            <span class="out-name">${escHtml(ev.name)}</span>
+            <span class="out-score">${ev.composite.toFixed(1)}</span>
+            <span class="out-type">${escHtml(ev.switchingType)}</span>
+            <span class="out-vol">${escHtml(ev.annualVolume)}</span>
+            <span class="out-emotion">${escHtml(ev.emotionalState)}</span>
+          </div>`;
+        });
+      } else if (activeOutputTab === 'macro') {
+        html += '<div class="out-tbl-header out-tbl-trend"><span>ID</span><span>Trend</span><span>Signal</span><span>Confidence</span><span>Impact</span></div>';
+        outputMacroTrends.forEach(t => {
+          html += `<div class="out-tbl-row out-tbl-trend">
+            <span class="out-id">${escHtml(t.id)}</span>
+            <span class="out-name">${escHtml(t.name)}</span>
+            <span class="out-type">${escHtml(t.signal)}</span>
+            <span class="out-conf">${escHtml(t.confidence)}</span>
+            <span class="out-extra">${escHtml(t.impact)}</span>
+          </div>`;
+        });
+      } else if (activeOutputTab === 'micro') {
+        html += '<div class="out-tbl-header out-tbl-trend"><span>ID</span><span>Trend</span><span>Signal</span><span>Confidence</span><span>Window</span></div>';
+        outputMicroTrends.forEach(t => {
+          html += `<div class="out-tbl-row out-tbl-trend">
+            <span class="out-id">${escHtml(t.id)}</span>
+            <span class="out-name">${escHtml(t.name)}</span>
+            <span class="out-type">${escHtml(t.signal)}</span>
+            <span class="out-conf">${escHtml(t.confidence)}</span>
+            <span class="out-extra">${escHtml(t.window)}</span>
+          </div>`;
+        });
+      } else if (activeOutputTab === 'surge') {
+        html += '<div class="out-tbl-header out-tbl-surge"><span>Signal</span><span>Velocity</span><span>Sub-Type</span><span>Enduring Window</span><span>Decay</span></div>';
+        outputSurgeSignals.forEach(s => {
+          html += `<div class="out-tbl-row out-tbl-surge">
+            <span class="out-name">${escHtml(s.name)}</span>
+            <span class="out-score">${s.velocity}</span>
+            <span class="out-type">${escHtml(s.subType)}</span>
+            <span class="out-extra">${escHtml(s.window)}</span>
+            <span class="out-type">${escHtml(s.decay)}</span>
+          </div>`;
+        });
+      }
+      body.innerHTML = html;
+    }
+
+    tabs.forEach(t => {
+      const tab = el('button', 'output-tab' + (t.key === activeOutputTab ? ' active' : ''));
+      tab.textContent = t.label;
+      tab.dataset.key = t.key;
+      tab.addEventListener('click', () => {
+        activeOutputTab = t.key;
+        renderOutputTabs();
+        renderOutputBody();
+      });
+      tabBar.appendChild(tab);
+    });
+
+    wrap.appendChild(tabBar);
+    wrap.appendChild(body);
+    panel.appendChild(wrap);
+    renderOutputBody();
+  }
+
+  /* ═══════════════════════════════════════════
+     COMBINED TAB: Architecture + Live Run
+     ═══════════════════════════════════════════ */
+
+  function buildCombinedTab(panel) {
+    panel.style.position = 'relative';
+
+    const combined = el('div', 'combined-layout');
+
+    // Left: Architecture diagram
+    const leftCol = el('div', 'combined-left');
+    buildArchitectureTab(leftCol);
+    combined.appendChild(leftCol);
+
+    // Right: Input + Log output
+    const rightCol = el('div', 'combined-right');
+
+    // Input phase
+    const inputDiv = el('div', 'input-phase combined-input');
+    const inp = el('input');
+    inp.type = 'text'; inp.placeholder = 'e.g. analyze surge, micro and macro persona trends'; inp.value = 'analyze surge, micro and macro persona trends';
+    const btn = el('button', 'launch-btn', 'Launch Pipeline');
+    inputDiv.appendChild(inp);
+    inputDiv.appendChild(btn);
+    inputDiv.appendChild(buildSpeedControl(false));
+    rightCol.appendChild(inputDiv);
+
+    // Log output panel
+    const outputPanel = el('div', 'output-panel combined-log');
+    rightCol.appendChild(outputPanel);
+
+    combined.appendChild(rightCol);
+    panel.appendChild(combined);
+
+    // Pipeline card data (hidden — we still need it for the run engine)
+    const pipeCol = el('div');
+    pipeCol.style.display = 'none';
+    panel.appendChild(pipeCol);
+
+    // Build pipeline cards
+    function buildStageCards() {
+      pipeCol.innerHTML = '';
+
+      const trigSec = el('div', 'shared-stage-section');
+      const trigCard = createCombinedStageCard(triggerStage);
+      trigSec.appendChild(trigCard);
+      pipeCol.appendChild(trigSec);
+
+      const laneCards = {};
+      [
+        { key: 'surge', stages: surgePipeline },
+        { key: 'micro', stages: microPipeline },
+        { key: 'macro', stages: macroPipeline }
+      ].forEach(lane => {
+        laneCards[lane.key] = [];
+        lane.stages.forEach(s => {
+          const card = createCombinedStageCard(s);
+          pipeCol.appendChild(card);
+          laneCards[lane.key].push({ card, stage: s });
+        });
+      });
+
+      const sharedCards = [];
+      sharedStages.forEach(s => {
+        const card = createCombinedStageCard(s);
+        pipeCol.appendChild(card);
+        sharedCards.push({ card, stage: s });
+      });
+
+      return { trigCard, laneCards, sharedCards };
+    }
+
+    function createCombinedStageCard(stage) {
+      const card = el('div', `stage-card ${stage.pipeline} pending`);
+      card.dataset.id = stage.id;
+      card.innerHTML = `
+        <div class="stage-top">
+          <div class="stage-name">${stage.agentName}</div>
+          <div class="stage-timer">--</div>
+        </div>
+        <div class="progress-track"><div class="progress-fill"></div></div>
+      `;
+      return card;
+    }
+
+    // Animation engine
+    let running = false;
+    let abortController = null;
+
+    btn.addEventListener('click', () => {
+      if (running) return;
+      running = true;
+      btn.disabled = true;
+      outputPanel.innerHTML = '';
+
+      // Parse input to determine which pipelines to run
+      const inputText = inp.value.toLowerCase();
+      const activeLanes = [];
+      if (inputText.includes('surge')) activeLanes.push('surge');
+      if (inputText.includes('micro')) activeLanes.push('micro');
+      if (inputText.includes('macro')) activeLanes.push('macro');
+      // Default to all if none specified
+      if (activeLanes.length === 0) activeLanes.push('surge', 'micro', 'macro');
+
+      const { trigCard, laneCards, sharedCards } = buildStageCards();
+      abortController = new AbortController();
+
+      runPipeline(trigCard, triggerStage, laneCards, sharedCards, outputPanel, abortController.signal, activeLanes).then(() => {
+        running = false;
+        btn.disabled = false;
+      });
+    });
+  }
+
+  /* ═══════════════════════════════════════════
+     MAIN INIT
+     ═══════════════════════════════════════════ */
+
   function initScene2(container) {
     injectCSS();
 
     container.innerHTML = '';
     const root = el('div', 'scene2');
 
-    // Only show Demo 1 (Pipeline Run) — no sub-tabs
-    const panel = el('div', 'sub-panel active');
-    buildDemo1(panel);
-    root.appendChild(panel);
+    // Page header
+    const pageHeader = el('div', 'page-header');
+    pageHeader.innerHTML = '<div class="page-title-row"><button class="page-back-btn">\u2039</button><h2>Market Intelligence Run</h2></div><div class="page-subtitle">26 AI Agents \u00b7 3 Parallel Pipelines \u00b7 Full GTM Intelligence</div>';
+    pageHeader.querySelector('.page-back-btn').addEventListener('click', () => {
+      const scenes = document.querySelectorAll('.scene');
+      scenes.forEach(s => s.classList.remove('active'));
+      const scene2 = document.getElementById('scene-2');
+      if (scene2) scene2.classList.add('active');
+      const tab = document.querySelector('.nav-tab[data-scene="2"]');
+      if (tab) {
+        document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+      }
+    });
+    root.appendChild(pageHeader);
+
+    // Sub-tabs
+    const tabBar = el('div', 'sub-tabs');
+    const panels = [];
+    const tabDefs = [
+      { label: 'Architecture & Run', build: buildCombinedTab },
+      { label: 'Pipeline Output', build: buildOutputTab }
+    ];
+
+    tabDefs.forEach((def, i) => {
+      const btn = el('button', 'sub-tab' + (i === 0 ? ' active' : ''), def.label);
+      btn.addEventListener('click', () => {
+        tabBar.querySelectorAll('.sub-tab').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        panels.forEach(p => p.classList.remove('active'));
+        panels[i].classList.add('active');
+      });
+      tabBar.appendChild(btn);
+
+      const panel = el('div', 'sub-panel' + (i === 0 ? ' active' : ''));
+      def.build(panel);
+      panels.push(panel);
+    });
+
+    root.appendChild(tabBar);
+    panels.forEach(p => root.appendChild(p));
     container.appendChild(root);
   }
 

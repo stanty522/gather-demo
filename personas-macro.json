@@ -1,0 +1,646 @@
+[
+  {
+    "id": "M1",
+    "name": "Pet-Owning Americans",
+    "pipe": "macro",
+    "quad": "niche",
+    "desc": "94M households view pets as family members. Identity centered on pet parenthood drives community participation, spending, and device adoption. Strong emotional connection to pet identity infrastructure.",
+    "pop": "94M households (~185M adults)",
+    "popNum": 185000000,
+    "popSource": "APPA National Pet Owners Survey 2024",
+    "intensity": 4,
+    "score": 7.9,
+    "markers": [
+      "Pet parent identity",
+      "Breed-community participation",
+      "Gotcha day celebrations",
+      "Instagram pet presence",
+      "GPS collar/tracker adoption"
+    ],
+    "community": [
+      "r/goldenretrievers (1.8M+)",
+      "r/dogs (8.3M+)",
+      "Breed-specific Facebook groups",
+      "Fi ambassador community",
+      "Dog park networks"
+    ],
+    "moment": "Pet adoption / first pet ownership",
+    "momentWindow": "Ongoing; identity-driven",
+    "confidence": {
+      "identity": 72,
+      "price": 40,
+      "channel": 55
+    },
+    "interview": [
+      {
+        "q": "What signals tell you a brand actually understands pet parents versus just using pet imagery?",
+        "a": "Does the brand know what \"gotcha day\" is? Do they have content about the hard parts — the vet bills, the reactive dog on leash, the grief when you lose one? Does the founder have a pet? You can tell. The brands that get us talk about the relationship, not just the product.",
+        "insight": "Pet parents detect performative marketing instantly. They evaluate brands through identity markers and emotional authenticity, not product specs."
+      },
+      {
+        "q": "What would a phone plan designed for pet owners need to include for you to switch?",
+        "a": "Unified IoT management — my GPS tracker on my phone plan, not a separate bill. Pet telehealth as an actual add-on. I’d want to manage everything from one app. And I’d want the brand to feel like it was built by someone who actually has dogs, not a marketing team.",
+        "insight": "Switching trigger is consolidation of fragmented pet-tech subscriptions ($28-45/month) under one account. Emotionally gated on founder credibility."
+      },
+      {
+        "q": "What should a company building for pet parents absolutely not get wrong?",
+        "a": "Don’t treat it as a theme. Don’t make it a sticker on a generic plan. The features have to be real. And when my dog dies — when that day comes — I want a company that handles it the way Chewy handles it. A $40 flower arrangement. That’s what separates a brand that understands us from one that just uses us.",
+        "insight": "Loyalty emerges from recognizing pet loss as genuine grief. The Chewy benchmark shows differentiation is not in being cheaper — it’s in treating pet parenthood as worthy of institutional respect."
+      }
+    ]
+  },
+  {
+    "id": "M2",
+    "name": "Solo-Living Americans",
+    "pipe": "macro",
+    "quad": "build",
+    "desc": "38M adults in single-person households. Growing demographic reflecting delayed/declined marriage, extended independence. Strong identity around autonomy, self-directed life design, and friend-centric social structures.",
+    "pop": "38M adults (29% of households)",
+    "popNum": 38000000,
+    "popSource": "U.S. Census Bureau 2024",
+    "intensity": 4,
+    "score": 8.2,
+    "markers": [
+      "Intentional solo living",
+      "Friend-centric social structure",
+      "Personal space design",
+      "Career/education priority",
+      "Autonomous decision-making"
+    ],
+    "community": [
+      "Co-living communities",
+      "Meetup groups (60M+ global)",
+      "Discord servers",
+      "Subreddits for solo living",
+      "Friendship-centric Instagram"
+    ],
+    "moment": "First independent housing transition or breakup/divorce",
+    "momentWindow": "Extended; varies by trigger",
+    "confidence": {
+      "identity": 70,
+      "price": 38,
+      "channel": 52
+    },
+    "interview": [
+      {
+        "q": "Is there a complicated part of solo living you can’t always talk about?",
+        "a": "Loneliness. There’s a version of solo living that looks amazing: solo travel, total freedom, self-partnered queen energy. And a lot of that is real. But there are also Sundays that are just long and quiet. I don’t want to complain because I genuinely chose this. But the Instagram version skips that part. I’m working on sitting with both — the real freedom and the real quiet.",
+        "insight": "Deepest unstated need is emotional validation for solo identity. Brand positioning must acknowledge complexity with dignity — not market to the loneliness, but recognize the real human beneath the confident narrative."
+      },
+      {
+        "q": "If a carrier designed a plan specifically for people living solo, would you switch?",
+        "a": "Yes. If the coverage checked out and the price was better, and it was clearly designed for someone like me rather than being a stripped-down family plan with one seat... that would genuinely move me. The fact that no one has done this yet is kind of wild. There are 38 million people living alone. We’re just supposed to be okay paying the singles tax on everything?",
+        "insight": "Explicit switching intent if three conditions met: coverage proven via review, price advantage, and identity recognition (not a stripped-down family plan). The \"38 million\" observation suggests she’d become an evangelist."
+      },
+      {
+        "q": "What would make you distrust a brand targeting people like you?",
+        "a": "If it felt like they discovered \"solo people\" as a marketing angle without actually caring. If the \"solo plan\" was just a regular plan with a new name. I check Reddit before I buy anything significant. If the community hasn’t vetted it — or if there are threads about hidden fees — I’m not touching it. Authenticity is the bar.",
+        "insight": "Reddit community vetting is the trust moat, not carrier messaging. Transparency, no hidden fees, and Reddit-verified reviews are non-negotiable."
+      }
+    ]
+  },
+  {
+    "id": "M3",
+    "name": "Independent Workers",
+    "pipe": "macro",
+    "quad": "build",
+    "desc": "Creators, solopreneurs, freelancers building economic life outside traditional employment. \"Creator\" or \"solopreneur\" as primary identity label. Strong community infrastructure. Non-risk-averse to trying new tools/services.",
+    "pop": "~12-15M independent workers",
+    "popNum": 13500000,
+    "popSource": "Census Bureau / freelancer platform estimates 2024",
+    "intensity": 5,
+    "score": 8.3,
+    "markers": [
+      "Creator/solopreneur in bio",
+      "Public full-time transition narrative",
+      "Milestone celebration",
+      "Work-flexibility priority",
+      "Community group membership"
+    ],
+    "community": [
+      "r/freelance / r/solopreneur",
+      "Slack-based creator communities",
+      "LinkedIn creator groups",
+      "Twitter/X creator networks",
+      "Indie hacker forums"
+    ],
+    "moment": "Full-time transition from W-2 job",
+    "momentWindow": "Short 1-3 month window",
+    "confidence": {
+      "identity": 82,
+      "price": 42,
+      "channel": 68
+    },
+    "interview": [
+      {
+        "q": "What’s something you need for your work that doesn’t exist yet?",
+        "a": "A carrier that understands that I’m using my phone to earn a living. Not just that I use a lot of data. That when my connection dies, I lose money. When I’m uploading a 4GB file, that’s my product going to market. I want someone to understand that my connectivity is my supply chain. Nobody talks to me like that.",
+        "insight": "No carrier has claimed the \"creator’s carrier\" identity. The persona seeks reliability reframed as business infrastructure, not consumer utility."
+      },
+      {
+        "q": "How does the business write-off affect how you think about plan cost?",
+        "a": "My accountant told me I can write off 80% of my phone bill because I use it primarily for work. So $85/month turns into ~$17 in actual after-tax cost. If I found a plan $30 more but genuinely better for my workflow, I’d take it because the real difference is like $6. Carriers price like I’m a regular consumer choosing between Hulu and Netflix.",
+        "insight": "Willingness-to-pay doubles or triples when tax write-off is surfaced. This is a monetization lever competitors ignore entirely."
+      },
+      {
+        "q": "How does your creator community show up in your daily life?",
+        "a": "I have a group chat with six other creators I met at VidCon two years ago. We talk every day — more than my college friends. We share analytics, celebrate wins, panic together when the algorithm shifts. The line between friendship and collaboration is gone. That’s what \"community\" means to me now.",
+        "insight": "Community peer recommendations drive 44% of carrier decisions. This is a tribe member seeking identity affirmation through tool choices. First-mover with authentic positioning captures durable moat."
+      }
+    ]
+  },
+  {
+    "id": "M4",
+    "name": "Socially Disconnected Adults",
+    "pipe": "macro",
+    "quad": "ignore",
+    "desc": "~50-60M adults actively seeking to rebuild social connection. Condition-defined, not identity-defined. Community-seeking behavior visible but loneliness stigma limits brand fit.",
+    "pop": "50-60M active seekers",
+    "popNum": 55000000,
+    "popSource": "Cigna Loneliness Index 2022 / Meetup data 2024",
+    "intensity": 2,
+    "score": 5.2,
+    "markers": [
+      "Community participation (inconsistent)",
+      "Third-place attendance",
+      "Meetup group membership",
+      "App-based community seeking"
+    ],
+    "community": [
+      "Meetup.com fitness groups",
+      "Run clubs (November Project, Strava)",
+      "Discord community servers",
+      "Local senior centers",
+      "Bumble BFF users"
+    ],
+    "moment": "Geographic relocation without established social network",
+    "momentWindow": "Extended 3-6 months",
+    "confidence": {
+      "identity": 35,
+      "price": 30,
+      "channel": 40
+    },
+    "interview": [
+      {
+        "q": "What does showing up to a run do for you that a solo run doesn’t?",
+        "a": "It’s accountability in the best direction. Solo runs I’m half in my head about work. Group runs I’m actually here. Someone says something funny and I laugh. Someone’s having a rough week and I notice. It’s what my brain actually needs, and my brain is dumb enough to not always choose it. So the group makes the choice easier.",
+        "insight": "Community structure solves agency failure — the group makes the right choice for him. Emotional need for belonging is concrete and behavioral, not aspirational."
+      },
+      {
+        "q": "Is there something you need around social connection that you struggle to articulate?",
+        "a": "Continuity. I can find events, I can find people. What I can’t find is the thing that makes it stick. The run crew works because we show up at the same place, same time, same people, week after week. The accumulation is the product. I don’t need more ways to discover community. I need infrastructure that makes what I’ve already found persistent.",
+        "insight": "Core unstated need: community persistence infrastructure, not discovery. Identifies a real product gap — what actually solves the loneliness problem."
+      },
+      {
+        "q": "Would you trust a telecom company to play a role in your community life?",
+        "a": "I’d be skeptical. Telecom companies have done the \"we connect people\" ad campaign a hundred times and it’s always felt hollow. If a company were doing something genuinely different — like actually building tools that run clubs need — I could imagine it. But I’d need to see the product, not the marketing. The burden of proof would be high.",
+        "insight": "Informed skepticism and high authenticity threshold. Opens a narrow but credible path for telcos willing to build real infrastructure rather than exploit community for marketing."
+      }
+    ]
+  },
+  {
+    "id": "M5",
+    "name": "Weight-Management Americans",
+    "pipe": "macro",
+    "quad": "ignore",
+    "desc": "Broad population managing weight via GLP-1 medication (Ozempic, Wegovy), fitness, diet. Large market but condition-defined, not identity-defined. Weak telco/brand fit.",
+    "pop": "60M+ adults",
+    "popNum": 75000000,
+    "popSource": "CDC weight management data 2024",
+    "intensity": 2,
+    "score": 5,
+    "markers": [
+      "Fitness/health app adoption",
+      "GLP-1 medication use",
+      "Calorie tracking",
+      "Community fitness participation"
+    ],
+    "community": [
+      "r/GLP1",
+      "Fitness app communities (Peloton, Apple Fitness+)",
+      "Telehealth provider networks",
+      "Medical weight loss communities"
+    ],
+    "moment": "Starting GLP-1 medication",
+    "momentWindow": "Extended; ongoing medical protocol",
+    "confidence": {
+      "identity": 30,
+      "price": 25,
+      "channel": 35
+    },
+    "interview": [
+      {
+        "q": "Is there a brand that genuinely represents your community or values?",
+        "a": "Calibrate, maybe — the platform I use to manage my prescription and talk to my health coach. It doesn’t feel corporate. The Weight Watchers rebrand felt desperate. I don’t think any carrier or tech company has any business in this space. I know my insurance company is watching. I don’t want my phone plan also watching.",
+        "insight": "Weight-management communities deeply distrust brands attempting entry. Trust goes only to platforms perceived as clinical and non-corporate. Insurance surveillance anxiety creates acute skepticism."
+      },
+      {
+        "q": "What would make you feel genuinely served by a health or technology product?",
+        "a": "If it treated me like a smart adult who made a medical decision with my doctor. Not like a consumer to be optimized. If a phone company offered me something around health data, I’d want to know the business model. Who benefits — me or them? Show me how you make money in a way that isn’t my health information.",
+        "insight": "Demands explicit non-monetization of health data. Data privacy as core differentiator. Telehealth ecosystem interoperability is the only legitimate carrier value-add."
+      },
+      {
+        "q": "If you could design the ideal carrier product for someone like you?",
+        "a": "Honestly? I wouldn’t design it around my weight loss journey. That would feel invasive. Reliable video calling for telehealth. A genuine commitment not to share health data. Maybe a way to connect health apps without them leaking everywhere. And just being cheaper — everything I’m spending on Wegovy has made me a ruthless budget optimizer.",
+        "insight": "Explicitly rejects weight-management branding as invasive. Price is primary driver; reliability is table-stakes. Validates the IGNORE verdict — this is a commodity shopper, not a brand-loyal customer."
+      }
+    ]
+  },
+  {
+    "id": "M6",
+    "name": "Remote-Capable Workers",
+    "pipe": "macro",
+    "quad": "niche",
+    "desc": "~60M Americans with location-flexible work. Digital Nomads (5-8M) are highest identity intensity sub-segment. Location independence as core identity. Gear optimization, timezone arbitrage, co-living adoption.",
+    "pop": "~5-8M digital nomads",
+    "popNum": 6500000,
+    "popSource": "Nomad List / Airbnb remote worker data 2024",
+    "intensity": 4,
+    "score": 7.1,
+    "markers": [
+      "Digital nomad identity",
+      "Location independence priority",
+      "Gear weight optimization",
+      "Co-living membership",
+      "Visa/country expertise"
+    ],
+    "community": [
+      "Nomad List",
+      "Remote-worker Slack groups",
+      "Digital nomad Facebook groups",
+      "Location-specific Meetups",
+      "r/digitalnomad"
+    ],
+    "moment": "Remote-work relocation / RTO mandate resistance",
+    "momentWindow": "Extended 3-6 months per location",
+    "confidence": {
+      "identity": 65,
+      "price": 40,
+      "channel": 58
+    },
+    "interview": [
+      {
+        "q": "What do you wish your carrier could do that it currently can’t?",
+        "a": "One number. One plan. Works everywhere. No SIM swapping. No \"this plan covers Europe but not Southeast Asia.\" I’ve described my ideal carrier as: I land in a new country, I take my phone out of airplane mode, it works. That’s it. Everything else is noise.",
+        "insight": "Reveals the exact product requirement and resignation to inadequate solutions. The SIM card stack is a solved problem waiting for execution."
+      },
+      {
+        "q": "What would make you switch your primary carrier?",
+        "a": "Something built for this life specifically. Not \"great for travelers.\" I mean something where the people who built it actually thought about: I’m going to land in Lisbon, I need my U.S. number to work, fast data without roaming rates, hotspot for my laptop, all without managing three apps. If that existed, I’d switch tomorrow. eSIM means I can test in two hours.",
+        "insight": "Zero switching cost (eSIM) + zero loyalty + massive switching readiness = rapid adoption runway once product-market fit is proven."
+      },
+      {
+        "q": "What scenario do you most dread with connectivity?",
+        "a": "Client call, final presentation — and my connection fails. I’ve had it happen twice. People are forgiving in the moment then quietly wonder if they can rely on you. The anxiety before a big call — checking signal, doing a test call 20 minutes before — that happens before every single important call.",
+        "insight": "Emotional stakes and income threat justify premium pricing. This persona will pay for reliability as business insurance, not a luxury."
+      }
+    ]
+  },
+  {
+    "id": "M7",
+    "name": "Financial Independence (FIRE)",
+    "pipe": "macro",
+    "quad": "compete",
+    "desc": "~40-50M adults optimizing every financial decision. Core FIRE practitioners (3-5M) calculate exact retirement dates. Extremely price-sensitive; view subscription audits as virtuous. High switching intent.",
+    "pop": "40-50M active optimizers",
+    "popNum": 45000000,
+    "popSource": "NerdWallet / ChooseFI / r/personalfinance 2024",
+    "intensity": 4,
+    "score": 7.5,
+    "markers": [
+      "FIRE identity (core 3-5M)",
+      "Annual subscription audit",
+      "Savings rate tracking",
+      "Early retirement goal",
+      "MVNO carrier adoption"
+    ],
+    "community": [
+      "r/personalfinance (19M+)",
+      "r/financialindependence (2.5M+)",
+      "ChooseFI podcast chapters (100+)",
+      "#FinTok (10B+ views)",
+      "Bogleheads forums"
+    ],
+    "moment": "Geographic arbitrage relocation (cost-of-living move)",
+    "momentWindow": "Extended 30-45 days post-relocation",
+    "confidence": {
+      "identity": 75,
+      "price": 55,
+      "channel": 62
+    },
+    "interview": [
+      {
+        "q": "How does the FIRE community show up in your day-to-day life?",
+        "a": "I check r/financialindependence most mornings — honestly before email. ChooseFI is my commute podcast even though I work from home. There’s a local Austin group that meets monthly, maybe 20 people. Diane doesn’t really get it the way my FI friends do, so the community fills a gap.",
+        "insight": "Community-mediated identity drives purchasing decisions more than brand marketing. Primary peer group is Reddit-based — requires earned credibility, not paid reach."
+      },
+      {
+        "q": "How do you think about your wireless plan as a line item?",
+        "a": "It’s on a spreadsheet with everything else. I know exactly what I pay: $20/month on Mint Mobile. Two years ago it was $60 at T-Mobile. That $40 swing is $480 a year and maybe $15,000 in the market over 20 years — that’s how I actually think about it.",
+        "insight": "This persona monetizes switching decisions and communicates them mathematically. They think in compounded returns, not monthly savings. Switching moments become community-shareable wins that drive viral organic endorsements."
+      },
+      {
+        "q": "What’s the biggest gap in the current MVNO market for someone like you?",
+        "a": "Nobody treats me like a financially intelligent adult. There’s no plan that says \"we know you don’t need 50GB, here’s 8GB for $15.\" The market defaults to pushing you higher. I’d pay a small premium for a plan genuinely designed not to upsell me. Nobody does that. That would be different.",
+        "insight": "White-space opportunity: right-sizing plans that reward restraint. Willing to pay premium for a carrier that doesn’t exploit frugality — a value-creation lever unavailable to price-minimization competitors."
+      }
+    ]
+  },
+  {
+    "id": "M8",
+    "name": "Spiritually Unaffiliated (Nones)",
+    "pipe": "macro",
+    "quad": "ignore",
+    "desc": "~73M religiously unaffiliated + 27M SBNR. Growing fastest religious demographic. T1 fragmented by definition. Deconstructing Evangelicals (3-5M) have most active community but weak carrier/brand fit.",
+    "pop": "~90M total (3-5M active deconstructors)",
+    "popNum": 5000000,
+    "popSource": "Pew Research Center 2024",
+    "intensity": 2,
+    "score": 5.1,
+    "markers": [
+      "Secular identity (core atheist/agnostic)",
+      "Faith-exit narrative",
+      "Philosophical community participation"
+    ],
+    "community": [
+      "r/exchristian (200K+)",
+      "Exvangelical TikTok (#deconstruction 2B+ views)",
+      "The Liturgists podcast",
+      "Sunday Assembly chapters (30+ U.S.)"
+    ],
+    "moment": "Young adult faith exit / leaving family plan",
+    "momentWindow": "Extended 6-24 months",
+    "confidence": {
+      "identity": 38,
+      "price": 28,
+      "channel": 32
+    },
+    "interview": [
+      {
+        "q": "What do you most want right now that you don’t have?",
+        "a": "A genuine local community. Not online — I have that. I want people in the same city who share enough of my values that I don’t have to explain myself. Church was effortless community. You just showed up and there were 200 people who already knew your name. That kind of thing doesn’t exist in the secular world by default.",
+        "insight": "Core unmet need is local belonging infrastructure. Willing to pay for community solutions but a carrier cannot authentically solve this problem."
+      },
+      {
+        "q": "Would your spiritual identity influence which carrier you chose?",
+        "a": "Honestly? No. I can’t imagine that. What would that even look like? A carrier that sponsors the exvangelical podcast? I’d find that cringe. My carrier has to have good coverage and cost under $40. That’s the entire criteria. My values don’t factor in. My phone plan is just infrastructure. I want it to disappear.",
+        "insight": "Directly contradicts identity-brand carrier positioning. This persona evaluates carriers on pure functionality (price/coverage), not values alignment. No brand equity opportunity exists."
+      },
+      {
+        "q": "Walk me through your current phone situation.",
+        "a": "Still technically on my parents’ family plan. It’s one of those things I tell myself I’ll change and then don’t because it’s free. I know I need to get off it — it’s weird to be 26 and on your parents’ plan, especially given everything. When I do switch I’ll probably go Mint, same as my friend uses. $30/month seems fine.",
+        "insight": "Switching trigger is young-adult independence driven by inertia resolution, not faith identity. Word-of-mouth (friend recommendation) is the acquisition channel, not identity-aligned marketing."
+      }
+    ]
+  },
+  {
+    "id": "M9",
+    "name": "Aging-in-Place Adults 60+",
+    "pipe": "macro",
+    "quad": "niche",
+    "desc": "~55M adults 60+ living independently; 77% want to age in place. Tech-Adaptive Seniors (15-20M) actively adopt aging-in-place tech. Grandparent identity is emotional core. Safety as choice, not defining feature.",
+    "pop": "~15-20M tech-adaptive seniors",
+    "popNum": 17500000,
+    "popSource": "AARP Home & Community Preferences 2024",
+    "intensity": 4,
+    "score": 7.3,
+    "markers": [
+      "Independent aging commitment",
+      "Grandparent identity",
+      "Tech adoption (Apple Watch, FaceTime)",
+      "Medical tech comfort",
+      "Life-long learning"
+    ],
+    "community": [
+      "AARP chapters (38M members)",
+      "Facebook senior groups",
+      "SeniorPlanet.org digital literacy",
+      "Local senior centers",
+      "Video-calling family networks"
+    ],
+    "moment": "Retirement / Death of spouse / Sunbelt relocation",
+    "momentWindow": "Extended 3-12 months",
+    "confidence": {
+      "identity": 62,
+      "price": 45,
+      "channel": 50
+    },
+    "interview": [
+      {
+        "q": "What does being a grandparent mean to your sense of who you are?",
+        "a": "Everything. When I was working, I was Mrs. Harrington, the librarian. Now my whole identity has reorganized around the grandchildren and maintaining my independence. I want Emma and Marcus to FaceTime me when they’re excited about something. That means I need to actually know how to answer the call without accidentally hanging up.",
+        "insight": "Grandparent identity is the existential anchor. Presence in grandchildren’s lives drives all technology adoption and is the key loyalty lever that discount pricing cannot reach."
+      },
+      {
+        "q": "What would make you switch carriers?",
+        "a": "If someone could show me clearly that they would do three things better: answer the phone when something goes wrong, block the scam calls, and make sure my video calls to my grandchildren never drop. If someone at my AARP meeting said \"I switched and I haven’t had a dropped FaceTime call in six months,\" I’d be interested within 45 seconds.",
+        "insight": "Switching trigger: customer service quality + scam protection + video reliability. Peer endorsement (AARP meeting) is more persuasive than marketing."
+      },
+      {
+        "q": "What do you wish technology companies understood about people like you?",
+        "a": "That we’re not stupid, and we’re not scared. We’re learning. We came to smartphones later, and some of us feel behind, but feeling behind is not the same as not wanting to be there. I want to feel like the companies making these products actually thought about a 71-year-old woman living alone in Colorado who still wants to be fully alive in the world.",
+        "insight": "Identity tension: capable adult vs. fragile senior. Inverts positioning away from safety/simplification toward capability/participation. This is the brand tone differentiator."
+      }
+    ]
+  },
+  {
+    "id": "M10",
+    "name": "U.S. Latino Adults",
+    "pipe": "macro",
+    "quad": "compete",
+    "desc": "42M adults (projected 75M by 2035). Youngest major demographic (median age 30). Unified by familia-first orientation, bicultural identity navigation. No carrier has authentically built for this identity.",
+    "pop": "42M Latino adults (growing)",
+    "popNum": 42000000,
+    "popSource": "U.S. Census Bureau 2024",
+    "intensity": 4,
+    "score": 8,
+    "markers": [
+      "Bicultural identity navigation",
+      "Familia-first orientation",
+      "Heritage language/culture maintenance",
+      "Community mutual aid networks",
+      "Dual-country belonging"
+    ],
+    "community": [
+      "WhatsApp family/community groups",
+      "Spanish-language Facebook groups",
+      "Local immigrant resource orgs",
+      "Ethnic cultural celebrations",
+      "Diaspora community networks"
+    ],
+    "moment": "New arrival to U.S. / Naturalization milestone / Family reunification",
+    "momentWindow": "New arrival: Days 1-30; Naturalization: 1-2 weeks",
+    "confidence": {
+      "identity": 75,
+      "price": 40,
+      "channel": 58
+    },
+    "interview": [
+      {
+        "q": "How does WhatsApp fit into your daily life?",
+        "a": "WhatsApp is basically my family’s office. Every morning I wake up to like 40 messages — my mom’s side has one group, my dad’s side another, and then the cousins’ group. My tía in Monterrey updates everyone on my abuela. If my phone doesn’t handle WhatsApp well, nothing else matters.",
+        "insight": "WhatsApp is cultural infrastructure for transnational family life, not a messaging feature. Any carrier must position WhatsApp as a primary product promise, not a feature buried in specs."
+      },
+      {
+        "q": "What would a dream mobile plan look like for you?",
+        "a": "One account that includes my parents in a real way — not just as \"lines\" but as family members with their own language preferences. International calling to Mexico and Colombia without caps. Maybe a partnership with Remitly. Customer service that actually speaks Spanish — not a menu that routes to someone reading from a script. A brand that feels like it was built by someone who gets my life.",
+        "insight": "Multi-household, cross-border financial ecosystem that mainstream carriers ignore. 42M U.S. Latinos, 75% manage connectivity for multiple households."
+      },
+      {
+        "q": "Is there a ceiling on what you’d pay for the right mobile plan?",
+        "a": "Probably $70/month for just me. Maybe $100 if it genuinely covered international calling, came with real Spanish-language support, and let me add my parents. I know what I’m paying for. I’d pay more for something that actually worked the way my life works. But I’ve been promised that before and gotten a translation instead.",
+        "insight": "Breaks the \"Latinos are budget-conscious\" myth. $70-100/month WTP for culturally authentic solutions. The \"translation vs. native build\" distinction is the key differentiator."
+      }
+    ]
+  },
+  {
+    "id": "M11",
+    "name": "Veterans & Military-Connected",
+    "pipe": "macro",
+    "quad": "build",
+    "desc": "18.6M veterans; post-9/11 veterans (4.5M, median age 38) are primary focus. Digitally native, Reddit-organized. Military spouses (700K) are household plan decision-makers. USAA is the gold standard for authentic military-brand trust.",
+    "pop": "4.5M post-9/11 vets + 700K spouses",
+    "popNum": 5200000,
+    "popSource": "VA / DoD / Blue Star Families 2024",
+    "intensity": 5,
+    "score": 8.4,
+    "markers": [
+      "Military service identity",
+      "Deployment experience",
+      "Veteran-owned brand loyalty",
+      "Unit/battle buddy bonds",
+      "Military family structure"
+    ],
+    "community": [
+      "r/Veterans (500K+)",
+      "Jocko Podcast (2M+ listeners)",
+      "Blue Star Families chapters",
+      "LinkedIn veteran groups",
+      "Article 15 Clothing community"
+    ],
+    "moment": "PCS move / Separation (ETS) from military",
+    "momentWindow": "PCS: 1-4 weeks; ETS: 1-3 months post-separation",
+    "confidence": {
+      "identity": 85,
+      "price": 45,
+      "channel": 65
+    },
+    "interview": [
+      {
+        "q": "What is the fear underneath the transition — what are you actually afraid of?",
+        "a": "That I peaked at 26. That the best leadership experience I’ll ever have, I already had it — in a Humvee in Kandahar, not in a conference room. The identity transition is real. I knew exactly who I was in uniform. Out here, I’m rebuilding from scratch. That’s not weakness — it’s just honest.",
+        "insight": "Identity threat reveals emotional core: not disability or employment, but loss of purpose and self-definition. Drives loyalty to brands that affirm ongoing mission and capability."
+      },
+      {
+        "q": "What would the ideal carrier for someone like you look like?",
+        "a": "Call it USAA for mobile. It would know my ETS date without me telling it twice. It would have a deployment mode that suspended everything automatically. It would have a PCS timeline tool that walks Sofia through the move checklist. And a veteran community tab inside the app where you could see local events and Team Rubicon deployments.",
+        "insight": "Unprompted \"USAA for mobile\" benchmark reveals switching barrier is not price but identity-native product design. Identity-community integration is table-stakes, not a feature."
+      },
+      {
+        "q": "Are there financial products genuinely built for veterans, or mostly just marketed to you?",
+        "a": "USAA is the real thing. There is no question. Everything else is mostly marketing. Every carrier has a \"military plan\" that’s really just a discount. I can count on one hand the companies that have actually thought about how our lives work differently: PCS every two years, deployment cycles, BAH changes, the VA system.",
+        "insight": "High sensitivity to inauthenticity. Proof of genuine design (PCS tooling, deployment modes) earns premium loyalty and community advocacy. Discounts alone cannot compete with identity-native value."
+      }
+    ]
+  },
+  {
+    "id": "M12",
+    "name": "First-Generation Americans",
+    "pipe": "macro",
+    "quad": "compete",
+    "desc": "52M foreign-born U.S. residents. Unified by international calling as lifeline, credit invisibility, community-mediated trust. WhatsApp infrastructure critical. Remittances ($2400/yr median) integrate into plan economics.",
+    "pop": "52M foreign-born adults",
+    "popNum": 52000000,
+    "popSource": "CIS / Census Bureau 2025",
+    "intensity": 4,
+    "score": 7.8,
+    "markers": [
+      "Dual-country identity",
+      "International calling priority",
+      "Remittance participation",
+      "Naturalization milestone tracking",
+      "Community network reliance"
+    ],
+    "community": [
+      "WhatsApp groups (primary infrastructure)",
+      "Ethnic/national origin Facebook groups",
+      "Immigrant mutual aid networks",
+      "Naturalization prep groups",
+      "Diaspora cultural organizations"
+    ],
+    "moment": "New arrival (first U.S. plan) / Naturalization / Prepaid-to-postpaid upgrade",
+    "momentWindow": "New arrival: Days 1-30; Upgrade: 6-18 months",
+    "confidence": {
+      "identity": 72,
+      "price": 42,
+      "channel": 55
+    },
+    "interview": [
+      {
+        "q": "What’s the fear that lives at the back of your mind?",
+        "a": "That something will go wrong with my paperwork. My naturalization has been pending fourteen months. Every time I get a letter from USCIS my heart does this thing. I know I’m legal, I have my green card, but the process feels fragile. I don’t talk about this at work. You’d have to have been through it to understand that your status can feel precarious even when it’s secure on paper.",
+        "insight": "Immigration status anxiety is pervasive even among documented immigrants. Any brand that communicates \"legal status questions never asked; ITIN and LPR fully welcome\" removes a 45% barrier to adoption."
+      },
+      {
+        "q": "What would your ideal relationship with a phone company look like?",
+        "a": "It would know that I call Guatemala every day. It would never charge me extra for that. It would let me set up my account without needing a Social Security Number — a lot of us have ITINs and are completely legitimate. Customer service that can go between English and Spanish. And I want to feel like they’ve thought about me. Not just as an immigrant. As Marisela.",
+        "insight": "Complete product brief stated as need: integrated international calling, ITIN-first enrollment, bilingual-toggle CS, and a belonging signal. No competitor has executed it despite 52M-person market."
+      },
+      {
+        "q": "What’s the biggest gap in the market for someone like you?",
+        "a": "A plan that includes Guatemala calling from the start — not as an add-on — and maybe a remittance discount through a partnership, and setup that doesn’t require a Social Security Number. That’s not a lot. I think about it sometimes — why doesn’t this exist? I would pay more for it. Maybe ten or fifteen dollars more. But I would pay.",
+        "insight": "Willingness-to-pay: +$15/month premium for a fully designed solution. Remittance corridor integration ($350/month average) addresses structural pain. Community word-of-mouth is the acquisition lever."
+      }
+    ]
+  },
+  {
+    "id": "M13",
+    "name": "Divorcing & Post-Divorce Americans",
+    "pipe": "macro",
+    "quad": "build",
+    "desc": "~1.33M individuals annually forced into carrier switch. 70% initiated by women. DivorceCare infrastructure (15K groups, 1M+ alumni) is primary community. Glow-up framing dominant. Shared family plans force carrier switch.",
+    "pop": "~1.33M annual switchers",
+    "popNum": 1330000,
+    "popSource": "CDC/NCHS / DivorceCare / Census Bureau 2024",
+    "intensity": 4,
+    "score": 7.6,
+    "markers": [
+      "Starting over / reinvention narrative",
+      "Single-parent household identity",
+      "Co-parenting logistics management",
+      "Budget consciousness",
+      "DivorceCare community participation"
+    ],
+    "community": [
+      "DivorceCare groups (15K annually, 1M+ alumni)",
+      "r/Divorce (200K+)",
+      "Facebook divorce groups (30K-200K each)",
+      "OurFamilyWizard (1M+)",
+      "Therapist/counselor communities"
+    ],
+    "moment": "Divorce finalization (forced plan split from shared family plan)",
+    "momentWindow": "Short 2-8 weeks around finalization",
+    "confidence": {
+      "identity": 68,
+      "price": 48,
+      "channel": 58
+    },
+    "interview": [
+      {
+        "q": "What phone carrier are you on right now, and how did you end up there?",
+        "a": "Still on AT&T — Marcus’s account. Joint family plan we set up about six years ago. It’s technically my phone, my number, but the account is his. I’ve been putting off the switch because every time I think about it I get tired. It’s on my list but it keeps falling below \"urgent.\"",
+        "insight": "Core lock-in mechanism: despite 100% switching intent, the persona remains trapped on the ex-partner’s account due to process friction. Documents the white space where most divorcing Americans are stuck."
+      },
+      {
+        "q": "What would make you switch today — not eventually, today?",
+        "a": "Someone telling me: here’s exactly how to do it, no credit check, no authorization from Marcus, your number comes with you, it costs $35/month, and here’s a guide to the other accounts you need to sort out too. The barrier isn’t desire — I want to be off his plan. The barrier is that I expect the process to be painful and I’m already managing a lot of pain.",
+        "insight": "Product-market fit crystallized: transparent pricing ($35 threshold), zero-friction onboarding (no ex-partner involvement), and a \"life restart\" service layer. Friction-sensitive, not price-sensitive."
+      },
+      {
+        "q": "What scares you most about the next 12 months?",
+        "a": "The credit thing. My credit was fine when I was married. Now I’m re-establishing. I tried to get a new credit card and got rejected. I’m worried that when I finally go to get my own phone plan the carrier is going to do a credit check and I’m going to fail it and be stuck with prepaid. That fear keeps me on Marcus’s AT&T account longer than I should be.",
+        "insight": "Credit-check anxiety extends lock-in. Affects 40-50% of post-divorce Americans (50-100 point credit score drop). A no-credit-check or \"fresh-start\" onboarding removes the primary activation brake."
+      }
+    ]
+  }
+]

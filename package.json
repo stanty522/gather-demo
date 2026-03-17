@@ -4,6 +4,7 @@
   "description": "",
   "main": "scene-1-personas.js",
   "scripts": {
+    "build": "npx staticrypt index.html -p gather2026 -d . --remember 7 --short -t password_template.html --template-title 'Gather Labs' --template-instructions 'Enter access code' --template-placeholder 'Access code' --template-button 'Continue' --template-error 'Invalid code'",
     "start": "serve -s . -l $PORT",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -21,5 +22,8 @@
   "homepage": "https://github.com/stanty522/gather-demo#readme",
   "dependencies": {
     "serve": "^14.2.6"
+  },
+  "devDependencies": {
+    "staticrypt": "^3.5.4"
   }
 }

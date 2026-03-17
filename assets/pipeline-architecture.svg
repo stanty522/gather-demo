@@ -1,0 +1,420 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1520" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <style>
+      .title { font-size: 22px; font-weight: bold; fill: #1a1a1a; }
+      .subtitle { font-size: 13px; fill: #666; }
+      .stage-label { font-size: 10px; fill: #999; font-weight: bold; letter-spacing: 0.5px; }
+      .agent-name { font-size: 11px; font-weight: bold; fill: #fff; }
+      .agent-detail { font-size: 9px; fill: rgba(255,255,255,0.85); }
+      .section-label { font-size: 13px; font-weight: bold; fill: #555; letter-spacing: 1px; }
+      .shared-label { font-size: 11px; font-weight: bold; fill: #fff; }
+      .shared-detail { font-size: 9px; fill: rgba(255,255,255,0.85); }
+      .note { font-size: 9px; fill: #888; font-style: italic; }
+      .count-badge { font-size: 9px; font-weight: bold; fill: #fff; }
+      .arrow { stroke: #bbb; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+      .arrow-shared { stroke: #999; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead-dark); }
+      .connector { stroke: #ddd; stroke-width: 1; stroke-dasharray: 4,3; fill: none; }
+    </style>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#bbb"/>
+    </marker>
+    <marker id="arrowhead-dark" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#999"/>
+    </marker>
+    <marker id="arrowhead-amber" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#d97706"/>
+    </marker>
+    <!-- Pipeline color gradients -->
+    <linearGradient id="surge-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ef4444"/>
+      <stop offset="100%" stop-color="#dc2626"/>
+    </linearGradient>
+    <linearGradient id="micro-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+    <linearGradient id="macro-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="macro-light-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="moments-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <linearGradient id="shared-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6b7280"/>
+      <stop offset="100%" stop-color="#4b5563"/>
+    </linearGradient>
+    <linearGradient id="tier3-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="tier4-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#14b8a6"/>
+      <stop offset="100%" stop-color="#0d9488"/>
+    </linearGradient>
+    <linearGradient id="master-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="1520" fill="#fafafa" rx="8"/>
+
+  <!-- Title -->
+  <text x="600" y="38" text-anchor="middle" class="title">GTM Engine: 3-Pipeline Architecture + Moments Service</text>
+  <text x="600" y="58" text-anchor="middle" class="subtitle">26 agents across 3 identity pipelines + shared Moments service layer</text>
+
+  <!-- ======================================= -->
+  <!-- TIER 1: GROWTH MASTER -->
+  <!-- ======================================= -->
+  <text x="600" y="90" text-anchor="middle" class="section-label">TIER 1: ORCHESTRATION</text>
+
+  <rect x="400" y="100" width="400" height="52" rx="8" fill="url(#master-grad)"/>
+  <text x="600" y="122" text-anchor="middle" class="agent-name" font-size="14">GROWTH MASTER</text>
+  <text x="600" y="140" text-anchor="middle" class="agent-detail" font-size="10">Selects pipeline(s), sequences stages, runs Trigger Analyst prerequisite</text>
+
+  <!-- Arrow from Growth Master to Moments Service -->
+  <line x1="600" y1="152" x2="600" y2="175" class="arrow"/>
+
+  <!-- ======================================= -->
+  <!-- SHARED SERVICE: MOMENTS -->
+  <!-- ======================================= -->
+  <text x="600" y="193" text-anchor="middle" class="section-label">SHARED SERVICE: MOMENTS</text>
+
+  <rect x="300" y="203" width="600" height="58" rx="8" fill="url(#moments-grad)" stroke="#b45309" stroke-width="1.5"/>
+  <text x="600" y="225" text-anchor="middle" class="agent-name" font-size="13">TRIGGER ANALYST</text>
+  <text x="600" y="240" text-anchor="middle" class="agent-detail" font-size="10">Life-transition scan across 6 dimensions | Decomposed Switching Intent (Compulsion x Friction)</text>
+  <text x="600" y="253" text-anchor="middle" class="agent-detail" font-size="10">Weighted composite scoring | Classification tags | Window types | Trigger Event Library</text>
+
+  <!-- Service badge -->
+  <circle cx="888" cy="218" r="12" fill="#b45309"/>
+  <text x="888" y="222" text-anchor="middle" class="count-badge">1</text>
+
+  <!-- Arrows from Moments Service to 3 pipelines -->
+  <path d="M 420 261 L 200 295" stroke="#d97706" stroke-width="2" fill="none" marker-end="url(#arrowhead-amber)"/>
+  <path d="M 600 261 L 600 295" stroke="#d97706" stroke-width="2" fill="none" marker-end="url(#arrowhead-amber)"/>
+  <path d="M 780 261 L 1000 295" stroke="#d97706" stroke-width="2" fill="none" marker-end="url(#arrowhead-amber)"/>
+
+  <text x="290" y="282" font-size="8" fill="#d97706" font-weight="bold">Flash moments</text>
+  <text x="560" y="282" font-size="8" fill="#d97706" font-weight="bold">Short/Extended moments</text>
+  <text x="865" y="282" font-size="8" fill="#d97706" font-weight="bold">Rolling/Durable moments</text>
+
+  <!-- ======================================= -->
+  <!-- TIER 2: THREE PARALLEL PIPELINES -->
+  <!-- ======================================= -->
+
+  <!-- ─────────────────────────────── -->
+  <!-- SURGE TRENDS PIPELINE -->
+  <!-- ─────────────────────────────── -->
+  <rect x="42" y="300" width="316" height="28" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+  <text x="200" y="319" text-anchor="middle" font-size="12" font-weight="bold" fill="#dc2626">SURGE TRENDS PIPELINE</text>
+  <text x="200" y="345" text-anchor="middle" class="note">Tempo: days-weeks | &lt; 3 months</text>
+
+  <!-- Stage 1S -->
+  <text x="200" y="367" text-anchor="middle" class="stage-label">STAGE 1S</text>
+  <rect x="60" y="373" width="280" height="52" rx="6" fill="url(#surge-grad)"/>
+  <text x="200" y="392" text-anchor="middle" class="agent-name">Surge Trend Scanner</text>
+  <text x="200" y="406" text-anchor="middle" class="agent-detail">Velocity-first scan, recency-weighted</text>
+  <text x="200" y="418" text-anchor="middle" class="agent-detail" fill="#fde68a">+ Step 1B: Flash Moment Scan</text>
+  <line x1="200" y1="425" x2="200" y2="443" class="arrow"/>
+
+  <!-- Stage 2S -->
+  <text x="200" y="457" text-anchor="middle" class="stage-label">STAGE 2S</text>
+  <rect x="60" y="463" width="280" height="44" rx="6" fill="url(#surge-grad)"/>
+  <text x="200" y="482" text-anchor="middle" class="agent-name">Surge Persona Builder</text>
+  <text x="200" y="496" text-anchor="middle" class="agent-detail">Demand-signal dedup, ~20-40 personas + moment tags</text>
+  <line x1="200" y1="507" x2="200" y2="525" class="arrow"/>
+
+  <!-- Stage 3S -->
+  <text x="200" y="539" text-anchor="middle" class="stage-label">STAGE 3S</text>
+  <rect x="60" y="545" width="280" height="44" rx="6" fill="url(#surge-grad)"/>
+  <text x="200" y="564" text-anchor="middle" class="agent-name">Surge Opportunity Analyst</text>
+  <text x="200" y="578" text-anchor="middle" class="agent-detail">Single-pass, GO / MONITOR / SKIP</text>
+  <line x1="200" y1="589" x2="200" y2="607" class="arrow"/>
+
+  <!-- Stage 4S-A -->
+  <text x="200" y="621" text-anchor="middle" class="stage-label">STAGE 4S-A</text>
+  <rect x="60" y="627" width="280" height="52" rx="6" fill="url(#surge-grad)"/>
+  <text x="200" y="646" text-anchor="middle" class="agent-name">Surge Demand Analyst</text>
+  <text x="200" y="660" text-anchor="middle" class="agent-detail">2 factors, 6 Q&amp;As, 800-1,500 words</text>
+  <text x="200" y="672" text-anchor="middle" class="agent-detail" fill="#fde68a">+ compressed switching profile (3-dim)</text>
+  <line x1="200" y1="679" x2="200" y2="697" class="arrow"/>
+
+  <!-- Stage 4S-B -->
+  <text x="200" y="711" text-anchor="middle" class="stage-label">STAGE 4S-B</text>
+  <rect x="60" y="717" width="280" height="52" rx="6" fill="url(#surge-grad)"/>
+  <text x="200" y="736" text-anchor="middle" class="agent-name">Surge Offer Designer</text>
+  <text x="200" y="750" text-anchor="middle" class="agent-detail">1 concept, launch kit, wind-down plan</text>
+  <text x="200" y="762" text-anchor="middle" class="agent-detail" fill="#fde68a">+ offer-window fit assessment</text>
+
+  <!-- Agent count badge -->
+  <circle cx="333" cy="315" r="12" fill="#dc2626"/>
+  <text x="333" y="319" text-anchor="middle" class="count-badge">5</text>
+
+  <!-- ─────────────────────────────── -->
+  <!-- MICRO-TRENDS IDENTITY PIPELINE -->
+  <!-- ─────────────────────────────── -->
+  <rect x="442" y="300" width="316" height="28" rx="6" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+  <text x="600" y="319" text-anchor="middle" font-size="12" font-weight="bold" fill="#2563eb">MICRO-TRENDS IDENTITY</text>
+  <text x="600" y="345" text-anchor="middle" class="note">Tempo: weeks-months | 3mo - 3yr</text>
+
+  <!-- Stage 1 -->
+  <text x="600" y="367" text-anchor="middle" class="stage-label">STAGE 1</text>
+  <rect x="460" y="373" width="280" height="52" rx="6" fill="url(#micro-grad)"/>
+  <text x="600" y="392" text-anchor="middle" class="agent-name">Micro-Trend Analyst</text>
+  <text x="600" y="406" text-anchor="middle" class="agent-detail">PESTEL + Ansoff + Rogers</text>
+  <text x="600" y="418" text-anchor="middle" class="agent-detail" fill="#fde68a">+ Step 1B: Moment-Community Scan (Path B)</text>
+  <line x1="600" y1="425" x2="600" y2="443" class="arrow"/>
+
+  <!-- Stage 2 -->
+  <text x="600" y="457" text-anchor="middle" class="stage-label">STAGE 2</text>
+  <rect x="460" y="463" width="280" height="52" rx="6" fill="url(#micro-grad)"/>
+  <text x="600" y="482" text-anchor="middle" class="agent-name">Micro-Trend Persona Builder</text>
+  <text x="600" y="496" text-anchor="middle" class="agent-detail">Identity-overlap dedup, ~100 personas</text>
+  <text x="600" y="508" text-anchor="middle" class="agent-detail" fill="#fde68a">+ acquisition moment, window type, switching origin</text>
+  <line x1="600" y1="515" x2="600" y2="533" class="arrow"/>
+
+  <!-- Stage 3 -->
+  <text x="600" y="547" text-anchor="middle" class="stage-label">STAGE 3</text>
+  <rect x="460" y="553" width="280" height="44" rx="6" fill="url(#micro-grad)"/>
+  <text x="600" y="572" text-anchor="middle" class="agent-name">Micro-Trend Opportunity Analyst</text>
+  <text x="600" y="586" text-anchor="middle" class="agent-detail">Two-pass, INVEST/EXPLORE/NICHE/IGNORE</text>
+  <line x1="600" y1="597" x2="600" y2="615" class="arrow"/>
+
+  <!-- Stage 4A-Lite -->
+  <text x="600" y="629" text-anchor="middle" class="stage-label">STAGE 4A-LITE</text>
+  <rect x="460" y="635" width="280" height="52" rx="6" fill="url(#micro-grad)"/>
+  <text x="600" y="654" text-anchor="middle" class="agent-name">Micro-Trend Identity Analyst</text>
+  <text x="600" y="668" text-anchor="middle" class="agent-detail">4 factors, 20 Q&amp;As, 2,000-4,000 words</text>
+  <text x="600" y="680" text-anchor="middle" class="agent-detail" fill="#fde68a">+ switching profile module (4-dim)</text>
+  <line x1="600" y1="687" x2="600" y2="705" class="arrow"/>
+
+  <!-- Stage 4B-Rapid -->
+  <text x="600" y="719" text-anchor="middle" class="stage-label">STAGE 4B-RAPID</text>
+  <rect x="460" y="725" width="280" height="52" rx="6" fill="url(#micro-grad)"/>
+  <text x="600" y="744" text-anchor="middle" class="agent-name">Micro-Trend Value Prop Designer</text>
+  <text x="600" y="758" text-anchor="middle" class="agent-detail">1-2 concepts, single plan, 3-5K words</text>
+  <text x="600" y="770" text-anchor="middle" class="agent-detail" fill="#fde68a">+ 1 interception concept</text>
+
+  <!-- Agent count badge -->
+  <circle cx="733" cy="315" r="12" fill="#2563eb"/>
+  <text x="733" y="319" text-anchor="middle" class="count-badge">5</text>
+
+  <!-- ─────────────────────────────── -->
+  <!-- MACRO-TRENDS IDENTITY PIPELINE -->
+  <!-- ─────────────────────────────── -->
+  <rect x="842" y="300" width="316" height="28" rx="6" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1"/>
+  <text x="1000" y="319" text-anchor="middle" font-size="12" font-weight="bold" fill="#7c3aed">MACRO-TRENDS IDENTITY</text>
+  <text x="1000" y="345" text-anchor="middle" class="note">Tempo: months analysis, years investment | 3-30+ yr</text>
+
+  <!-- Stage 1M-T -->
+  <text x="1000" y="367" text-anchor="middle" class="stage-label">STAGE 1M-T</text>
+  <rect x="860" y="373" width="280" height="52" rx="6" fill="url(#macro-grad)"/>
+  <text x="1000" y="392" text-anchor="middle" class="agent-name">Macro-Trend Analyst</text>
+  <text x="1000" y="406" text-anchor="middle" class="agent-detail">Institutional weighting, Ansoff Level 3+</text>
+  <text x="1000" y="418" text-anchor="middle" class="agent-detail" fill="#fde68a">+ Step 1B: Durable Moment-Community Scan (Path B)</text>
+  <line x1="1000" y1="425" x2="1000" y2="439" class="arrow"/>
+
+  <!-- Stage 1.5M-T -->
+  <text x="1000" y="453" text-anchor="middle" class="stage-label">STAGE 1.5M-T</text>
+  <rect x="860" y="459" width="280" height="52" rx="6" fill="url(#macro-light-grad)" stroke="#fbbf24" stroke-width="1.5"/>
+  <text x="1000" y="478" text-anchor="middle" class="agent-name">Macro-Trend Moment Mapper</text>
+  <text x="1000" y="492" text-anchor="middle" class="agent-detail">Transition inventory, telco pain map,</text>
+  <text x="1000" y="504" text-anchor="middle" class="agent-detail">cross-event integration, moment gaps</text>
+  <line x1="1000" y1="511" x2="1000" y2="525" class="arrow"/>
+
+  <!-- Stage 2M-T -->
+  <text x="1000" y="539" text-anchor="middle" class="stage-label">STAGE 2M-T</text>
+  <rect x="860" y="545" width="280" height="52" rx="6" fill="url(#macro-grad)"/>
+  <text x="1000" y="564" text-anchor="middle" class="agent-name">Macro-Trend Persona Builder</text>
+  <text x="1000" y="578" text-anchor="middle" class="agent-detail">Identity-community mapping, ~10-20 personas</text>
+  <text x="1000" y="590" text-anchor="middle" class="agent-detail" fill="#fde68a">+ acquisition moment &amp; window type tags</text>
+  <line x1="1000" y1="597" x2="1000" y2="611" class="arrow"/>
+
+  <!-- Stage 3M-T -->
+  <text x="1000" y="625" text-anchor="middle" class="stage-label">STAGE 3M-T</text>
+  <rect x="860" y="631" width="280" height="44" rx="6" fill="url(#macro-grad)"/>
+  <text x="1000" y="650" text-anchor="middle" class="agent-name">Macro-Trend Opportunity Analyst</text>
+  <text x="1000" y="664" text-anchor="middle" class="agent-detail">Two-pass, BUILD/COMPETE/NICHE/IGNORE</text>
+  <line x1="1000" y1="675" x2="1000" y2="689" class="arrow"/>
+
+  <!-- Stage 4M-T-A -->
+  <text x="1000" y="703" text-anchor="middle" class="stage-label">STAGE 4M-T-A</text>
+  <rect x="860" y="709" width="280" height="52" rx="6" fill="url(#macro-grad)"/>
+  <text x="1000" y="728" text-anchor="middle" class="agent-name">Macro-Trend Identity Analyst</text>
+  <text x="1000" y="742" text-anchor="middle" class="agent-detail">5 factors, 50 Q&amp;As, 5,000-8,000 words</text>
+  <text x="1000" y="754" text-anchor="middle" class="agent-detail" fill="#fde68a">+ Factor 6: Switching Profile (6-dim)</text>
+  <line x1="1000" y1="761" x2="1000" y2="775" class="arrow"/>
+
+  <!-- Stage 4M-T-B -->
+  <text x="1000" y="789" text-anchor="middle" class="stage-label">STAGE 4M-T-B</text>
+  <rect x="860" y="795" width="280" height="52" rx="6" fill="url(#macro-grad)"/>
+  <text x="1000" y="814" text-anchor="middle" class="agent-name">Macro-Trend Value Prop Designer</text>
+  <text x="1000" y="828" text-anchor="middle" class="agent-detail">3-5 concepts, 2-3 tiers, 10-15K words</text>
+  <text x="1000" y="840" text-anchor="middle" class="agent-detail" fill="#fde68a">+ 1-2 interception concepts</text>
+
+  <!-- Agent count badge -->
+  <circle cx="1133" cy="315" r="12" fill="#7c3aed"/>
+  <text x="1133" y="319" text-anchor="middle" class="count-badge">6</text>
+
+  <!-- ======================================= -->
+  <!-- DUAL-ENTRY QUALIFICATION CALLOUT -->
+  <!-- ======================================= -->
+  <rect x="42" y="868" width="1116" height="38" rx="6" fill="#fffbeb" stroke="#fcd34d" stroke-width="1"/>
+  <text x="600" y="884" text-anchor="middle" font-size="11" font-weight="bold" fill="#92400e">DUAL-ENTRY QUALIFICATION</text>
+  <text x="600" y="898" text-anchor="middle" font-size="9" fill="#a16207">Path A: PESTEL/Velocity-driven (existing) | Path B: Moment-driven identity communities (new) | [Path A+B] = 1.15x confidence boost at Stage 3</text>
+
+  <!-- ======================================= -->
+  <!-- INDEPENDENCE INDICATORS -->
+  <!-- ======================================= -->
+  <line x1="400" y1="350" x2="400" y2="860" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="2,4"/>
+  <line x1="800" y1="350" x2="800" y2="860" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="2,4"/>
+
+  <!-- ======================================= -->
+  <!-- CONVERGENCE ZONE -->
+  <!-- ======================================= -->
+  <rect x="42" y="920" width="1116" height="10" rx="3" fill="#e5e7eb"/>
+  <text x="600" y="928" text-anchor="middle" font-size="9" font-weight="bold" fill="#fff">CONVERGENCE</text>
+
+  <!-- Arrows from all 3 pipelines down to convergence -->
+  <line x1="200" y1="769" x2="200" y2="920" class="arrow-shared"/>
+  <line x1="600" y1="777" x2="600" y2="920" class="arrow-shared"/>
+  <line x1="1000" y1="847" x2="1000" y2="920" class="arrow-shared"/>
+
+  <!-- ======================================= -->
+  <!-- SHARED STAGE 5 -->
+  <!-- ======================================= -->
+  <text x="600" y="958" text-anchor="middle" class="section-label">SHARED STAGE 5: SURVEY VALIDATION</text>
+
+  <!-- 5A -->
+  <rect x="170" y="970" width="340" height="44" rx="6" fill="url(#shared-grad)"/>
+  <text x="340" y="989" text-anchor="middle" class="shared-label">Survey Architect (5A)</text>
+  <text x="340" y="1003" text-anchor="middle" class="shared-detail">Prolific instrument design, analysis plan -- serves all pipelines</text>
+
+  <line x1="340" y1="1014" x2="340" y2="1032" class="arrow-shared"/>
+
+  <!-- Prolific -->
+  <rect x="270" y="1036" width="140" height="26" rx="13" fill="#e5e7eb" stroke="#d1d5db" stroke-width="1"/>
+  <text x="340" y="1053" text-anchor="middle" font-size="10" fill="#6b7280" font-weight="bold">Prolific</text>
+
+  <line x1="340" y1="1062" x2="340" y2="1080" class="arrow-shared"/>
+
+  <!-- 5B -->
+  <rect x="690" y="970" width="340" height="44" rx="6" fill="url(#shared-grad)"/>
+  <text x="860" y="989" text-anchor="middle" class="shared-label">Survey Analyst (5B)</text>
+  <text x="860" y="1003" text-anchor="middle" class="shared-detail">G/Y/R verdicts, statistical analysis, feedback loop triggers</text>
+
+  <line x1="410" y1="1049" x2="690" y2="994" class="arrow-shared"/>
+
+  <!-- Feedback arrow from 5B back up -->
+  <path d="M 1030 994 Q 1080 994, 1080 940 Q 1080 910, 1040 910" stroke="#999" stroke-width="1" fill="none" stroke-dasharray="4,3" marker-end="url(#arrowhead-dark)"/>
+  <text x="1095" y="948" font-size="8" fill="#999" text-anchor="start">feedback to</text>
+  <text x="1095" y="958" font-size="8" fill="#999" text-anchor="start">pipeline agents</text>
+
+  <!-- Shared badge -->
+  <circle cx="1018" cy="986" r="12" fill="#4b5563"/>
+  <text x="1018" y="990" text-anchor="middle" class="count-badge">2</text>
+
+  <!-- ======================================= -->
+  <!-- TIER 3: CAMPAIGN EXECUTION -->
+  <!-- ======================================= -->
+  <text x="600" y="1118" text-anchor="middle" class="section-label">TIER 3: CAMPAIGN EXECUTION</text>
+
+  <line x1="340" y1="1086" x2="340" y2="1130" class="arrow-shared"/>
+
+  <!-- Brief Writer -->
+  <rect x="42" y="1133" width="250" height="44" rx="6" fill="url(#tier3-grad)"/>
+  <text x="167" y="1152" text-anchor="middle" class="shared-label">Brief Writer</text>
+  <text x="167" y="1166" text-anchor="middle" class="shared-detail">Marketing briefs from any pipeline's Stage 4</text>
+
+  <!-- Landing Page Builder -->
+  <rect x="322" y="1133" width="250" height="44" rx="6" fill="url(#tier3-grad)"/>
+  <text x="447" y="1152" text-anchor="middle" class="shared-label">Landing Page Builder</text>
+  <text x="447" y="1166" text-anchor="middle" class="shared-detail">Self-contained HTML, Tailwind, dark mode</text>
+
+  <!-- Ads Creative Studio -->
+  <rect x="602" y="1133" width="250" height="44" rx="6" fill="url(#tier3-grad)"/>
+  <text x="727" y="1152" text-anchor="middle" class="shared-label">Ads Creative Studio</text>
+  <text x="727" y="1166" text-anchor="middle" class="shared-detail">Ad copy variants, Meta/TikTok/Google</text>
+
+  <line x1="167" y1="1177" x2="167" y2="1198" class="arrow-shared"/>
+  <line x1="447" y1="1177" x2="447" y2="1198" class="arrow-shared"/>
+  <line x1="727" y1="1177" x2="727" y2="1198" class="arrow-shared"/>
+  <line x1="167" y1="1198" x2="727" y2="1198" stroke="#999" stroke-width="1"/>
+  <line x1="447" y1="1198" x2="447" y2="1216" class="arrow-shared"/>
+
+  <!-- Conversion Analyst -->
+  <rect x="882" y="1133" width="250" height="44" rx="6" fill="url(#tier3-grad)"/>
+  <text x="1007" y="1152" text-anchor="middle" class="shared-label">Conversion Analyst</text>
+  <text x="1007" y="1166" text-anchor="middle" class="shared-detail">Diagnose, optimize, trigger revisions</text>
+
+  <path d="M 882 1155 Q 862 1155, 862 1133 Q 862 1113, 852 1113 L 757 1113" stroke="#059669" stroke-width="1" fill="none" stroke-dasharray="4,3" marker-end="url(#arrowhead-dark)"/>
+  <text x="1007" y="1190" text-anchor="middle" font-size="8" fill="#059669" font-style="italic">feedback loop: revise assets</text>
+
+  <!-- Tier 3 badge -->
+  <circle cx="1120" cy="1149" r="12" fill="#059669"/>
+  <text x="1120" y="1153" text-anchor="middle" class="count-badge">4</text>
+
+  <!-- ======================================= -->
+  <!-- TIER 4: PARTNER & DISTRIBUTION -->
+  <!-- ======================================= -->
+  <text x="600" y="1248" text-anchor="middle" class="section-label">TIER 4: PARTNER &amp; DISTRIBUTION</text>
+
+  <line x1="300" y1="1216" x2="300" y2="1260" class="arrow-shared"/>
+  <line x1="600" y1="1216" x2="600" y2="1260" class="arrow-shared"/>
+
+  <!-- Affiliate Packager -->
+  <rect x="125" y="1263" width="250" height="44" rx="6" fill="url(#tier4-grad)"/>
+  <text x="250" y="1282" text-anchor="middle" class="shared-label">Affiliate Packager</text>
+  <text x="250" y="1296" text-anchor="middle" class="shared-detail">Agency briefs, commission structures, tracking</text>
+
+  <!-- Influencer Strategist -->
+  <rect x="525" y="1263" width="250" height="44" rx="6" fill="url(#tier4-grad)"/>
+  <text x="650" y="1282" text-anchor="middle" class="shared-label">Influencer Strategist</text>
+  <text x="650" y="1296" text-anchor="middle" class="shared-detail">Creator programs, content briefs, outreach</text>
+
+  <!-- Tier 4 badge -->
+  <circle cx="763" cy="1279" r="12" fill="#0d9488"/>
+  <text x="763" y="1283" text-anchor="middle" class="count-badge">2</text>
+
+  <!-- ======================================= -->
+  <!-- LEGEND -->
+  <!-- ======================================= -->
+  <rect x="42" y="1340" width="1116" height="148" rx="8" fill="#f3f4f6" stroke="#e5e7eb" stroke-width="1"/>
+
+  <text x="70" y="1365" font-size="12" font-weight="bold" fill="#374151">Architecture Legend</text>
+
+  <rect x="70" y="1378" width="14" height="14" rx="3" fill="url(#moments-grad)" stroke="#b45309" stroke-width="1"/>
+  <text x="92" y="1390" font-size="10" fill="#374151"><tspan font-weight="bold">Moments Service</tspan> -- shared upstream, trigger event library, feeds all 3 pipelines, 1 agent</text>
+
+  <rect x="70" y="1400" width="14" height="14" rx="3" fill="url(#surge-grad)"/>
+  <text x="92" y="1412" font-size="10" fill="#374151"><tspan font-weight="bold">Surge Trends</tspan> -- demand spikes (&lt;3mo), velocity-first, flash moments via Step 1B, 5 agents</text>
+
+  <rect x="70" y="1422" width="14" height="14" rx="3" fill="url(#micro-grad)"/>
+  <text x="92" y="1434" font-size="10" fill="#374151"><tspan font-weight="bold">Micro-Trends Identity</tspan> -- emerging waves (3mo-3yr), dual-entry qualification (Path A + B), 5 agents</text>
+
+  <rect x="70" y="1444" width="14" height="14" rx="3" fill="url(#macro-grad)"/>
+  <text x="92" y="1456" font-size="10" fill="#374151"><tspan font-weight="bold">Macro-Trends Identity</tspan> -- structural shifts (3-30+yr), full ethnographic depth + switching profiles, 6 agents</text>
+
+  <!-- Key Principles -->
+  <text x="650" y="1365" font-size="12" font-weight="bold" fill="#374151">Key Principles</text>
+  <text x="650" y="1385" font-size="10" fill="#555">Trigger Analyst runs once as shared upstream service, feeds all 3 pipelines</text>
+  <text x="650" y="1402" font-size="10" fill="#555">Dual-entry: Path A (PESTEL) + Path B (moment-driven) at each pipeline's Stage 1</text>
+  <text x="650" y="1419" font-size="10" fill="#555">No standalone Moments pipeline -- moments absorbed into identity pipelines</text>
+  <text x="650" y="1436" font-size="10" fill="#555">Switching profiles &amp; interception concepts absorbed into Stage 4A/4B agents</text>
+  <text x="650" y="1453" font-size="10" fill="#555">All pipelines converge at shared Stage 5 and Tiers 3-4</text>
+  <text x="650" y="1470" font-size="10" fill="#555" font-style="italic">Yellow text = moment-enriched capabilities (new)</text>
+
+  <!-- ======================================= -->
+  <!-- AGENT COUNT FOOTER -->
+  <!-- ======================================= -->
+  <text x="600" y="1508" text-anchor="middle" font-size="11" fill="#999">
+    Orchestration (1) + Moments Service (1) + Surge (5) + Micro (5) + Macro (6) + Shared Stage 5 (2) + Campaign (4) + Partners (2) = 26 agents
+  </text>
+</svg>
