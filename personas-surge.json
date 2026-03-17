@@ -1,0 +1,200 @@
+[
+  {
+    "id": "sp01",
+    "name": "Committed Agentic Coding Tool Buyer",
+    "pipe": "surge",
+    "quad": "go",
+    "desc": "Developers actively purchasing Cursor Pro, Claude Code, or Windsurf paid tiers at $20-200/month following Karpathy's \"agentic engineering\" paradigm declaration. High-income professionals seeking developer-tribe identity signals and reliable unthrottled hotspot for laptop tethering.",
+    "pop": "~600-800K U.S. developers",
+    "popNum": 700000,
+    "popSource": "Cursor $2B ARR (Bloomberg 2026) / GitHub Copilot 15M+ paid users",
+    "intensity": 5,
+    "score": 8.8,
+    "markers": [
+      "Searching \"best agentic coding IDE\"",
+      "Paying $20-200/month for dev tooling",
+      "Remote work; tethers laptop to phone",
+      "Self-identifies as \"agentic engineer\"",
+      "Price-sensitive on commodity, high WTP for identity tools"
+    ],
+    "community": [
+      "r/cursor, r/vibecoding, r/ExperiencedDevs",
+      "Hacker News and DEV.to",
+      "Twitter/X developer agentic engineering discourse",
+      "YouTube coding tool review channels",
+      "GitHub Copilot/Cursor subscriber communities"
+    ],
+    "moment": "Cursor $2B ARR + Karpathy \"agentic engineering\" declaration converged",
+    "momentWindow": "6-10 weeks acute; 60% baseline persists",
+    "confidence": {
+      "identity": 85,
+      "price": 75,
+      "channel": 80
+    },
+    "interview": [
+      {
+        "q": "What would you expect to pay for a developer-specific wireless plan?",
+        "a": "I'm on Mint, paying like $30/month. If someone made a developer-specific plan I'd expect $25-40. The value would need to come from perks, not just data. If wireless plus dev tool credits saves money versus my separate subscriptions, I'm in.",
+        "insight": "Price anchor is $25-40/month. Bundle economics (wireless + tool credits < separate subscriptions) is the conversion lever."
+      },
+      {
+        "q": "If a developer wireless plan could only do one thing, what must it have?",
+        "a": "Reliable hotspot with no throttling. I work from coffee shops, airports, coworking spaces. If I'm tethering my laptop to ship code and the connection gets throttled to 600kbps after 10 gigs, that's a dealbreaker. Give me 50 gigs of full-speed hotspot minimum.",
+        "insight": "Unthrottled 50GB+ hotspot is the existential feature. Without it, the offer is non-viable."
+      },
+      {
+        "q": "What would make you buy immediately versus ignoring it?",
+        "a": "If it bundled something I already pay for — like Cursor credits or GitHub Pro — I'd switch today. A straight wireless plan with a dev logo? I'd scroll past. Show me the bundle math works out cheaper and I'll sign up tonight.",
+        "insight": "Bundle with existing tool subscriptions is the primary switching trigger. Identity component is secondary reinforcer; bundle economics is the door-opener."
+      }
+    ]
+  },
+  {
+    "id": "sp11",
+    "name": "Google-to-Perplexity Pro Switcher",
+    "pipe": "surge",
+    "quad": "go",
+    "desc": "Knowledge workers actively switching default search to Perplexity and paying for Pro ($20/month). Identity-forward, subscription-comfortable, reachable through AI communities. Demand velocity accelerating at 191.9% YoY.",
+    "pop": "2-4M U.S. Pro subscription candidates",
+    "popNum": 3000000,
+    "popSource": "DemandSage Feb 2026 / Backlinko March 2026",
+    "intensity": 4,
+    "score": 8.5,
+    "markers": [
+      "Purchasing Perplexity Pro ($20/month)",
+      "Setting Perplexity as default search",
+      "Installing browser extension",
+      "Searching \"Perplexity vs Google\"",
+      "Knowledge worker + high disposable income"
+    ],
+    "community": [
+      "r/perplexity_ai, r/artificial",
+      "Twitter/X AI productivity threads",
+      "Productivity newsletters (TLDR, Morning Brew, Ben's Bites)",
+      "AI tool reviewer YouTube channels"
+    ],
+    "moment": "Google-switching narrative hits mainstream; Perplexity $21B valuation",
+    "momentWindow": "8 weeks acute (March-May 2026); 3-12 months enduring",
+    "confidence": {
+      "identity": 85,
+      "price": 72,
+      "channel": 78
+    },
+    "interview": [
+      {
+        "q": "What are you paying for AI tools, and what would you expect for bundled wireless?",
+        "a": "I pay $20 for Perplexity Pro, $20 for Claude Pro, maybe $10 for Notion — already $50+ in AI tools. For wireless, I'd expect $40-50 if it bundled Perplexity Pro. I'm not paying $80 for a carrier that just gives me data.",
+        "insight": "Price anchor is total spend reduction, not wireless price alone. Prospect evaluates wireless as part of consolidated AI+mobile stack."
+      },
+      {
+        "q": "What's your biggest concern about switching carriers?",
+        "a": "Hassle. Porting my number, making sure coverage doesn't get worse. If someone guaranteed AT&T or T-Mobile coverage, handled the port automatically, and gave me a real reason beyond \"we're different,\" I'd do it. Has to save me time, not cost me time. Activation needs to be instant — like SaaS signup, not \"call us.\"",
+        "insight": "Switching barriers are psychological (coverage anxiety, porting perception) not structural. SaaS-style activation (eSIM in minutes) is table-stakes."
+      },
+      {
+        "q": "If a wireless plan could only bundle ONE thing, what must it have?",
+        "a": "Bundled AI subscriptions at a discount. I'm already paying $50+ for Perplexity, Claude, and tools separately. If a carrier rolled those in and the total was less than what I pay now, that's the thing that moves me. But it has to be the exact tools I use — not some weird substitute.",
+        "insight": "Perplexity Pro is the identity anchor. Bundle value hinges on consolidation (fewer billing lines, total spend reduction). Substitution triggers abandonment."
+      }
+    ]
+  },
+  {
+    "id": "sp20",
+    "name": "First-Time Paid AI Subscription Buyer",
+    "pipe": "surge",
+    "quad": "go",
+    "desc": "Consumers making their first $20/month AI subscription purchase (ChatGPT Plus, Claude Pro, Gemini Advanced, Perplexity Pro), driven by peer adoption pressure and a16z Top 100 Gen AI list. At peak first-purchase decision window.",
+    "pop": "~10-20M U.S. adults in active window",
+    "popNum": 15000000,
+    "popSource": "a16z Top 100 Gen AI Consumer Apps March 2026 / ChatGPT subscriber estimates",
+    "intensity": 3,
+    "score": 8,
+    "markers": [
+      "Converting from free-tier to paid subscriber",
+      "First software subscription beyond Spotify/Netflix",
+      "AI-aware but previously price-hesitant",
+      "Workplace peer adoption influence",
+      "Tech-forward but not deeply specialized"
+    ],
+    "community": [
+      "r/ChatGPT, r/ClaudeAI, r/Gemini",
+      "Productivity newsletters (TLDR, The Neuron, Ben's Bites)",
+      "YouTube AI comparison/review watchers",
+      "Tech-savvy workplace peer groups"
+    ],
+    "moment": "First-time paid AI subscription triggered by category crystallization",
+    "momentWindow": "4-8 weeks peak; gradual-fade model",
+    "confidence": {
+      "identity": 65,
+      "price": 78,
+      "channel": 72
+    },
+    "interview": [
+      {
+        "q": "What are you paying for AI tools, and what would you expect for bundled wireless?",
+        "a": "I'm paying $20/month for ChatGPT Plus — first time I've paid for software since Spotify. If a wireless plan included AI tools at $40-45 total, I'd consider it. Over $50 and I'm comparing to just keeping my phone plan plus ChatGPT separately.",
+        "insight": "Price anchor of $20 for AI is established; bundle sweet spot is $40-50 total. Above $50, mental unbundling occurs."
+      },
+      {
+        "q": "What would make you buy immediately versus waiting?",
+        "a": "If I saw a deal where Claude Pro or ChatGPT Plus came included with wireless, I'd jump before it disappears. Limited-time pricing works on me. But without real dollar savings, I'd wait. I need the math making sense on day one.",
+        "insight": "First-time subscribers exhibit FOMO and limited-time offer susceptibility. Value prop must demonstrate immediate, tangible savings."
+      },
+      {
+        "q": "Where would you find and buy this?",
+        "a": "Reddit thread or YouTube comparison video — that's how I found ChatGPT Plus. Checkout has to be online, no store visits, exact pricing visible. If I have to call someone or there are hidden fees, I'm out. One page, one price, three minutes.",
+        "insight": "Acquisition channels are peer-driven (Reddit, YouTube) not carrier-owned. eSIM activation, transparent pricing, no manual processes."
+      }
+    ]
+  },
+  {
+    "id": "sp32",
+    "name": "Displaced ACP/Lifeline Household",
+    "pipe": "surge",
+    "quad": "go",
+    "desc": "Low-income households previously on ACP subsidy (ended June 2024) actively searching for cheapest available prepaid or MVNO plan. 3-5M households remain without resolved connectivity post-ACP.",
+    "pop": "3-5M U.S. households",
+    "popNum": 4000000,
+    "popSource": "FCC 2024 — 23M households displaced; 15-20% still in search",
+    "intensity": 2,
+    "score": 7.6,
+    "markers": [
+      "Searching \"cheapest phone plan 2026\"",
+      "Comparing Mint, Visible, TracFone",
+      "Hard ceiling $20/month; sweet spot $10-15",
+      "All-in pricing required (no hidden fees)",
+      "Prepaid, no credit check, month-to-month"
+    ],
+    "community": [
+      "Google search \"cheapest phone plan\"",
+      "MVNO comparison sites (WhistleOut, BestMVNO)",
+      "Community organizations and food banks",
+      "Facebook low-income assistance groups",
+      "Dollar General/Dollar Tree prepaid displays"
+    ],
+    "moment": "ACP / Lifeline Subsidy Loss",
+    "momentWindow": "Flash/Structural — 1-3 months; re-opens with new Lifeline regulatory action",
+    "confidence": {
+      "identity": 85,
+      "price": 90,
+      "channel": 80
+    },
+    "interview": [
+      {
+        "q": "What are you paying now, and what would you expect to pay?",
+        "a": "I was paying nothing with ACP. Now I'm on a $15 T-Mobile Connect plan but it's tight — 5 gigs goes fast. If someone gave me unlimited talk and text for $10-12/month with even a little data, I'd jump. Anything over $20 is out.",
+        "insight": "Price anchoring to $0 ACP era creates psychological resistance above $20; sweet spot is $10-15."
+      },
+      {
+        "q": "What would stop you from trying something new?",
+        "a": "I'm scared of hidden fees. Last time I switched, I got hit with an activation fee and taxes that made the first bill $40. Show me the real price — what I actually pay, no surprises — and let me keep my number, and I'd switch this week.",
+        "insight": "All-in pricing is the primary trust signal and conversion accelerator. Hidden fees are the #1 switching barrier."
+      },
+      {
+        "q": "If a new plan could only do one thing, what must it have?",
+        "a": "Enough data to last the whole month. I don't need unlimited everything. Give me 10 gigs that actually lasts or throttle me to something usable instead of cutting me off. That would make me switch.",
+        "insight": "Data predictability (not hard cutoff) is the core unmet need. 1Mbps throttle instead of cutoff is the key product differentiator."
+      }
+    ]
+  }
+]

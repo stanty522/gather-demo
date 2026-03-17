@@ -1348,6 +1348,8 @@
 
   async function runPipeline(trigCard, trigStage, laneCards, sharedCards, outputPanel, signal, activeLanes) {
     const lanes = activeLanes || ['surge', 'micro', 'macro'];
+    const prev = document.querySelector('.pipeline-summary');
+    if (prev) prev.remove();
     const startTime = Date.now();
     function elapsed() { return ((Date.now() - startTime) / 1000).toFixed(1); }
 
@@ -1407,8 +1409,14 @@
         </div>
       </div>
     `;
-    outputPanel.appendChild(summaryDiv);
-    outputPanel.scrollTop = outputPanel.scrollHeight;
+    const archWrap = document.getElementById('arch-wrap');
+    if (archWrap) {
+      archWrap.appendChild(summaryDiv);
+      archWrap.parentElement.scrollTop = archWrap.parentElement.scrollHeight;
+    } else {
+      outputPanel.appendChild(summaryDiv);
+      outputPanel.scrollTop = outputPanel.scrollHeight;
+    }
   }
 
   async function runLaneSequential(items, outputPanel, elapsed, signal) {
@@ -1430,7 +1438,7 @@
     const archEl = document.querySelector(`[data-stage-id="${stage.id}"]`);
     if (archEl) {
       archEl.classList.add('arch-running');
-      archEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      archEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
     const baseDur = stage.dur * 200; // base duration in ms
@@ -1797,6 +1805,7 @@
   function buildArchitectureTab(panel) {
     panel.style.overflow = 'auto';
     const wrap = el('div', 'arch-wrap');
+    wrap.id = 'arch-wrap';
 
     // Tier 1: Growth Master
     wrap.innerHTML = `

@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gather Labs — AI-Powered Market Intelligence</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -396,7 +397,7 @@
   <script src="scene-4-scaleengine.js"></script>
   <script>
     // Initialize scenes (Scene 1 = Pipeline, Scene 2 = Personas, Scene 3 = Brand Creation, Scene 4 = Fake Door Testing, Scene 5 = Launch)
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => {
       const s1 = document.getElementById('scene-1');
       if (s1 && typeof initScene2 === 'function') {
         s1.innerHTML = '';
@@ -405,7 +406,7 @@
       const s2 = document.getElementById('scene-2');
       if (s2 && typeof initScene1 === 'function') {
         s2.innerHTML = '';
-        initScene1(s2);
+        await initScene1(s2);
       }
       const s3 = document.getElementById('scene-3');
       if (s3 && typeof initScene3 === 'function') {
