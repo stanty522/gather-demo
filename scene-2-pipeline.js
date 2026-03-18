@@ -1104,15 +1104,19 @@
 .scene2 .output-body {
   background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
   border-top: none; border-radius: 0 0 12px 12px; padding: 24px;
-  max-height: 600px; overflow-y: auto;
+  max-height: 700px; overflow-y: auto;
 }
 .scene2 .output-body::-webkit-scrollbar { width: 4px; }
 .scene2 .output-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
 
 /* Output table rows */
 .scene2 .out-tbl-trigger {
-  display: grid; grid-template-columns: 40px 1fr 80px 100px 120px 120px;
-  gap: 12px; align-items: center;
+  display: grid; grid-template-columns: 36px 1fr 60px 72px 140px 90px;
+  gap: 8px; align-items: center;
+}
+.scene2 .out-tbl-macro {
+  display: grid; grid-template-columns: 36px 1fr 90px 60px 60px 60px 90px;
+  gap: 8px; align-items: center;
 }
 .scene2 .out-tbl-trend {
   display: grid; grid-template-columns: 60px 1fr 90px 100px 90px;
@@ -1132,6 +1136,8 @@
   font-size: 13px; transition: background 0.15s;
 }
 .scene2 .out-tbl-row:hover { background: rgba(255,255,255,0.02); }
+.scene2 .out-tbl-row.trigger-row { cursor: pointer; }
+.scene2 .out-tbl-row.trigger-row.expanded { background: rgba(240,194,122,0.04); border-bottom-color: transparent; }
 .scene2 .out-rank {
   font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #737373; text-align: center;
 }
@@ -1148,6 +1154,208 @@
 .scene2 .out-id { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #404040; }
 .scene2 .out-conf { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #10b981; }
 .scene2 .out-extra { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #737373; }
+
+/* Switching type badges */
+.scene2 .sw-badge {
+  display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 9px;
+  font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px; text-transform: uppercase; font-weight: 600;
+}
+.scene2 .sw-badge.greenfield { background: rgba(16,185,129,0.15); color: #10b981; }
+.scene2 .sw-badge.forced { background: rgba(225,112,85,0.15); color: #e17055; }
+.scene2 .sw-badge.motivated { background: rgba(116,185,255,0.15); color: #74b9ff; }
+.scene2 .sw-badge.budget { background: rgba(240,194,122,0.15); color: #f0c27a; }
+
+/* Window type pill */
+.scene2 .win-pill {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #737373;
+}
+
+/* Trigger detail panel */
+.scene2 .trigger-detail-wrap {
+  max-height: 0; overflow: hidden; transition: max-height 0.35s ease;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.scene2 .trigger-detail-wrap.open { max-height: 900px; }
+.scene2 .trigger-detail {
+  padding: 16px 12px 20px; background: rgba(255,255,255,0.015);
+  border-left: 2px solid rgba(240,194,122,0.3);
+}
+.scene2 .td-desc {
+  font-size: 12px; color: #a0a0a0; line-height: 1.5; margin-bottom: 16px;
+}
+.scene2 .td-section {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px; text-transform: uppercase;
+  letter-spacing: 1.5px; color: #505050; margin: 14px 0 8px; padding-top: 8px;
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+.scene2 .td-section:first-of-type { border-top: none; margin-top: 0; }
+
+/* Axis score badges */
+.scene2 .axis-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.scene2 .axis-badge {
+  display: flex; flex-direction: column; gap: 3px; min-width: 90px; flex: 1;
+}
+.scene2 .axis-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #505050;
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.scene2 .axis-val {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600;
+}
+.scene2 .axis-val.high { color: #10b981; }
+.scene2 .axis-val.mid { color: #f0c27a; }
+.scene2 .axis-val.low { color: #737373; }
+.scene2 .axis-bar {
+  height: 3px; background: rgba(255,255,255,0.06); border-radius: 2px; width: 100%;
+}
+.scene2 .axis-bar-fill { height: 100%; border-radius: 2px; transition: width 0.3s; }
+.scene2 .axis-bar-fill.high { background: #10b981; }
+.scene2 .axis-bar-fill.mid { background: #f0c27a; }
+.scene2 .axis-bar-fill.low { background: #505050; }
+
+/* Classification tags */
+.scene2 .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+.scene2 .tag-pill {
+  display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 10px;
+}
+.scene2 .tag-pill.pain { background: rgba(225,112,85,0.12); color: #e17055; }
+.scene2 .tag-pill.emotion { background: rgba(162,155,254,0.12); color: #a29bfe; }
+.scene2 .tag-pill.origin { background: rgba(116,185,255,0.12); color: #74b9ff; }
+
+/* Window detail grid */
+.scene2 .td-window { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 16px; }
+.scene2 .td-window-item { display: flex; gap: 8px; font-size: 11px; }
+.scene2 .td-window-item .wl { color: #505050; font-family: 'JetBrains Mono', monospace; font-size: 10px; min-width: 80px; }
+.scene2 .td-window-item .wv { color: #a0a0a0; }
+
+/* Volume and overlaps */
+.scene2 .td-meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.scene2 .td-vol {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #e2e2f0; font-weight: 500;
+  margin-right: 8px;
+}
+.scene2 .td-overlap {
+  display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 9px;
+  background: rgba(255,255,255,0.04); color: #737373;
+}
+
+/* Channel and signal lists */
+.scene2 .td-list {
+  margin: 0; padding-left: 16px; font-size: 11px; color: #a0a0a0; line-height: 1.6;
+}
+.scene2 .td-list li { margin-bottom: 2px; }
+
+/* Watch list */
+.scene2 .watch-toggle {
+  display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 12px 0 8px;
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #505050;
+  text-transform: uppercase; letter-spacing: 1px; border-top: 1px solid rgba(255,255,255,0.06);
+  margin-top: 12px; user-select: none;
+}
+.scene2 .watch-toggle:hover { color: #737373; }
+.scene2 .watch-arrow { transition: transform 0.2s; display: inline-block; }
+.scene2 .watch-toggle.open .watch-arrow { transform: rotate(90deg); }
+.scene2 .watch-container {
+  max-height: 0; overflow: hidden; transition: max-height 0.35s ease;
+}
+.scene2 .watch-container.open { max-height: 600px; }
+.scene2 .out-tbl-watch {
+  display: grid; grid-template-columns: 36px 1fr 80px 50px 60px 1fr 1fr;
+  gap: 8px; align-items: center;
+}
+.scene2 .out-tbl-watch .out-name { font-size: 12px; }
+.scene2 .watch-dim { font-size: 10px; color: #505050; }
+.scene2 .watch-fail { font-size: 10px; color: #505050; }
+.scene2 .watch-promote { font-size: 10px; color: #f0c27a; }
+
+/* Quadrant badges */
+.scene2 .quad-badge {
+  display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 9px;
+  font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px; text-transform: uppercase; font-weight: 600;
+}
+.scene2 .quad-badge.build { background: rgba(16,185,129,0.15); color: #10b981; }
+.scene2 .quad-badge.compete { background: rgba(240,194,122,0.15); color: #f0c27a; }
+.scene2 .quad-badge.niche { background: rgba(116,185,255,0.15); color: #74b9ff; }
+.scene2 .quad-badge.ignore { background: rgba(115,115,115,0.12); color: #505050; }
+.scene2 .quad-badge.invest { background: rgba(16,185,129,0.15); color: #10b981; }
+.scene2 .quad-badge.explore { background: rgba(116,185,255,0.15); color: #74b9ff; }
+.scene2 .quad-badge.niche { background: rgba(240,194,122,0.12); color: #f0c27a; }
+
+/* Macro persona detail panel */
+.scene2 .out-tbl-row.macro-row { cursor: pointer; }
+.scene2 .out-tbl-row.macro-row.expanded { background: rgba(162,155,254,0.04); border-bottom-color: transparent; }
+.scene2 .macro-detail-wrap {
+  max-height: 0; overflow: hidden; transition: max-height 0.4s ease;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.scene2 .macro-detail-wrap.open { max-height: 1400px; }
+.scene2 .macro-detail {
+  padding: 16px 12px 20px; background: rgba(255,255,255,0.015);
+  border-left: 2px solid rgba(162,155,254,0.3);
+}
+.scene2 .macro-acq-row { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; }
+.scene2 .macro-acq-name { font-size: 12px; color: #e2e2f0; font-weight: 500; }
+.scene2 .macro-segs { display: flex; flex-wrap: wrap; gap: 6px; }
+.scene2 .macro-segs .tag-pill {
+  background: rgba(162,155,254,0.1); color: #a29bfe; font-size: 10px;
+}
+.scene2 .axis-note {
+  font-size: 10px; color: #505050; line-height: 1.4; margin-top: 2px;
+}
+
+/* Micro persona grid + detail */
+.scene2 .out-tbl-micro {
+  display: grid; grid-template-columns: 36px 1fr 70px 60px 60px 60px 80px;
+  gap: 8px; align-items: center;
+}
+.scene2 .out-tbl-row.micro-row { cursor: pointer; }
+.scene2 .out-tbl-row.micro-row.expanded { background: rgba(116,185,255,0.04); border-bottom-color: transparent; }
+.scene2 .micro-detail-wrap {
+  max-height: 0; overflow: hidden; transition: max-height 0.4s ease;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.scene2 .micro-detail-wrap.open { max-height: 900px; }
+.scene2 .micro-detail {
+  padding: 16px 12px 20px; background: rgba(255,255,255,0.015);
+  border-left: 2px solid rgba(116,185,255,0.3);
+}
+/* Micro summary bar */
+.scene2 .micro-summary-bar {
+  display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+  padding: 10px 0 14px; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 12px;
+}
+.scene2 .micro-sum {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase;
+  letter-spacing: 0.5px; color: #505050;
+}
+.scene2 .micro-sum strong { font-weight: 700; }
+.scene2 .micro-sum.invest { color: #10b981; }
+.scene2 .micro-sum.explore { color: #74b9ff; }
+.scene2 .micro-sum.niche { color: #f0c27a; }
+.scene2 .micro-sum.ignore { color: #404040; }
+.scene2 .micro-sum.total { color: #737373; margin-left: auto; }
+/* Micro section labels */
+.scene2 .micro-section-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px; text-transform: uppercase;
+  letter-spacing: 1.5px; padding: 10px 0 6px; margin-top: 6px;
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+.scene2 .invest-label { color: rgba(16,185,129,0.6); }
+.scene2 .explore-label { color: rgba(116,185,255,0.6); }
+.scene2 .niche-label { color: rgba(240,194,122,0.6); }
+.scene2 .ignore-label { color: rgba(115,115,115,0.4); }
+/* Niche/Ignore collapsed section */
+.scene2 .micro-niche-toggle {
+  display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 12px 0 8px;
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #505050;
+  text-transform: uppercase; letter-spacing: 1px; border-top: 1px solid rgba(255,255,255,0.06);
+  margin-top: 8px; user-select: none;
+}
+.scene2 .micro-niche-toggle:hover { color: #737373; }
+.scene2 .micro-niche-toggle .watch-arrow { transition: transform 0.2s; }
+.scene2 .micro-niche-toggle.open .watch-arrow { transform: rotate(90deg); }
+.scene2 .micro-niche-container { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+.scene2 .micro-niche-container.open { max-height: 8000px; }
 
 /* ── Architecture Animation States ── */
 .scene2 .arch-running {
@@ -1981,40 +2189,16 @@
      TAB: PIPELINE OUTPUT
      ═══════════════════════════════════════════ */
 
-  const outputTriggerEvents = [
-    {rank:1,name:'Unexpected Vet Bill Shock',composite:4.6,switchingType:'Reactive',annualVolume:'8.2M events/year',emotionalState:'Panic + guilt'},
-    {rank:2,name:'Viral Pet Health Content Exposure',composite:4.5,switchingType:'Impulse',annualVolume:'12M+ exposures/year',emotionalState:'Anxiety + urgency'},
-    {rank:3,name:'New Pet Adoption',composite:4.4,switchingType:'Expansion',annualVolume:'6.5M adoptions/year',emotionalState:'Joy + overwhelm'},
-    {rank:4,name:'Pet Aging Milestone (Senior Transition)',composite:4.3,switchingType:'Gradual',annualVolume:'9.5M senior pets/year',emotionalState:'Concern + devotion'},
-    {rank:5,name:'Pet Health Diagnosis',composite:4.2,switchingType:'Forced',annualVolume:'4.8M new diagnoses/year',emotionalState:'Fear + determination'},
-    {rank:6,name:'Subscription Box Fatigue / Cancellation',composite:4.1,switchingType:'Voluntary',annualVolume:'1.1M cancellations/year',emotionalState:'Frustration + seeking value'},
-    {rank:7,name:'First Vet Checkup Warning',composite:4.0,switchingType:'Preventive',annualVolume:'15M vet visits with warnings/year',emotionalState:'Worry + motivation'},
-    {rank:8,name:'Pet Anxiety Episode',composite:3.9,switchingType:'Event-driven',annualVolume:'5.2M acute episodes/year',emotionalState:'Helplessness + urgency'},
-    {rank:9,name:'Pet Food Recall Scare',composite:3.8,switchingType:'Reactive',annualVolume:'3-5 major recalls/year',emotionalState:'Anger + distrust'},
-    {rank:10,name:'Millennial First Pet (Child Substitute)',composite:3.7,switchingType:'Identity',annualVolume:'4.1M first-time owners/year',emotionalState:'Excitement + identity formation'}
-  ];
+  // Trigger events loaded from trigger-events.json (set in initScene2)
+  let outputTriggerEvents = [];
+  let outputWatchList = [];
 
-  const outputMacroTrends = [
-    {id:'MT-01',name:'Pet Humanization Megatrend',signal:'Cultural',direction:'Accelerating',confidence:'95%',impact:'Structural'},
-    {id:'MT-02',name:'Preventive Pet Healthcare Shift',signal:'Health',direction:'Growing',confidence:'88%',impact:'High'},
-    {id:'MT-03',name:'DTC Pet Brand Proliferation',signal:'Market',direction:'Accelerating',confidence:'82%',impact:'High'},
-    {id:'MT-04',name:'Pet Insurance Adoption Wave',signal:'Financial',direction:'Growing',confidence:'79%',impact:'Medium'},
-    {id:'MT-05',name:'Clean Label Pet Products',signal:'Consumer',direction:'Accelerating',confidence:'85%',impact:'High'},
-    {id:'MT-06',name:'Pet Tech Integration',signal:'Technology',direction:'Emerging',confidence:'72%',impact:'Medium'},
-    {id:'MT-07',name:'Vet Telehealth Expansion',signal:'Health',direction:'Growing',confidence:'78%',impact:'Medium'},
-    {id:'MT-08',name:'Pet Mental Health Awareness',signal:'Cultural',direction:'Emerging',confidence:'65%',impact:'Medium'}
-  ];
 
-  const outputMicroTrends = [
-    {id:'MT-01',name:'Adaptogenic Pet Supplements',signal:'Product',velocity:'High',confidence:'78%',window:'12 months'},
-    {id:'MT-02',name:'Pet DNA Testing Boom',signal:'Technology',velocity:'High',confidence:'82%',window:'18 months'},
-    {id:'MT-03',name:'Raw/Fresh Pet Food Movement',signal:'Consumer',velocity:'Medium',confidence:'85%',window:'24+ months'},
-    {id:'MT-04',name:'Pet CBD Regulation Clarity',signal:'Policy',velocity:'Medium',confidence:'60%',window:'6-12 months'},
-    {id:'MT-05',name:'Pet Subscription Box Fatigue',signal:'Market',velocity:'High',confidence:'75%',window:'6 months'},
-    {id:'MT-06',name:'Vet-Influencer Trust Economy',signal:'Social',velocity:'Very High',confidence:'80%',window:'12 months'},
-    {id:'MT-07',name:'Pet Anxiety Treatment Market',signal:'Health',velocity:'High',confidence:'77%',window:'18 months'},
-    {id:'MT-08',name:'Multi-Species Household Trend',signal:'Demographic',velocity:'Medium',confidence:'70%',window:'24+ months'}
-  ];
+  // Macro personas loaded from pipeline-macro.json (set in initScene2)
+  let outputMacroPersonas = [];
+
+  // Micro personas loaded from pipeline-micro.json (set in initScene2)
+  let outputMicroData = {invest:[], explore:[], niche:[], ignore:[]};
 
   const outputSurgeSignals = [
     {name:'TikTok Pet Supplement Viral Wave',velocity:'4.6',subType:'Escalating',window:'Short (1-6mo)',decay:'Accelerating'},
@@ -2049,42 +2233,311 @@
       });
     }
 
+    let openTriggerIdx = -1;
+    let openMacroIdx = -1;
+    let openMicroIdx = -1;
+
+    function swClass(t) {
+      if (t.includes('Greenfield')) return 'greenfield';
+      if (t.includes('Forced')) return 'forced';
+      if (t.includes('Motivated')) return 'motivated';
+      return 'budget';
+    }
+    function axisColor(v) { return v >= 4 ? 'high' : v >= 3 ? 'mid' : 'low'; }
+    function fmtAxisVal(v) { return v != null ? (Number.isInteger(v) ? v : v.toFixed(1)) : '\u2014'; }
+
+    function toggleTrigger(idx) {
+      openTriggerIdx = openTriggerIdx === idx ? -1 : idx;
+      // Toggle classes
+      body.querySelectorAll('.trigger-detail-wrap').forEach((d, i) => {
+        d.classList.toggle('open', i === openTriggerIdx);
+      });
+      body.querySelectorAll('.trigger-row').forEach((r, i) => {
+        r.classList.toggle('expanded', i === openTriggerIdx);
+      });
+    }
+
+    function toggleWatch() {
+      const tog = body.querySelector('.watch-toggle');
+      const con = body.querySelector('.watch-container');
+      if (tog && con) { tog.classList.toggle('open'); con.classList.toggle('open'); }
+    }
+
+    function toggleMacro(idx) {
+      openMacroIdx = openMacroIdx === idx ? -1 : idx;
+      body.querySelectorAll('.macro-detail-wrap').forEach((d, i) => {
+        d.classList.toggle('open', i === openMacroIdx);
+      });
+      body.querySelectorAll('.macro-row').forEach((r, i) => {
+        r.classList.toggle('expanded', i === openMacroIdx);
+      });
+    }
+
+    function toggleMicro(idx) {
+      openMicroIdx = openMicroIdx === idx ? -1 : idx;
+      body.querySelectorAll('.micro-detail-wrap').forEach((d, i) => {
+        d.classList.toggle('open', i === openMicroIdx);
+      });
+      body.querySelectorAll('.micro-row').forEach((r, i) => {
+        r.classList.toggle('expanded', i === openMicroIdx);
+      });
+    }
+
     function renderOutputBody() {
       let html = '';
       if (activeOutputTab === 'trigger') {
-        html += '<div class="out-tbl-header out-tbl-trigger"><span>#</span><span>Event</span><span>Score</span><span>Type</span><span>Volume</span><span>Emotion</span></div>';
-        outputTriggerEvents.forEach(ev => {
-          html += `<div class="out-tbl-row out-tbl-trigger">
+        html += '<div class="out-tbl-header out-tbl-trigger"><span>#</span><span>Trigger Event</span><span>Intent</span><span>Composite</span><span>Switching Type</span><span>Window</span></div>';
+        outputTriggerEvents.forEach((ev, i) => {
+          const scoreColor = ev.composite >= 4.0 ? '#10b981' : ev.composite >= 3.5 ? '#e2e2f0' : '#737373';
+          html += `<div class="out-tbl-row out-tbl-trigger trigger-row" data-idx="${i}">
             <span class="out-rank">${ev.rank}</span>
             <span class="out-name">${escHtml(ev.name)}</span>
-            <span class="out-score">${ev.composite.toFixed(1)}</span>
-            <span class="out-type">${escHtml(ev.switchingType)}</span>
-            <span class="out-vol">${escHtml(ev.annualVolume)}</span>
-            <span class="out-emotion">${escHtml(ev.emotionalState)}</span>
+            <span class="out-score">${ev.intent !== null ? ev.intent.toFixed(1) : '\u2014'}</span>
+            <span class="out-score" style="color:${scoreColor}">${ev.composite.toFixed(2)}</span>
+            <span><span class="sw-badge ${swClass(ev.switchingType)}">${escHtml(ev.switchingType)}</span></span>
+            <span class="win-pill">${escHtml(ev.windowType)}</span>
+          </div>`;
+          // Expandable detail panel
+          html += `<div class="trigger-detail-wrap" data-detail="${i}">
+            <div class="trigger-detail">
+              <div class="td-desc">${escHtml(ev.description)}</div>
+
+              <div class="td-section">Axis Scores</div>
+              <div class="axis-row">
+                ${[
+                  {label:'Compulsion',val:ev.compulsion},
+                  {label:'Friction',val:ev.friction},
+                  {label:'Intent',val:ev.intent},
+                  {label:'Predictability',val:ev.predictability},
+                  {label:'Frequency',val:ev.frequency},
+                  {label:'Data Access',val:ev.dataAccessibility}
+                ].map(a => `<div class="axis-badge">
+                  <span class="axis-label">${a.label}</span>
+                  <span class="axis-val ${axisColor(a.val)}">${fmtAxisVal(a.val)}/5</span>
+                  <div class="axis-bar"><div class="axis-bar-fill ${axisColor(a.val)}" style="width:${(a.val||0)*20}%"></div></div>
+                </div>`).join('')}
+              </div>
+
+              <div class="td-section">Classification</div>
+              <div class="tag-row">
+                <span class="sw-badge ${swClass(ev.switchingType)}">${escHtml(ev.switchingType)}</span>
+                ${ev.telcoPain.map(p => `<span class="tag-pill pain">${escHtml(p)}</span>`).join('')}
+                <span class="tag-pill emotion">${escHtml(ev.emotionalState)}</span>
+              </div>
+              <div class="tag-row">
+                ${ev.switchingOrigin.map(o => `<span class="tag-pill origin">${escHtml(o.source)} ${o.pct}%</span>`).join('')}
+              </div>
+
+              <div class="td-section">Window</div>
+              <div class="td-window">
+                <div class="td-window-item"><span class="wl">Type</span><span class="wv">${escHtml(ev.windowType)}</span></div>
+                <div class="td-window-item"><span class="wl">Peak Intent</span><span class="wv">${escHtml(ev.peakIntent)}</span></div>
+                <div class="td-window-item"><span class="wl">Decay</span><span class="wv">${escHtml(ev.intentDecay)}</span></div>
+                <div class="td-window-item"><span class="wl">Seasonal</span><span class="wv">${escHtml(ev.seasonal)}</span></div>
+              </div>
+
+              <div class="td-section">Volume & Overlaps</div>
+              <div class="td-meta">
+                <span class="td-vol">${escHtml(ev.annualVolume)}</span>
+                ${ev.overlapFlags.map(f => `<span class="td-overlap">${escHtml(f)}</span>`).join('')}
+              </div>
+
+              <div class="td-section">Interception Channels</div>
+              <ul class="td-list">${ev.interceptionChannels.map(c => `<li>${escHtml(c)}</li>`).join('')}</ul>
+
+              <div class="td-section">Supporting Signals</div>
+              <ul class="td-list">${ev.supportingSignals.map(s => `<li>${escHtml(s)}</li>`).join('')}</ul>
+            </div>
           </div>`;
         });
-      } else if (activeOutputTab === 'macro') {
-        html += '<div class="out-tbl-header out-tbl-trend"><span>ID</span><span>Trend</span><span>Signal</span><span>Confidence</span><span>Impact</span></div>';
-        outputMacroTrends.forEach(t => {
-          html += `<div class="out-tbl-row out-tbl-trend">
-            <span class="out-id">${escHtml(t.id)}</span>
-            <span class="out-name">${escHtml(t.name)}</span>
-            <span class="out-type">${escHtml(t.signal)}</span>
-            <span class="out-conf">${escHtml(t.confidence)}</span>
-            <span class="out-extra">${escHtml(t.impact)}</span>
+
+        // Watch list
+        html += `<div class="watch-toggle"><span class="watch-arrow">\u25B8</span> Watch List \u2014 11 Below-Threshold Events</div>`;
+        html += '<div class="watch-container">';
+        html += '<div class="out-tbl-header out-tbl-watch"><span>#</span><span>Event</span><span>Dimension</span><span>Intent</span><span>Comp.</span><span>Failure Reason</span><span>Promote If\u2026</span></div>';
+        outputWatchList.forEach(w => {
+          html += `<div class="out-tbl-row out-tbl-watch">
+            <span class="out-rank">${escHtml(String(w.rank))}</span>
+            <span class="out-name">${escHtml(w.name)}</span>
+            <span class="watch-dim">${escHtml(w.dimension)}</span>
+            <span class="out-score" style="color:#737373">${w.intent.toFixed(1)}</span>
+            <span class="out-score" style="color:#737373">${w.composite.toFixed(2)}</span>
+            <span class="watch-fail">${escHtml(w.failureReason)}</span>
+            <span class="watch-promote">${escHtml(w.promoteIf)}</span>
           </div>`;
+        });
+        html += '</div>';
+      } else if (activeOutputTab === 'macro') {
+        html += '<div class="out-tbl-header out-tbl-macro"><span>#</span><span>Persona</span><span>Population</span><span>Attract.</span><span>Landscape</span><span>Score</span><span>Quadrant</span></div>';
+        outputMacroPersonas.forEach((p, i) => {
+          const qClass = p.quadrant ? p.quadrant.toLowerCase() : 'ignore';
+          html += `<div class="out-tbl-row out-tbl-macro macro-row" data-idx="${i}">
+            <span class="out-rank">${p.rank}</span>
+            <span class="out-name">${escHtml(p.name)}</span>
+            <span class="out-extra">${escHtml(p.population)}</span>
+            <span class="out-score">${p.pass1 ? p.pass1.score.toFixed(2) : '—'}</span>
+            <span class="out-score">${p.pass2 ? p.pass2.score.toFixed(2) : '—'}</span>
+            <span class="out-score" style="color:${p.adjustedScore >= 3.0 ? '#10b981' : p.adjustedScore >= 2.5 ? '#f0c27a' : '#737373'}">${p.adjustedScore.toFixed(2)}</span>
+            <span><span class="quad-badge ${qClass}">${escHtml(p.quadrant)}</span></span>
+          </div>`;
+          // Detail panel
+          const p1 = p.pass1 || {};
+          const p2 = p.pass2 || {};
+          const p1Dims = [
+            {label:'Identity Intensity', val: p1.identityIntensity, note: p1.notes && p1.notes.identityIntensity},
+            {label:'Carrier Mobility', val: p1.carrierMobility, note: p1.notes && p1.notes.carrierMobility},
+            {label:'Pain & Demand', val: p1.painDemand, note: p1.notes && p1.notes.painDemand},
+            {label:'Market Size', val: p1.marketSize, note: p1.notes && p1.notes.marketSize},
+            {label:'Brand Equity', val: p1.brandEquity, note: p1.notes && p1.notes.brandEquity}
+          ];
+          const p2Dims = [
+            {label:'Carrier Presence', val: p2.carrierPresence, note: p2.notes && p2.notes.carrierPresence},
+            {label:'Differentiation Potential', val: p2.differentiationPotential, note: p2.notes && p2.notes.differentiationPotential},
+            {label:'Regulatory Barriers', val: p2.regulatoryBarriers, note: p2.notes && p2.notes.regulatoryBarriers},
+            {label:'Brand Loyalty (Incumbents)', val: p2.brandLoyaltyIncumbents, note: p2.notes && p2.notes.brandLoyaltyIncumbents}
+          ];
+          html += `<div class="macro-detail-wrap" data-detail="${i}"><div class="macro-detail">`;
+          html += `<div class="td-desc">${escHtml(p.description || '')}</div>`;
+          // Telco relevance
+          if (p.telcoRelevance) {
+            html += `<div class="td-section">Telco Relevance</div>`;
+            html += `<div class="td-desc">${escHtml(p.telcoRelevance)}</div>`;
+          }
+          // Acquisition moment
+          if (p.acquisitionMoment) {
+            html += `<div class="td-section">Acquisition Moment</div>`;
+            html += `<div class="macro-acq-row"><span class="macro-acq-name">${escHtml(p.acquisitionMoment)}</span>`;
+            if (p.acquisitionComposite) html += `<span class="out-score" style="font-size:11px;margin-left:12px">${p.acquisitionComposite.toFixed(2)}</span>`;
+            if (p.acquisitionWindow) html += `<span class="win-pill" style="margin-left:10px">${escHtml(p.acquisitionWindow)}</span>`;
+            html += `</div>`;
+          }
+          // Pass 1 scores
+          html += `<div class="td-section">Pass 1 — Persona Attractiveness <span style="color:#f0c27a;margin-left:8px">${p1.score ? p1.score.toFixed(2) : '—'}</span></div>`;
+          html += `<div class="axis-row">`;
+          p1Dims.forEach(d => {
+            const v = d.val != null ? d.val : 0;
+            const cls = axisColor(v);
+            html += `<div class="axis-badge">
+              <div class="axis-label">${escHtml(d.label)}</div>
+              <div class="axis-val ${cls}">${v}</div>
+              <div class="axis-bar"><div class="axis-bar-fill ${cls}" style="width:${v * 20}%"></div></div>
+              ${d.note ? `<div class="axis-note">${escHtml(d.note)}</div>` : ''}
+            </div>`;
+          });
+          html += `</div>`;
+          // Pass 2 scores
+          html += `<div class="td-section">Pass 2 — Competitive Landscape <span style="color:#f0c27a;margin-left:8px">${p2.score ? p2.score.toFixed(2) : '—'}</span></div>`;
+          html += `<div class="axis-row">`;
+          p2Dims.forEach(d => {
+            const v = d.val != null ? d.val : 0;
+            const cls = axisColor(v);
+            html += `<div class="axis-badge">
+              <div class="axis-label">${escHtml(d.label)}</div>
+              <div class="axis-val ${cls}">${v}</div>
+              <div class="axis-bar"><div class="axis-bar-fill ${cls}" style="width:${v * 20}%"></div></div>
+              ${d.note ? `<div class="axis-note">${escHtml(d.note)}</div>` : ''}
+            </div>`;
+          });
+          html += `</div>`;
+          // Tier 2 segments
+          if (p.tier2Segments && p.tier2Segments.length) {
+            html += `<div class="td-section">Tier 2 Sub-Segments</div>`;
+            html += `<div class="macro-segs">`;
+            p.tier2Segments.forEach(s => {
+              html += `<span class="tag-pill">${escHtml(s)}</span>`;
+            });
+            html += `</div>`;
+          }
+          // Strategy note
+          if (p.strategyNote) {
+            html += `<div class="td-section">Strategy Note</div>`;
+            html += `<div class="td-desc" style="font-style:italic">${escHtml(p.strategyNote)}</div>`;
+          }
+          html += `</div></div>`;
         });
       } else if (activeOutputTab === 'micro') {
-        html += '<div class="out-tbl-header out-tbl-trend"><span>ID</span><span>Trend</span><span>Signal</span><span>Confidence</span><span>Window</span></div>';
-        outputMicroTrends.forEach(t => {
-          html += `<div class="out-tbl-row out-tbl-trend">
-            <span class="out-id">${escHtml(t.id)}</span>
-            <span class="out-name">${escHtml(t.name)}</span>
-            <span class="out-type">${escHtml(t.signal)}</span>
-            <span class="out-conf">${escHtml(t.confidence)}</span>
-            <span class="out-extra">${escHtml(t.window)}</span>
+        // Helper to render a micro persona row + detail
+        let microRowIdx = 0;
+        function renderMicroPersona(p, qClass) {
+          const idx = microRowIdx++;
+          let r = `<div class="out-tbl-row out-tbl-micro micro-row" data-idx="${idx}">
+            <span class="out-rank">${p.rank}</span>
+            <span class="out-name">${escHtml(p.name)}</span>
+            <span class="out-id" style="font-size:10px">${escHtml(p.trend)}</span>
+            <span class="out-score">${p.p1 && p.p1.score ? p.p1.score.toFixed(2) : '—'}</span>
+            <span class="out-score">${p.p2 && p.p2.score ? p.p2.score.toFixed(2) : '—'}</span>
+            <span class="out-score" style="color:${p.adjScore >= 3.0 ? '#10b981' : p.adjScore >= 2.0 ? '#f0c27a' : '#737373'}">${p.adjScore.toFixed(2)}</span>
+            <span><span class="quad-badge ${qClass}">${qClass.toUpperCase()}</span></span>
           </div>`;
-        });
+          r += `<div class="micro-detail-wrap" data-detail="${idx}"><div class="micro-detail">`;
+          if (p.trendName) r += `<div style="font-size:9px;color:#505050;margin-bottom:8px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:1px">${escHtml(p.trendName)}</div>`;
+          if (p.trendNote) r += `<div class="td-desc">${escHtml(p.trendNote)}</div>`;
+          // Component scores if available
+          if (p.p1 && p.p1.cm != null) {
+            r += `<div class="td-section">Pass 1 — Persona Attractiveness <span style="color:#f0c27a;margin-left:8px">${p.p1.score.toFixed(2)}</span></div>`;
+            r += `<div class="axis-row">`;
+            [{l:'Carrier Mobility',v:p.p1.cm},{l:'Pain & Demand',v:p.p1.pd},{l:'Identity Intensity',v:p.p1.ii},{l:'Market Size',v:p.p1.ms}].forEach(d => {
+              const cls = axisColor(d.v);
+              r += `<div class="axis-badge"><div class="axis-label">${d.l}</div><div class="axis-val ${cls}">${d.v}</div><div class="axis-bar"><div class="axis-bar-fill ${cls}" style="width:${d.v*20}%"></div></div></div>`;
+            });
+            r += `</div>`;
+          }
+          if (p.p2 && p.p2.ci != null) {
+            r += `<div class="td-section">Pass 2 — Competitive Landscape <span style="color:#f0c27a;margin-left:8px">${p.p2.score.toFixed(2)}</span></div>`;
+            r += `<div class="axis-row">`;
+            [{l:'Competitive Intensity',v:p.p2.ci},{l:'JTBD Gap',v:p.p2.jg},{l:'Barrier to Entry',v:p.p2.be},{l:'Differentiation Potential',v:p.p2.dp}].forEach(d => {
+              const cls = axisColor(d.v);
+              r += `<div class="axis-badge"><div class="axis-label">${d.l}</div><div class="axis-val ${cls}">${d.v}</div><div class="axis-bar"><div class="axis-bar-fill ${cls}" style="width:${d.v*20}%"></div></div></div>`;
+            });
+            r += `</div>`;
+          }
+          if (p.compoundPotential) {
+            r += `<div class="td-section">Compound Potential</div><div class="td-desc" style="font-style:italic">${escHtml(p.compoundPotential)}</div>`;
+          }
+          if (p.skipRationale) {
+            r += `<div class="td-section">Skip Rationale</div><div class="td-desc" style="color:#737373">${escHtml(p.skipRationale)}</div>`;
+          }
+          r += `</div></div>`;
+          return r;
+        }
+
+        const invest = outputMicroData.invest || [];
+        const explore = outputMicroData.explore || [];
+        const niche = outputMicroData.niche || [];
+        const ignore = outputMicroData.ignore || [];
+        const totalInvest = invest.length, totalExplore = explore.length;
+        const totalNiche = niche.length, totalIgnore = ignore.length;
+
+        html += `<div class="micro-summary-bar">`;
+        html += `<span class="micro-sum invest">INVEST <strong>${totalInvest}</strong></span>`;
+        html += `<span class="micro-sum explore">EXPLORE <strong>${totalExplore}</strong></span>`;
+        html += `<span class="micro-sum niche">NICHE <strong>${totalNiche}</strong></span>`;
+        html += `<span class="micro-sum ignore">IGNORE <strong>${totalIgnore}</strong></span>`;
+        html += `<span class="micro-sum total">101 personas · 22 micro-trends</span>`;
+        html += `</div>`;
+
+        html += '<div class="out-tbl-header out-tbl-micro" style="margin-top:8px"><span>#</span><span>Persona</span><span>Trend</span><span>P1</span><span>P2</span><span>Score</span><span>Quadrant</span></div>';
+
+        // INVEST section
+        html += `<div class="micro-section-label invest-label">INVEST — ${totalInvest} personas</div>`;
+        invest.forEach(p => { html += renderMicroPersona(p, 'invest'); });
+
+        // EXPLORE section
+        html += `<div class="micro-section-label explore-label">EXPLORE — ${totalExplore} personas</div>`;
+        explore.forEach(p => { html += renderMicroPersona(p, 'explore'); });
+
+        // NICHE + IGNORE collapsed
+        html += `<div class="micro-niche-toggle"><span class="watch-arrow">›</span> NICHE (${totalNiche}) + IGNORE (${totalIgnore}) — click to expand</div>`;
+        html += `<div class="micro-niche-container">`;
+        if (niche.length) {
+          html += `<div class="micro-section-label niche-label">NICHE — ${totalNiche} personas (test cheaply)</div>`;
+          niche.forEach(p => { html += renderMicroPersona(p, 'niche'); });
+        }
+        if (ignore.length) {
+          html += `<div class="micro-section-label ignore-label">IGNORE — ${totalIgnore} personas (skip)</div>`;
+          ignore.forEach(p => { html += renderMicroPersona(p, 'ignore'); });
+        }
+        html += `</div>`;
       } else if (activeOutputTab === 'surge') {
         html += '<div class="out-tbl-header out-tbl-surge"><span>Signal</span><span>Velocity</span><span>Sub-Type</span><span>Enduring Window</span><span>Decay</span></div>';
         outputSurgeSignals.forEach(s => {
@@ -2098,6 +2551,36 @@
         });
       }
       body.innerHTML = html;
+
+      // Bind trigger row click handlers
+      if (activeOutputTab === 'trigger') {
+        openTriggerIdx = -1;
+        body.querySelectorAll('.trigger-row').forEach(row => {
+          row.addEventListener('click', () => toggleTrigger(parseInt(row.dataset.idx)));
+        });
+        const wt = body.querySelector('.watch-toggle');
+        if (wt) wt.addEventListener('click', toggleWatch);
+      }
+      // Bind macro row click handlers
+      if (activeOutputTab === 'macro') {
+        openMacroIdx = -1;
+        body.querySelectorAll('.macro-row').forEach(row => {
+          row.addEventListener('click', () => toggleMacro(parseInt(row.dataset.idx)));
+        });
+      }
+      // Bind micro row click handlers
+      if (activeOutputTab === 'micro') {
+        openMicroIdx = -1;
+        body.querySelectorAll('.micro-row').forEach(row => {
+          row.addEventListener('click', () => toggleMicro(parseInt(row.dataset.idx)));
+        });
+        const nt = body.querySelector('.micro-niche-toggle');
+        if (nt) nt.addEventListener('click', () => {
+          nt.classList.toggle('open');
+          const nc = body.querySelector('.micro-niche-container');
+          if (nc) nc.classList.toggle('open');
+        });
+      }
     }
 
     tabs.forEach(t => {
@@ -2236,7 +2719,26 @@
      MAIN INIT
      ═══════════════════════════════════════════ */
 
-  function initScene2(container) {
+  async function initScene2(container) {
+    // Load trigger events and macro personas from external JSON
+    try {
+      const triggerData = await fetch('trigger-events.json').then(r => r.json());
+      outputTriggerEvents = triggerData.qualified || [];
+      outputWatchList = triggerData.watchList || [];
+    } catch (e) {
+      console.warn('Failed to load trigger-events.json, using empty arrays:', e);
+    }
+    try {
+      outputMacroPersonas = await fetch('pipeline-macro.json').then(r => r.json());
+    } catch (e) {
+      console.warn('Failed to load pipeline-macro.json, using empty array:', e);
+    }
+    try {
+      outputMicroData = await fetch('pipeline-micro.json').then(r => r.json());
+    } catch (e) {
+      console.warn('Failed to load pipeline-micro.json, using empty object:', e);
+    }
+
     injectCSS();
 
     container.innerHTML = '';

@@ -903,6 +903,56 @@
     ]
   },
   {
+    "id": "p029",
+    "name": "Privacy Activist",
+    "pipe": "micro",
+    "quad": "invest",
+    "desc": "T2 Privacy Architect who has methodically de-Googled every layer of their digital life — OS, email, browser, payments — except the carrier. The carrier is the last unresolved surveillance vector, and resolving it is identity-completing. High WTP, high evangelism rate, community-first adoption.",
+    "pop": "~4.6M-5.7M T2-T3 commercial sweet spot",
+    "popNum": 5000000,
+    "popSource": "Ghostery/EFF 2024-2025 / Cisco Consumer Privacy Survey 2024",
+    "intensity": 5,
+    "score": 8.2,
+    "markers": [
+      "GrapheneOS / de-Googled phone user",
+      "Proton + Mullvad stack",
+      "Signal primary messaging",
+      "BYOD + no-contract preference",
+      "Monero / crypto payment hierarchy"
+    ],
+    "community": [
+      "r/privacy",
+      "GrapheneOS forums",
+      "PrivacyGuides.org",
+      "Hacker News",
+      "EFF / digital rights networks"
+    ],
+    "moment": "Major carrier breach or FCC enforcement action",
+    "momentWindow": "18-36 months accelerating; breach events permanently radicalize cohorts",
+    "confidence": {
+      "identity": 85,
+      "price": 55,
+      "channel": 65
+    },
+    "interview": [
+      {
+        "q": "What would you happily pay more for?",
+        "a": "A cell carrier, without hesitation. Eighty to a hundred a month for a carrier that doesn't sell location data, doesn't retain metadata, accepts anonymous payment, and runs verifiable infrastructure. Right now I pay thirty-five for Mint and I know AT&T is sitting on my data upstream. I'd triple that spend tomorrow for a carrier I actually trust.",
+        "insight": "WTP is 2-3x current spend — economics fully validated. The barrier is product availability, not price willingness."
+      },
+      {
+        "q": "What are your most important digital life needs?",
+        "a": "Control. Knowing what's running on my devices, what data is leaving, and where it's going. I can verify all of that on my phone — GrapheneOS is open-source — and my laptop runs Fedora. But the carrier layer is a complete black box I've never been able to crack. My phone is a fortress sitting on enemy's land.",
+        "insight": "\"Fortress on enemy's land\" frames the core product opportunity: completing the privacy stack at the carrier layer is the single highest-value JTBD in this segment."
+      },
+      {
+        "q": "What product frustrates you most but you can't replace?",
+        "a": "The cell carrier. I need cellular for work, for Signal when there's no Wi-Fi, for navigation. Every carrier is a surveillance partner and I can't self-host a cell tower. Mint is the least bad option — cheap, month-to-month, no contract. But 'least bad' is the best I can do. The gap between 'least bad' and 'actually good' is enormous.",
+        "insight": "Switching intent is maximum but constrained by product absence, not loyalty. 88% recommend privacy tools to others — community advocacy engine activates the moment a verifiable alternative exists."
+      }
+    ]
+  },
+  {
     "id": "p087",
     "name": "Fitness App Heavy User",
     "pipe": "micro",
