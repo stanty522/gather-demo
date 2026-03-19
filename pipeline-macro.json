@@ -1,0 +1,795 @@
+[
+  {
+    "id": "T1-11",
+    "rank": 1,
+    "name": "Veterans and Military-Connected Americans",
+    "population": "~40M",
+    "populationNote": "18.6M veterans + 1.3M active duty + 800K reserves + ~20M family members",
+    "description": "U.S. military veterans, active-duty service members, and their immediate families — bound by shared institutional experience, distinct identity markers, and unique life-transition patterns (PCS moves, deployments, separations). Military affiliation shapes purchasing decisions across every category, with military discounts being a primary wireless switching driver.",
+    "telcoRelevance": "PCS moves (500K+/yr) are a repeat switching trigger every 2-3 years. Military discount is a top-3 switching driver. Deployment creates plan suspension/reactivation cycles. Separation from service triggers transition from military-affiliated to civilian plans. Brand loyalty to military-friendly companies is exceptionally strong and community-amplified.",
+    "originatingTrends": ["MT-11 (Veteran and Military-Connected Identity) — Path A+B"],
+    "tier2Segments": ["T2-19: Military Spouses (household plan decision-maker and community organizer)"],
+    "acquisitionMoment": "PCS move",
+    "acquisitionComposite": 3.61,
+    "acquisitionWindow": "Short — seasonal May-Aug",
+    "pass1": {
+      "identityIntensity": 5,
+      "carrierMobility": 5,
+      "painDemand": 4,
+      "marketSize": 4,
+      "brandEquity": 5,
+      "score": 4.65,
+      "notes": {
+        "identityIntensity": "\"Once a Marine, always a Marine.\" Veteran self-labels appear in bios, financial decisions, brand loyalty. USAA analogy: brand loyalty exceptional and community-amplified.",
+        "carrierMobility": "PCS moves (500K+/yr) repeat every 2-3 years. Deployment plan cycles. Separation triggers civilian plan transition. Maximum structural switching frequency.",
+        "painDemand": "All three major carriers compete on military discounts, creating a race to zero. Community pain: \"every carrier has a military plan but none feels built for us.\" Deployment plan management is a documented frustration.",
+        "marketSize": "~40M military-connected adults. Post-9/11 veteran cohort (4.5M) in prime earning years. Stable mid-size market with strong brand loyalty.",
+        "brandEquity": "\"USAA of mobile\" opportunity is completely unclaimed. No carrier has built USAA-level community trust. PureTalk (veteran-owned) is micro-scale. Durable community embedding is the white space."
+      }
+    },
+    "pass2": {
+      "carrierPresence": 2,
+      "differentiationPotential": 4,
+      "regulatoryBarriers": 4,
+      "brandLoyaltyIncumbents": 3,
+      "score": 3.25,
+      "notes": {
+        "carrierPresence": "T-Mobile Magenta Military, AT&T First Responder, Verizon Military, Boost deployed program, PureTalk — maximum competition from all three major carriers.",
+        "differentiationPotential": "PCS move support tooling, deployment suspension without bureaucracy, milspouse community partnership (Blue Star Families), SCRA handled correctly — none of this exists today.",
+        "regulatoryBarriers": "SCRA creates plan management requirements incumbents handle poorly — compliance knowledge is a differentiator, not a barrier.",
+        "brandLoyaltyIncumbents": "T-Mobile has genuine military loyalty via sustained discount programs. AT&T and Verizon have price loyalty but not community trust. PureTalk has micro-scale authenticity."
+      }
+    },
+    "confidence": 4,
+    "confidenceMultiplier": 1.15,
+    "adjustedScore": 3.63,
+    "quadrant": "BUILD",
+    "strategyNote": "The USAA of mobile opportunity. No carrier has authentically embedded in the military community at the trust level USAA achieved in financial services. PCS support tooling + milspouse community + SCRA compliance differentiation."
+  },
+  {
+    "id": "T1-03",
+    "rank": 2,
+    "name": "Independent Workers (Creators, Solopreneurs, Freelancers)",
+    "population": "~60M",
+    "populationNote": "64M freelanced in past 12 months (Upwork 2024); projected 80M+ by 2030",
+    "description": "Americans earning income outside traditional W-2 employment through content creation, freelancing, gig work, consulting, or micro-business ownership. Their phone is their primary business tool and connectivity directly impacts their income. The creator economy ($250B+ by 2025) and independent work movement represent a structural shift in how Americans earn.",
+    "telcoRelevance": "Phone is the primary business tool — connectivity uptime directly equals revenue. Need reliable hotspot, unlimited data, and multi-device plans. Business write-off potential makes them less price-sensitive on premium plans. High data consumers (video upload/streaming, cloud tools). Algorithm changes create acute connectivity reassessment moments.",
+    "originatingTrends": ["MT-03 (Creator Economy)", "MT-14 (Solopreneurship and AI-Enabled Micro-Business)"],
+    "tier2Segments": [
+      "T2-05: Full-Time Content Creators (highest identity intensity)",
+      "T2-06: AI-Native Solopreneurs (tech-forward early adopter gateway)"
+    ],
+    "acquisitionMoment": "Quitting day job for full-time creation / leaving W-2",
+    "acquisitionComposite": 3.30,
+    "acquisitionWindow": "Extended (months 1-4 post-transition)",
+    "pass1": {
+      "identityIntensity": 5,
+      "carrierMobility": 4,
+      "painDemand": 4,
+      "marketSize": 4,
+      "brandEquity": 5,
+      "score": 4.45,
+      "notes": {
+        "identityIntensity": "\"Creator\" and \"solopreneur\" are primary self-labels, not job descriptions. Going full-time is a celebrated rite of passage. #buildinpublic, VidCon, Podcast Movement are strong tribal rituals.",
+        "carrierMobility": "Primarily individual-plan buyers. Business write-off makes them less price-resistant on premium. Platform shifts create acute connectivity reassessment moments.",
+        "painDemand": "Connectivity is revenue — downtime has direct income impact. Hotspot reliability, upload speeds for video, multi-device plans are genuine unmet needs expressed loudly in creator communities.",
+        "marketSize": "~64M freelanced past 12 months (Upwork 2024). Creator economy at $250B+ growing toward $480B by 2027. Growing 5-10M/yr.",
+        "brandEquity": "No carrier has claimed the creator or solopreneur identity. The \"creator's carrier\" — understanding the hustle — is entirely unclaimed. High ritual integration potential (launch day perks, creator bundles)."
+      }
+    },
+    "pass2": {
+      "carrierPresence": 4,
+      "differentiationPotential": 5,
+      "regulatoryBarriers": 5,
+      "brandLoyaltyIncumbents": 4,
+      "score": 4.50,
+      "notes": {
+        "carrierPresence": "Google Fi has tech-forward adjacent positioning. US Mobile offers customizable plans. Visible serves individual buyers. No carrier has creator-identity-native positioning.",
+        "differentiationPotential": "No carrier has \"launch day\" plan perks, upload-optimized messaging, integration with Patreon/Substack/YouTube Creator Academy. Emotional dimension completely open.",
+        "regulatoryBarriers": "No regulatory constraints.",
+        "brandLoyaltyIncumbents": "Google Fi has some affinity among tech-literate creators but no deep community integration. No carrier has community trust with this population."
+      }
+    },
+    "confidence": 4,
+    "confidenceMultiplier": 1.0,
+    "adjustedScore": 3.58,
+    "quadrant": "BUILD",
+    "strategyNote": "Highest Pass 2 score in pipeline (4.50). \"The creator's carrier\" opportunity is entirely unclaimed. Integrate with creator ecosystem: VidCon, Podcast Movement, #buildinpublic. Plan features around creator workflow — upload priority, launch-day data boosts."
+  },
+  {
+    "id": "T1-02",
+    "rank": 3,
+    "name": "Solo Living Americans",
+    "population": "~38M",
+    "populationNote": "Adults in single-person households; projected 40M+ by 2028",
+    "description": "Adults living alone — a population that grew from 17% of U.S. households in 1970 to 29% today. Includes intentionally single adults, post-divorce rebuilders, first-time independent adults, and widowed seniors. Solo living reshapes consumer economics: every expense is borne by one income and every plan decision is autonomous.",
+    "telcoRelevance": "100% individual-plan buyers — no family plan subsidies, no partner-driven inertia. High switching mobility with no coordination friction. Plan dissolution events (divorce, breakup, aging off parent plan) create forced switching. Price sensitivity due to single-income economics. Single-line rates average 40-60% higher than per-line family plans — a structural pain point.",
+    "originatingTrends": ["MT-02 (Solo Living and Intentional Singlehood)", "MT-18 (Divorce — overlap via post-divorce solo living)"],
+    "tier2Segments": [
+      "T2-03: Intentionally Single Women (highest long-term brand loyalty potential)",
+      "T2-04: First-Time Independent Adults (highest-intent acquisition moment — Composite 4.00)"
+    ],
+    "acquisitionMoment": "Post-college first solo apartment / leaving parent's plan",
+    "acquisitionComposite": 4.00,
+    "acquisitionWindow": "Short — May-Aug seasonal peak",
+    "pass1": {
+      "identityIntensity": 3,
+      "carrierMobility": 5,
+      "painDemand": 4,
+      "marketSize": 4,
+      "brandEquity": 3,
+      "score": 3.75,
+      "notes": {
+        "identityIntensity": "\"Solo by choice\" and \"self-partnered\" are authentic self-labels at T2-03 core. T2-04 uses \"adulting\" as powerful but temporary life-stage identity. T1 level diluted by widowed seniors and reluctant solos.",
+        "carrierMobility": "100% individual-plan buyers. Lowest switching friction in the market. Forced switching events are structurally embedded (divorce, breakup, aging off). Price sensitivity creates active comparison shopping.",
+        "painDemand": "T2-04 has acute demand: they must get their own plan. Single-line pricing penalty (40-60% above per-line family) is explicit, communal frustration in financial communities.",
+        "marketSize": "~38M adults in single-person households (Census 2023). Projected 40M+ by 2028. Strong growth driven by declining marriage rates.",
+        "brandEquity": "\"Built for one\" positioning has appeal but identity is fragmented across life stages. Intentional singlehood (T2-03) has genuine brand-equity potential — no carrier sees solo living as an identity."
+      }
+    },
+    "pass2": {
+      "carrierPresence": 4,
+      "differentiationPotential": 4,
+      "regulatoryBarriers": 5,
+      "brandLoyaltyIncumbents": 4,
+      "score": 4.25,
+      "notes": {
+        "carrierPresence": "Mint Mobile and Visible have functional overlap (price-conscious individuals) but no solo-identity positioning. No carrier addresses solo living as identity.",
+        "differentiationPotential": "\"Built for one\" plan architecture, solo-specific pricing that doesn't penalize single lines, integration with solo life milestones — none of this exists in the market today.",
+        "regulatoryBarriers": "No regulatory constraints.",
+        "brandLoyaltyIncumbents": "Solo householders are among the least carrier-loyal segments — they switch for $10/mo savings. No carrier has earned community trust among solo-living populations."
+      }
+    },
+    "confidence": 4,
+    "confidenceMultiplier": 1.0,
+    "adjustedScore": 3.20,
+    "quadrant": "BUILD",
+    "strategyNote": "Strongest Carrier Mobility in pipeline (5). T2-04 First-Time Independent Adults has Composite 4.00 acquisition moment with clear May-Aug seasonal window. Eliminate the single-line pricing penalty to earn immediate community trust."
+  },
+  {
+    "id": "T1-15",
+    "rank": 4,
+    "name": "First-Generation Americans (Foreign-Born U.S. Residents)",
+    "population": "~52M",
+    "populationNote": "Peaked at 53.3M (Jan 2025); declining due to negative net migration (Brookings 2026)",
+    "description": "Foreign-born individuals living in the United States — naturalized citizens, LPRs, temporary visa holders, and undocumented immigrants. The foreign-born population peaked at 53.3M but is now declining amid historic net-negative migration. This population's wireless needs are structurally distinct: international calling, credit-building barriers, greenfield acquisition upon arrival, and community-mediated brand selection.",
+    "telcoRelevance": "Contains the purest greenfield acquisition moment in U.S. wireless (new arrival, Switching Intent 5.0, Composite 4.20 — highest in the entire Macro-Moment Map). International calling to countries of origin is non-negotiable. Prepaid/MVNO over-representation creates structured postpaid upgrade path. Community-mediated brand selection means word-of-mouth in ethnic enclaves is the primary acquisition channel.",
+    "originatingTrends": ["MT-17 (Immigration and New American Identity) — Path B"],
+    "tier2Segments": [
+      "T2-23: DACA/TPS Recipients and Long-Term Undocumented Residents",
+      "T2-24: High-Skill Visa Holders and New Professional Immigrants (lower competition, higher ARPU)"
+    ],
+    "acquisitionMoment": "New U.S. arrival",
+    "acquisitionComposite": 4.20,
+    "acquisitionWindow": "Flash to Short — days 1-14 post-arrival",
+    "pass1": {
+      "identityIntensity": 4,
+      "carrierMobility": 5,
+      "painDemand": 5,
+      "marketSize": 4,
+      "brandEquity": 5,
+      "score": 4.50,
+      "notes": {
+        "identityIntensity": "Immigrant identity is a sustained, deeply-felt self-label. T2-23 (DACA/TPS) has acute identity intensity shaped by legal precarity. Ethnic community infrastructure is extraordinarily well-developed.",
+        "carrierMobility": "New-arrival moment is Switching Intent 5.0 — the single highest-intent acquisition moment in the entire pipeline. Greenfield acquisition with no incumbent. International calling is non-negotiable.",
+        "painDemand": "International calling is an explicit, expressed, recurring need. Credit barriers limit postpaid access. Bilingual customer service is a recurring complaint. Pain is specific, communal, and commercially validated.",
+        "marketSize": "~52M foreign-born residents. Ongoing secondary transitions (naturalization, prepaid-to-postpaid) create sustained commercial activity even as new arrivals decline.",
+        "brandEquity": "Word-of-mouth within ethnic enclaves is the primary acquisition channel. \"The carrier that was there for us\" is a durable brand narrative. No mainstream U.S. carrier has built authentic immigrant-community trust."
+      }
+    },
+    "pass2": {
+      "carrierPresence": 2,
+      "differentiationPotential": 4,
+      "regulatoryBarriers": 3,
+      "brandLoyaltyIncumbents": 3,
+      "score": 3.00,
+      "notes": {
+        "carrierPresence": "Ultra Mobile (T-Mobile subsidiary), TracFone/Straight Talk (Verizon), specialty ethnic MVNOs (Lycamobile, Movistar) — actively served.",
+        "differentiationPotential": "Authentic cultural trust (ITIN-based access, first-language service in Spanish/Mandarin/Hindi/Tagalog, IRC/HIAS partnerships) — the community-integration gap is enormous.",
+        "regulatoryBarriers": "Immigration status creates ITIN-only account complexity. Requires specific compliance infrastructure.",
+        "brandLoyaltyIncumbents": "Ultra Mobile has brand recognition; Lycamobile has niche loyalty. No carrier has USAA-level community embedding."
+      }
+    },
+    "confidence": 4,
+    "confidenceMultiplier": 1.0,
+    "adjustedScore": 3.00,
+    "quadrant": "COMPETE",
+    "strategyNote": "Highest Carrier Mobility + Pain combination after T1-16. Displacement target: Ultra Mobile. Strategy: community trust-building that a T-Mobile subsidiary cannot credibly execute — authentic ethnic-community partnership vs. corporate Spanish-language marketing."
+  },
+  {
+    "id": "T1-07",
+    "rank": 5,
+    "name": "Financial Independence-Minded Americans",
+    "population": "~40-50M",
+    "populationNote": "FIRE core 3-5M; r/personalfinance 19M+ members; 54% of Americans track spending actively",
+    "description": "Adults actively pursuing financial independence, aggressive debt payoff, or early retirement through systematic saving and expense optimization. These people audit every subscription, optimize every recurring expense, and view wireless plans as a line item to minimize. The behavioral throughline: they comparison-shop carriers annually and share recommendations in financial forums.",
+    "telcoRelevance": "Price is the #1 decision factor. These consumers comparison-shop wireless annually, use MVNO calculators, and view switching as a financial optimization win. Most likely segment in America to switch for a $10/mo savings. High responsiveness to transparent pricing, no-contract terms, and value certification.",
+    "originatingTrends": ["MT-07 (Financial Autonomy Movement)"],
+    "tier2Segments": [
+      "T2-13: FIRE Practitioners (r/financialindependence 2.5M — primary distribution channel)"
+    ],
+    "acquisitionMoment": "Geographic arbitrage relocation",
+    "acquisitionComposite": 3.06,
+    "acquisitionWindow": "Extended",
+    "pass1": {
+      "identityIntensity": 4,
+      "carrierMobility": 5,
+      "painDemand": 4,
+      "marketSize": 3,
+      "brandEquity": 3,
+      "score": 3.95,
+      "notes": {
+        "identityIntensity": "FIRE is a genuine identity movement — \"my FI number,\" \"VTSAX and chill,\" spreadsheet culture, CampFI. r/financialindependence 2.5M members. Strong community infrastructure.",
+        "carrierMobility": "Most likely segment in America to switch for $10/mo savings. No-contract requirement is non-negotiable. They actively share carrier recommendations in financial forums. Maximum switching mobility.",
+        "painDemand": "r/personalfinance has hundreds of \"is [carrier] worth it?\" threads. FIRE communities share MVNO optimization strategies. Dissatisfaction with traditional carrier pricing is a defining community discourse.",
+        "marketSize": "40-50M adults actively managing finances toward independence. FIRE core is 3-5M with 30M+ adjacent. Meaningful but not top-tier scale.",
+        "brandEquity": "A carrier built for \"financial optimizers\" has genuine appeal (transparent pricing, no hidden fees, value certification). But FIRE practitioners are brand-skeptical — looking for value, not an identity carrier."
+      }
+    },
+    "pass2": {
+      "carrierPresence": 3,
+      "differentiationPotential": 3,
+      "regulatoryBarriers": 5,
+      "brandLoyaltyIncumbents": 3,
+      "score": 3.50,
+      "notes": {
+        "carrierPresence": "Mint Mobile ($15-30/mo), Visible ($19-25/mo), US Mobile ($10-35/mo) are well-known and actively recommended in r/personalfinance and FIRE subreddits.",
+        "differentiationPotential": "Functional differentiation is hard. Emotional differentiation (understanding financial independence) is possible but FIRE practitioners will ultimately choose value over brand narrative.",
+        "regulatoryBarriers": "No regulatory constraints.",
+        "brandLoyaltyIncumbents": "Mint Mobile has genuine brand affinity (Ryan Reynolds humor landed with frugality-positive community). r/personalfinance regularly recommends Mint and Visible."
+      }
+    },
+    "confidence": 4,
+    "confidenceMultiplier": 1.0,
+    "adjustedScore": 2.98,
+    "quadrant": "COMPETE",
+    "strategyNote": "Primary obstacle: Mint Mobile's brand affinity in FIRE communities. Gather's angle: surpass on transparency + exploit T-Mobile ownership as a credibility vulnerability with a community that values independence. FIRE practitioners value genuinely independent MVNOs."
+  },
+  {
+    "id": "T1-16",
+    "rank": 6,
+    "name": "Divorcing and Post-Divorce Americans",
+    "population": "~35M",
+    "populationNote": "~23M currently divorced + ~12M recently divorced; ~1.33M new divorces/year",
+    "description": "Adults currently navigating divorce or rebuilding after relationship dissolution. Divorce forces plan dissolution for at least one party because carriers require account-owner authorization for line removal — structurally pushing the departing spouse to switch carriers entirely. Includes standard divorce (30-45), gray divorce (50+, now 40% of all divorces), and resulting single-parent households (~10M).",
+    "telcoRelevance": "Forced plan dissolution for at least one party (Switching Intent 4.6, Compulsion 5). Carrier administrative friction at divorce structurally pushes the departing spouse toward a full carrier switch. January \"Divorce Month\" creates seasonal concentration. Gray divorce compounds with retirement and aging-in-place dynamics. Single parenthood creates ongoing co-parenting plan management needs.",
+    "originatingTrends": ["MT-18 (Divorce and Relationship Dissolution Identity) — Path A+B"],
+    "tier2Segments": [
+      "T2-25: Gray Divorcees 50+ (fast-growing — now 40% of all divorces; compound with aging-in-place)",
+      "T2-26: Divorcing Single Parents (highest-urgency need; long-term relationship)"
+    ],
+    "acquisitionMoment": "Divorce finalization",
+    "acquisitionComposite": 3.76,
+    "acquisitionWindow": "Short — 2 weeks to 3 months post-filing",
+    "pass1": {
+      "identityIntensity": 3,
+      "carrierMobility": 5,
+      "painDemand": 5,
+      "marketSize": 3,
+      "brandEquity": 3,
+      "score": 3.80,
+      "notes": {
+        "identityIntensity": "\"Thriving post-divorce\" and \"divorce glow-up\" communities emerging. DivorceCare (15K+ annual groups), divorce-tech platforms (HelloDivorce, OurFamilyWizard) provide real identity infrastructure.",
+        "carrierMobility": "Switching Intent 4.6, Compulsion 5 — one of the most forced-switching events in wireless. Not preference but structural necessity. January \"Divorce Month\" creates seasonal concentration.",
+        "painDemand": "Carriers make plan dissolution actively difficult — bureaucratic processes at an already-stressful moment. Departing spouse must start fresh because account-owner auth prevents splitting. Clearest pain-to-acquisition moment in the pipeline.",
+        "marketSize": "~35M currently divorced adults. ~1.33M new divorces/year. Smaller than other T1s but consistently replenished. Gray divorce trending up (now 40% of all divorces).",
+        "brandEquity": "\"The carrier that makes leaving easier\" has genuine brand appeal. DivorceCare integration, co-parenting plan management, single-parent features. Moment-defined identity — strong but may not sustain at veteran/immigrant level."
+      }
+    },
+    "pass2": {
+      "carrierPresence": 5,
+      "differentiationPotential": 5,
+      "regulatoryBarriers": 4,
+      "brandLoyaltyIncumbents": 5,
+      "score": 4.75,
+      "notes": {
+        "carrierPresence": "No carrier markets to divorcing individuals. No carrier has a plan dissolution service or divorce-friendly account management. Complete white space in positioning terms.",
+        "differentiationPotential": "Make line separation easy (no authorization bureaucracy, one-call dissolution, new plan in 15 minutes). Co-parenting plan features (two households, child line management) entirely unaddressed.",
+        "regulatoryBarriers": "Standard MVNO environment with some complexity around account authorization.",
+        "brandLoyaltyIncumbents": "No carrier has earned trust with divorcing adults. DivorceCare and HelloDivorce are the trusted brands — carrier partnership is the channel play."
+      }
+    },
+    "confidence": 3,
+    "confidenceMultiplier": 1.15,
+    "adjustedScore": 2.95,
+    "quadrant": "BUILD",
+    "strategyNote": "Highest Pass 2 (Competitive Landscape) score in pipeline (4.75). Completely open competitive white space. Strategy: make plan dissolution frictionless, partner with DivorceCare (15K+ groups) and HelloDivorce, build co-parenting plan features. Path A+B validation confirms durable identity community."
+  },
+  {
+    "id": "T1-06",
+    "rank": 7,
+    "name": "Remote-Capable Workers",
+    "population": "~60M",
+    "populationNote": "~60% of knowledge workers can work remotely (Stanford WFH Research 2024, BLS 2024)",
+    "description": "Americans whose jobs can be performed remotely — fully remote, hybrid, or negotiating return-to-office mandates. Their connectivity needs are structurally different: home internet reliability, mobile hotspot as backup, and coverage in non-urban locations all matter more than proximity to urban cell towers.",
+    "telcoRelevance": "Connectivity is a work tool — downtime costs income. Need for reliable home coverage + mobile hotspot. Remote-work relocators (5-10M have moved) create coverage reassessment triggers. RTO mandates create plan re-evaluation. Multi-device households create plan upsell opportunities.",
+    "originatingTrends": ["MT-06 (Remote and Distributed Work)"],
+    "tier2Segments": [
+      "T2-11: Digital Nomads (highest identity intensity; highest brand-equity potential)",
+      "T2-12: Return-to-Office Resisters (strong oppositional identity)"
+    ],
+    "acquisitionMoment": "Remote-work relocation",
+    "acquisitionComposite": 3.26,
+    "acquisitionWindow": "Extended",
+    "pass1": {
+      "identityIntensity": 3,
+      "carrierMobility": 3,
+      "painDemand": 4,
+      "marketSize": 5,
+      "brandEquity": 3,
+      "score": 3.50,
+      "notes": {
+        "identityIntensity": "T2-11 Digital Nomads have strong identity (\"location-independent,\" Nomad List). T2-12 RTO Resisters have strong oppositional identity. T1 level includes millions who work remote without strong identity framing.",
+        "carrierMobility": "Remote-work relocators are high-mobility due to coverage reassessment. RTO mandates create job-switching that triggers plan reassessment. Majority on stable household plans with inertia.",
+        "painDemand": "\"Connectivity is my work tool\" is real and expressed. Coverage gaps at home, hotspot reliability, backup internet actively discussed in remote work communities. Stronger expressed pain than most segments.",
+        "marketSize": "~60M workers in remote-capable occupations. Very large population.",
+        "brandEquity": "Google Fi, Visible, and US Mobile have adjacent claims. Remote work is too broad at T1 for durable brand equity. T2-11 Digital Nomads have significantly higher brand-equity potential."
+      }
+    },
+    "pass2": {
+      "carrierPresence": 3,
+      "differentiationPotential": 3,
+      "regulatoryBarriers": 5,
+      "brandLoyaltyIncumbents": 4,
+      "score": 3.75,
+      "notes": {
+        "carrierPresence": "Google Fi has \"works wherever you work\" positioning with international data and multi-device support — meaningful overlap. Visible and US Mobile serve this population functionally.",
+        "differentiationPotential": "Functional needs well-served by existing MVNOs. Emotional/identity differentiation for remote culture is more available but requires authentic community integration.",
+        "regulatoryBarriers": "No constraints.",
+        "brandLoyaltyIncumbents": "Google Fi has loyalty among tech workers but no deep community trust. No carrier is embedded in remote work culture meaningfully."
+      }
+    },
+    "confidence": 4,
+    "confidenceMultiplier": 1.0,
+    "adjustedScore": 2.90,
+    "quadrant": "NICHE",
+    "strategyNote": "Google Fi's functional positioning creates real competition. T2-11 Digital Nomads is the highest-conviction sub-entry — their identity intensity and brand-equity potential are significantly higher than the T1 average. Test at T2-11 level before committing to T1."
+  },
+  {
+    "id": "T1-10",
+    "rank": 8,
+    "name": "U.S. Latino Adults",
+    "population": "~42M",
+    "populationNote": "Fastest-growing major demographic; projected 75M+ total by 2035; 1.5M new adult consumers annually",
+    "description": "Hispanic/Latino adults in the United States — the fastest-growing and youngest major demographic group in America. U.S. Latinos are the primary growth driver for wireless subscriptions with above-average household sizes, younger median age (30 vs. 41), and higher smartphone dependency (28% are mobile-only internet users). The population spans from recent immigrants to third-generation Americans.",
+    "telcoRelevance": "Highest telco growth segment in America. Larger household sizes drive multi-line family plans. International calling needs (Latin America). New immigrants are greenfield acquisitions. Mobile-first internet usage (28% smartphone-only vs. 15% non-Hispanic white). Prepaid/MVNO over-representation creates postpaid upgrade path. Brand loyalty is strong once established.",
+    "originatingTrends": ["MT-10 (Latino/Hispanic Identity Ascendance)", "MT-17 (Immigration — Latino immigrant subset)"],
+    "tier2Segments": [
+      "T2-17: New Immigrant Americans (dual-parented with T1-15; greenfield acquisition overlap)",
+      "T2-18: U.S.-Born Latino Identity Builders (bicultural millennials/Gen Z)"
+    ],
+    "acquisitionMoment": "Coming of age / first independent plan",
+    "acquisitionComposite": 4.27,
+    "acquisitionWindow": "Rolling — May-Aug seasonal peak",
+    "pass1": {
+      "identityIntensity": 4,
+      "carrierMobility": 4,
+      "painDemand": 4,
+      "marketSize": 5,
+      "brandEquity": 4,
+      "score": 4.15,
+      "notes": {
+        "identityIntensity": "Latino identity has strong cultural markers — bilingualism, family-orientation, orgullo (pride), cultural heritage maintenance. U.S.-born Latinos assert identity against assimilation pressure. Rich identity dynamic.",
+        "carrierMobility": "Greenfield for new immigrants. Prepaid over-representation creates postpaid upgrade path. Largest-household-size demographic drives multi-line plan decisions. 28% smartphone-only creates plan dependency.",
+        "painDemand": "International calling is non-negotiable and consistently underserved. Bilingual customer service frequently cited as friction. Credit barriers for recent immigrants create prepaid-to-postpaid transition pain.",
+        "marketSize": "~42M Latino adults 18+. Fastest-growing major demographic group. 1.5M new adult consumers entering annually.",
+        "brandEquity": "No mainstream telco authentically owns Latino identity. Community makes brand decisions collectively — word-of-mouth within ethnic enclaves is the primary acquisition channel. Authentic brands earn exceptionally durable loyalty."
+      }
+    },
+    "pass2": {
+      "carrierPresence": 2,
+      "differentiationPotential": 3,
+      "regulatoryBarriers": 4,
+      "brandLoyaltyIncumbents": 2,
+      "score": 2.75,
+      "notes": {
+        "carrierPresence": "T-Mobile/Ultra Mobile, Cricket Wireless (AT&T), Metro by T-Mobile, Boost Mobile — all with significant Latino marketing. This segment is actively contested by well-resourced incumbents.",
+        "differentiationPotential": "Identity-native positioning (authentic cultural integration, bilingual service as feature not afterthought, community trust) remains underexplored. Functional needs (international calling, prepaid) are served.",
+        "regulatoryBarriers": "ITIN-only accounts require careful navigation for undocumented segment.",
+        "brandLoyaltyIncumbents": "Metro by T-Mobile and Cricket have genuine brand trust in urban Latino communities with bilingual retail staff."
+      }
+    },
+    "confidence": 4,
+    "confidenceMultiplier": 1.0,
+    "adjustedScore": 2.76,
+    "quadrant": "COMPETE",
+    "strategyNote": "Largest-scale COMPETE opportunity. Entry requires authentic cultural integration, not just Spanish-language translation. T2-17 (New Immigrant Americans) overlaps with T1-15's greenfield acquisition moment — highest-conviction sub-entry within this T1."
+  },
+  {
+    "id": "T1-01",
+    "rank": 9,
+    "name": "Pet-Owning Americans",
+    "population": "~130M",
+    "populationNote": "66% of U.S. households own pets (86.9M households × 1.5 avg adults); projected 70% by 2028",
+    "description": "Americans who own at least one pet and whose consumer behavior, household decisions, and daily routines are shaped by pet care. The $147B pet industry reflects a structural shift from pet-as-property to pet-as-family, with spending growth across food, veterinary care, insurance, technology, and services. This population over-indexes on connected device usage (GPS trackers, cameras, automated feeders).",
+    "telcoRelevance": "Pet-tech ecosystem (cameras, GPS, telehealth) drives data consumption above plan levels. Pet-driven relocations (2-3M/yr) create coverage reassessment. Pet owners making first independent housing decisions often simultaneously leave family wireless plans.",
+    "originatingTrends": ["MT-01 (Pet Parenthood as Core Identity)"],
+    "tier2Segments": [
+      "T2-01: Pet Parents (Child-Free by Choice)",
+      "T2-02: Pet-Tech Power Users (highest-conviction sub-entry point)"
+    ],
+    "acquisitionMoment": "First-time pet adoption",
+    "acquisitionComposite": 3.29,
+    "acquisitionWindow": "Extended (1-6 months post-adoption)",
+    "pass1": {
+      "identityIntensity": 4,
+      "carrierMobility": 3,
+      "painDemand": 3,
+      "marketSize": 5,
+      "brandEquity": 4,
+      "score": 3.75,
+      "notes": {
+        "identityIntensity": "\"Pet parent,\" \"dog mom/dad,\" \"fur baby\" are mainstream self-labels. Gotcha day rituals, breed-specific communities, r/dogs (3.8M+). Strong but 71% household ownership dilutes tribal intensity at T1 level.",
+        "carrierMobility": "45% single/couple-only households reduce family plan lock-in. Pet adoption creates some switching signals but is not a forced-dissolution event. Moderate mobility.",
+        "painDemand": "Data demand from pet-tech ecosystem genuine but rarely surfaces as carrier frustration specifically. Link between pet ownership and telco dissatisfaction is indirect. Pain is latent, not explicit.",
+        "marketSize": "~130M adults in pet-owning households. 71% of U.S. households (94M). Pet sector projected to reach $497B by 2034. Best-in-class scale.",
+        "brandEquity": "No telco owns the \"pet parent\" identity. BarkBox, Chewy, Rover own portions of the ecosystem but none has a connectivity play. High community integration potential — gotcha day offers, pet-tracker plan bundles would be category-creating."
+      }
+    },
+    "pass2": {
+      "carrierPresence": 4,
+      "differentiationPotential": 5,
+      "regulatoryBarriers": 5,
+      "brandLoyaltyIncumbents": 4,
+      "score": 4.50,
+      "notes": {
+        "carrierPresence": "No MVNO or carrier has a pet-parent-branded offering. T-Mobile briefly offered pet insurance bundle (2021, discontinued). White space is substantial.",
+        "differentiationPotential": "No carrier has attempted community integration with pet parent identity — no gotcha day perks, no pet GPS data bundle, no Whistle/Fi GPS platform integration.",
+        "regulatoryBarriers": "No regulatory constraints.",
+        "brandLoyaltyIncumbents": "Pet owners are not brand-loyal to any carrier *because* of pet identity. Their loyalty is to pet brands (BarkBox, Chewy) — creating a clear opening."
+      }
+    },
+    "confidence": 3,
+    "confidenceMultiplier": 1.0,
+    "adjustedScore": 2.48,
+    "quadrant": "NICHE",
+    "strategyNote": "Attractive identity and favorable competitive landscape, but confidence is moderate and telco link is indirect. T2-02 Pet-Tech Power Users is the highest-conviction sub-entry point. Test via GPS tracker plan bundle before committing to full brand architecture."
+  },
+  {
+    "id": "T1-09",
+    "rank": 10,
+    "name": "Aging-in-Place Adults 60+",
+    "population": "~55M",
+    "populationNote": "73M adults 60+ total; ~55M living independently; 10,000 Americans turn 65 daily through 2027",
+    "description": "Americans aged 60+ living independently who intend to remain in their homes rather than moving to assisted living. The \"Peak 65\" phenomenon means this population is growing faster than any other demographic segment. They are adopting technology at unprecedented rates — medical alert devices, telehealth, smart home systems — creating a connectivity-dependent aging infrastructure.",
+    "telcoRelevance": "Transitioning from employer-provided or family plans to individual retirement plans. Need for reliable coverage at home (telehealth, medical alerts). Simplified plan structures preferred. Senior discounts are a primary switching motivator. Sandwich-generation children often manage parents' wireless — creating dual-decision-maker dynamics.",
+    "originatingTrends": ["MT-09 (Aging in Place and the Longevity Economy)"],
+    "tier2Segments": [
+      "T2-15: Tech-Adaptive Seniors (less served by Lively's simplified-device model)",
+      "T2-16: Sandwich Generation Caregivers"
+    ],
+    "acquisitionMoment": "Retirement",
+    "acquisitionComposite": 3.31,
+    "acquisitionWindow": "Extended — month 1-3 post-retirement",
+    "pass1": {
+      "identityIntensity": 2,
+      "carrierMobility": 4,
+      "painDemand": 4,
+      "marketSize": 5,
+      "brandEquity": 3,
+      "score": 3.35,
+      "notes": {
+        "identityIntensity": "\"Senior\" is an age category, not a self-selected identity. T2-15 (tech-adaptive seniors) has slightly stronger identity through device communities. \"Active senior\" is reclaimed but not a tribal switching community.",
+        "carrierMobility": "Retirement triggers plan transition from employer to individual. Fixed-income pressure drives senior-discount seeking. Sandwich generation children manage parents' plans — dual-decision-maker dynamic. Score 4.",
+        "painDemand": "Seniors are vocal about billing complexity, customer service failures, and senior discount confusion. Consumer Cellular and Lively exist specifically because major carriers fail this population.",
+        "marketSize": "~55M adults 60+ living independently. 10,000 turn 65 daily. \"Peak 65\" is the largest demographic wave in U.S. history.",
+        "brandEquity": "Consumer Cellular and Lively already exist. Room for a carrier connecting seniors to community (grandchildren, local social networks) rather than just simplifying the phone."
+      }
+    },
+    "pass2": {
+      "carrierPresence": 2,
+      "differentiationPotential": 3,
+      "regulatoryBarriers": 4,
+      "brandLoyaltyIncumbents": 2,
+      "score": 2.75,
+      "notes": {
+        "carrierPresence": "Consumer Cellular (~4M subscribers, AARP-endorsed), Lively (Jitterbug), T-Mobile 55+, AT&T senior discounts, Verizon senior discounts — segment actively contested.",
+        "differentiationPotential": "Functional needs well-served. Emotional differentiation — a carrier connecting aging adults to community — is underexplored.",
+        "regulatoryBarriers": "ACP/Lifeline programs create regulatory opportunity for low-income seniors.",
+        "brandLoyaltyIncumbents": "Consumer Cellular has genuine brand trust (AARP endorsement). Lively has niche but strong trust. T-Mobile 55+ has price loyalty."
+      }
+    },
+    "confidence": 4,
+    "confidenceMultiplier": 1.0,
+    "adjustedScore": 2.44,
+    "quadrant": "NICHE",
+    "strategyNote": "Contested competitive landscape with Consumer Cellular and Lively. Worth testing cheaply — particularly T2-15 (tech-adaptive seniors) who are less served by Lively's simplified-device model. Peak 65 wave creates structural growth but requires differentiating from strong incumbents."
+  },
+  {
+    "id": "T1-05",
+    "rank": 11,
+    "name": "Weight-Management Americans",
+    "population": "~50-70M",
+    "populationNote": "42% of adults obese (CDC 2024); GLP-1 prescriptions growing 40%+ CAGR; market projected $100B+ by 2030",
+    "description": "Adults actively managing their weight through pharmaceutical intervention (GLP-1s like Ozempic/Wegovy), fitness programs, or dietary changes. The GLP-1 revolution has transformed weight management from willpower-based to pharmaceutical-assisted. The population spans GLP-1 users (skewing higher income) and fitness communities (anti-pharmaceutical counter-culture) — two communities in tension.",
+    "telcoRelevance": "Telehealth connectivity is real demand (GLP-1 prescriptions managed via telehealth). Health app ecosystem (MyFitnessPal, Noom, CGM monitoring) drives data consumption. Fitness community participation is mobile-mediated. Body transformation can cascade to other subscription reassessments including wireless.",
+    "originatingTrends": ["MT-05 (GLP-1 Revolution and Body Identity Shift)"],
+    "tier2Segments": [
+      "T2-09: GLP-1 Users (emerging identity around Ozempic journey)",
+      "T2-10: Anti-Pharmaceutical Fitness Community (\"natty\" identity, earned transformation)"
+    ],
+    "acquisitionMoment": "Starting GLP-1 medication",
+    "acquisitionComposite": 3.09,
+    "acquisitionWindow": "Extended",
+    "pass1": {
+      "identityIntensity": 3,
+      "carrierMobility": 2,
+      "painDemand": 3,
+      "marketSize": 5,
+      "brandEquity": 2,
+      "score": 3.00,
+      "notes": {
+        "identityIntensity": "T2-09 GLP-1 users have emerging identity (\"Ozempic journey\"). T2-10 natural fitness has strong identity (\"natty\"). But the broad T1 combines two communities in tension. Weight management is a goal, not primarily a self-label.",
+        "carrierMobility": "No specific telco switching trigger related to weight management. GLP-1 users are high-income — likely on postpaid plans with low switching motivation.",
+        "painDemand": "Telehealth connectivity is real demand. But carrier-specific pain is low — not a population actively complaining about their carrier through a health lens.",
+        "marketSize": "50-70M adults actively managing weight. GLP-1 prescriptions growing 40%+ CAGR. Scale is exceptional.",
+        "brandEquity": "A carrier positioning around weight management risks feeling invasive or inappropriate. There is no intuitive reason a carrier would own this identity."
+      }
+    },
+    "pass2": {
+      "carrierPresence": 5,
+      "differentiationPotential": 3,
+      "regulatoryBarriers": 4,
+      "brandLoyaltyIncumbents": 5,
+      "score": 4.25,
+      "notes": {
+        "carrierPresence": "No carrier markets to weight management or health transformation. Genuine white space.",
+        "differentiationPotential": "Differentiation on connectivity alone is hard for this identity. Health brands (Noom, Calibrate, MyFitnessPal) are the natural partners. Carrier brand-fit is weak.",
+        "regulatoryBarriers": "HIPAA-adjacent sensitivities around health data marketing. Requires care.",
+        "brandLoyaltyIncumbents": "No brand owns this identity in telco."
+      }
+    },
+    "confidence": 3,
+    "confidenceMultiplier": 1.0,
+    "adjustedScore": 2.18,
+    "quadrant": "IGNORE",
+    "strategyNote": "Carrier brand-fit is poor — no natural reason a telco should own the weight management identity. Market size is the only strong signal. Telehealth connectivity is a feature, not a brand position. Skip at T1 level."
+  },
+  {
+    "id": "T1-08",
+    "rank": 12,
+    "name": "Spiritually Unaffiliated Americans",
+    "population": "~90M",
+    "populationNote": "28% identify as \"none\" (Pew 2024 = ~73M adults); growing from 16% (2007) to 28% (2024)",
+    "description": "Adults who do not identify with organized religion — the \"nones\" (atheist, agnostic, \"nothing in particular\") plus the growing \"spiritual but not religious\" (SBNR) population. Now the largest religious demographic in America, surpassing Catholics and evangelicals. Many still seek meaning and community through alternative pathways: meditation apps, yoga communities, psychedelic-assisted therapy, and digital wellness spaces.",
+    "telcoRelevance": "Moderate direct relevance. Community-seeking behavior drives app and platform usage (meditation apps, podcast consumption, online communities). Young-adult subset overlaps heavily with \"leaving family plan\" switching trigger — faith departure often coincides with household independence.",
+    "originatingTrends": ["MT-08 (Faith and Spirituality Realignment)"],
+    "tier2Segments": [
+      "T2-14: Secular Mindfulness Practitioners"
+    ],
+    "acquisitionMoment": "Young adult leaving family's faith",
+    "acquisitionComposite": 3.29,
+    "acquisitionWindow": "Extended",
+    "pass1": {
+      "identityIntensity": 3,
+      "carrierMobility": 3,
+      "painDemand": 2,
+      "marketSize": 5,
+      "brandEquity": 2,
+      "score": 3.00,
+      "notes": {
+        "identityIntensity": "\"None\" is a category one leaves behind, not a rallying identity. Atheist communities have strong tribal markers; SBNR has spiritual identity but loose community structure. Moderate overall.",
+        "carrierMobility": "Young adults leaving family faith structures often coincide with household independence — secondary switching moment. Telco-switching link is indirect.",
+        "painDemand": "No specific carrier pain signal. App usage (meditation, podcasts) is real but not carrier-specific frustration.",
+        "marketSize": "~90M adults (Pew 2024). Fastest-growing \"religious\" demographic. Projected 35%+ by 2030.",
+        "brandEquity": "A carrier positioning around secular spirituality faces authenticity challenges — the community is defined by what it is not. No shared positive identity a brand can own."
+      }
+    },
+    "pass2": {
+      "carrierPresence": 5,
+      "differentiationPotential": 2,
+      "regulatoryBarriers": 5,
+      "brandLoyaltyIncumbents": 5,
+      "score": 4.25,
+      "notes": {
+        "carrierPresence": "No carrier markets to the spiritually unaffiliated. Complete white space.",
+        "differentiationPotential": "Differentiation is hard — what does a \"secular\" carrier actually look like? The identity is too fragmented for a coherent brand experience.",
+        "regulatoryBarriers": "No constraints.",
+        "brandLoyaltyIncumbents": "No carrier has community trust with this population."
+      }
+    },
+    "confidence": 3,
+    "confidenceMultiplier": 1.0,
+    "adjustedScore": 2.18,
+    "quadrant": "IGNORE",
+    "strategyNote": "Large market but weak identity-brand fit for telco. The spiritually unaffiliated are not a cohesive identity tribe a carrier can authentically own. Young-adult independence moment is better captured under T1-02 Solo Living and T1-16 Divorce."
+  },
+  {
+    "id": "T1-13",
+    "rank": 13,
+    "name": "Housing-Cost-Burdened Americans",
+    "population": "~45M",
+    "populationNote": "22.4M renter households + 9.7M owner households paying 30%+ of income on housing (Harvard JCHS 2024)",
+    "description": "Adults spending 30%+ of income on housing or pursuing alternative living arrangements due to affordability constraints — including renters priced out of homeownership, van lifers, tiny home residents, and geographic arbitrage movers. The housing affordability crisis is structural, driven by decades of under-building and wage-housing cost divergence.",
+    "telcoRelevance": "Price is the dominant wireless decision factor. Mobile-only internet usage is high (can't afford both broadband and wireless). Geographic mobility creates coverage reassessment. Van lifers and alternative-living populations need coverage in non-traditional locations. Budget-pressure drift is a constant switching motivator.",
+    "originatingTrends": ["MT-13 (Housing Affordability Crisis)", "MT-15 (Climate Adaptation — overlap via climate-driven relocation)"],
+    "tier2Segments": [
+      "T2-21: Van Lifers and Alternative-Living Community (exceptionally strong standalone NICHE identity)"
+    ],
+    "acquisitionMoment": "Geographic arbitrage move",
+    "acquisitionComposite": 3.41,
+    "acquisitionWindow": "Extended",
+    "pass1": {
+      "identityIntensity": 3,
+      "carrierMobility": 4,
+      "painDemand": 4,
+      "marketSize": 4,
+      "brandEquity": 2,
+      "score": 3.45,
+      "notes": {
+        "identityIntensity": "T2-21 (Van Lifers) have exceptionally strong identity — #vanlife is a full lifestyle brand. The broader T1 (housing-cost-burdened) includes millions who are burdened but do not self-label around housing status.",
+        "carrierMobility": "Price pressure creates constant plan-switching motivation. Van lifers switch based on coverage maps. Geographic mobility creates reassessment triggers.",
+        "painDemand": "Van lifers complain loudly about coverage in rural/remote areas (r/vandwellers). The community has specific, expressed telco needs: off-grid coverage, hotspot as primary internet.",
+        "marketSize": "~45M housing-cost-burdened adults. Growing — cost-burdened rate increased from 27% to 30% (2019-2024).",
+        "brandEquity": "\"The affordable carrier for people priced out of housing\" is stigmatizing. T2-21 (Van Lifers) has genuine brand-equity potential (\"the carrier that goes where you go\") but T1 framing is disempowering."
+      }
+    },
+    "pass2": {
+      "carrierPresence": 3,
+      "differentiationPotential": 3,
+      "regulatoryBarriers": 5,
+      "brandLoyaltyIncumbents": 4,
+      "score": 3.75,
+      "notes": {
+        "carrierPresence": "Mint Mobile, Visible, MetroPCS are the price-first brands this population gravitates toward. Google Fi has maps-based coverage appeal for van lifers.",
+        "differentiationPotential": "Van lifer-specific positioning (national park coverage, hotspot as primary internet) has whitespace. At T1 level, differentiation is primarily price — a commodity race.",
+        "regulatoryBarriers": "No constraints.",
+        "brandLoyaltyIncumbents": "Price-driven consumers are inherently low-loyalty to any brand."
+      }
+    },
+    "confidence": 3,
+    "confidenceMultiplier": 1.0,
+    "adjustedScore": 2.16,
+    "quadrant": "IGNORE",
+    "strategyNote": "T1 framing (\"housing-cost-burdened\") is too broad and stigmatizing. Price competition against Mint/Visible/Metro is a commodity race. T2-21 Van Lifers is a compelling standalone NICHE that should be evaluated independently as a micro-brand target."
+  },
+  {
+    "id": "T1-04",
+    "rank": 14,
+    "name": "Socially Disconnected Adults Seeking Community",
+    "population": "~50-60M",
+    "populationNote": "58% of adults report loneliness (Cigna 2022); actively-seeking subset ~50-60M",
+    "description": "Americans experiencing significant loneliness or social isolation who are actively seeking connection through third places, community organizations, digital groups, and social activities. The U.S. Surgeon General declared loneliness an epidemic in 2023. The behavioral response — joining run clubs, attending meetups, building online communities — creates a distinct consumption pattern centered on mobile as the gateway to social participation.",
+    "telcoRelevance": "Phone is the primary tool for finding and maintaining social connection — Meetup, Bumble BFF, Discord, run club apps. High app usage and notifications dependency. Recently relocated subset overlaps with geographic switching triggers.",
+    "originatingTrends": ["MT-04 (Loneliness Epidemic and Third-Place Seeking)"],
+    "tier2Segments": [
+      "T2-07: Run Club / Third-Place Community Builders (standalone NICHE potential)",
+      "T2-08: Digital Community Seekers"
+    ],
+    "acquisitionMoment": "Interstate relocation without social network",
+    "acquisitionComposite": 3.66,
+    "acquisitionWindow": "Extended",
+    "pass1": {
+      "identityIntensity": 2,
+      "carrierMobility": 3,
+      "painDemand": 3,
+      "marketSize": 5,
+      "brandEquity": 2,
+      "score": 2.85,
+      "notes": {
+        "identityIntensity": "\"Lonely\" is not an identity people self-label with. T2-07 run club members and T2-08 Discord members have community identity. T1 level is not a self-selected identity tribe.",
+        "carrierMobility": "Recently relocated subset has high mobility. Young adults are individually-planned. But no specific plan-dissolution trigger attached to the broader loneliness experience.",
+        "painDemand": "Mobile is the gateway to social participation apps. Data consumption during social discovery is real. But complaint is about life, not their carrier.",
+        "marketSize": "50-60M adults actively seeking social connection. Cigna 2022: 58% of adults report loneliness.",
+        "brandEquity": "\"Connecting people\" is the foundational carrier promise for every brand — not differentiated positioning. A carrier positioned around loneliness risks being tone-deaf or stigmatizing."
+      }
+    },
+    "pass2": {
+      "carrierPresence": 4,
+      "differentiationPotential": 3,
+      "regulatoryBarriers": 5,
+      "brandLoyaltyIncumbents": 4,
+      "score": 4.00,
+      "notes": {
+        "carrierPresence": "No carrier markets to lonely people. Community-connection framing exists generically but no identity-native play.",
+        "differentiationPotential": "Differentiation is hard because \"connecting people\" is the foundational carrier promise. T2-07 (run club) has clearer differentiation potential.",
+        "regulatoryBarriers": "No constraints.",
+        "brandLoyaltyIncumbents": "No carrier has community trust with this population specifically."
+      }
+    },
+    "confidence": 3,
+    "confidenceMultiplier": 1.0,
+    "adjustedScore": 2.06,
+    "quadrant": "IGNORE",
+    "strategyNote": "\"Lonely\" is not an identity tribe Gather can authentically own at T1. T2-07 Run Club sub-segment has separate standalone potential but cannot elevate the T1. The loneliness moment is better served through the Trigger Events pipeline (interstate relocation) than a brand position."
+  },
+  {
+    "id": "T1-12",
+    "rank": 15,
+    "name": "Mental Health-Active Adults",
+    "population": "~55M",
+    "populationNote": "57.8M adults experienced mental illness in past year (SAMHSA 2024); ~55M in some form of treatment",
+    "description": "Americans actively engaging with mental health care — through therapy, medication, mental health apps, support communities, or workplace wellness programs. Mental health has gone from stigmatized to mainstream, with therapy culture becoming a defining feature of millennial and Gen Z identity. Includes the neurodivergent self-advocacy community (ADHD, autism) whose identity formation is accelerating.",
+    "telcoRelevance": "Reliable video connectivity for telehealth therapy is a care necessity. Mental health app usage drives above-average mobile data consumption. The population's self-care identity makes them receptive to brands that signal empathy and simplicity. Workplace accommodation triggers create switching moments.",
+    "originatingTrends": ["MT-12 (Mental Health Mainstreaming)", "MT-16 (Neurodivergent Identity — overlapping via T2-27)"],
+    "tier2Segments": [
+      "T2-20: Therapy Culture Millennials/Gen Z",
+      "T2-27: Neurodivergent Self-Advocates (ADHD/autism — strongest identity intensity within T1)"
+    ],
+    "acquisitionMoment": "Telehealth adoption",
+    "acquisitionComposite": 3.09,
+    "acquisitionWindow": "Extended",
+    "pass1": {
+      "identityIntensity": 3,
+      "carrierMobility": 2,
+      "painDemand": 3,
+      "marketSize": 5,
+      "brandEquity": 2,
+      "score": 3.00,
+      "notes": {
+        "identityIntensity": "\"Going to therapy\" is a social signal. Neurodivergent identity (ADHD, autism) is a strong self-label. But T1 broad level includes millions who don't self-identify around their mental health.",
+        "carrierMobility": "Workplace accommodation triggers (job changes) create switching moments but are not carrier-specific. Telehealth dependency is real but not a plan-switching driver.",
+        "painDemand": "Reliable video for telehealth is genuine need — dropped calls mid-session are real frustration. But the complaint is about coverage quality, not carrier identity.",
+        "marketSize": "~55M adults actively engaged in mental health care. Very large population.",
+        "brandEquity": "A carrier positioning around mental health has genuine brand risk — the space requires exceptional sensitivity and risks being perceived as exploitative."
+      }
+    },
+    "pass2": {
+      "carrierPresence": 5,
+      "differentiationPotential": 2,
+      "regulatoryBarriers": 3,
+      "brandLoyaltyIncumbents": 5,
+      "score": 3.75,
+      "notes": {
+        "carrierPresence": "No carrier markets to mental health identity. White space.",
+        "differentiationPotential": "No intuitive reason a carrier brand should own mental health identity. Positioning feels forced or exploitative.",
+        "regulatoryBarriers": "HIPAA and mental health privacy regulations create marketing sensitivities.",
+        "brandLoyaltyIncumbents": "No carrier has community trust here."
+      }
+    },
+    "confidence": 3,
+    "confidenceMultiplier": 1.0,
+    "adjustedScore": 2.03,
+    "quadrant": "IGNORE",
+    "strategyNote": "Large market but weak carrier-brand fit. Telehealth connectivity is a feature, not a brand identity. T2-27 (Neurodivergent) has stronger identity intensity but is better pursued as a sub-segment within a broader identity brand. Skip at T1 level."
+  },
+  {
+    "id": "T1-14",
+    "rank": 16,
+    "name": "Climate-Affected Americans",
+    "population": "~40-50M",
+    "populationNote": "~25M Americans affected by major climate disasters annually; cumulative 5-year affected population ~40-50M",
+    "description": "Americans whose lives have been directly disrupted by climate events (wildfires, hurricanes, flooding, extreme heat) or who have relocated and adapted in response to climate risk. This is not \"people who care about climate change\" — it is people whose lived experience has been materially altered by climate impacts.",
+    "telcoRelevance": "Disaster displacement is one of the strongest forced-switching triggers (Intent 4.6 — existing infrastructure destroyed). Post-disaster recovery requires reliable connectivity for FEMA applications, insurance claims, family communication. Climate relocators create geographic switching triggers. Resilience-minded consumers invest in connectivity redundancy.",
+    "originatingTrends": ["MT-15 (Climate Adaptation and Resilience Identity)"],
+    "tier2Segments": [
+      "T2-22: Climate Resilience Community"
+    ],
+    "acquisitionMoment": "Disaster displacement",
+    "acquisitionComposite": 3.46,
+    "acquisitionWindow": "Flash to Short — days 1-7 post-disaster",
+    "pass1": {
+      "identityIntensity": 2,
+      "carrierMobility": 4,
+      "painDemand": 4,
+      "marketSize": 3,
+      "brandEquity": 2,
+      "score": 2.95,
+      "notes": {
+        "identityIntensity": "\"Climate-affected\" is not a self-label. Disaster survivors identify with their event (Harvey survivor, Camp Fire survivor) but not as a cohesive tribe. Resilience identity is emerging but thin.",
+        "carrierMobility": "Disaster displacement is one of the highest forced-switching triggers. Post-disaster recovery requires new plan establishment. Climate relocators create geographic switching triggers.",
+        "painDemand": "In disaster moments, connectivity is life-critical — FEMA, insurance, family. The pain is acute and time-critical. Resilience-minded consumers invest in connectivity redundancy.",
+        "marketSize": "~40-50M adults directly affected by climate events in past 5 years. But annual new-affected population is ~25M — ongoing but diffuse.",
+        "brandEquity": "\"Disaster-ready carrier\" has appeal for preparedness sub-community but too niche for T1-level brand building. Climate-affected framing is too negative for brand association."
+      }
+    },
+    "pass2": {
+      "carrierPresence": 4,
+      "differentiationPotential": 3,
+      "regulatoryBarriers": 4,
+      "brandLoyaltyIncumbents": 4,
+      "score": 3.75,
+      "notes": {
+        "carrierPresence": "No carrier has disaster-specific or climate-resilience positioning. T-Mobile and Verizon market network resilience after disasters but as infrastructure messaging, not identity.",
+        "differentiationPotential": "Disaster-response connectivity kits, satellite backup (Starlink/T-Mobile integration) offer feature angles. But feature-level, not identity-brand differentiation.",
+        "regulatoryBarriers": "FCC has disaster-relief regulations and priority access provisions. Navigable.",
+        "brandLoyaltyIncumbents": "Post-disaster, consumers are in emergency mode and grab the first working carrier — low brand loyalty dynamics."
+      }
+    },
+    "confidence": 3,
+    "confidenceMultiplier": 1.0,
+    "adjustedScore": 2.01,
+    "quadrant": "IGNORE",
+    "strategyNote": "Switching trigger is real but identity-brand fit is weak. Disaster displacement is better served through momentary offers (30-day plans, emergency connectivity) via the Moments pipeline — not a durable identity brand."
+  }
+]

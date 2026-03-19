@@ -287,7 +287,7 @@ async function initScene1(container) {
 .s1-scoring-rows { padding: 4px 0; flex: 1; overflow-y: auto; }
 
 .s1-scoring-row {
-  display: grid; grid-template-columns: 1fr 50px 56px;
+  display: grid; grid-template-columns: 1fr 50px 56px 70px;
   gap: 8px; align-items: center; padding: 10px 16px;
   border-bottom: 1px solid rgba(255,255,255,0.03);
   opacity: 0; transform: translateY(8px);
@@ -879,14 +879,14 @@ async function initScene1(container) {
 
   // Candidate personas mapped to brands for scoring
   var scoringCandidates = [
-    { persona: 'm8', brand: 'Specter', scores: { identity: 82, market: 68, confidence: 78, switching: 85, channel: 70 }, composite: 8.4, verdict: 'selected' },
+    { persona: 'p029', brand: 'Specter', scores: { identity: 82, market: 68, confidence: 78, switching: 85, channel: 70 }, composite: 8.4, verdict: 'selected' },
     { persona: 'M1', brand: 'Kin Mobile', scores: { identity: 85, market: 90, confidence: 55, switching: 45, channel: 55 }, composite: 7.8, verdict: 'passed' },
-    { persona: 'm1', brand: 'Solo', scores: { identity: 78, market: 75, confidence: 68, switching: 52, channel: 68 }, composite: 7.5, verdict: 'passed' },
-    { persona: 's4', brand: 'Soloist', scores: { identity: 71, market: 82, confidence: 60, switching: 65, channel: 60 }, composite: 7.2, verdict: 'passed' },
-    { persona: 'm6', brand: 'Mutt Mobile', scores: { identity: 75, market: 70, confidence: 62, switching: 48, channel: 62 }, composite: 6.9, verdict: 'passed' },
-    { persona: 'M2', brand: 'Vault', scores: { identity: 68, market: 55, confidence: 48, switching: 60, channel: 48 }, composite: 6.5, verdict: 'passed' },
-    { persona: 's2', brand: '—', scores: { identity: 55, market: 72, confidence: 45, switching: 38, channel: 45 }, composite: 5.8, verdict: 'failed' },
-    { persona: 's5', brand: '—', scores: { identity: 35, market: 58, confidence: 30, switching: 30, channel: 42 }, composite: 4.2, verdict: 'failed' },
+    { persona: 'M2', brand: 'Solo', scores: { identity: 78, market: 75, confidence: 68, switching: 52, channel: 68 }, composite: 7.5, verdict: 'passed' },
+    { persona: 'p046', brand: 'Soloist', scores: { identity: 71, market: 82, confidence: 60, switching: 65, channel: 60 }, composite: 7.2, verdict: 'passed' },
+    { persona: 'p018', brand: 'Trailhead', scores: { identity: 75, market: 70, confidence: 62, switching: 48, channel: 62 }, composite: 6.9, verdict: 'passed' },
+    { persona: 'M7', brand: 'Efficient', scores: { identity: 68, market: 55, confidence: 48, switching: 60, channel: 48 }, composite: 6.5, verdict: 'passed' },
+    { persona: 's08', brand: 'Afford', scores: { identity: 55, market: 72, confidence: 45, switching: 38, channel: 45 }, composite: 5.8, verdict: 'failed' },
+    { persona: 's05', brand: 'Pilot', scores: { identity: 35, market: 58, confidence: 30, switching: 30, channel: 42 }, composite: 4.2, verdict: 'failed' },
   ];
 
   var dimColors = { identity: '#a29bfe', market: '#74b9ff', confidence: '#f0c27a', switching: '#e17055', channel: '#10b981' };
