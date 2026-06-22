@@ -449,6 +449,57 @@
         text-transform: uppercase; letter-spacing: 0.05em;
       }
 
+      /* Ad evolution timeline */
+      .scene5 .s5-evo { margin: 8px 0 20px; }
+      .scene5 .s5-evo-step { display: grid; grid-template-columns: 32px 1fr; column-gap: 12px; }
+      .scene5 .s5-evo-rail { display: flex; flex-direction: column; align-items: center; }
+      .scene5 .s5-evo-node {
+        width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+        display: flex; align-items: center; justify-content: center;
+        font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600;
+        background: rgba(23,23,23,0.95); border: 1px solid rgba(255,255,255,0.15); color: #999;
+      }
+      .scene5 .s5-evo-step.win .s5-evo-node { background: rgba(16,185,129,0.9); color: #000; border-color: transparent; }
+      .scene5 .s5-evo-line { flex: 1; width: 1px; min-height: 16px;
+        background: linear-gradient(180deg, rgba(255,255,255,0.15), rgba(255,255,255,0.04)); }
+      .scene5 .s5-evo-card {
+        background: rgba(23,23,23,0.4); border: 1px solid rgba(38,38,38,0.8);
+        border-radius: 12px; padding: 14px;
+        opacity: 0; transform: translateY(12px); transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+      .scene5 .s5-evo-card.revealed { opacity: 1; transform: none; }
+      .scene5 .s5-evo-step.win .s5-evo-card { border-color: rgba(16,185,129,0.3); }
+      .scene5 .s5-evo-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+      .scene5 .s5-evo-ver { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; color: #fff; letter-spacing: 0.05em; }
+      .scene5 .s5-evo-angle { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #737373; }
+      .scene5 .s5-evo-badge {
+        margin-left: auto; padding: 2px 8px; border-radius: 4px;
+        font-family: 'JetBrains Mono', monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em;
+        background: rgba(255,255,255,0.06); color: #999;
+      }
+      .scene5 .s5-evo-badge.win { background: rgba(16,185,129,0.9); color: #000; }
+      .scene5 .s5-evo-body { display: flex; gap: 14px; }
+      .scene5 .s5-evo-vid {
+        width: 88px; flex-shrink: 0; aspect-ratio: 9/16; object-fit: cover; display: block;
+        border-radius: 6px; border: 1px solid rgba(255,255,255,0.06); background: #111;
+      }
+      .scene5 .s5-evo-info { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+      .scene5 .s5-evo-hyp-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: #525252; margin-bottom: 5px; }
+      .scene5 .s5-evo-hyp { font-size: 13px; line-height: 1.5; color: #d4d4d4; margin-bottom: 14px; }
+      .scene5 .s5-evo-hyp .q { color: #10b981; }
+      .scene5 .s5-evo-result { margin-top: auto; display: flex; align-items: baseline; gap: 10px; }
+      .scene5 .s5-evo-cpl-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: #525252; }
+      .scene5 .s5-evo-cpl-num { font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 600; line-height: 1; }
+      .scene5 .s5-evo-cpl-num.green { color: #10b981; }
+      .scene5 .s5-evo-cpl-num.amber { color: #f59e0b; }
+      .scene5 .s5-evo-cpl-num.red { color: #ef4444; }
+      .scene5 .s5-evo-delta { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #10b981; }
+      .scene5 .s5-evo-learning {
+        display: flex; align-items: flex-start; gap: 8px; padding: 8px 0 8px 2px;
+        font-family: 'JetBrains Mono', monospace; font-size: 10px; line-height: 1.5; color: #737373;
+      }
+      .scene5 .s5-evo-learning .arr { color: #10b981; flex-shrink: 0; }
+
       /* Animated bars */
       .scene5 .s5-bar-chart { margin-bottom: 24px; }
       .scene5 .s5-bar-row {
@@ -869,40 +920,12 @@
     panel.appendChild(el('p', { className: 's5-desc' },
       '3 brands from Brand Creation enter simultaneous Fake Door Tests via Meta Ads. Each brand gets identical budget and targets the persona cluster identified in the pipeline.'));
 
-    // Animated terminal — Meta ads trafficking
+    // Compact launch terminal
     panel.appendChild(typewriterBox('meta-ads-trafficker.sh', [
       '$ gather fdt launch --platform meta --budget 800 --duration 2w',
-      '',
-      '▸ Connecting to Meta Business Manager...',
-      '  ✓ Account: Gather Labs (act_2847291)',
-      '  ✓ Pixel: gl-fdt-pixel (392847102)',
-      '',
-      '▸ Creating campaign: FDT-2026-Q1-Privacy-Cluster',
-      '  Objective:     LEAD_GENERATION',
-      '  Budget:        $800/week × 3 brands = $2,400/week',
-      '  Audience:      Privacy-conscious, 25-45, US metro',
-      '  Placements:    FB Feed, IG Feed, IG Stories, IG Reels',
-      '',
-      '▸ Trafficking SPECTER...',
-      '  Ad Set: specter_privacy_mvno_broad',
-      '  Uploading 3 creatives → Mullvad VPN, Metadata Dashboard, IMSI Rotation',
-      '  Lead form: "Get early access to Specter" → zip + email',
-      '  ✓ Ad Set LIVE — creative review passed',
-      '',
-      '▸ Trafficking MUTT MOBILE...',
-      '  Ad Set: mutt_pet_gps_broad',
-      '  Uploading 3 creatives → Dog GPS, Lost Pet, Pack Walks',
-      '  Lead form: "Join the Mutt waitlist" → zip + email',
-      '  ✓ Ad Set LIVE — creative review passed',
-      '',
-      '▸ Trafficking VAULT...',
-      '  Ad Set: vault_crypto_security_broad',
-      '  Uploading 3 creatives → Cold Storage, SIM Swap Shield, Hardware Key',
-      '  Lead form: "Secure your number with Vault" → zip + email',
-      '  ✓ Ad Set LIVE — creative review passed',
-      '',
-      '▸ All 3 ad sets live. Kill gates armed for Day 7.',
-      '  Dashboard: https://gather.internal/fdt/2026-q1',
+      '  Campaign: FDT-2026-Q1-Privacy-Cluster · LEAD_GENERATION',
+      '  Audience: Privacy-conscious, 25-45, US metro · $2,400/week',
+      '  ✓ 3 ad sets LIVE — Specter, Mutt Mobile, Vault · kill gates armed for Day 7',
     ], 12));
 
     // Brand cards with creative carousels
@@ -958,32 +981,6 @@
     hookSection.appendChild(hookWrap);
     panel.appendChild(hookSection);
 
-    // Kill screen terminal
-    panel.appendChild(typewriterBox('kill-screen-w1.log', [
-      '▸ Processing kill gates for 3 brands...',
-      '',
-      '  SPECTER',
-      '    CPL: $8.20         ■ AMBER  (< $15 ✓)',
-      '    Hook Rate: 4.1%    ■ PASS   (> 1.5% ✓)',
-      '    Form Comp: 62%     ■ PASS   (> 30% ✓)',
-      '    ⟶ CONTINUE',
-      '',
-      '  MUTT MOBILE',
-      '    CPL: $22.40        ■ FAIL   (> $15 ✕)',
-      '    Hook Rate: 1.2%    ■ FAIL   (< 1.5% ✕)',
-      '    Form Comp: 28%     ■ FAIL   (< 30% ✕)',
-      '    ⟶ ✕ KILLED — 3/3 gates failed',
-      '',
-      '  VAULT',
-      '    CPL: $6.80         ■ PASS   (< $15 ✓)',
-      '    Hook Rate: 3.4%    ■ PASS   (> 1.5% ✓)',
-      '    Form Comp: 55%     ■ PASS   (> 30% ✓)',
-      '    ⟶ CONTINUE',
-      '',
-      '▸ 2 brands continue → 1 killed',
-      '▸ Reallocating Mutt budget to survivors',
-    ], 14));
-
     // Status cards
     const grid = el('div', { className: 's5-brand-grid' });
     BRANDS.forEach(b => {
@@ -1007,97 +1004,128 @@
     const panel = el('div', { className: 's5-panel' });
     panel.appendChild(stageHeader('03', 'Creative Iteration'));
     panel.appendChild(el('p', { className: 's5-desc' },
-      'AI analyzes which creatives drove conversions and which underperformed. Winners are amplified. New variants are generated using engagement signals from Week 1.'));
+      'Each round, the AI forms a hypothesis, ships the ad, reads the signal, and generates the next version from what it learned. Follow Specter’s ad as it evolves from v1 to the scaled winner — CPL drops at every step.'));
 
-    // Specter creative winners/losers
-    panel.appendChild(el('div', { className: 's5-section-label' }, 'Specter — Creative Performance'));
-    const creativeGrid = el('div', { className: 's5-creative-grid' });
     const specter = BRANDS[0];
-    specter.creativeVideos.forEach((url, i) => {
-      const card = el('div', { className: 's5-creative-card' });
-      const vid = document.createElement('video');
-      vid.src = url;
-      vid.muted = true;
-      vid.loop = true;
-      vid.playsInline = true;
-      vid.autoplay = true;
-      vid.setAttribute('playsinline', '');
-      vid.play().catch(() => {});
-      card.appendChild(vid);
-      const isWinner = specter.winnerCreatives.includes(i);
-      card.appendChild(el('span', {
-        className: 's5-creative-badge ' + (isWinner ? 'winner' : 'loser')
-      }, isWinner ? 'Winner' : 'Cut'));
-      card.appendChild(el('div', { className: 's5-creative-meta' }, specter.creativeLabels[i]));
-      creativeGrid.appendChild(card);
-    });
-    panel.appendChild(creativeGrid);
 
-    // Terminal — analysis
-    panel.appendChild(typewriterBox('creative-iteration.log', [
-      '▸ Analyzing Specter engagement signals...',
-      '',
-      '  Creative #1 (Mullvad VPN — Discovery)',
-      '    CTR: 3.1% | Hook Rate: 5.8% | CPA: $4.20',
-      '    ✓ WINNER — amplify budget 2×',
-      '',
-      '  Creative #2 (Metadata Dashboard — Frustration)',
-      '    CTR: 1.2% | Hook Rate: 2.1% | CPA: $12.40',
-      '    ✕ CUT — below median performance',
-      '',
-      '  Creative #3 (IMSI Rotation — Social Proof)',
-      '    CTR: 2.8% | Hook Rate: 4.9% | CPA: $5.10',
-      '    ✓ WINNER — amplify budget 1.5×',
-      '',
-      '▸ Generating 3 new creative variants from winner signals...',
-      '  Hook angle: privacy fear → "They sell your data"',
-      '  Format: UGC testimonial + data viz overlay',
-      '  ✓ 3 new creatives queued for generation',
-    ], 14));
-
-    // New creatives — diffusion effect (videos go from blurry to clear)
-    panel.appendChild(el('div', { className: 's5-section-label' }, 'New Creatives — AI Generation'));
-    const diffGrid = el('div', { className: 's5-diffusion-grid' });
-    const newLabels = [
-      'Variant A — "They track every tower"',
-      'Variant B — "No logs. No backdoors."',
-      'Variant C — "The Snowden plan"',
+    // Sequential ad-evolution chain (v1 → winner). Each step: the hypothesis
+    // tested, the resulting CPL, and the learning that seeds the next version.
+    const evolution = [
+      {
+        video: specter.creativeVideos[0],   // Mullvad VPN — Discovery
+        angle: 'W1 winner — carry forward',
+        hook: 'Your carrier sells your location data.',
+        cpl: 8.20,
+        learning: 'The Week 1 winner proved the fear angle works — push to a concrete, visual surveillance threat.',
+      },
+      {
+        video: specter.iterationVideos[1],  // Metadata Dashboard — Frustration
+        angle: 'Live tower tracking — Frustration',
+        hook: 'They track every tower your phone touches.',
+        cpl: 6.50,
+        learning: 'Tower-tracking visual cut CPL 21% — add a hard technical proof point to win over skeptics.',
+      },
+      {
+        video: specter.creativeVideos[2],   // Mullvad VPN — Social Proof
+        angle: 'Technical proof — Social Proof',
+        hook: 'No logs. No backdoors. No carrier middleman.',
+        cpl: 5.30,
+        learning: 'Proof converted the privacy core but not the mainstream — anchor to a cultural reference.',
+      },
+      {
+        video: specter.iterationVideos[2],  // IMSI Rotation — Discovery
+        angle: 'Cultural anchor — Discovery',
+        hook: 'The plan Snowden would actually use.',
+        cpl: 4.50,
+        learning: null,
+        winner: true,
+      },
     ];
-    const diffVids = [];
-    specter.iterationVideos.forEach((url, i) => {
-      const card = el('div', { className: 's5-diffusion-card' });
+
+    panel.appendChild(el('div', { className: 's5-section-label' }, 'Specter — Ad Evolution'));
+
+    const evo = el('div', { className: 's5-evo' });
+    const evoCards = [];
+    evolution.forEach((step, i) => {
+      const isLast = i === evolution.length - 1;
+      const stepEl = el('div', { className: 's5-evo-step' + (step.winner ? ' win' : '') });
+
+      // Rail: numbered node + connecting line
+      const rail = el('div', { className: 's5-evo-rail' });
+      rail.appendChild(el('div', { className: 's5-evo-node' }, String(i + 1)));
+      if (!isLast) rail.appendChild(el('div', { className: 's5-evo-line' }));
+      stepEl.appendChild(rail);
+
+      // Right column: card (+ learning connector)
+      const col = el('div');
+      const card = el('div', { className: 's5-evo-card' });
+
+      const head = el('div', { className: 's5-evo-head' });
+      head.appendChild(el('span', { className: 's5-evo-ver' }, 'Ad v' + (i + 1)));
+      head.appendChild(el('span', { className: 's5-evo-angle' }, step.angle));
+      head.appendChild(el('span', { className: 's5-evo-badge' + (step.winner ? ' win' : '') },
+        step.winner ? 'Scaled winner' : (i === 0 ? 'Baseline' : 'Iterated')));
+      card.appendChild(head);
+
+      const body = el('div', { className: 's5-evo-body' });
       const vid = document.createElement('video');
-      vid.className = 's5-diffusion-vid';
-      vid.src = url;
-      vid.muted = true;
-      vid.loop = true;
-      vid.playsInline = true;
+      vid.className = 's5-evo-vid';
+      vid.src = step.video;
+      vid.muted = true; vid.loop = true; vid.playsInline = true; vid.autoplay = true;
       vid.preload = 'metadata';
       vid.setAttribute('playsinline', '');
-      vid.style.cursor = 'pointer';
-      vid.addEventListener('click', () => {
-        if (vid.paused) { vid.play().catch(() => {}); } else { vid.pause(); }
-      });
-      card.appendChild(vid);
-      const labelDiv = html('div', { className: 's5-diffusion-label' }, newLabels[i] + '<span class="s5-new-badge">new</span>');
-      card.appendChild(labelDiv);
-      diffGrid.appendChild(card);
-      diffVids.push(vid);
-    });
+      vid.play().catch(() => {});
+      body.appendChild(vid);
 
-    // Viewport-triggered stagger reveal (no autoplay — user clicks to play)
-    onViewport(diffGrid, () => {
-      diffVids.forEach((vid, i) => {
-        const delay = 600 + i * 1500;
-        const timer = setTimeout(() => { vid.classList.add('revealed'); }, delay);
+      const info = el('div', { className: 's5-evo-info' });
+      info.appendChild(el('div', { className: 's5-evo-hyp-label' }, 'Hypothesis'));
+      info.appendChild(html('div', { className: 's5-evo-hyp' }, '<span class="q">“' + step.hook + '”</span>'));
+
+      const result = el('div', { className: 's5-evo-result' });
+      result.appendChild(el('span', { className: 's5-evo-cpl-label' }, 'CPL'));
+      result.appendChild(el('span', { className: 's5-evo-cpl-num ' + cplColor(step.cpl) }, '$' + step.cpl.toFixed(2)));
+      if (i > 0) {
+        const prev = evolution[i - 1].cpl;
+        const pct = Math.round(((prev - step.cpl) / prev) * 100);
+        result.appendChild(el('span', { className: 's5-evo-delta' }, '▼ ' + pct + '% vs v' + i));
+      }
+      info.appendChild(result);
+      body.appendChild(info);
+      card.appendChild(body);
+      col.appendChild(card);
+      evoCards.push(card);
+
+      // Learning connector → next version
+      if (step.learning) {
+        const learn = el('div', { className: 's5-evo-learning' });
+        learn.appendChild(el('span', { className: 'arr' }, '↓'));
+        learn.appendChild(el('span', null, 'Learning: ' + step.learning));
+        col.appendChild(learn);
+      }
+
+      stepEl.appendChild(col);
+      evo.appendChild(stepEl);
+    });
+    panel.appendChild(evo);
+
+    // Staggered reveal as the timeline scrolls into view
+    onViewport(evo, () => {
+      evoCards.forEach((card, i) => {
+        const timer = setTimeout(() => { card.classList.add('revealed'); }, 200 + i * 450);
         registerCleanup(() => clearTimeout(timer));
       });
     });
-    panel.appendChild(diffGrid);
 
-    // Stats
+    // Outcome summary
+    const first = evolution[0].cpl, last = evolution[evolution.length - 1].cpl;
+    const totalPct = Math.round(((first - last) / first) * 100);
     const stats = el('div', { className: 's5-stats-grid' });
-    [['6', 'New hooks'], ['3', 'New creatives'], ['2', 'Brands active'], ['$1,200', 'Realloc. budget']].forEach(([num, label]) => {
+    [
+      [String(evolution.length), 'Ad versions'],
+      ['$' + first.toFixed(2) + ' → $' + last.toFixed(2), 'CPL'],
+      ['−' + totalPct + '%', 'CPL reduction'],
+      ['v' + evolution.length, 'Scaled winner'],
+    ].forEach(([num, label]) => {
       const stat = el('div');
       stat.appendChild(el('div', { className: 's5-stat-num' }, num));
       stat.appendChild(el('div', { className: 's5-stat-label' }, label));
@@ -1105,7 +1133,7 @@
     });
     panel.appendChild(stats);
 
-    panel.appendChild(annotation('AI decided', 'Hook variants generated from Week 1 engagement data. The AI identifies which emotional triggers drove the highest intent and creates derivative angles. New creatives enter the rotation for Week 2.'));
+    panel.appendChild(annotation('AI decided', 'Each version is a testable bet, not a guess. The AI reads which emotional trigger drove the highest intent, writes the next hypothesis from that signal, and ships a new ad — compounding learnings until CPL clears the scale threshold.'));
     return panel;
   }
 
@@ -1206,7 +1234,7 @@
     const card = el('div', { className: 's5-card' });
     card.appendChild(el('div', { className: 's5-card-label' }, 'Standout Performance — Specter'));
     card.appendChild(el('div', { className: 's5-card-text' },
-      'CPL dropped 45% from $8.20 to $4.50 after creative iteration — the strongest W1→W2 improvement. ' +
+      'CPL dropped 45% from $8.20 to $4.50 across four creative versions — the strongest W1→W2 improvement. ' +
       'Hook rate nearly doubled (4.1% → 6.3%), suggesting the privacy narrative has strong emotional resonance. ' +
       '533 leads collected at a cost well below the $5 green threshold.'));
     panel.appendChild(card);
@@ -1301,23 +1329,10 @@
 
     const insightTerminal = typewriterBox('strategic-insights', [
       'Compiling FDT signals into launch brief...',
-      '',
-      'RISK ASSESSMENT:',
-      '  Regulatory: LOW — Specter privacy claims are substantiated by Mullvad VPN integration',
-      '  Market: MODERATE — Privacy MVNO is niche; scale depends on community-first GTM',
-      '  Competitive: LOW — No incumbent carrier offers hardware-backed SIM security',
-      '',
-      'PRICING VALIDATION (from FDT):',
-      '  Willingness-to-pay signal: $45-55/mo (derived from CPL $4.50 × conversion funnel)',
-      '  Price sensitivity: LOW — privacy audience indexes 2.3x above avg. for premium tolerance',
-      '  Recommended launch price: $49/mo single plan, no contract',
-      '',
-      'CHANNEL STRATEGY:',
-      '  Primary: r/Privacy, OPSEC communities, Signal/Telegram groups (lowest CPL channels)',
-      '  Secondary: Privacy-focused YouTube creators, Hacker News sponsorships',
-      '  Avoid: Broad Meta targeting — CPL 3.2x higher vs. community-sourced traffic',
-      '',
-      'LAUNCH READINESS: Specter brief queued for artifact generation →',
+      '  Risk:    Regulatory LOW · Market MODERATE · Competitive LOW',
+      '  Pricing: $49/mo single plan — WTP $45-55, price sensitivity LOW',
+      '  Channel: r/Privacy, OPSEC, Signal/Telegram — avoid broad Meta (3.2× CPL)',
+      '  ✓ Specter brief queued for artifact generation →',
     ], 16);
     insightsSection.appendChild(insightTerminal);
 
