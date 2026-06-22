@@ -23,6 +23,9 @@ async function initScene1(container) {
   // ─── STATE ──────────────────────────────────────────────────────────────────
 
   let activeFilter = 'macro';
+  let activeView = 'map';
+  let mapFocus = null;
+  let mapRaf = null;
   let activeSort = 'score';
   let deepDivePersona = null;
   let typewriterTimer = null;
@@ -359,6 +362,75 @@ async function initScene1(container) {
   font-size: 11px; color: #737373; margin: 0; line-height: 1.5;
 }
 
+/* View toggle */
+.s1-viewtoggle { display: inline-flex; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; overflow: hidden; margin-left: 16px; }
+.s1-viewbtn {
+  font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.5px;
+  padding: 6px 14px; background: transparent; border: none; color: #737373; cursor: pointer;
+  transition: all 0.2s ease;
+}
+.s1-viewbtn:hover { color: #e2e2f0; }
+.s1-viewbtn--active { background: rgba(255,255,255,0.08); color: #e2e2f0; }
+
+/* Persona Map (node view) */
+.s1-map-wrap {
+  max-width: 1100px; margin: 0 auto 32px; padding: 0 24px; position: relative;
+}
+.s1-map-canvas {
+  position: relative; width: 100%; border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 14px; background:
+    radial-gradient(circle at 30% 38%, rgba(162,155,254,0.07), transparent 45%),
+    radial-gradient(circle at 70% 38%, rgba(116,185,255,0.07), transparent 45%),
+    radial-gradient(circle at 50% 14%, rgba(225,112,85,0.07), transparent 40%),
+    rgba(255,255,255,0.012);
+  overflow: hidden; touch-action: none; user-select: none; -webkit-user-select: none;
+}
+.s1-map-svg { display: block; width: 100%; height: auto; }
+.s1-map-node { cursor: grab; }
+.s1-map-canvas.s1-dragging, .s1-map-canvas.s1-dragging .s1-map-node { cursor: grabbing; }
+.s1-map-dot { transition: opacity 0.25s ease, transform 0.15s ease; transform-box: fill-box; transform-origin: center; }
+.s1-map-node:hover .s1-map-dot { transform: scale(1.12); }
+.s1-map-node--dim { opacity: 0.18; }
+.s1-map-label {
+  font-family: 'JetBrains Mono', monospace; fill: #cfcfe0; pointer-events: none;
+  opacity: 0; transition: opacity 0.2s ease;
+}
+.s1-map-node:hover .s1-map-label { opacity: 1; }
+.s1-map-label--always { opacity: 0.9; }
+.s1-map-link { stroke-linecap: round; pointer-events: none; }
+.s1-key-ring { fill: none; }
+.s1-key-pulse { fill: none; transform-box: fill-box; transform-origin: center; animation: s1pulse 2.6s ease-out infinite; }
+@keyframes s1pulse {
+  0% { transform: scale(1); opacity: 0.55; }
+  70% { transform: scale(2.4); opacity: 0; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+.s1-key-badge { font-family: 'JetBrains Mono', monospace; font-weight: 600; fill: #0a0a0a; }
+.s1-key-badge-bg { fill: ${AMBER}; }
+
+/* Map tooltip */
+.s1-map-tip {
+  position: absolute; pointer-events: none; z-index: 5; opacity: 0;
+  transform: translate(-50%, -115%); transition: opacity 0.15s ease;
+  background: rgba(18,18,28,0.96); border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 8px; padding: 9px 12px; min-width: 170px; max-width: 240px;
+}
+.s1-map-tip--show { opacity: 1; }
+.s1-map-tip-name { font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+.s1-map-tip-row { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #9a9ab0; display: flex; justify-content: space-between; gap: 12px; }
+.s1-map-tip-row b { color: #e2e2f0; font-weight: 500; }
+
+/* Map legend */
+.s1-map-legend {
+  display: flex; flex-wrap: wrap; gap: 18px 26px; align-items: center; justify-content: center;
+  margin: 14px auto 0; max-width: 1000px;
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8a8a9a;
+}
+.s1-map-legend-item { display: flex; align-items: center; gap: 7px; }
+.s1-map-legend-dot { width: 11px; height: 11px; border-radius: 50%; }
+.s1-map-legend-sz { display: inline-flex; align-items: baseline; gap: 5px; }
+.s1-map-legend-sz i { display: inline-block; border-radius: 50%; background: #6b6b80; }
+
 /* Card Grid */
 .s1-grid {
   display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -610,9 +682,16 @@ async function initScene1(container) {
     pill.textContent = f.label;
     pill.dataset.filter = f.key;
     pill.addEventListener('click', function() {
-      activeFilter = f.key;
-      renderFilters();
-      renderGrid();
+      if (activeView === 'map') {
+        // In map view the pills focus a cluster (toggle), they don't filter.
+        mapFocus = (mapFocus === f.key) ? null : f.key;
+        renderFilters();
+        updateMapFocus();
+      } else {
+        activeFilter = f.key;
+        renderFilters();
+        renderGrid();
+      }
     });
     filterBar.appendChild(pill);
   });
@@ -630,6 +709,19 @@ async function initScene1(container) {
   sortSel.addEventListener('change', function() { activeSort = sortSel.value; renderGrid(); });
   sortWrap.appendChild(sortSel);
   filterBar.appendChild(sortWrap);
+
+  // View toggle (Grid / Map)
+  var viewToggle = document.createElement('div');
+  viewToggle.className = 's1-viewtoggle';
+  [['grid','Grid'],['map','Map']].forEach(function(v) {
+    var b = document.createElement('button');
+    b.className = 's1-viewbtn' + (v[0] === activeView ? ' s1-viewbtn--active' : '');
+    b.textContent = v[1];
+    b.dataset.view = v[0];
+    b.addEventListener('click', function() { setView(v[0]); });
+    viewToggle.appendChild(b);
+  });
+  filterBar.appendChild(viewToggle);
 
   var pipelineLink = document.createElement('button');
   pipelineLink.className = 's1-pipeline-link';
@@ -659,6 +751,12 @@ async function initScene1(container) {
   grid.className = 's1-grid';
   mainArea.appendChild(grid);
 
+  // Map (node view) — hidden until selected
+  var mapWrap = document.createElement('div');
+  mapWrap.className = 's1-map-wrap';
+  mapWrap.style.display = 'none';
+  mainArea.appendChild(mapWrap);
+
   // Overlay
   var overlay = document.createElement('div');
   overlay.className = 's1-overlay';
@@ -682,10 +780,13 @@ async function initScene1(container) {
 
   function renderFilters() {
     var pills = filterBar.querySelectorAll('.s1-pill');
+    var activeKey = activeView === 'map' ? mapFocus : activeFilter;
     pills.forEach(function(p) {
-      p.classList.toggle('s1-pill--active', p.dataset.filter === activeFilter);
+      p.classList.toggle('s1-pill--active', p.dataset.filter === activeKey);
     });
-    descEl.textContent = pipelineDescs[activeFilter] || '';
+    descEl.textContent = activeView === 'map'
+      ? 'Each persona is a node. Color = pipeline · size = signal score · distance from a cluster’s core = relevance. Click a pill to spotlight one pipeline; click any node for the full deep dive.'
+      : (pipelineDescs[activeFilter] || '');
   }
 
   function renderGrid() {
@@ -708,6 +809,234 @@ async function initScene1(container) {
       card.addEventListener('click', function() { openDeepDive(p); });
       grid.appendChild(card);
     });
+  }
+
+  // ─── MAP (NODE VIEW) ─────────────────────────────────────────────────────────
+
+  function setView(v) {
+    activeView = v;
+    var btns = filterBar.querySelectorAll('.s1-viewbtn');
+    btns.forEach(function(b) { b.classList.toggle('s1-viewbtn--active', b.dataset.view === v); });
+    if (v === 'map') {
+      grid.style.display = 'none';
+      mapWrap.style.display = '';
+      sortWrap.style.display = 'none';
+      mapFocus = null;
+      renderMap();
+    } else {
+      grid.style.display = '';
+      mapWrap.style.display = 'none';
+      sortWrap.style.display = '';
+      if (mapRaf) { cancelAnimationFrame(mapRaf); mapRaf = null; }
+    }
+    renderFilters();
+  }
+
+  function updateMapFocus() {
+    var nodes = mapWrap.querySelectorAll('.s1-map-node');
+    nodes.forEach(function(n) {
+      var dim = mapFocus && n.dataset.pipe !== mapFocus;
+      n.classList.toggle('s1-map-node--dim', !!dim);
+    });
+  }
+
+  function renderMap() {
+    var W = 1000, H = 600;
+    var GOLD = 2.39996323;
+    var centroids = {
+      surge: { x: 505, y: 118, label: 'SURGE' },
+      macro: { x: 322, y: 352, label: 'MACRO' },
+      micro: { x: 690, y: 344, label: 'MICRO' }
+    };
+    var spacing = { macro: 34, micro: 30, surge: 46 };
+
+    var scores = personas.map(function(p) { return p.score; });
+    var sMin = Math.min.apply(null, scores), sMax = Math.max.apply(null, scores);
+    function norm(p) { return (p.score - sMin) / ((sMax - sMin) || 1); }
+    function radius(p) {
+      var r = 9 + norm(p) * 16;
+      if (p.key) r = Math.max(r * 1.3, 31);
+      return r;
+    }
+
+    // Layout: one phyllotaxis cluster per pipeline; key persona pinned to its core.
+    var pos = {};
+    Object.keys(centroids).forEach(function(pipe) {
+      var c = centroids[pipe];
+      var list = personas.filter(function(p) { return p.pipe === pipe; })
+                         .sort(function(a, b) { return b.score - a.score; });
+      var i = 0;
+      list.forEach(function(p) {
+        var x, y;
+        if (p.key) { x = c.x; y = c.y; }
+        else {
+          var rr = spacing[pipe] * Math.sqrt(i + 0.7);
+          var ang = i * GOLD;
+          x = c.x + rr * Math.cos(ang);
+          y = c.y + rr * Math.sin(ang);
+          i++;
+        }
+        pos[p.id] = { x: x, y: y, r: radius(p), p: p };
+      });
+    });
+
+    var svg = '<svg class="s1-map-svg" viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="xMidYMid meet">';
+
+    // Cluster watermark labels
+    var labelPos = { surge: { x: 505, y: 38 }, macro: { x: 132, y: 470 }, micro: { x: 872, y: 470 } };
+    Object.keys(centroids).forEach(function(pipe) {
+      var lp = labelPos[pipe];
+      svg += '<text x="' + lp.x + '" y="' + lp.y + '" text-anchor="middle" font-family="JetBrains Mono, monospace" '
+        + 'font-size="17" letter-spacing="3" fill="' + PIPE_COLORS[pipe] + '" fill-opacity="0.32">' + centroids[pipe].label + '</text>';
+    });
+
+    // Spokes: centroid → each node
+    Object.keys(pos).forEach(function(id) {
+      var n = pos[id];
+      if (n.p.key) return;
+      var c = centroids[n.p.pipe];
+      svg += '<line class="s1-map-link" x1="' + c.x.toFixed(1) + '" y1="' + c.y.toFixed(1) + '" x2="' + n.x.toFixed(1)
+        + '" y2="' + n.y.toFixed(1) + '" stroke="' + PIPE_COLORS[n.p.pipe] + '" stroke-opacity="0.10" stroke-width="1"/>';
+    });
+
+    // Key persona's links to thematically related personas
+    var keyNode = null;
+    Object.keys(pos).forEach(function(id) { if (pos[id].p.key) keyNode = pos[id]; });
+    if (keyNode) {
+      ['M3', 'M6', 'M11'].forEach(function(rid) {
+        var t = pos[rid];
+        if (!t) return;
+        svg += '<line class="s1-map-link" x1="' + keyNode.x.toFixed(1) + '" y1="' + keyNode.y.toFixed(1) + '" x2="' + t.x.toFixed(1)
+          + '" y2="' + t.y.toFixed(1) + '" stroke="' + AMBER + '" stroke-opacity="0.4" stroke-width="2" stroke-dasharray="2 5"/>';
+      });
+    }
+
+    // Nodes
+    Object.keys(pos).forEach(function(id) {
+      var n = pos[id], p = n.p;
+      var color = PIPE_COLORS[p.pipe];
+      var op = (0.42 + norm(p) * 0.45).toFixed(2);
+      svg += '<g class="s1-map-node" data-id="' + p.id + '" data-pipe="' + p.pipe + '">';
+      if (p.key) {
+        svg += '<circle class="s1-key-pulse" cx="' + n.x + '" cy="' + n.y + '" r="' + n.r + '" stroke="' + AMBER + '" stroke-width="2"/>';
+        svg += '<circle class="s1-key-ring" cx="' + n.x + '" cy="' + n.y + '" r="' + (n.r + 7) + '" stroke="' + AMBER + '" stroke-width="2"/>';
+      }
+      svg += '<circle class="s1-map-dot" cx="' + n.x + '" cy="' + n.y + '" r="' + n.r.toFixed(1) + '" fill="' + color
+        + '" fill-opacity="' + (p.key ? '0.95' : op) + '" stroke="' + color + '" stroke-opacity="0.9" stroke-width="1"/>';
+      if (n.r >= 16) {
+        svg += '<text x="' + n.x + '" y="' + (n.y + n.r * 0.22) + '" text-anchor="middle" font-family="JetBrains Mono, monospace" '
+          + 'font-size="' + (n.r * 0.6).toFixed(1) + '" font-weight="600" fill="#fff" fill-opacity="0.92" pointer-events="none">' + p.score.toFixed(1) + '</text>';
+      }
+      var labelCls = 's1-map-label' + (p.key ? ' s1-map-label--always' : '');
+      var labelY = n.y + n.r + 13;
+      svg += '<text class="' + labelCls + '" x="' + n.x + '" y="' + labelY + '" text-anchor="middle" font-size="' + (p.key ? 12 : 10.5) + '">' + esc(p.name) + '</text>';
+      if (p.key) {
+        var bw = 86, bx = n.x - bw / 2, by = n.y - n.r - 26;
+        svg += '<rect class="s1-key-badge-bg" x="' + bx + '" y="' + by + '" width="' + bw + '" height="16" rx="8"/>';
+        svg += '<text class="s1-key-badge" x="' + n.x + '" y="' + (by + 11.5) + '" text-anchor="middle" font-size="9" letter-spacing="1">KEY PERSONA</text>';
+      }
+      svg += '</g>';
+    });
+
+    svg += '</svg>';
+
+    var legend = '<div class="s1-map-legend">'
+      + '<span class="s1-map-legend-item"><span class="s1-map-legend-dot" style="background:' + PIPE_COLORS.macro + '"></span>Macro</span>'
+      + '<span class="s1-map-legend-item"><span class="s1-map-legend-dot" style="background:' + PIPE_COLORS.micro + '"></span>Micro</span>'
+      + '<span class="s1-map-legend-item"><span class="s1-map-legend-dot" style="background:' + PIPE_COLORS.surge + '"></span>Surge</span>'
+      + '<span class="s1-map-legend-item s1-map-legend-sz">Size = signal score <i style="width:8px;height:8px"></i><i style="width:15px;height:15px"></i></span>'
+      + '<span class="s1-map-legend-item">Closer to core = higher relevance</span>'
+      + '<span class="s1-map-legend-item"><span class="s1-map-legend-dot" style="background:transparent;border:2px solid ' + AMBER + '"></span>Key persona to watch</span>'
+      + '</div>';
+
+    mapWrap.innerHTML = '<div class="s1-map-canvas">' + svg + '<div class="s1-map-tip"></div></div>' + legend;
+
+    // Interactions + floating physics
+    var canvas = mapWrap.querySelector('.s1-map-canvas');
+    var tip = mapWrap.querySelector('.s1-map-tip');
+    var nodeEls = mapWrap.querySelectorAll('.s1-map-node');
+
+    var K = 0.06;    // spring stiffness (pull toward home)
+    var DAMP = 0.87; // velocity damping → slight overshoot/bounce on release
+    var nodes = [];
+
+    function showTip(nd) {
+      var rect = canvas.getBoundingClientRect();
+      var sx = rect.width / W;
+      tip.innerHTML = '<div class="s1-map-tip-name">' + esc(nd.p.name) + '</div>'
+        + '<div class="s1-map-tip-row"><span>Pipeline</span><b>' + PIPE_LABELS[nd.p.pipe] + '</b></div>'
+        + '<div class="s1-map-tip-row"><span>Score</span><b>' + nd.p.score.toFixed(1) + '</b></div>'
+        + '<div class="s1-map-tip-row"><span>Reach</span><b>' + esc(nd.p.pop) + '</b></div>';
+      tip.style.left = (nd.x * sx) + 'px';
+      tip.style.top = ((nd.y - nd.r) * sx) + 'px';
+      tip.classList.add('s1-map-tip--show');
+    }
+
+    nodeEls.forEach(function(g, i) {
+      var p = findPersona(g.dataset.id);
+      if (!p) return;
+      var home = pos[p.id];
+      var nd = {
+        g: g, p: p, hx: home.x, hy: home.y, r: home.r,
+        x: home.x, y: home.y, vx: 0, vy: 0,
+        // deterministic per-node drift so the field feels alive but stable
+        ampx: 9 + (i % 5) * 3.2, ampy: 8 + (i % 4) * 3.0,
+        spdx: 0.0012 + (i % 6) * 0.00026, spdy: 0.0014 + (i % 5) * 0.00024,
+        phx: (i * 1.7) % 6.283, phy: (i * 2.9) % 6.283,
+        dragging: false, downX: 0, downY: 0, moved: 0
+      };
+      nodes.push(nd);
+
+      g.addEventListener('pointerenter', function() { if (!nd.dragging) showTip(nd); });
+      g.addEventListener('pointerleave', function() { if (!nd.dragging) tip.classList.remove('s1-map-tip--show'); });
+
+      g.addEventListener('pointerdown', function(e) {
+        e.preventDefault();
+        try { g.setPointerCapture(e.pointerId); } catch (err) {}
+        nd.dragging = true; nd.moved = 0; nd.downX = e.clientX; nd.downY = e.clientY;
+        nd.vx = 0; nd.vy = 0;
+        canvas.classList.add('s1-dragging');
+        tip.classList.remove('s1-map-tip--show');
+      });
+      g.addEventListener('pointermove', function(e) {
+        if (!nd.dragging) return;
+        var rect = canvas.getBoundingClientRect();
+        nd.x = (e.clientX - rect.left) * (W / rect.width);
+        nd.y = (e.clientY - rect.top) * (H / rect.height);
+        nd.vx = 0; nd.vy = 0;
+        nd.moved = Math.max(nd.moved, Math.abs(e.clientX - nd.downX) + Math.abs(e.clientY - nd.downY));
+      });
+      function release(e) {
+        if (!nd.dragging) return;
+        nd.dragging = false;
+        canvas.classList.remove('s1-dragging');
+        try { g.releasePointerCapture(e.pointerId); } catch (err) {}
+        // a tap (negligible movement) opens the deep dive; a real drag springs back
+        if (nd.moved < 5) openDeepDive(nd.p);
+      }
+      g.addEventListener('pointerup', release);
+      g.addEventListener('pointercancel', release);
+    });
+
+    function step(ts) {
+      if (activeView !== 'map') { mapRaf = null; return; }
+      for (var j = 0; j < nodes.length; j++) {
+        var nd = nodes[j];
+        if (!nd.dragging) {
+          var tx = nd.hx + Math.sin(ts * nd.spdx + nd.phx) * nd.ampx;
+          var ty = nd.hy + Math.cos(ts * nd.spdy + nd.phy) * nd.ampy;
+          nd.vx = (nd.vx + (tx - nd.x) * K) * DAMP;
+          nd.vy = (nd.vy + (ty - nd.y) * K) * DAMP;
+          nd.x += nd.vx; nd.y += nd.vy;
+        }
+        nd.g.setAttribute('transform', 'translate(' + (nd.x - nd.hx).toFixed(2) + ',' + (nd.y - nd.hy).toFixed(2) + ')');
+      }
+      mapRaf = requestAnimationFrame(step);
+    }
+    if (mapRaf) cancelAnimationFrame(mapRaf);
+    mapRaf = requestAnimationFrame(step);
+
+    updateMapFocus();
   }
 
   // ─── DEEP DIVE ──────────────────────────────────────────────────────────────
@@ -1080,5 +1409,6 @@ async function initScene1(container) {
 
   // ─── INITIAL RENDER ─────────────────────────────────────────────────────────
 
-  renderGrid();
+  renderGrid();      // populate grid so the toggle is instant
+  setView('map');    // start on the node map
 }
