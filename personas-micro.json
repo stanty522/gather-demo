@@ -42,7 +42,7 @@
       },
       {
         "q": "What are your biggest challenges managing work and personal life?",
-        "a": "The hardest part is that homeschooling never stops. There's no commute, no clocking out. I am the school. The mental load is enormous. And the invisible judgment — people asking about socialization like I haven't thought about it every day for six years.",
+        "a": "The hardest part is that homeschooling never stops. There's no commute, no clocking out. I am the school. The mental load is enormous. And the invisible judgment \u2014 people asking about socialization like I haven't thought about it every day for six years.",
         "insight": "Identity-driven persona feels invisible to institutions including carriers; desires recognition"
       }
     ]
@@ -84,7 +84,7 @@
       },
       {
         "q": "What would it mean if a company built something specifically for Black and Latino homeschool families?",
-        "a": "It would feel like being seen for the first time in that category. We spend money on curriculum that sees us, books that see us. The utility stuff — phone, internet — it's all generic. If a carrier built something for us specifically, I would tell everybody.",
+        "a": "It would feel like being seen for the first time in that category. We spend money on curriculum that sees us, books that see us. The utility stuff \u2014 phone, internet \u2014 it's all generic. If a carrier built something for us specifically, I would tell everybody.",
         "insight": "Identity recognition is a primary switching trigger and community recommendation amplifier"
       },
       {
@@ -128,17 +128,17 @@
     "interview": [
       {
         "q": "What would make you willing to pay more for a wireless plan?",
-        "a": "If I could verify the extra money was buying something real — like actual network priority or a feature I'd use, spelled out clearly. But no carrier has ever shown me that. I'd probably pay up to -45 if the value was transparent.",
+        "a": "If I could verify the extra money was buying something real \u2014 like actual network priority or a feature I'd use, spelled out clearly. But no carrier has ever shown me that. I'd probably pay up to -45 if the value was transparent.",
         "insight": "Price transparency and value verification are prerequisites for premium positioning"
       },
       {
         "q": "Is there something about how you use devices that you wish a carrier understood?",
-        "a": "I've had the same phone number for eight years and been through four physical devices — all refurbished or repaired. No carrier has ever said \"nice.\" They've all tried to get me on a new device. I want a carrier that built plans around keeping this phone for four years minimum.",
+        "a": "I've had the same phone number for eight years and been through four physical devices \u2014 all refurbished or repaired. No carrier has ever said \"nice.\" They've all tried to get me on a new device. I want a carrier that built plans around keeping this phone for four years minimum.",
         "insight": "Unstated need is recognition of extended device lifecycles as normal and valuable"
       },
       {
         "q": "When you imagine switching carriers, what worries you most?",
-        "a": "Finding out three months in there's a catch I missed — a deprioritization policy or hidden cap. I want a carrier that tells me the bad news upfront before I ask.",
+        "a": "Finding out three months in there's a catch I missed \u2014 a deprioritization policy or hidden cap. I want a carrier that tells me the bad news upfront before I ask.",
         "insight": "Trust barrier is information asymmetry; transparency is the highest-signal differentiator"
       }
     ]
@@ -153,7 +153,7 @@
     "popNum": 5000000,
     "popSource": "Morning Consult 2026 / r/Bitcoin 8M+ members",
     "intensity": 5,
-    "score": 7.8,
+    "score": 9.0,
     "markers": [
       "Bitcoin maximalist",
       "Financial sovereignty",
@@ -176,7 +176,7 @@
     "interview": [
       {
         "q": "What do you actually want from a phone plan that you can't find right now?",
-        "a": "A carrier that gets it without explanation. I don't want a privacy checklist — I want a warrant canary. A transparency report showing government requests. A company built around not-knowing things about me, not around surveillance trying to let me opt out.",
+        "a": "A carrier that gets it without explanation. I don't want a privacy checklist \u2014 I want a warrant canary. A transparency report showing government requests. A company built around not-knowing things about me, not around surveillance trying to let me opt out.",
         "insight": "Privacy must be architectural, not promised; warrant canaries and transparency reports are non-negotiable table stakes"
       },
       {
@@ -224,7 +224,7 @@
     "interview": [
       {
         "q": "How are you thinking about saving during this period?",
-        "a": "We have savings which helps, but I'm treating every dollar differently now. I want month-to-month — the idea of a two-year contract right now feels wrong. I need flexibility.",
+        "a": "We have savings which helps, but I'm treating every dollar differently now. I want month-to-month \u2014 the idea of a two-year contract right now feels wrong. I need flexibility.",
         "insight": "Contract aversion and month-to-month requirement are hard product filters, not preferences"
       },
       {
@@ -234,7 +234,7 @@
       },
       {
         "q": "What would the ideal wireless product look like for your situation?",
-        "a": "Thirty to forty dollars, no contract, AT&T or T-Mobile network. Porting that takes an hour. Clear billing. And something that acknowledges the situation — not pity, but solidarity and forward momentum.",
+        "a": "Thirty to forty dollars, no contract, AT&T or T-Mobile network. Porting that takes an hour. Clear billing. And something that acknowledges the situation \u2014 not pity, but solidarity and forward momentum.",
         "insight": "Emotional validation of transition moment is a switching trigger; autonomy-building framing resonates"
       }
     ]
@@ -276,12 +276,12 @@
       },
       {
         "q": "What are your most important needs right now for your work?",
-        "a": "To not feel like I'm faking it. Walking into the office and seeing people who just move through it like they've always belonged — it's a specific loneliness. I'm still working on believing I earned the right to be here.",
+        "a": "To not feel like I'm faking it. Walking into the office and seeing people who just move through it like they've always belonged \u2014 it's a specific loneliness. I'm still working on believing I earned the right to be here.",
         "insight": "Imposter syndrome is about identity legitimacy. A brand that validates her membership in professional space wins loyalty."
       },
       {
         "q": "What's the biggest gap in products available to someone like you?",
-        "a": "Everything assumes you have someone to ask. Financial products, wireless plans — all assume inherited knowledge I don't have. The gap isn't features. It's someone building for people doing this without a map.",
+        "a": "Everything assumes you have someone to ask. Financial products, wireless plans \u2014 all assume inherited knowledge I don't have. The gap isn't features. It's someone building for people doing this without a map.",
         "insight": "Core unmet need is an advisor role, not a product feature. White space for identity-based positioning."
       }
     ]
@@ -319,12 +319,12 @@
     "interview": [
       {
         "q": "What does \"returning citizen\" mean to you?",
-        "a": "It means I'm not defined by what happened. I made choices and the system responded — but that's not all I am. \"Returning citizen\" says I left, I paid my debt, and I'm back. Back with rights, back with responsibilities. There's a whole community of people who have made the same choice.",
+        "a": "It means I'm not defined by what happened. I made choices and the system responded \u2014 but that's not all I am. \"Returning citizen\" says I left, I paid my debt, and I'm back. Back with rights, back with responsibilities. There's a whole community of people who have made the same choice.",
         "insight": "Identity label is active reclamation. The returning citizen wants recognition as an agent, not a problem category."
       },
       {
         "q": "What do you need your phone to do practically?",
-        "a": "Parole check-ins — I need to be reachable and confirm my location. My site supervisor needs to reach me. I'm in a recovery support group and we text constantly. And I'm reconnecting with my kids — every call matters. My phone isn't entertainment. It's how I stay out of trouble and rebuild my life.",
+        "a": "Parole check-ins \u2014 I need to be reachable and confirm my location. My site supervisor needs to reach me. I'm in a recovery support group and we text constantly. And I'm reconnecting with my kids \u2014 every call matters. My phone isn't entertainment. It's how I stay out of trouble and rebuild my life.",
         "insight": "Connectivity is compliance and reintegration infrastructure. Service failure carries existential consequences."
       },
       {
@@ -377,7 +377,7 @@
       },
       {
         "q": "If you could add one thing to your plan that doesn't exist?",
-        "a": "Gaming mode. Something that actually prioritizes my traffic when I'm in a game. I'd pay for that — not a lot, like five extra bucks. And I'd want proof it works. Show me the ping numbers.",
+        "a": "Gaming mode. Something that actually prioritizes my traffic when I'm in a game. I'd pay for that \u2014 not a lot, like five extra bucks. And I'd want proof it works. Show me the ping numbers.",
         "insight": "Gaming performance is the only paid feature he would adopt. Requirement for proof over promise is critical."
       }
     ]
@@ -392,7 +392,7 @@
     "popNum": 4000000,
     "popSource": "Pew Research 2023 / r/digitalminimalism 130K+",
     "intensity": 4,
-    "score": 7.3,
+    "score": 8.8,
     "markers": [
       "Intentional technology reduction",
       "Cal Newport follower",
@@ -415,17 +415,17 @@
     "interview": [
       {
         "q": "What does your ideal relationship with your phone look like?",
-        "a": "I think about it as a tool, not an environment. I want to pick it up, do the thing — call someone, check the map — put it down. My home screen is literally five apps. But the part I can't control is what's happening underneath — the carrier stuff, the data. That still bothers me.",
+        "a": "I think about it as a tool, not an environment. I want to pick it up, do the thing \u2014 call someone, check the map \u2014 put it down. My home screen is literally five apps. But the part I can't control is what's happening underneath \u2014 the carrier stuff, the data. That still bothers me.",
         "insight": "She has achieved device-level minimalism but remains troubled by infrastructure-level extraction. The carrier layer is an unresolved identity contradiction."
       },
       {
         "q": "What would it mean to have a carrier that shared your values?",
-        "a": "I've never even thought that was possible. If one actually built something for people like me, I think I'd feel — relief. Like I'm not alone in thinking the current system is broken. I'd probably tell everyone I know. That community would go wild for it.",
+        "a": "I've never even thought that was possible. If one actually built something for people like me, I think I'd feel \u2014 relief. Like I'm not alone in thinking the current system is broken. I'd probably tell everyone I know. That community would go wild for it.",
         "insight": "Identity-aligned carrier would resolve cognitive dissonance and unlock organic advocacy."
       },
       {
         "q": "How would you find out about a carrier built for digital minimalists?",
-        "a": "Reddit first. r/digitalminimalism or r/nosurf. If the comments were positive — genuinely thoughtful, not shilly — I'd look into it. The channel has to match the product — if you're selling minimalism, don't reach me through algorithmic ads.",
+        "a": "Reddit first. r/digitalminimalism or r/nosurf. If the comments were positive \u2014 genuinely thoughtful, not shilly \u2014 I'd look into it. The channel has to match the product \u2014 if you're selling minimalism, don't reach me through algorithmic ads.",
         "insight": "Acquisition channel must be congruent with values. Social ads would undermine credibility."
       }
     ]
@@ -463,7 +463,7 @@
     "interview": [
       {
         "q": "What does your monthly budget look like?",
-        "a": "Land lease is , tiny home loan , utilities . My phone bill is  — more than my electric. That feels backwards. But I can't work without it, so it's non-negotiable.",
+        "a": "Land lease is , tiny home loan , utilities . My phone bill is  \u2014 more than my electric. That feels backwards. But I can't work without it, so it's non-negotiable.",
         "insight": "Wireless is recognized as non-discretionary infrastructure. Overpayment relative to actual use case creates resentment."
       },
       {
@@ -473,7 +473,7 @@
       },
       {
         "q": "If you found a carrier clearly built for tiny home residents, would you recommend it?",
-        "a": "Immediately. r/TinyHouses asks about connectivity solutions constantly — it's a top-5 topic. If I found something that worked, I'd write a detailed post: actual data usage, coverage test results from my lot, cost breakdown. That's how decisions get made here.",
+        "a": "Immediately. r/TinyHouses asks about connectivity solutions constantly \u2014 it's a top-5 topic. If I found something that worked, I'd write a detailed post: actual data usage, coverage test results from my lot, cost breakdown. That's how decisions get made here.",
         "insight": "Community is the distribution channel. Organic advocacy through detailed technical posts is the highest-credibility signal."
       }
     ]
@@ -510,17 +510,17 @@
     "interview": [
       {
         "q": "How do you manage your finances day-to-day?",
-        "a": "I live by my spreadsheet now. It's open every morning. Every dollar gets a job — utilities, gas, food, phone. The phone comes out of the same bucket as utilities. Not \"extra.\" It's essential.",
+        "a": "I live by my spreadsheet now. It's open every morning. Every dollar gets a job \u2014 utilities, gas, food, phone. The phone comes out of the same bucket as utilities. Not \"extra.\" It's essential.",
         "insight": "Persona has adopted intense budget discipline. Wireless is treated as essential infrastructure, not discretionary spend."
       },
       {
         "q": "What are your biggest fears about the future?",
-        "a": "A setback I can't control. Last month I almost let the TracFone top-up lapse — two hours from cutoff. The anxiety doesn't go away because the bankruptcy is over. It just follows you differently.",
+        "a": "A setback I can't control. Last month I almost let the TracFone top-up lapse \u2014 two hours from cutoff. The anxiety doesn't go away because the bankruptcy is over. It just follows you differently.",
         "insight": "Psychological weight of financial recovery persists. Hypervigilant about cost certainty and service interruption."
       },
       {
         "q": "What would it take to switch carriers again?",
-        "a": "Same or lower price, no credit check — non-negotiable — and completely predictable billing. And honestly? If a carrier felt like it understood where I'm coming from — built for people who are rebuilding — I'd switch tomorrow. The feeling is enough.",
+        "a": "Same or lower price, no credit check \u2014 non-negotiable \u2014 and completely predictable billing. And honestly? If a carrier felt like it understood where I'm coming from \u2014 built for people who are rebuilding \u2014 I'd switch tomorrow. The feeling is enough.",
         "insight": "Identity-level positioning (\"rebuilders,\" not \"subprime\") is more switching-motivating than feature improvements."
       }
     ]
@@ -557,17 +557,17 @@
     "interview": [
       {
         "q": "How do you decide what's worth spending money on?",
-        "a": "Fitness is the last thing I cut. I'll eat out less, skip a concert — but my gym membership is /month and I don't even think about it. If something makes me better at CrossFit, the price question almost doesn't register.",
+        "a": "Fitness is the last thing I cut. I'll eat out less, skip a concert \u2014 but my gym membership is /month and I don't even think about it. If something makes me better at CrossFit, the price question almost doesn't register.",
         "insight": "Fitness spending is non-negotiable. A carrier positioned within the CrossFit identity cluster could justify premium pricing."
       },
       {
         "q": "Is there something you want from your fitness community that you're not getting?",
-        "a": "Coordination is a mess. Our coach uses four different channels — Instagram, group text, Wodify app, sometimes just yelling. I want one place where I know what's happening. I'd pay for that clarity.",
+        "a": "Coordination is a mess. Our coach uses four different channels \u2014 Instagram, group text, Wodify app, sometimes just yelling. I want one place where I know what's happening. I'd pay for that clarity.",
         "insight": "Core pain point is community fragmentation across platforms. A carrier that positioned as community coordination hub could unlock switching."
       },
       {
         "q": "If your phone service was designed for CrossFit athletes, what would it need?",
-        "a": "Reliable connectivity at the gym — our box is in a metal warehouse and reception is terrible. And the group coordination piece. Not Instagram. Something built for this specific culture.",
+        "a": "Reliable connectivity at the gym \u2014 our box is in a metal warehouse and reception is terrible. And the group coordination piece. Not Instagram. Something built for this specific culture.",
         "insight": "Two specific pain points: dead-zone coverage in metal buildings and community coordination visibility. Both solvable."
       }
     ]
@@ -610,12 +610,12 @@
       {
         "q": "What are your biggest day-to-day frustrations right now?",
         "a": "Every admin task takes three times as long because something is in Derek's name. I tried twice to change the billing address on the wireless plan and hit a wall. It should not be this hard to take your own name off a shared account.",
-        "insight": "Carrier policy architecture is the switching agent. AT&T's authorization requirement is not friction — it is the decision-making force."
+        "insight": "Carrier policy architecture is the switching agent. AT&T's authorization requirement is not friction \u2014 it is the decision-making force."
       },
       {
         "q": "What would a perfect wireless plan look like right now?",
-        "a": "Affordable — under /month. Easy to set up online without needing my ex's cooperation or a credit check. My number moves over. If something goes wrong I can get help quickly. And the plan is mine — no joint anything.",
-        "insight": "Three non-negotiable requirements: price, account autonomy, speed. The emotional need — independence — translates directly into product feature requirements."
+        "a": "Affordable \u2014 under /month. Easy to set up online without needing my ex's cooperation or a credit check. My number moves over. If something goes wrong I can get help quickly. And the plan is mine \u2014 no joint anything.",
+        "insight": "Three non-negotiable requirements: price, account autonomy, speed. The emotional need \u2014 independence \u2014 translates directly into product feature requirements."
       }
     ]
   },
@@ -652,7 +652,7 @@
       {
         "q": "What do you most want from a wireless plan right now?",
         "a": "Something I set up once and it just works. I want to open the app and see all three of us in one place, know everyone's covered, know the bill is the same every month, and not think about it again. My phone plan should not be one more thing to manage.",
-        "insight": "Persona is in cognitive overload. Simplicity and consolidation are not features — they are prerequisites to purchase."
+        "insight": "Persona is in cognitive overload. Simplicity and consolidation are not features \u2014 they are prerequisites to purchase."
       },
       {
         "q": "Is there anything about your wireless setup that still connects you to your ex?",
@@ -698,18 +698,18 @@
     "interview": [
       {
         "q": "How do you think about your wireless plan in terms of work expenses?",
-        "a": "My phone plan is just cost of doing business — same as my ring light. I write it off. When I had that drop in December, I lost probably eight hundred bucks in one night. So if there's a plan  more/month but never drops a stream, that math is obvious.",
+        "a": "My phone plan is just cost of doing business \u2014 same as my ring light. I write it off. When I had that drop in December, I lost probably eight hundred bucks in one night. So if there's a plan  more/month but never drops a stream, that math is obvious.",
         "insight": "Stream reliability has a direct  value per failure. Price-premium messaging works if paired with reliability guarantees."
       },
       {
         "q": "When you imagine streaming working perfectly, what does that look like?",
-        "a": "I never think about my connection. That's what perfect looks like — invisible. Right now I have this low-level anxiety every single stream, checking the signal bar every few minutes. Perfect is when I'm 100% in the room with my audience.",
+        "a": "I never think about my connection. That's what perfect looks like \u2014 invisible. Right now I have this low-level anxiety every single stream, checking the signal bar every few minutes. Perfect is when I'm 100% in the room with my audience.",
         "insight": "The anxiety is constant and embodied. A carrier that removes this anxiety achieves loyalty at the identity level."
       },
       {
         "q": "What would it take for you to switch today?",
-        "a": "Performance proof. Specific numbers — \"we guarantee five megabits upload during live events or we credit your bill.\" Something testable. I could switch in an afternoon. The friction isn't mechanics — it's that no carrier has given me a reason specific to my situation.",
-        "insight": "Persona is explicitly requesting an SLA for upload bandwidth — a product architecture no current carrier offers."
+        "a": "Performance proof. Specific numbers \u2014 \"we guarantee five megabits upload during live events or we credit your bill.\" Something testable. I could switch in an afternoon. The friction isn't mechanics \u2014 it's that no carrier has given me a reason specific to my situation.",
+        "insight": "Persona is explicitly requesting an SLA for upload bandwidth \u2014 a product architecture no current carrier offers."
       }
     ]
   },
@@ -723,7 +723,7 @@
     "popNum": 1500000,
     "popSource": "CDC NISVS 2022 / NDVH 2023",
     "intensity": 5,
-    "score": 7.5,
+    "score": 8.6,
     "markers": [
       "Recently fled abusive household",
       "No prior financial independence",
@@ -745,7 +745,7 @@
     "interview": [
       {
         "q": "What does your financial situation look like right now?",
-        "a": "I have about  in cash from the shelter's emergency fund. I don't have a bank account I can safely use — he checks the joint account. I need something I can pay for with cash or a prepaid card. /month max. No contract. I cannot be locked in right now.",
+        "a": "I have about  in cash from the shelter's emergency fund. I don't have a bank account I can safely use \u2014 he checks the joint account. I need something I can pay for with cash or a prepaid card. /month max. No contract. I cannot be locked in right now.",
         "insight": "Survivors operate under extreme financial constraint and distrust banking infrastructure. Cash-only payment is non-negotiable."
       },
       {
@@ -792,11 +792,11 @@
     "interview": [
       {
         "q": "What role does your credit score play in spending decisions?",
-        "a": "It's basically my second job. I check Credit Karma every morning. If something affects my score — even by a few points — I want to understand why. Every bill I pay on time feels like putting a brick back in the wall.",
+        "a": "It's basically my second job. I check Credit Karma every morning. If something affects my score \u2014 even by a few points \u2014 I want to understand why. Every bill I pay on time feels like putting a brick back in the wall.",
         "insight": "Post-bankruptcy consumers obsessively track credit impact. Bureau reporting is not nice-to-have; it is the primary JTBD."
       },
       {
-        "q": "What would it mean to have a postpaid phone plan — personally?",
+        "q": "What would it mean to have a postpaid phone plan \u2014 personally?",
         "a": "It's kind of dumb but it would feel like joining back. Postpaid is what normal adults have, right? Prepaid feels like something you use when you can't qualify. Getting a postpaid plan is part of coming back.",
         "insight": "Identity aspiration: postpaid represents re-inclusion in mainstream financial legitimacy. This is about status and identity recovery."
       },
@@ -817,7 +817,7 @@
     "popNum": 1000000,
     "popSource": "Pew 2024 / r/dumbphones 80K+ / Light Phone sales data",
     "intensity": 5,
-    "score": 7.3,
+    "score": 8.7,
     "markers": [
       "Owns feature/dumb phone",
       "Rejects AI and algorithms",
@@ -840,7 +840,7 @@
       {
         "q": "What are you paying and how does it match what you use?",
         "a": "I'm still on T-Mobile unlimited, paying /month. My Light Phone can barely use data. So I'm paying for fifty gigs I'll never touch. Every time I look at plan options, they all assume you have a smartphone. It's infuriating.",
-        "insight": "42% of dumb phone adopters are still on smartphone plans — not from indifference but from decision fatigue."
+        "insight": "42% of dumb phone adopters are still on smartphone plans \u2014 not from indifference but from decision fatigue."
       },
       {
         "q": "What would make you immediately distrust a \"minimalist\" carrier?",
@@ -849,7 +849,7 @@
       },
       {
         "q": "If a carrier reached you through r/dumbphones with a plan built for feature phones?",
-        "a": "I'd be curious and suspicious. But if the plan was genuinely simple — posted on a page with no animations, transparent pricing, and someone in the community vouching — I'd probably try it. The endorsement matters more than the ad.",
+        "a": "I'd be curious and suspicious. But if the plan was genuinely simple \u2014 posted on a page with no animations, transparent pricing, and someone in the community vouching \u2014 I'd probably try it. The endorsement matters more than the ad.",
         "insight": "Community trust is the only acquisition channel. One authentic community endorsement is worth 10,000 paid impressions."
       }
     ]
@@ -859,7 +859,7 @@
     "name": "Reentry Housing Navigator",
     "pipe": "micro",
     "quad": "invest",
-    "desc": "Returning citizens released from incarceration in active housing search during first 30-90 days post-release. The phone is a case management tool — the operational prerequisite for securing stable housing.",
+    "desc": "Returning citizens released from incarceration in active housing search during first 30-90 days post-release. The phone is a case management tool \u2014 the operational prerequisite for securing stable housing.",
     "pop": "300-500K facing acute housing instability",
     "popNum": 600000,
     "popSource": "Bureau of Justice Statistics 2024 / Urban Institute 2023",
@@ -887,7 +887,7 @@
     "interview": [
       {
         "q": "What are you trying to accomplish in the next two weeks?",
-        "a": "Housing first. Everything else is secondary. I have a contact at a transitional program — she said there's a spot, but I need to call her back by tomorrow. After that, parole officer. Both need a working phone. If I miss that housing window, I'm looking at shelter or the street.",
+        "a": "Housing first. Everything else is secondary. I have a contact at a transitional program \u2014 she said there's a spot, but I need to call her back by tomorrow. After that, parole officer. Both need a working phone. If I miss that housing window, I'm looking at shelter or the street.",
         "insight": "Housing navigation window is extremely time-bound. Placements close in 24-48 hours without follow-up. The phone is the access point."
       },
       {
@@ -897,7 +897,7 @@
       },
       {
         "q": "What would make you trust a carrier enough to sign up?",
-        "a": "If someone I already trusted — like a reentry program counselor — told me to use it. Or if it was built for people in my situation. Not just cheap — specifically built for people coming out who need it to work on day one.",
+        "a": "If someone I already trusted \u2014 like a reentry program counselor \u2014 told me to use it. Or if it was built for people in my situation. Not just cheap \u2014 specifically built for people coming out who need it to work on day one.",
         "insight": "B2B channel partnership with reentry organizations is non-optional. Digital-only acquisition will fail for this population."
       }
     ]
@@ -907,12 +907,12 @@
     "name": "Privacy Activist",
     "pipe": "micro",
     "quad": "invest",
-    "desc": "T2 Privacy Architect who has methodically de-Googled every layer of their digital life — OS, email, browser, payments — except the carrier. The carrier is the last unresolved surveillance vector, and resolving it is identity-completing. High WTP, high evangelism rate, community-first adoption.",
+    "desc": "T2 Privacy Architect who has methodically de-Googled every layer of their digital life \u2014 OS, email, browser, payments \u2014 except the carrier. The carrier is the last unresolved surveillance vector, and resolving it is identity-completing. High WTP, high evangelism rate, community-first adoption.",
     "pop": "~4.6M-5.7M T2-T3 commercial sweet spot",
     "popNum": 5000000,
     "popSource": "Ghostery/EFF 2024-2025 / Cisco Consumer Privacy Survey 2024",
     "intensity": 5,
-    "score": 8.2,
+    "score": 9.2,
     "markers": [
       "GrapheneOS / de-Googled phone user",
       "Proton + Mullvad stack",
@@ -938,17 +938,17 @@
       {
         "q": "What would you happily pay more for?",
         "a": "A cell carrier, without hesitation. Eighty to a hundred a month for a carrier that doesn't sell location data, doesn't retain metadata, accepts anonymous payment, and runs verifiable infrastructure. Right now I pay thirty-five for Mint and I know AT&T is sitting on my data upstream. I'd triple that spend tomorrow for a carrier I actually trust.",
-        "insight": "WTP is 2-3x current spend — economics fully validated. The barrier is product availability, not price willingness."
+        "insight": "WTP is 2-3x current spend \u2014 economics fully validated. The barrier is product availability, not price willingness."
       },
       {
         "q": "What are your most important digital life needs?",
-        "a": "Control. Knowing what's running on my devices, what data is leaving, and where it's going. I can verify all of that on my phone — GrapheneOS is open-source — and my laptop runs Fedora. But the carrier layer is a complete black box I've never been able to crack. My phone is a fortress sitting on enemy's land.",
+        "a": "Control. Knowing what's running on my devices, what data is leaving, and where it's going. I can verify all of that on my phone \u2014 GrapheneOS is open-source \u2014 and my laptop runs Fedora. But the carrier layer is a complete black box I've never been able to crack. My phone is a fortress sitting on enemy's land.",
         "insight": "\"Fortress on enemy's land\" frames the core product opportunity: completing the privacy stack at the carrier layer is the single highest-value JTBD in this segment."
       },
       {
         "q": "What product frustrates you most but you can't replace?",
-        "a": "The cell carrier. I need cellular for work, for Signal when there's no Wi-Fi, for navigation. Every carrier is a surveillance partner and I can't self-host a cell tower. Mint is the least bad option — cheap, month-to-month, no contract. But 'least bad' is the best I can do. The gap between 'least bad' and 'actually good' is enormous.",
-        "insight": "Switching intent is maximum but constrained by product absence, not loyalty. 88% recommend privacy tools to others — community advocacy engine activates the moment a verifiable alternative exists."
+        "a": "The cell carrier. I need cellular for work, for Signal when there's no Wi-Fi, for navigation. Every carrier is a surveillance partner and I can't self-host a cell tower. Mint is the least bad option \u2014 cheap, month-to-month, no contract. But 'least bad' is the best I can do. The gap between 'least bad' and 'actually good' is enormous.",
+        "insight": "Switching intent is maximum but constrained by product absence, not loyalty. 88% recommend privacy tools to others \u2014 community advocacy engine activates the moment a verifiable alternative exists."
       }
     ]
   },
@@ -989,12 +989,12 @@
       },
       {
         "q": "What would perfect wireless look like during your training week?",
-        "a": "I want it to disappear. Go for a run, Garmin tracking perfectly, Whoop syncing, upload Strava segment at finish — none of that should require thought. Right now I probably lose one sync or segment a week.",
+        "a": "I want it to disappear. Go for a run, Garmin tracking perfectly, Whoop syncing, upload Strava segment at finish \u2014 none of that should require thought. Right now I probably lose one sync or segment a week.",
         "insight": "Persona measures carrier value in units carriers don't track: successful segment uploads, reliable wearable syncs, HRV data integrity."
       },
       {
         "q": "What would it take for you to leave T-Mobile?",
-        "a": "A carrier that specifically understood my use case. Right now switching requires explaining \"I want to change because my Strava sometimes doesn't sync\" — not a winning argument. But \"I found a plan designed for fitness, includes Strava subscription,  more\" — that's a conversation.",
+        "a": "A carrier that specifically understood my use case. Right now switching requires explaining \"I want to change because my Strava sometimes doesn't sync\" \u2014 not a winning argument. But \"I found a plan designed for fitness, includes Strava subscription,  more\" \u2014 that's a conversation.",
         "insight": "Primary switching barrier is family plan entanglement (55% on multi-line). A bundled fitness subscription creates the narrative justification to trigger the family conversation."
       }
     ]
