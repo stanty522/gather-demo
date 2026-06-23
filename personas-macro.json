@@ -47,7 +47,9 @@
         "a": "Don\u2019t treat it as a theme. Don\u2019t make it a sticker on a generic plan. The features have to be real. And when my dog dies \u2014 when that day comes \u2014 I want a company that handles it the way Chewy handles it. A $40 flower arrangement. That\u2019s what separates a brand that understands us from one that just uses us.",
         "insight": "Loyalty emerges from recognizing pet loss as genuine grief. The Chewy benchmark shows differentiation is not in being cheaper \u2014 it\u2019s in treating pet parenthood as worthy of institutional respect."
       }
-    ]
+    ],
+    "report": "reports/macro-personas/t1-01-pet-owning-americans/stage4a-lite-persona-report-2026-03-10.md",
+    "reportPdf": "reports/macro-personas/t1-01-pet-owning-americans/stage4a-lite-persona-report-2026-03-09.pdf"
   },
   {
     "id": "M2",
@@ -97,7 +99,9 @@
         "a": "If it felt like they discovered \"solo people\" as a marketing angle without actually caring. If the \"solo plan\" was just a regular plan with a new name. I check Reddit before I buy anything significant. If the community hasn\u2019t vetted it \u2014 or if there are threads about hidden fees \u2014 I\u2019m not touching it. Authenticity is the bar.",
         "insight": "Reddit community vetting is the trust moat, not carrier messaging. Transparency, no hidden fees, and Reddit-verified reviews are non-negotiable."
       }
-    ]
+    ],
+    "report": "reports/macro-personas/t1-02-solo-living/stage4a-lite-persona-report-2026-03-09.md",
+    "reportPdf": "reports/macro-personas/t1-02-solo-living/stage4a-lite-persona-report-2026-03-09.pdf"
   },
   {
     "id": "M3",
@@ -147,7 +151,9 @@
         "a": "I have a group chat with six other creators I met at VidCon two years ago. We talk every day \u2014 more than my college friends. We share analytics, celebrate wins, panic together when the algorithm shifts. The line between friendship and collaboration is gone. That\u2019s what \"community\" means to me now.",
         "insight": "Community peer recommendations drive 44% of carrier decisions. This is a tribe member seeking identity affirmation through tool choices. First-mover with authentic positioning captures durable moat."
       }
-    ]
+    ],
+    "report": "reports/macro-personas/t1-03-independent-workers/stage4a-lite-persona-report-2026-03-10.md",
+    "reportPdf": "reports/macro-personas/t1-03-independent-workers/stage4a-lite-persona-report-2026-03-09.pdf"
   },
   {
     "id": "M4",
@@ -196,7 +202,9 @@
         "a": "I\u2019d be skeptical. Telecom companies have done the \"we connect people\" ad campaign a hundred times and it\u2019s always felt hollow. If a company were doing something genuinely different \u2014 like actually building tools that run clubs need \u2014 I could imagine it. But I\u2019d need to see the product, not the marketing. The burden of proof would be high.",
         "insight": "Informed skepticism and high authenticity threshold. Opens a narrow but credible path for telcos willing to build real infrastructure rather than exploit community for marketing."
       }
-    ]
+    ],
+    "report": "reports/macro-personas/t1-04-socially-disconnected-adults/stage4a-lite-persona-report-2026-03-10.md",
+    "reportPdf": "reports/macro-personas/t1-04-socially-disconnected-adults/stage4a-lite-persona-report-2026-03-10.pdf"
   },
   {
     "id": "M5",
@@ -244,7 +252,9 @@
         "a": "Honestly? I wouldn\u2019t design it around my weight loss journey. That would feel invasive. Reliable video calling for telehealth. A genuine commitment not to share health data. Maybe a way to connect health apps without them leaking everywhere. And just being cheaper \u2014 everything I\u2019m spending on Wegovy has made me a ruthless budget optimizer.",
         "insight": "Explicitly rejects weight-management branding as invasive. Price is primary driver; reliability is table-stakes. Validates the IGNORE verdict \u2014 this is a commodity shopper, not a brand-loyal customer."
       }
-    ]
+    ],
+    "report": "reports/macro-personas/t1-05-weight-management-americans/stage4a-lite-persona-report-2026-03-10.md",
+    "reportPdf": "reports/macro-personas/t1-05-weight-management-americans/stage4a-lite-persona-report-2026-03-10.pdf"
   },
   {
     "id": "M6",
@@ -294,7 +304,9 @@
         "a": "Client call, final presentation \u2014 and my connection fails. I\u2019ve had it happen twice. People are forgiving in the moment then quietly wonder if they can rely on you. The anxiety before a big call \u2014 checking signal, doing a test call 20 minutes before \u2014 that happens before every single important call.",
         "insight": "Emotional stakes and income threat justify premium pricing. This persona will pay for reliability as business insurance, not a luxury."
       }
-    ]
+    ],
+    "report": "reports/macro-personas/t1-06-remote-capable-workers/stage4a-lite-persona-report-2026-03-10.md",
+    "reportPdf": "reports/macro-personas/t1-06-remote-capable-workers/stage4a-lite-persona-report-2026-03-10.pdf"
   },
   {
     "id": "M7",
@@ -344,7 +356,8 @@
         "a": "Nobody treats me like a financially intelligent adult. There\u2019s no plan that says \"we know you don\u2019t need 50GB, here\u2019s 8GB for $15.\" The market defaults to pushing you higher. I\u2019d pay a small premium for a plan genuinely designed not to upsell me. Nobody does that. That would be different.",
         "insight": "White-space opportunity: right-sizing plans that reward restraint. Willing to pay premium for a carrier that doesn\u2019t exploit frugality \u2014 a value-creation lever unavailable to price-minimization competitors."
       }
-    ]
+    ],
+    "report": "reports/macro-personas/t1-07-financial-independence/stage4a-lite-persona-report-2026-03-10.md"
   },
   {
     "id": "M8",
@@ -391,7 +404,9 @@
         "a": "Still technically on my parents\u2019 family plan. It\u2019s one of those things I tell myself I\u2019ll change and then don\u2019t because it\u2019s free. I know I need to get off it \u2014 it\u2019s weird to be 26 and on your parents\u2019 plan, especially given everything. When I do switch I\u2019ll probably go Mint, same as my friend uses. $30/month seems fine.",
         "insight": "Switching trigger is young-adult independence driven by inertia resolution, not faith identity. Word-of-mouth (friend recommendation) is the acquisition channel, not identity-aligned marketing."
       }
-    ]
+    ],
+    "report": "reports/macro-personas/t1-08-spiritually-unaffiliated/stage4a-lite-persona-report-2026-03-10.md",
+    "reportPdf": "reports/macro-personas/t1-08-spiritually-unaffiliated/stage4a-lite-persona-report-2026-03-10.pdf"
   },
   {
     "id": "M9",
@@ -441,7 +456,9 @@
         "a": "That we\u2019re not stupid, and we\u2019re not scared. We\u2019re learning. We came to smartphones later, and some of us feel behind, but feeling behind is not the same as not wanting to be there. I want to feel like the companies making these products actually thought about a 71-year-old woman living alone in Colorado who still wants to be fully alive in the world.",
         "insight": "Identity tension: capable adult vs. fragile senior. Inverts positioning away from safety/simplification toward capability/participation. This is the brand tone differentiator."
       }
-    ]
+    ],
+    "report": "reports/macro-personas/t1-09-aging-in-place-adults/stage4a-lite-persona-report-2026-03-10.md",
+    "reportPdf": "reports/macro-personas/t1-09-aging-in-place-adults/stage4a-lite-persona-report-2026-03-10.pdf"
   },
   {
     "id": "M10",
@@ -491,7 +508,9 @@
         "a": "Probably $70/month for just me. Maybe $100 if it genuinely covered international calling, came with real Spanish-language support, and let me add my parents. I know what I\u2019m paying for. I\u2019d pay more for something that actually worked the way my life works. But I\u2019ve been promised that before and gotten a translation instead.",
         "insight": "Breaks the \"Latinos are budget-conscious\" myth. $70-100/month WTP for culturally authentic solutions. The \"translation vs. native build\" distinction is the key differentiator."
       }
-    ]
+    ],
+    "report": "reports/macro-personas/t1-10-us-latino-adults/stage4a-lite-persona-report-2026-03-10.md",
+    "reportPdf": "reports/macro-personas/t1-10-us-latino-adults/stage4a-lite-persona-report-2026-03-10.pdf"
   },
   {
     "id": "M11",
@@ -541,7 +560,9 @@
         "a": "USAA is the real thing. There is no question. Everything else is mostly marketing. Every carrier has a \"military plan\" that\u2019s really just a discount. I can count on one hand the companies that have actually thought about how our lives work differently: PCS every two years, deployment cycles, BAH changes, the VA system.",
         "insight": "High sensitivity to inauthenticity. Proof of genuine design (PCS tooling, deployment modes) earns premium loyalty and community advocacy. Discounts alone cannot compete with identity-native value."
       }
-    ]
+    ],
+    "report": "reports/macro-personas/t1-11-veterans/stage4a-lite-persona-report-2026-03-10.md",
+    "reportPdf": "reports/macro-personas/t1-11-veterans/stage4a-lite-persona-report-2026-03-10.pdf"
   },
   {
     "id": "M12",
@@ -591,7 +612,9 @@
         "a": "A plan that includes Guatemala calling from the start \u2014 not as an add-on \u2014 and maybe a remittance discount through a partnership, and setup that doesn\u2019t require a Social Security Number. That\u2019s not a lot. I think about it sometimes \u2014 why doesn\u2019t this exist? I would pay more for it. Maybe ten or fifteen dollars more. But I would pay.",
         "insight": "Willingness-to-pay: +$15/month premium for a fully designed solution. Remittance corridor integration ($350/month average) addresses structural pain. Community word-of-mouth is the acquisition lever."
       }
-    ]
+    ],
+    "report": "reports/macro-personas/t1-15-first-generation-americans/stage4a-lite-persona-report-2026-03-09.md",
+    "reportPdf": "reports/macro-personas/t1-15-first-generation-americans/stage4a-lite-persona-report-2026-03-09.pdf"
   },
   {
     "id": "M13",
@@ -641,7 +664,9 @@
         "a": "The credit thing. My credit was fine when I was married. Now I\u2019m re-establishing. I tried to get a new credit card and got rejected. I\u2019m worried that when I finally go to get my own phone plan the carrier is going to do a credit check and I\u2019m going to fail it and be stuck with prepaid. That fear keeps me on Marcus\u2019s AT&T account longer than I should be.",
         "insight": "Credit-check anxiety extends lock-in. Affects 40-50% of post-divorce Americans (50-100 point credit score drop). A no-credit-check or \"fresh-start\" onboarding removes the primary activation brake."
       }
-    ]
+    ],
+    "report": "reports/macro-personas/t1-16-divorcing-americans/stage4a-lite-persona-report-2026-03-10.md",
+    "reportPdf": "reports/macro-personas/t1-16-divorcing-americans/stage4a-lite-persona-report-2026-03-10.pdf"
   },
   {
     "id": "M14",

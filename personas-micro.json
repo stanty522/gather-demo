@@ -45,7 +45,8 @@
         "a": "The hardest part is that homeschooling never stops. There's no commute, no clocking out. I am the school. The mental load is enormous. And the invisible judgment \u2014 people asking about socialization like I haven't thought about it every day for six years.",
         "insight": "Identity-driven persona feels invisible to institutions including carriers; desires recognition"
       }
-    ]
+    ],
+    "report": "reports/micro-personas/p004-identity-first-homeschool-parent/stage4a-p004-identity-first-homeschool-parent-2026-03-10.md"
   },
   {
     "id": "p006",
@@ -92,7 +93,9 @@
         "a": "Data prioritization for curriculum apps during school hours. Parental visibility without a separate subscription. A discount for co-op families, like companies do group rates. We operate like a small school. Treat us like one.",
         "insight": "Community-based pricing and school-day data architecture are fundamental design requirements"
       }
-    ]
+    ],
+    "report": "reports/micro-personas/p006-black-latino-homeschool-parent/stage4a-p006-black-latino-homeschool-parent-2026-03-10.md",
+    "reportPdf": "reports/micro-personas/p006-black-latino-homeschool-parent/stage4a-p006-black-latino-homeschool-parent-2026-03-10.pdf"
   },
   {
     "id": "p008",
@@ -141,7 +144,9 @@
         "a": "Finding out three months in there's a catch I missed \u2014 a deprioritization policy or hidden cap. I want a carrier that tells me the bad news upfront before I ask.",
         "insight": "Trust barrier is information asymmetry; transparency is the highest-signal differentiator"
       }
-    ]
+    ],
+    "report": "reports/micro-personas/p008-diy-device-repair/stage4a-p008-diy-device-repair-2026-03-10.md",
+    "reportPdf": "reports/micro-personas/p008-diy-device-repair/stage4a-p008-diy-device-repair-2026-03-10.pdf"
   },
   {
     "id": "p009",
@@ -189,7 +194,9 @@
         "a": "I'd post on Nostr first, then X, then mention it in Telegram groups. If I really trusted it I'd reach out to podcast hosts. Bitcoin community spreads info through trusted recommendations. But it has to be real. The community will fact-check immediately.",
         "insight": "Community-driven distribution through high-trust channels; any perceived inauthenticity generates immediate backlash"
       }
-    ]
+    ],
+    "report": "reports/micro-personas/p009-bitcoin-maximalist/stage4a-p009-bitcoin-maximalist-2026-03-10.md",
+    "reportPdf": "reports/micro-personas/p009-bitcoin-maximalist/stage4a-p009-bitcoin-maximalist-2026-03-10.pdf"
   },
   {
     "id": "p014",
@@ -237,7 +244,8 @@
         "a": "Thirty to forty dollars, no contract, AT&T or T-Mobile network. Porting that takes an hour. Clear billing. And something that acknowledges the situation \u2014 not pity, but solidarity and forward momentum.",
         "insight": "Emotional validation of transition moment is a switching trigger; autonomy-building framing resonates"
       }
-    ]
+    ],
+    "report": "reports/micro-personas/p014-doged-federal-employee/stage4a-p014-doged-federal-employee-2026-03-10.md"
   },
   {
     "id": "p018",
@@ -284,7 +292,9 @@
         "a": "Everything assumes you have someone to ask. Financial products, wireless plans \u2014 all assume inherited knowledge I don't have. The gap isn't features. It's someone building for people doing this without a map.",
         "insight": "Core unmet need is an advisor role, not a product feature. White space for identity-based positioning."
       }
-    ]
+    ],
+    "report": "reports/micro-personas/p018-first-gen-professional-new-grad/stage4a-p018-first-gen-professional-new-grad-2026-03-10.md",
+    "reportPdf": "reports/micro-personas/p018-first-gen-professional-new-grad/stage4a-p018-first-gen-professional-new-grad-2026-03-10.pdf"
   },
   {
     "id": "p023",
@@ -332,7 +342,9 @@
         "a": "It's rare. One employer at a job fair said: we recruit from reentry programs on purpose because you bring something most people don't. That hit different. Imagine if someone said: we built this for returning citizens, not despite your history but because of who you are. I'd be loyal for life.",
         "insight": "Recognition reframes from high-risk to high-value. Identity-first positioning creates loyalty that price competition cannot displace."
       }
-    ]
+    ],
+    "report": "reports/micro-personas/p023-returning-citizen/stage4a-p023-returning-citizen-2026-03-10.md",
+    "reportPdf": "reports/micro-personas/p023-returning-citizen/stage4a-p023-returning-citizen-2026-03-10.pdf"
   },
   {
     "id": "p026",
@@ -380,7 +392,9 @@
         "a": "Gaming mode. Something that actually prioritizes my traffic when I'm in a game. I'd pay for that \u2014 not a lot, like five extra bucks. And I'd want proof it works. Show me the ping numbers.",
         "insight": "Gaming performance is the only paid feature he would adopt. Requirement for proof over promise is critical."
       }
-    ]
+    ],
+    "report": "reports/micro-personas/p026-economically-anxious-young-man/stage4a-p026-economically-anxious-young-man-2026-03-10.md",
+    "reportPdf": "reports/micro-personas/p026-economically-anxious-young-man/stage4a-p026-economically-anxious-young-man-2026-03-10.pdf"
   },
   {
     "id": "p028",
@@ -428,7 +442,9 @@
         "a": "Reddit first. r/digitalminimalism or r/nosurf. If the comments were positive \u2014 genuinely thoughtful, not shilly \u2014 I'd look into it. The channel has to match the product \u2014 if you're selling minimalism, don't reach me through algorithmic ads.",
         "insight": "Acquisition channel must be congruent with values. Social ads would undermine credibility."
       }
-    ]
+    ],
+    "report": "reports/micro-personas/p028-committed-digital-minimalist/stage4a-p028-committed-digital-minimalist-2026-03-10.md",
+    "reportPdf": "reports/micro-personas/p028-committed-digital-minimalist/stage4a-p028-committed-digital-minimalist-2026-03-10.pdf"
   },
   {
     "id": "p033",
@@ -476,7 +492,9 @@
         "a": "Immediately. r/TinyHouses asks about connectivity solutions constantly \u2014 it's a top-5 topic. If I found something that worked, I'd write a detailed post: actual data usage, coverage test results from my lot, cost breakdown. That's how decisions get made here.",
         "insight": "Community is the distribution channel. Organic advocacy through detailed technical posts is the highest-credibility signal."
       }
-    ]
+    ],
+    "report": "reports/micro-personas/p033-tiny-home-resident/stage4a-p033-tiny-home-resident-2026-03-10.md",
+    "reportPdf": "reports/micro-personas/p033-tiny-home-resident/stage4a-p033-tiny-home-resident-2026-03-10.pdf"
   },
   {
     "id": "p036",
@@ -523,7 +541,8 @@
         "a": "Same or lower price, no credit check \u2014 non-negotiable \u2014 and completely predictable billing. And honestly? If a carrier felt like it understood where I'm coming from \u2014 built for people who are rebuilding \u2014 I'd switch tomorrow. The feeling is enough.",
         "insight": "Identity-level positioning (\"rebuilders,\" not \"subprime\") is more switching-motivating than feature improvements."
       }
-    ]
+    ],
+    "report": "reports/micro-personas/p036-bankruptcy-fresh-start-filer/stage4a-p036-bankruptcy-fresh-start-filer-2026-03-10.md"
   },
   {
     "id": "p041",
@@ -570,7 +589,9 @@
         "a": "Reliable connectivity at the gym \u2014 our box is in a metal warehouse and reception is terrible. And the group coordination piece. Not Instagram. Something built for this specific culture.",
         "insight": "Two specific pain points: dead-zone coverage in metal buildings and community coordination visibility. Both solvable."
       }
-    ]
+    ],
+    "report": "reports/micro-personas/p041-crossfit-functional-athlete/stage4a-p041-crossfit-functional-athlete-2026-03-10.md",
+    "reportPdf": "reports/micro-personas/p041-crossfit-functional-athlete/stage4a-p041-crossfit-functional-athlete-2026-03-10.pdf"
   },
   {
     "id": "p046",
@@ -617,7 +638,9 @@
         "a": "Affordable \u2014 under /month. Easy to set up online without needing my ex's cooperation or a credit check. My number moves over. If something goes wrong I can get help quickly. And the plan is mine \u2014 no joint anything.",
         "insight": "Three non-negotiable requirements: price, account autonomy, speed. The emotional need \u2014 independence \u2014 translates directly into product feature requirements."
       }
-    ]
+    ],
+    "report": "reports/micro-personas/p046-newly-separated-plan-splitter/stage4a-p046-newly-separated-plan-splitter-2026-03-10.md",
+    "reportPdf": "reports/micro-personas/p046-newly-separated-plan-splitter/stage4a-p046-newly-separated-plan-splitter-2026-03-10.pdf"
   },
   {
     "id": "p048",
@@ -664,7 +687,9 @@
         "a": "That I'm starting over, not just switching. That I have kids and I'm doing this alone. The last time I called a carrier, they kept trying to upsell me on a smartwatch line. Nobody asked the right questions.",
         "insight": "The persona wants to be recognized and guided, not sold to. Carrier that acknowledges \"starting over\" achieves conversion through validation."
       }
-    ]
+    ],
+    "report": "reports/micro-personas/p048-newly-single-parent/stage4a-p048-newly-single-parent-2026-03-10.md",
+    "reportPdf": "reports/micro-personas/p048-newly-single-parent/stage4a-p048-newly-single-parent-2026-03-10.pdf"
   },
   {
     "id": "p057",
@@ -711,7 +736,9 @@
         "a": "Performance proof. Specific numbers \u2014 \"we guarantee five megabits upload during live events or we credit your bill.\" Something testable. I could switch in an afternoon. The friction isn't mechanics \u2014 it's that no carrier has given me a reason specific to my situation.",
         "insight": "Persona is explicitly requesting an SLA for upload bandwidth \u2014 a product architecture no current carrier offers."
       }
-    ]
+    ],
+    "report": "reports/micro-personas/p057-social-commerce-creator/stage4a-p057-social-commerce-creator-2026-03-10.md",
+    "reportPdf": "reports/micro-personas/p057-social-commerce-creator/stage4a-p057-social-commerce-creator-2026-03-10.pdf"
   },
   {
     "id": "p061",
@@ -758,7 +785,9 @@
         "a": "Being able to do it entirely digitally without anything going to a physical address or to any email in my old life. And sign-up in 20 minutes on the shelter's Wi-Fi without being on the phone with customer service for an hour.",
         "insight": "Activation experience is the primary product surface. Sign-up must be faster and simpler than any consumer wireless product."
       }
-    ]
+    ],
+    "report": "reports/micro-personas/p061-dv-survivor/stage4a-p061-dv-survivor-2026-03-10.md",
+    "reportPdf": "reports/micro-personas/p061-dv-survivor/stage4a-p061-dv-survivor-2026-03-10.pdf"
   },
   {
     "id": "p073",
@@ -805,7 +834,9 @@
         "a": "Clear evidence that the plan reports to all three bureaus with a dashboard showing it. No hard inquiry upfront. Guaranteed no deposit. If I could check eligibility with a soft pull, that removes the biggest barrier.",
         "insight": "Transparency and psychological safety are the differentiators. Proof of bureau reporting and soft-pull eligibility convert intent into action."
       }
-    ]
+    ],
+    "report": "reports/micro-personas/p073-credit-rebuilder-post-bankruptcy/stage4a-p073-credit-rebuilder-post-bankruptcy-2026-03-10.md",
+    "reportPdf": "reports/micro-personas/p073-credit-rebuilder-post-bankruptcy/stage4a-p073-credit-rebuilder-post-bankruptcy-2026-03-10.pdf"
   },
   {
     "id": "p080",
@@ -852,7 +883,9 @@
         "a": "I'd be curious and suspicious. But if the plan was genuinely simple \u2014 posted on a page with no animations, transparent pricing, and someone in the community vouching \u2014 I'd probably try it. The endorsement matters more than the ad.",
         "insight": "Community trust is the only acquisition channel. One authentic community endorsement is worth 10,000 paid impressions."
       }
-    ]
+    ],
+    "report": "reports/micro-personas/p080-dumb-phone-adopter/stage4a-p080-dumb-phone-adopter-2026-03-10.md",
+    "reportPdf": "reports/micro-personas/p080-dumb-phone-adopter/stage4a-p080-dumb-phone-adopter-2026-03-10.pdf"
   },
   {
     "id": "p086",
@@ -900,7 +933,9 @@
         "a": "If someone I already trusted \u2014 like a reentry program counselor \u2014 told me to use it. Or if it was built for people in my situation. Not just cheap \u2014 specifically built for people coming out who need it to work on day one.",
         "insight": "B2B channel partnership with reentry organizations is non-optional. Digital-only acquisition will fail for this population."
       }
-    ]
+    ],
+    "report": "reports/micro-personas/p086-reentry-housing-navigator/stage4a-p086-reentry-housing-navigator-2026-03-10.md",
+    "reportPdf": "reports/micro-personas/p086-reentry-housing-navigator/stage4a-p086-reentry-housing-navigator-2026-03-10.pdf"
   },
   {
     "id": "p029",
@@ -950,7 +985,9 @@
         "a": "The cell carrier. I need cellular for work, for Signal when there's no Wi-Fi, for navigation. Every carrier is a surveillance partner and I can't self-host a cell tower. Mint is the least bad option \u2014 cheap, month-to-month, no contract. But 'least bad' is the best I can do. The gap between 'least bad' and 'actually good' is enormous.",
         "insight": "Switching intent is maximum but constrained by product absence, not loyalty. 88% recommend privacy tools to others \u2014 community advocacy engine activates the moment a verifiable alternative exists."
       }
-    ]
+    ],
+    "report": "reports/micro-personas/p029-privacy-activists/p029-privacy-activists-4a-report.md",
+    "reportPdf": "reports/micro-personas/p029-privacy-activists/p029-privacy-activists-4a-report.pdf"
   },
   {
     "id": "p087",
@@ -997,6 +1034,8 @@
         "a": "A carrier that specifically understood my use case. Right now switching requires explaining \"I want to change because my Strava sometimes doesn't sync\" \u2014 not a winning argument. But \"I found a plan designed for fitness, includes Strava subscription,  more\" \u2014 that's a conversation.",
         "insight": "Primary switching barrier is family plan entanglement (55% on multi-line). A bundled fitness subscription creates the narrative justification to trigger the family conversation."
       }
-    ]
+    ],
+    "report": "reports/micro-personas/p087-fitness-app-heavy-user/stage4a-p087-fitness-app-heavy-user-2026-03-10.md",
+    "reportPdf": "reports/micro-personas/p087-fitness-app-heavy-user/stage4a-p087-fitness-app-heavy-user-2026-03-10.pdf"
   }
 ]

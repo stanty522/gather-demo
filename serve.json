@@ -1,0 +1,7 @@
+{
+  "cleanUrls": false,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "report-viewer", "destination": "/report-viewer.html" }
+  ]
+}

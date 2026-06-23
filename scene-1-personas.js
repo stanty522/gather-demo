@@ -514,6 +514,14 @@ async function initScene1(container) {
   margin: 0 0 8px; color: #e2e2f0; letter-spacing: -0.3px; line-height: 1.2;
 }
 .s1-dd-identity .s1-dd-desc { font-size: 15px; color: #737373; line-height: 1.6; max-width: 600px; }
+.s1-dd-report-btn {
+  display: inline-flex; align-items: center; gap: 6px; margin-top: 14px;
+  font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.5px;
+  padding: 8px 16px; border-radius: 8px; cursor: pointer; text-decoration: none;
+  color: ${AMBER}; background: rgba(240,194,122,0.08); border: 1px solid rgba(240,194,122,0.35);
+  transition: all 0.18s ease;
+}
+.s1-dd-report-btn:hover { background: rgba(240,194,122,0.16); border-color: rgba(240,194,122,0.7); color: #ffd9a0; }
 .s1-dd-scorebox { text-align: right; }
 .s1-dd-scorebox .s1-dd-score-val {
   font-family: 'JetBrains Mono', monospace; font-size: 48px; font-weight: 700;
@@ -1058,6 +1066,12 @@ async function initScene1(container) {
     html += '<span class="s1-card-pipe s1-card-pipe--' + p.pipe + '" style="margin-bottom:8px;display:inline-block;">' + PIPE_LABELS[p.pipe] + ' Pipeline</span>';
     html += '<h2>' + esc(p.name) + '</h2>';
     html += '<div class="s1-dd-desc">' + esc(p.desc) + '</div>';
+    if (p.report) {
+      var rUrl = 'report-viewer.html?f=' + encodeURIComponent(p.report)
+        + '&title=' + encodeURIComponent(p.name)
+        + (p.reportPdf ? '&pdf=' + encodeURIComponent(p.reportPdf) : '');
+      html += '<a class="s1-dd-report-btn" href="' + rUrl + '" target="_blank" rel="noopener">See full report ↗</a>';
+    }
     html += '</div>';
     html += '<div class="s1-dd-scorebox">';
     html += '<div class="s1-dd-score-val">' + p.score.toFixed(1) + '</div>';
