@@ -262,6 +262,14 @@
       const inp = document.getElementById('password-input');
       const err = document.getElementById('password-error');
 
+      // No password gate on local development
+      const host = location.hostname;
+      const isLocal = host === 'localhost' || host === '127.0.0.1' || host === '::1' || host.endsWith('.localhost');
+      if (isLocal) {
+        gate.style.display = 'none';
+        return;
+      }
+
       if (sessionStorage.getItem('gather-auth') === '1') {
         gate.style.display = 'none';
       } else {
