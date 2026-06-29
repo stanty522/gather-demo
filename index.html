@@ -3,30 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gather Labs — AI-Powered Market Intelligence</title>
+  <title>Gather Labs</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
-    /* ── CSS Variables ── */
+    /* ── CSS Variables (Light / Editorial) ── */
     :root {
-      --bg-primary: #0a0a0a;
-      --bg-secondary: #111111;
-      --border-subtle: rgba(255, 255, 255, 0.08);
-      --border-neutral: #333;
-      --text-primary: #ffffff;
-      --text-secondary: #999999;
-      --text-muted: #555555;
-      --text-inactive: #666666;
-      --accent-emerald: #10b981;
-      --tab-active-bg: rgba(255, 255, 255, 0.05);
-      --tab-hover-text: #999999;
+      --bg-primary: #faf8f3;       /* cream */
+      --bg-secondary: #f5f0e8;     /* warm */
+      --border-subtle: rgba(0, 0, 0, 0.06);
+      --border-neutral: #e7e5e4;
+      --text-primary: #1c1917;     /* ink */
+      --text-secondary: #57534e;   /* ink-soft */
+      --text-muted: #a8a29e;       /* ink-muted */
+      --text-inactive: #a8a29e;
+      --accent-emerald: #b45309;   /* amber (name kept for compatibility) */
+      --accent-light: #fef3c7;
+      --tab-active-bg: rgba(0, 0, 0, 0.06);
+      --tab-hover-text: #1c1917;
       --radius-card: 12px;
       --radius-tab: 8px;
-      --font-display: 'Instrument Serif', Georgia, serif;
+      --font-display: 'Fraunces', Georgia, serif;
       --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
-      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --font-sans: 'Source Serif 4', Georgia, serif;
       --header-height: 64px;
     }
 
@@ -40,30 +41,21 @@
     html, body {
       height: 100%;
       overflow: hidden;
-      background: linear-gradient(180deg, #0a0a0a 0%, #111111 50%, #0a0a0a 100%);
+      background: var(--bg-primary);
       color: var(--text-primary);
       font-family: var(--font-sans);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* ── Scanline Overlay ── */
+    /* ── Grain Overlay (editorial texture) ── */
     body::after {
       content: '';
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      inset: 0;
       pointer-events: none;
       z-index: 9999;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(0, 0, 0, 0.015) 2px,
-        rgba(0, 0, 0, 0.015) 4px
-      );
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
     }
 
     /* ── Custom Scrollbar ── */
@@ -74,11 +66,11 @@
       background: transparent;
     }
     ::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.12);
       border-radius: 3px;
     }
     ::-webkit-scrollbar-thumb:hover {
-      background: rgba(255, 255, 255, 0.14);
+      background: rgba(0, 0, 0, 0.22);
     }
 
     /* ── Header ── */
@@ -88,8 +80,8 @@
       justify-content: space-between;
       padding: 0 32px;
       height: var(--header-height);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-      background: rgba(10, 10, 10, 0.8);
+      border-bottom: 1px solid var(--border-subtle);
+      background: rgba(250, 248, 243, 0.92);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       position: fixed;
@@ -103,12 +95,14 @@
       display: flex;
       align-items: center;
       flex-shrink: 0;
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.5px;
+      text-decoration: none;
     }
-
-    .header-logo img {
-      height: 28px;
-      filter: brightness(0.85);
-    }
+    .header-logo .logo-dot { color: var(--accent-emerald); }
 
     /* ── Tab Navigation ── */
     .nav-tabs {
@@ -216,134 +210,92 @@
       letter-spacing: 0.06em;
       text-transform: uppercase;
     }
+
+    /* ── Scene Stub (for Tabs 03 + 04 "Coming soon") ── */
+    .scene-stub {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 0 32px;
+      text-align: center;
+    }
+    .scene-stub .scene-placeholder-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--accent-emerald);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .scene-stub .scene-placeholder-title {
+      font-size: 44px;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+    .scene-stub .scene-placeholder-sub {
+      text-transform: none;
+      letter-spacing: 0;
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--text-secondary);
+      max-width: 420px;
+      margin: 0 auto;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Password Gate -->
-  <div id="password-gate" style="
-    position: fixed; inset: 0; z-index: 10000;
-    background: #0a0a0a;
-    display: flex; align-items: center; justify-content: center;
-    flex-direction: column; gap: 24px;
-  ">
-    <img src="assets/gather-logo-light.svg" alt="Gather" style="height: 28px; opacity: 0.7; margin-bottom: 8px;">
-    <div style="
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      color: #555;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    ">Enter access code</div>
-    <input id="password-input" type="password" autocomplete="off" placeholder="Access code" style="
-      width: 260px;
-      padding: 12px 16px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 8px;
-      color: #fff;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 14px;
-      outline: none;
-      text-align: center;
-      letter-spacing: 0.1em;
-    ">
-    <div id="password-error" style="
-      font-family: -apple-system, sans-serif;
-      font-size: 12px;
-      color: #e17055;
-      height: 16px;
-    "></div>
-  </div>
-  <script>
-    (function() {
-      const CODE = 'gather2026';
-      const gate = document.getElementById('password-gate');
-      const inp = document.getElementById('password-input');
-      const err = document.getElementById('password-error');
-
-      if (sessionStorage.getItem('gather-auth') === '1') {
-        gate.style.display = 'none';
-      } else {
-        inp.focus();
-      }
-
-      inp.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') {
-          if (inp.value === CODE) {
-            sessionStorage.setItem('gather-auth', '1');
-            gate.style.transition = 'opacity 0.3s';
-            gate.style.opacity = '0';
-            setTimeout(() => gate.style.display = 'none', 300);
-          } else {
-            err.textContent = 'Invalid code';
-            inp.value = '';
-            inp.style.borderColor = '#e17055';
-            setTimeout(() => { err.textContent = ''; inp.style.borderColor = 'rgba(255,255,255,0.1)'; }, 2000);
-          }
-        }
-      });
-    })();
-  </script>
-
   <!-- Header -->
   <header class="header">
-    <div class="header-logo">
-      <img src="assets/gather-logo-light.svg" alt="Gather">
-    </div>
+    <a class="header-logo" href="/">gather</a>
 
     <nav class="nav-tabs">
       <button class="nav-tab active" data-scene="2">
-        <span class="nav-tab-number">01</span> Persona Explorer
+        <span class="nav-tab-number">01</span> Who we serve
       </button>
       <button class="nav-tab" data-scene="3">
-        <span class="nav-tab-number">02</span> Brand Creation
+        <span class="nav-tab-number">02</span> Skills
       </button>
       <button class="nav-tab" data-scene="4">
-        <span class="nav-tab-number">03</span> Fake Door Testing
+        <span class="nav-tab-number">03</span> Hooks
       </button>
       <button class="nav-tab" data-scene="5">
-        <span class="nav-tab-number">04</span> Launch
+        <span class="nav-tab-number">04</span> Autonomous Ops
       </button>
     </nav>
 
-    <div class="header-label">AI Market Intelligence Platform</div>
+    <div class="header-label">Gather Labs</div>
   </header>
 
   <!-- Scenes -->
   <div class="scenes-wrapper">
 
-    <div id="scene-1" class="scene">
-      <div class="scene-placeholder">
-        <div class="scene-placeholder-title">Pipeline Run</div>
-        <div class="scene-placeholder-sub">Loading...</div>
-      </div>
-    </div>
-
     <div id="scene-2" class="scene active">
       <div class="scene-placeholder">
-        <div class="scene-placeholder-title">Persona Explorer</div>
+        <div class="scene-placeholder-title">Who we serve</div>
         <div class="scene-placeholder-sub">Loading...</div>
       </div>
     </div>
 
     <div id="scene-3" class="scene">
       <div class="scene-placeholder">
-        <div class="scene-placeholder-title">Brand Creation</div>
+        <div class="scene-placeholder-title">Skills</div>
         <div class="scene-placeholder-sub">Loading...</div>
       </div>
     </div>
 
     <div id="scene-4" class="scene">
-      <div class="scene-placeholder">
-        <div class="scene-placeholder-title">Fake Door Testing</div>
-        <div class="scene-placeholder-sub">Loading...</div>
+      <div class="scene-placeholder scene-stub">
+        <div class="scene-placeholder-eyebrow">Coming soon</div>
+        <div class="scene-placeholder-title">Hooks</div>
+        <div class="scene-placeholder-sub">Multiple growth hooks per persona, validated in parallel via fake-door testing.</div>
       </div>
     </div>
 
     <div id="scene-5" class="scene">
       <div class="scene-placeholder">
-        <div class="scene-placeholder-title">Launch</div>
+        <div class="scene-placeholder-title">Autonomous Ops</div>
         <div class="scene-placeholder-sub">Loading...</div>
       </div>
     </div>
@@ -356,7 +308,7 @@
       const scenes = document.querySelectorAll('.scene');
 
       function switchScene(index) {
-        if (index < 1 || index > 5) return;
+        if (index < 2 || index > 5) return;
 
         tabs.forEach(tab => tab.classList.remove('active'));
         scenes.forEach(scene => scene.classList.remove('active'));
@@ -382,47 +334,37 @@
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) return;
 
         const num = parseInt(e.key, 10);
-        if (num >= 1 && num <= 5) {
-          switchScene(num);
+        if (num >= 1 && num <= 4) {
+          switchScene(num + 1);
         }
       });
     })();
   </script>
 
-  <!-- Scene Scripts -->
-  <script src="scene-1-personas.js"></script>
-  <script src="scene-2-pipeline.js"></script>
-  <script src="scene-3-recreation.js"></script>
-  <script src="scene-5-brandtesting.js"></script>
-  <script src="scene-4-scaleengine.js"></script>
+  <!-- Scene Scripts (cache-busted) -->
+  <script src="scene-1-personas.js?v=20260414j"></script>
+  <script src="scene-6-skills.js?v=20260414j"></script>
+  <script src="scene-7-autoops.js?v=20260414j"></script>
   <script>
-    // Initialize scenes (Scene 1 = Pipeline, Scene 2 = Personas, Scene 3 = Brand Creation, Scene 4 = Fake Door Testing, Scene 5 = Launch)
+    // Scene mapping: scene-2 = Who we serve (personas), scene-3 = Skills (iframe),
+    // scene-4 = Hooks stub, scene-5 = Autonomous Ops (live ops dashboard iframe).
     document.addEventListener('DOMContentLoaded', async () => {
-      const s1 = document.getElementById('scene-1');
-      if (s1 && typeof initScene2 === 'function') {
-        s1.innerHTML = '';
-        initScene2(s1);
-      }
       const s2 = document.getElementById('scene-2');
       if (s2 && typeof initScene1 === 'function') {
         s2.innerHTML = '';
         await initScene1(s2);
       }
       const s3 = document.getElementById('scene-3');
-      if (s3 && typeof initScene3 === 'function') {
+      if (s3 && typeof initScene6 === 'function') {
         s3.innerHTML = '';
-        initScene3(s3);
-      }
-      const s4 = document.getElementById('scene-4');
-      if (s4 && typeof initScene5 === 'function') {
-        s4.innerHTML = '';
-        initScene5(s4);
+        initScene6(s3);
       }
       const s5 = document.getElementById('scene-5');
-      if (s5 && typeof initScene4 === 'function') {
+      if (s5 && typeof initScene7 === 'function') {
         s5.innerHTML = '';
-        initScene4(s5);
+        initScene7(s5);
       }
+      // Scene 4 stays as static "Coming soon: Hooks" stub.
     });
   </script>
 

@@ -1,0 +1,1688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scene 5 — Launch (v2)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      height: 100%; overflow: hidden;
+      background: #0a0a0a;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .scene {
+      display: flex;
+      height: 100%;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: 280px; flex-shrink: 0;
+      display: flex; flex-direction: column;
+      border-right: 1px solid rgba(38,38,38,0.5);
+    }
+    .sidebar-top { padding: 24px 20px 16px; }
+    .sidebar-label {
+      font-size: 10px; font-family: 'JetBrains Mono', monospace;
+      text-transform: uppercase; letter-spacing: 0.2em; color: #525252;
+      display: block; margin-bottom: 8px;
+    }
+    .sidebar-title { font-size: 15px; font-weight: 500; color: #fff; }
+
+    .play-area { padding: 0 20px 20px; }
+    .play-btn {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%; padding: 8px 0; background: #fff; color: #000;
+      font-size: 14px; font-weight: 500; border: none; border-radius: 8px;
+      cursor: pointer; font-family: inherit; transition: background 0.15s;
+    }
+    .play-btn:hover { background: #e5e5e5; }
+
+    .timeline { flex: 1; overflow-y: auto; padding: 0 12px; }
+    .timeline-inner { position: relative; }
+    .track {
+      position: absolute; left: 19px; top: 0; bottom: 0; width: 1px;
+      background: rgba(38,38,38,0.6);
+    }
+    .track-fill {
+      position: absolute; left: 19px; top: 0; width: 1px;
+      background: rgba(52,211,153,0.4); transition: height 0.5s ease-out;
+    }
+    .node-btn {
+      position: relative; display: flex; align-items: flex-start; gap: 12px;
+      width: 100%; text-align: left; padding: 12px 8px; border-radius: 8px;
+      border: none; background: transparent; cursor: pointer;
+      font-family: inherit; transition: background 0.15s;
+    }
+    .node-btn:hover { background: rgba(38,38,38,0.15); }
+    .node-btn.active { background: rgba(38,38,38,0.3); }
+    .node-dot {
+      flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; margin-top: 2px;
+    }
+    .node-dot.past { background: rgba(52,211,153,0.3); border: 1px solid rgba(52,211,153,0.4); }
+    .node-dot.active-dot { background: #fff; box-shadow: 0 0 20px rgba(255,255,255,0.2); }
+    .node-dot.future { background: #262626; border: 1px solid #404040; }
+    .dot-inner { width: 8px; height: 8px; border-radius: 50%; background: #000; }
+    .dot-number { font-size: 8px; font-family: 'JetBrains Mono', monospace; color: #525252; }
+    .node-label { min-width: 0; padding-top: 2px; }
+    .node-title { font-size: 14px; font-weight: 500; color: #525252; }
+    .node-title.active-t { color: #fff; }
+    .node-title.past-t { color: #a3a3a3; }
+    .node-sub { font-size: 11px; color: #525252; }
+    .node-sub.active-s { color: #a3a3a3; }
+
+    .counter { padding: 16px 20px; border-top: 1px solid rgba(38,38,38,0.5); }
+    .counter-val {
+      font-size: 14px; font-family: 'JetBrains Mono', monospace;
+      color: #fff; font-variant-numeric: tabular-nums;
+    }
+    .slider {
+      margin-top: 12px; width: 100%; height: 4px;
+      -webkit-appearance: none; appearance: none;
+      background: #262626; border-radius: 9999px; cursor: pointer; outline: none;
+    }
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 12px; height: 12px;
+      border-radius: 50%; background: #fff; cursor: pointer;
+    }
+
+    /* ── Main ── */
+    .main { flex: 1; overflow-y: auto; }
+    .content { max-width: 896px; margin: 0 auto; padding: 48px 40px; }
+
+    /* ── Stage header ── */
+    .stage-header { margin-bottom: 32px; }
+    .stage-number {
+      font-family: 'JetBrains Mono', monospace; font-size: 11px;
+      color: #555; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 8px;
+    }
+    .stage-title {
+      font-family: 'Instrument Serif', Georgia, serif; font-size: 36px;
+      font-weight: 400; color: #fff; letter-spacing: -0.02em;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: rgba(23,23,23,0.4); border: 1px solid rgba(38,38,38,0.8);
+      border-radius: 12px; overflow: hidden;
+    }
+
+    /* ── Desc text ── */
+    .desc { color: #a3a3a3; font-size: 14px; line-height: 1.6; margin-bottom: 24px; max-width: 600px; }
+
+    /* ── Annotation ── */
+    .annotation {
+      margin-top: 32px; padding-left: 16px;
+      border-left: 2px solid rgba(64,64,64,0.4);
+      opacity: 0; transform: translateX(-8px);
+      animation: fadeInRight 0.4s ease-out 0.6s forwards;
+    }
+    .annotation-badge {
+      display: inline-block; margin-bottom: 6px; padding: 2px 8px;
+      font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em;
+      font-family: 'JetBrains Mono', monospace; color: #737373;
+      background: rgba(64,64,64,0.4); border-radius: 4px;
+    }
+    .annotation p { color: #737373; font-size: 14px; line-height: 1.6; }
+
+    /* ── Animations ── */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInRight {
+      from { opacity: 0; transform: translateX(-8px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes blurIn {
+      from { opacity: 0; transform: scale(0.9); filter: blur(16px); }
+      to   { opacity: 1; transform: scale(1); filter: blur(0px); }
+    }
+    @keyframes ping {
+      75%, 100% { transform: scale(2); opacity: 0; }
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    .fade-in { opacity: 0; animation: fadeIn 0.5s ease-out forwards; }
+
+    /* ── Badges ── */
+    .badge {
+      padding: 2px 8px; font-size: 10px; font-family: 'JetBrains Mono', monospace;
+      text-transform: uppercase; letter-spacing: 0.05em; border-radius: 4px;
+    }
+    .badge-pass { color: #34d399; background: rgba(52,211,153,0.1); }
+    .badge-warn { color: #fbbf24; background: rgba(251,191,36,0.1); }
+
+    /* ── Comparison table ── */
+    .compare-table {
+      width: 100%; border-collapse: collapse; margin-bottom: 24px;
+      font-size: 13px;
+    }
+    .compare-table th {
+      text-align: left; padding: 10px 16px; font-weight: 500;
+      font-family: 'JetBrains Mono', monospace; font-size: 10px;
+      text-transform: uppercase; letter-spacing: 0.1em; color: #525252;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .compare-table td {
+      padding: 10px 16px; border-bottom: 1px solid rgba(255,255,255,0.03);
+      color: #a3a3a3; vertical-align: top;
+    }
+    .compare-table td:first-child { color: #d4d4d4; font-weight: 500; }
+    .compare-table .col-trad { color: #ef4444; opacity: 0.7; }
+    .compare-table .col-gather { color: #34d399; }
+
+    /* ── CJ Layer diagram ── */
+    .cj-layer {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 16px; border-radius: 8px; margin-bottom: 6px;
+      transition: all 0.3s ease;
+    }
+    .cj-layer:hover { background: rgba(255,255,255,0.02); }
+    .cj-layer-num {
+      font-family: 'JetBrains Mono', monospace; font-size: 10px;
+      width: 20px; flex-shrink: 0; color: #404040;
+    }
+    .cj-layer-name { font-size: 13px; color: #d4d4d4; width: 120px; flex-shrink: 0; }
+    .cj-layer-bar {
+      flex: 1; height: 6px; border-radius: 3px; position: relative; overflow: hidden;
+      background: rgba(38,38,38,0.6);
+    }
+    .cj-layer-fill { height: 100%; border-radius: 3px; transition: width 0.8s ease-out; }
+    .cj-layer-tag {
+      font-family: 'JetBrains Mono', monospace; font-size: 10px;
+      width: 80px; text-align: right; flex-shrink: 0;
+    }
+
+    /* ── Infra stack visual ── */
+    .infra-stack {
+      position: relative; margin-bottom: 32px;
+    }
+    .infra-shared {
+      background: rgba(52,211,153,0.04);
+      border: 1px solid rgba(52,211,153,0.2);
+      border-radius: 16px;
+      padding: 24px;
+      position: relative;
+    }
+    .infra-shared-label {
+      position: absolute; top: -10px; left: 24px;
+      font-size: 10px; font-family: 'JetBrains Mono', monospace;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: #34d399; background: #0a0a0a; padding: 0 8px;
+    }
+    .infra-services {
+      display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+    }
+    .infra-svc {
+      display: flex; align-items: center; gap: 6px;
+      padding: 8px 14px; border-radius: 8px;
+      background: rgba(52,211,153,0.06);
+      border: 1px solid rgba(52,211,153,0.15);
+      font-size: 12px; font-family: 'JetBrains Mono', monospace;
+      color: #a3a3a3;
+      opacity: 0; transition: opacity 0.3s, transform 0.3s;
+      transform: translateY(8px);
+    }
+    .infra-svc.visible { opacity: 1; transform: translateY(0); }
+    .infra-svc-dot {
+      width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+    }
+    .infra-svc-dot.live { background: #34d399; box-shadow: 0 0 6px rgba(52,211,153,0.5); }
+
+    .infra-brands {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+      margin-bottom: 16px;
+    }
+    .infra-brand-col {
+      border-radius: 12px; padding: 20px; position: relative;
+      opacity: 0; transform: translateY(12px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .infra-brand-col.visible { opacity: 1; transform: translateY(0); }
+    .infra-brand-col.meow {
+      background: rgba(251,146,60,0.04);
+      border: 1px solid rgba(251,146,60,0.2);
+    }
+    .infra-brand-col.specter {
+      background: rgba(139,92,246,0.04);
+      border: 1px solid rgba(139,92,246,0.2);
+    }
+    .infra-brand-header {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 16px;
+    }
+    .infra-brand-name {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 20px; color: #fff;
+    }
+    .infra-layer-row {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+    .infra-layer-row:last-child { border-bottom: none; }
+    .infra-layer-label {
+      font-size: 10px; font-family: 'JetBrains Mono', monospace;
+      color: #525252; width: 80px; flex-shrink: 0; text-transform: uppercase;
+      letter-spacing: 0.03em; padding-top: 2px;
+    }
+    .infra-layer-val {
+      font-size: 12px; color: #a3a3a3; line-height: 1.4;
+    }
+
+    /* Connector lines */
+    .infra-connectors {
+      display: flex; justify-content: center; gap: 0; height: 32px;
+      position: relative; margin-bottom: 0;
+    }
+    .infra-connector-line {
+      width: 1px; height: 100%;
+      position: absolute;
+    }
+    .infra-connector-line.left {
+      left: 25%; background: rgba(251,146,60,0.3);
+    }
+    .infra-connector-line.right {
+      left: 75%; background: rgba(139,92,246,0.3);
+    }
+
+    /* ── Grid ── */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; text-align: center; }
+
+    /* ── Pills ── */
+    .pill {
+      display: inline-block; padding: 4px 12px; font-size: 12px;
+      color: #d4d4d4; background: rgba(38,38,38,0.6);
+      border: 1px solid rgba(64,64,64,0.5); border-radius: 9999px;
+    }
+
+    /* ── Option pills ── */
+    .option {
+      display: inline-block; padding: 4px 12px; font-size: 12px;
+      border-radius: 9999px; transition: all 0.3s; color: #525252;
+      background: transparent; border: 1px solid rgba(64,64,64,0.5); cursor: pointer;
+    }
+    .option.selected { color: #000; background: #fff; border-color: #fff; }
+
+    /* ── Terminal ── */
+    .terminal-chrome {
+      display: flex; align-items: center; gap: 8px;
+      padding: 12px 16px; border-bottom: 1px solid rgba(38,38,38,0.6);
+    }
+    .terminal-dots { display: flex; gap: 6px; }
+    .terminal-dots span { width: 10px; height: 10px; border-radius: 50%; }
+    .terminal-filename {
+      font-size: 10px; font-family: 'JetBrains Mono', monospace;
+      text-transform: uppercase; letter-spacing: 0.05em; color: #404040; margin-left: 8px;
+    }
+
+    /* ── Pulse ── */
+    .pulse-container { position: relative; display: inline-flex; width: 8px; height: 8px; }
+    .pulse-ping {
+      position: absolute; width: 100%; height: 100%; border-radius: 50%;
+      background: #34d399; opacity: 0.75;
+      animation: ping 1s cubic-bezier(0,0,0.2,1) infinite;
+    }
+    .pulse-dot {
+      position: relative; width: 8px; height: 8px; border-radius: 50%; background: #34d399;
+    }
+
+    /* ── Spinner ── */
+    .spinner {
+      width: 8px; height: 8px; border-top: 1px solid #525252;
+      border-radius: 50%; animation: spin 0.6s linear infinite;
+    }
+
+    /* ── Gantt ── */
+    .gantt { position: relative; overflow-x: auto; margin-bottom: 24px; }
+    .gantt-lane-label {
+      font-size: 10px; font-family: 'JetBrains Mono', monospace;
+      text-transform: uppercase; letter-spacing: 0.1em; color: #525252;
+      padding: 6px 0 4px; border-bottom: 1px solid rgba(38,38,38,0.5); margin-bottom: 4px;
+    }
+    .gantt-row { position: relative; height: 28px; display: flex; align-items: center; }
+    .gantt-bar {
+      position: absolute; height: 20px; border-radius: 4px;
+      display: flex; align-items: center; padding: 0 8px;
+      font-size: 10px; font-family: 'JetBrains Mono', monospace;
+      white-space: nowrap; overflow: hidden; cursor: pointer;
+      transition: filter 0.15s, transform 0.15s;
+    }
+    .gantt-bar:hover { filter: brightness(1.3); transform: scaleY(1.15); z-index: 5; }
+    .gantt-bar.bar-agent {
+      background: rgba(52,211,153,0.25); border: 1px solid rgba(52,211,153,0.5); color: #34d399;
+    }
+    .gantt-bar.bar-human {
+      background: rgba(251,191,36,0.15); border: 1px solid rgba(251,191,36,0.4); color: #fbbf24;
+    }
+    .gantt-bar.bar-gate {
+      background: rgba(248,113,113,0.15); border: 1px solid rgba(248,113,113,0.4); color: #f87171;
+    }
+    .gantt-day-header {
+      display: flex; font-size: 9px; font-family: 'JetBrains Mono', monospace;
+      color: #404040; margin-bottom: 4px;
+    }
+    .gantt-legend {
+      display: flex; gap: 16px; margin-bottom: 20px;
+    }
+    .gantt-legend-item {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 10px; font-family: 'JetBrains Mono', monospace; color: #525252;
+    }
+    .gantt-legend-dot { width: 8px; height: 8px; border-radius: 2px; }
+    .gantt-summary { display: flex; gap: 24px; padding: 16px 0; }
+    .gantt-summary-stat { display: flex; flex-direction: column; gap: 2px; }
+    .gantt-tooltip {
+      position: fixed; z-index: 9999; pointer-events: none;
+      padding: 12px 16px; background: rgba(23,23,23,0.95);
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.5); backdrop-filter: blur(8px);
+      font-size: 12px; min-width: 240px; max-width: 380px; white-space: normal;
+    }
+
+    /* ── Artifact checklist ── */
+    .artifact-row {
+      display: flex; align-items: center; gap: 12px; padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+    .artifact-row:last-child { border-bottom: none; }
+    .artifact-check {
+      width: 18px; height: 18px; border-radius: 4px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .artifact-check.done { background: rgba(52,211,153,0.15); }
+    .artifact-name { font-size: 13px; color: #d4d4d4; flex: 1; }
+    .artifact-type {
+      font-size: 10px; font-family: 'JetBrains Mono', monospace; color: #525252;
+    }
+
+    /* ── Portfolio brand cards ── */
+    .portfolio-card {
+      background: rgba(23,23,23,0.4); border: 1px solid rgba(38,38,38,0.8);
+      border-radius: 12px; padding: 20px;
+    }
+    .portfolio-card.active-brand { border-color: rgba(52,211,153,0.4); }
+    .portfolio-card.next-brand { border-color: rgba(99,102,241,0.3); border-style: dashed; }
+    .portfolio-card.future-brand { border-color: rgba(64,64,64,0.3); border-style: dashed; opacity: 0.5; }
+  </style>
+</head>
+<body>
+<div class="scene" id="app"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ═══════════════════════════════════════════
+     STAGES — Reframed narrative
+     ═══════════════════════════════════════════ */
+
+  const STAGES = [
+    { key: 'brief',     number: '01', title: 'Launch Brief',            subtitle: 'Persona enters \u2014 engine maps the customer journey' },
+    { key: 'infra',     number: '02', title: 'The Infrastructure',     subtitle: 'Same rails, different brand' },
+    { key: 'generate',  number: '03', title: 'Launch Planning',         subtitle: 'Agents generate the variable layer in parallel' },
+    { key: 'live',      number: '04', title: 'Live',                   subtitle: 'Bot connected, first subscriber can activate' },
+    { key: 'machine',   number: '05', title: 'The Machine',            subtitle: 'One engine, many brands, shared rails' },
+  ];
+
+  /* ═══════════════════════════════════════════
+     HELPERS
+     ═══════════════════════════════════════════ */
+
+  function el(tag, attrs) {
+    const e = document.createElement(tag);
+    const children = Array.prototype.slice.call(arguments, 2);
+    if (attrs) {
+      for (const k in attrs) {
+        if (k === 'style' && typeof attrs[k] === 'object') Object.assign(e.style, attrs[k]);
+        else if (k === 'className') e.className = attrs[k];
+        else if (k.startsWith('on')) e.addEventListener(k.slice(2).toLowerCase(), attrs[k]);
+        else e.setAttribute(k, attrs[k]);
+      }
+    }
+    children.forEach(function (c) {
+      if (c == null) return;
+      if (typeof c === 'string' || typeof c === 'number') e.appendChild(document.createTextNode(String(c)));
+      else if (Array.isArray(c)) c.forEach(function (ch) { if (ch) e.appendChild(ch); });
+      else e.appendChild(c);
+    });
+    return e;
+  }
+
+  function html(tag, attrs, innerHTML) {
+    const e = el(tag, attrs);
+    e.innerHTML = innerHTML;
+    return e;
+  }
+
+  function stageHeader(number, title) {
+    return el('div', { className: 'stage-header' },
+      el('div', { className: 'stage-number' }, 'Stage ' + number),
+      el('div', { className: 'stage-title' }, title)
+    );
+  }
+
+  function annotation(badge, text) {
+    return el('div', { className: 'annotation' },
+      el('span', { className: 'annotation-badge' }, badge),
+      el('p', null, text)
+    );
+  }
+
+  function card(attrs) {
+    var children = Array.prototype.slice.call(arguments, 1);
+    var c = el.apply(null, ['div', { className: 'card ' + ((attrs && attrs.className) || ''), style: attrs && attrs.style }].concat(children));
+    return c;
+  }
+
+  function checkSvg(size, color) {
+    var t = document.createElement('template');
+    t.innerHTML = '<svg width="' + size + '" height="' + size + '" viewBox="0 0 ' + size + ' ' + size + '" fill="none"><path d="' + (size <= 14 ? 'M3 7L6 10L11 4' : 'M5 13l4 4L19 7') + '" stroke="' + color + '" stroke-width="' + (size <= 14 ? '1.5' : '2.5') + '" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    return t.content.firstChild;
+  }
+
+  /* ═══════════════════════════════════════════
+     STAGE 1 — BRIEF IN (persona → journey mapping)
+     ═══════════════════════════════════════════ */
+
+  function buildBriefIn() {
+    // Each mapping links a highlighted phrase in the brief to an artifact decision
+    var mappings = [
+      {
+        signal: 'Audience distrusts institutions, manages digital footprint actively',
+        artifact: 'Landing Page',
+        decision: 'No testimonials, no social proof carousel. Lead with technical architecture. Dark UI, monospace type, zero stock photography.',
+        file: 'page-spec.json',
+        briefKey: 'hl-distrust', // matches data-hl on the brief
+      },
+      {
+        signal: 'OPSEC community, values anonymity over convenience',
+        artifact: 'Onboarding Flow',
+        decision: 'Encrypted signup flow, no identity verification. Straight to eSIM and VPN activation \u2014 the privacy value-add is the first thing they touch.',
+        file: 'journey-config.yaml',
+        briefKey: 'hl-opsec',
+      },
+      {
+        signal: 'Tone: dark, nocturnal, technical',
+        artifact: 'Brand Voice',
+        decision: 'Bot speaks like a sysadmin, not a customer service rep. No emoji. No exclamation marks. Terse, precise, assumes technical literacy.',
+        file: 'brand.md',
+        briefKey: 'hl-tone',
+      },
+      {
+        signal: 'Value-add: E2E encrypted calls, zero-knowledge accounts',
+        artifact: 'Product KB',
+        decision: 'Knowledge base organized by threat model, not feature list. Sections: network-layer privacy, metadata protection, SIM-swap prevention.',
+        file: 'product.md',
+        briefKey: 'hl-valueadd',
+      },
+      {
+        signal: 'Privacy audience won\u2019t trust without proof',
+        artifact: 'FAQ & Objections',
+        decision: '"How do I know you\u2019re not logging?" \u2014 answer with architecture, not promises. Reference zero-knowledge design, link to audit.',
+        file: 'faq.md',
+        briefKey: 'hl-trust',
+      },
+      {
+        signal: 'Premium positioning ($49/mo), low price sensitivity',
+        artifact: 'Plan Config',
+        decision: 'Single plan, no tiers. Unlimited everything. No trial \u2014 this audience commits or doesn\u2019t.',
+        file: 'plan-spec.json',
+        briefKey: 'hl-price',
+      },
+    ];
+
+    var timers = [];
+
+    // Build mapping rows — start hidden, revealed by animation
+    var mappingRowEls = [];
+    var mappingEls = mappings.map(function (m, i) {
+      var row = el('div', {
+        style: {
+          padding: '12px 0',
+          borderBottom: i < mappings.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none',
+          opacity: '0',
+          transform: 'translateX(-8px)',
+          transition: 'opacity 0.4s ease-out, transform 0.4s ease-out',
+        }
+      },
+        // Signal
+        el('div', { style: { display: 'flex', alignItems: 'flex-start', gap: '10px', marginBottom: '8px' } },
+          el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#8b5cf6', flexShrink: '0', marginTop: '2px', textTransform: 'uppercase', letterSpacing: '0.05em' } }, 'reads'),
+          el('span', { style: { fontSize: '12px', color: '#a3a3a3', fontStyle: 'italic', lineHeight: '1.4' } }, '\u201c' + m.signal + '\u201d')
+        ),
+        // Decision
+        el('div', { style: { display: 'flex', alignItems: 'flex-start', gap: '10px' } },
+          el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#34d399', flexShrink: '0', marginTop: '2px', textTransform: 'uppercase', letterSpacing: '0.05em' } }, 'sets'),
+          el('div', null,
+            el('div', { style: { display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '3px' } },
+              el('span', { style: { fontSize: '13px', fontWeight: '500', color: '#e5e5e5' } }, m.artifact),
+              el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#404040' } }, m.file)
+            ),
+            el('span', { style: { fontSize: '12px', color: '#737373', lineHeight: '1.5' } }, m.decision)
+          )
+        )
+      );
+      mappingRowEls.push(row);
+      return row;
+    });
+
+    // Helper: create a highlightable span
+    var hlSpans = {};
+    function hl(key, text) {
+      var s = el('span', {
+        style: {
+          transition: 'color 0.3s ease, background 0.3s ease',
+          borderRadius: '2px', padding: '0 2px', margin: '0 -2px',
+        }
+      }, text);
+      hlSpans[key] = s;
+      return s;
+    }
+
+    // Build brief with embedded highlight spans — reads like a raw research doc
+    var briefContent = el('div', { style: { fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', lineHeight: '1.7', color: '#a3a3a3' } },
+      el('p', { style: { color: '#fff', marginBottom: '12px', fontSize: '12px' } }, '# Specter \u2014 Privacy-First Mobile'),
+      el('p', { style: { marginBottom: '10px' } },
+        'Privacy-conscious professionals and OPSEC enthusiasts aged 25\u201350 who ',
+        hl('hl-distrust', 'actively manage their digital footprint'),
+        '. They currently suffer from invasive ',
+        hl('hl-opsec', 'carrier tracking, SIM-swap attacks'),
+        ', and lack of encryption at the network layer.'
+      ),
+      el('p', { style: { marginBottom: '10px' } },
+        hl('hl-valueadd', 'E2E encrypted calls, hardware-backed SIM security, zero-knowledge accounts'),
+        ' with no identity verification required.'
+      ),
+      el('p', { style: { color: '#525252', marginBottom: '4px' } },
+        'Tone: ',
+        hl('hl-tone', 'dark, nocturnal, technical'),
+        '.'
+      ),
+      el('p', { style: { color: '#525252', marginBottom: '4px' } },
+        'Price: ',
+        hl('hl-price', '$49/mo premium'),
+        ' positioning.'
+      ),
+      el('p', { style: { color: '#525252', marginBottom: '4px' } },
+        hl('hl-trust', 'Privacy audience won\u2019t convert without day-1 credibility proof'),
+        '.'
+      ),
+      el('p', { style: { color: '#525252' } }, 'Carrier: T-Mobile via ConnectX.')
+    );
+
+    // Sequential animation: highlight phrase → reveal mapping row
+    var STEP_DELAY = 1800; // ms between each step
+    var START_DELAY = 1200; // initial pause
+
+    mappings.forEach(function (m, i) {
+      var delay = START_DELAY + i * STEP_DELAY;
+
+      timers.push(setTimeout(function () {
+        // Highlight the phrase in the brief
+        var span = hlSpans[m.briefKey];
+        if (span) {
+          span.style.color = '#d4d4d4';
+          span.style.background = 'rgba(139,92,246,0.2)';
+        }
+
+        // Reveal the mapping row
+        var row = mappingRowEls[i];
+        if (row) {
+          row.style.opacity = '1';
+          row.style.transform = 'translateX(0)';
+        }
+
+        // Dim previous highlight (keep it subtly marked)
+        if (i > 0) {
+          var prevSpan = hlSpans[mappings[i - 1].briefKey];
+          if (prevSpan) {
+            prevSpan.style.color = '#737373';
+            prevSpan.style.background = 'rgba(139,92,246,0.08)';
+          }
+        }
+      }, delay));
+    });
+
+    // Dim the last highlight after sequence completes
+    timers.push(setTimeout(function () {
+      var lastSpan = hlSpans[mappings[mappings.length - 1].briefKey];
+      if (lastSpan) {
+        lastSpan.style.color = '#737373';
+        lastSpan.style.background = 'rgba(139,92,246,0.08)';
+      }
+    }, START_DELAY + mappings.length * STEP_DELAY));
+
+    // Two-column layout: brief (left) + engine interpretation (right)
+    var wrapper = el('div', { className: 'fade-in' },
+      stageHeader('01', 'Launch Brief'),
+
+      el('p', { style: { color: '#a3a3a3', fontSize: '14px', lineHeight: '1.6', marginBottom: '24px' } },
+        'A validated persona brief enters the engine. On the left: the raw input. On the right: how the engine interprets it and decides what each artifact should contain.'
+      ),
+
+      // Two-column: brief | mapping
+      el('div', { style: { display: 'flex', gap: '20px', alignItems: 'flex-start' } },
+
+        // LEFT — compact brief
+        el('div', { style: { width: '320px', flexShrink: '0' } },
+          // Brand reveal (compact)
+          el('div', { style: { textAlign: 'center', marginBottom: '20px' } },
+            el('h2', { style: {
+              fontFamily: '"Instrument Serif", Georgia, serif', fontSize: '48px',
+              fontWeight: '300', letterSpacing: '-0.01em', color: '#fff',
+              animation: 'blurIn 0.8s ease-out forwards',
+            }}, 'Specter'),
+            el('p', { style: {
+              fontSize: '13px', fontStyle: 'italic', color: '#525252',
+              opacity: '0', animation: 'fadeIn 0.5s ease-out 0.3s forwards',
+            }}, 'Invisibility is not a feature. It\u2019s the architecture.')
+          ),
+
+          // Brief card with highlightable phrases
+          card({ style: { padding: '16px', marginBottom: '16px', opacity: '0', animation: 'fadeIn 0.4s ease-out 0.2s forwards' } },
+            el('div', { className: 'terminal-chrome', style: { margin: '-16px -16px 12px', padding: '10px 12px' } },
+              el('div', { className: 'terminal-dots' },
+                el('span', { style: { background: 'rgba(239,68,68,0.4)' } }),
+                el('span', { style: { background: 'rgba(234,179,8,0.4)' } }),
+                el('span', { style: { background: 'rgba(34,197,94,0.4)' } })
+              ),
+              el('span', { className: 'terminal-filename' }, 'persona_research_specter.md')
+            ),
+            briefContent
+          ),
+
+          // Traits + classification compact
+          el('div', { style: { display: 'flex', gap: '6px', marginBottom: '12px', flexWrap: 'wrap', opacity: '0', animation: 'fadeIn 0.4s ease-out 0.4s forwards' } },
+            ['dark', 'nocturnal', 'technical'].map(function (t) {
+              return el('span', { className: 'pill', style: { fontSize: '11px', padding: '3px 10px' } }, t);
+            })
+          ),
+          el('div', { style: { opacity: '0', animation: 'fadeIn 0.4s ease-out 0.5s forwards' } },
+            el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#404040', textTransform: 'uppercase', letterSpacing: '0.05em' } }, 'Segment: '),
+            el('span', { style: { fontSize: '12px', fontFamily: "'JetBrains Mono', monospace", color: '#fff' } }, 'IDENTITY_SPECIFIC'),
+            el('div', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#525252', marginTop: '4px' } }, '8.1M addressable \u00b7 Evergreen demand')
+          )
+        ),
+
+        // RIGHT — engine interpretation
+        el('div', { style: { flex: '1', minWidth: '0' } },
+          el('div', { style: { marginBottom: '8px', opacity: '0', animation: 'fadeIn 0.4s ease-out 0.4s forwards' } },
+            el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", textTransform: 'uppercase', letterSpacing: '0.1em', color: '#525252' } }, 'Engine reads persona \u2192 sets artifact strategy')
+          ),
+          card({ style: { padding: '16px' } },
+            mappingEls
+          )
+        )
+      ),
+
+      annotation('AI decided', 'The engine reads who the persona is \u2014 their trust model, technical literacy, objection patterns, purchasing behavior \u2014 and tailors every artifact to that audience. Same engine, completely different output per brand.')
+    );
+
+    wrapper._cleanup = function () { timers.forEach(clearTimeout); };
+    return wrapper;
+  }
+
+  /* ═══════════════════════════════════════════
+     STAGE 2 — WHY THIS IS POSSIBLE (infrastructure reveal)
+     ═══════════════════════════════════════════ */
+
+  function buildInfra() {
+    // Services in the shared infrastructure layer
+    var services = [
+      { name: 'ConnectX', desc: 'Carrier & eSIM', live: true },
+      { name: 'Stripe', desc: 'Billing & payments', live: true },
+      { name: 'Zendesk', desc: 'Support & escalation', live: true },
+      { name: 'Databricks', desc: 'Analytics & signals', live: true },
+      { name: 'PostHog', desc: 'Product analytics', live: true },
+      { name: 'Pilot', desc: 'Bot runtime', live: true },
+    ];
+
+    var regulatory = [
+      { name: 'FCC License', desc: 'Filed & approved', live: true },
+      { name: 'CPNI Compliance', desc: 'Customer data regs', live: true },
+      { name: 'Carrier Agreement', desc: 'T-Mobile via ConnectX', live: true },
+      { name: 'State Registrations', desc: 'Multi-state approved', live: true },
+      { name: 'E911 Compliance', desc: 'Emergency services', live: true },
+    ];
+
+    // Variable layers per brand — shows WHAT changes
+    // Shared layer definitions with artifact file mapping
+    var layerDefs = [
+      { layer: 'Voice', file: 'brand.md' },
+      { layer: 'Onboarding', file: 'journey-config.yaml' },
+      { layer: 'Landing', file: 'page-spec.json' },
+      { layer: 'FAQ', file: 'faq.md' },
+      { layer: 'Retention', file: 'bot-config.yaml' },
+    ];
+
+    var meowValues = [
+      'Warm, playful, emoji-friendly. "Hey there! \ud83d\udc31 Let\u2019s get your plan sorted."',
+      'Email \u2192 eSIM \u2192 pet profile \u2192 Airvet activation.',
+      'Bright palette, pet photography, testimonials, social proof carousel.',
+      '"Can my cat use telehealth?" \u2014 friendly, non-technical, reassuring.',
+      'Pet birthday reminders, vet appointment nudges, community features.',
+    ];
+
+    var specterValues = [
+      'Terse, technical, zero emoji. "Specter. Your device is invisible at the network layer."',
+      'Encrypted signup \u2192 eSIM \u2192 VPN activation. No identity verification required.',
+      'Dark UI, monospace type, zero stock photos. Architecture diagram as hero.',
+      '"How do I know you\u2019re not logging?" \u2014 answers with architecture, not promises.',
+      'Security audit updates, threat model changelog, OPSEC community access.',
+    ];
+
+    // Build service pills
+    var svcEls = services.map(function (s) {
+      var svcEl = el('div', { className: 'infra-svc' },
+        el('span', { className: 'infra-svc-dot live' }),
+        el('span', null, s.name),
+        el('span', { style: { color: '#404040', fontSize: '10px' } }, s.desc)
+      );
+      return svcEl;
+    });
+
+    // Build brand columns
+    // Build as a single grid: Meow header | spacer | Specter header, then rows of [meow val | artifact | specter val]
+    var gridContainer = el('div', { style: { display: 'grid', gridTemplateColumns: '1fr 100px 1fr', gap: '0 12px' } });
+
+    // Header row
+    var meowHeader = el('div', { style: { padding: '16px 16px 12px', background: 'rgba(251,146,60,0.04)', border: '1px solid rgba(251,146,60,0.2)', borderBottom: 'none', borderRadius: '12px 12px 0 0', display: 'flex', alignItems: 'center', gap: '8px' } },
+      el('span', { className: 'pulse-container' }, el('span', { className: 'pulse-ping' }), el('span', { className: 'pulse-dot' })),
+      el('span', { className: 'infra-brand-name' }, 'Meow Mobile'),
+      el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#fb923c', marginLeft: 'auto' } }, '116 subs \u00b7 live')
+    );
+    var artifactHeader = el('div', { style: { padding: '16px 0 12px', display: 'flex', alignItems: 'flex-end', justifyContent: 'center' } },
+      el('span', { style: { fontSize: '9px', fontFamily: "'JetBrains Mono', monospace", textTransform: 'uppercase', letterSpacing: '0.1em', color: '#404040' } }, 'Artifact')
+    );
+    var specterHeader = el('div', { style: { padding: '16px 16px 12px', background: 'rgba(139,92,246,0.04)', border: '1px solid rgba(139,92,246,0.2)', borderBottom: 'none', borderRadius: '12px 12px 0 0', display: 'flex', alignItems: 'center', gap: '8px' } },
+      el('span', { style: { width: '8px', height: '8px', borderRadius: '50%', background: '#8b5cf6' } }),
+      el('span', { className: 'infra-brand-name' }, 'Specter'),
+      el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#8b5cf6', marginLeft: 'auto' } }, 'generating...')
+    );
+    gridContainer.appendChild(meowHeader);
+    gridContainer.appendChild(artifactHeader);
+    gridContainer.appendChild(specterHeader);
+
+    // Data rows
+    layerDefs.forEach(function (l, i) {
+      var isLast = i === layerDefs.length - 1;
+      var borderBot = isLast ? 'none' : '1px solid rgba(255,255,255,0.04)';
+      var meowBorderL = '1px solid rgba(251,146,60,0.2)';
+      var specterBorderR = '1px solid rgba(139,92,246,0.2)';
+
+      // Meow value
+      gridContainer.appendChild(el('div', { style: {
+        padding: '10px 16px', fontSize: '12px', color: '#a3a3a3', lineHeight: '1.4',
+        borderBottom: borderBot,
+        borderLeft: meowBorderL, borderRight: meowBorderL,
+        background: 'rgba(251,146,60,0.04)',
+        borderRadius: isLast ? '0 0 0 12px' : '0',
+      }}, meowValues[i]));
+
+      // Artifact label (center)
+      gridContainer.appendChild(el('div', { style: {
+        padding: '10px 0', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+        borderBottom: isLast ? 'none' : '1px solid rgba(255,255,255,0.03)',
+      }},
+        el('span', { style: { fontSize: '11px', fontWeight: '500', color: '#d4d4d4', textAlign: 'center' } }, l.layer),
+        el('span', { style: { fontSize: '9px', fontFamily: "'JetBrains Mono', monospace", color: '#404040', textAlign: 'center' } }, l.file)
+      ));
+
+      // Specter value
+      gridContainer.appendChild(el('div', { style: {
+        padding: '10px 16px', fontSize: '12px', color: '#a3a3a3', lineHeight: '1.4',
+        borderBottom: borderBot,
+        borderLeft: specterBorderR, borderRight: specterBorderR,
+        background: 'rgba(139,92,246,0.04)',
+        borderRadius: isLast ? '0 0 12px 0' : '0',
+      }}, specterValues[i]));
+    });
+
+    // Bottom borders for last row
+    var meowBottom = el('div', { style: { height: '0', borderBottom: '1px solid rgba(251,146,60,0.2)', borderLeft: '1px solid rgba(251,146,60,0.2)', borderRight: '1px solid rgba(251,146,60,0.2)', borderRadius: '0 0 12px 12px' } });
+    var artifactBottom = el('div');
+    var specterBottom = el('div', { style: { height: '0', borderBottom: '1px solid rgba(139,92,246,0.2)', borderLeft: '1px solid rgba(139,92,246,0.2)', borderRight: '1px solid rgba(139,92,246,0.2)', borderRadius: '0 0 12px 12px' } });
+    gridContainer.appendChild(meowBottom);
+    gridContainer.appendChild(artifactBottom);
+    gridContainer.appendChild(specterBottom);
+
+    // Connector lines between brand columns and shared layer
+    var connectors = el('div', { className: 'infra-connectors' },
+      el('div', { className: 'infra-connector-line left' }),
+      el('div', { className: 'infra-connector-line right' })
+    );
+
+    // Shared infra block
+    // Build regulatory pills
+    var regEls = regulatory.map(function (r) {
+      var regEl = el('div', { className: 'infra-svc', style: { background: 'rgba(52,211,153,0.03)', borderColor: 'rgba(52,211,153,0.1)' } },
+        el('span', { className: 'infra-svc-dot live' }),
+        el('span', null, r.name),
+        el('span', { style: { color: '#404040', fontSize: '10px' } }, r.desc)
+      );
+      return regEl;
+    });
+
+    var sharedBlock = el('div', { className: 'infra-shared' },
+      el('span', { className: 'infra-shared-label' }, 'Layer 6 \u2014 Shared Infrastructure (live)'),
+
+      // Tech services
+      el('div', { style: { marginBottom: '12px' } },
+        el('span', { style: { display: 'block', marginBottom: '8px', fontSize: '9px', fontFamily: "'JetBrains Mono', monospace", textTransform: 'uppercase', letterSpacing: '0.1em', color: '#404040' } }, 'Platform'),
+        el('div', { className: 'infra-services' }, svcEls)
+      ),
+
+      // Regulatory & commercial
+      el('div', { style: { marginBottom: '0' } },
+        el('span', { style: { display: 'block', marginBottom: '8px', fontSize: '9px', fontFamily: "'JetBrains Mono', monospace", textTransform: 'uppercase', letterSpacing: '0.1em', color: '#404040' } }, 'Regulatory & Commercial'),
+        el('div', { className: 'infra-services' }, regEls)
+      ),
+
+      el('div')
+    );
+
+    // Animate: brands appear, then connectors, then shared layer, then services light up
+    // Grid animates via fade-in on the wrapper
+    svcEls.forEach(function (svc, i) {
+      setTimeout(function () { svc.classList.add('visible'); }, 900 + i * 120);
+    });
+    regEls.forEach(function (reg, i) {
+      setTimeout(function () { reg.classList.add('visible'); }, 900 + (services.length + i) * 120);
+    });
+
+    var wrapper = el('div', { className: 'fade-in' },
+      stageHeader('02', 'The Infrastructure'),
+
+      el('p', { className: 'desc' },
+        'Two brands, same rails, completely different customer experience. The engine generates Layers 1\u20135. Layer 6 is already live.'
+      ),
+
+      // The visual stack
+      el('div', { className: 'infra-stack' },
+        // Variable layer label
+        el('div', { style: { display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' } },
+          el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", textTransform: 'uppercase', letterSpacing: '0.1em', color: '#8b5cf6' } }, 'Layers 1\u20135 \u2014 Variable per brand'),
+          el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#404040' } }, '(what the engine generates)')
+        ),
+
+        // Brand columns side by side
+        el('div', { style: { marginBottom: '16px' } }, gridContainer),
+
+        // Connectors
+        connectors,
+
+        // Shared infrastructure
+        sharedBlock
+      ),
+
+      // Artifact bridge — connects Stage 2 to Stage 3
+      el('div', { style: { marginTop: '32px', paddingTop: '24px', borderTop: '1px solid rgba(255,255,255,0.04)' } },
+        el('div', { style: { display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' } },
+          el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", textTransform: 'uppercase', letterSpacing: '0.1em', color: '#8b5cf6' } }, '9 artifacts to generate'),
+          el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#404040' } }, '\u2014 one per variable layer')
+        ),
+        el('div', { style: { display: 'flex', flexWrap: 'wrap', gap: '6px' } },
+          [
+            { name: 'Landing Page', file: 'page-spec.json' },
+            { name: 'Journey Config', file: 'journey-config.yaml' },
+            { name: 'FAQ', file: 'faq.md' },
+            { name: 'Plan Config', file: 'plan-spec.json' },
+            { name: 'Legal Docs', file: 'legal.md' },
+            { name: 'Brand Voice', file: 'brand.md' },
+            { name: 'Product KB', file: 'product.md' },
+            { name: 'Bot Config', file: 'bot-config.yaml' },
+            { name: 'Unit Economics', file: 'economics.json' },
+          ].map(function (a, i) {
+            return el('span', {
+              style: {
+                display: 'inline-flex', alignItems: 'center', gap: '6px',
+                padding: '5px 12px', borderRadius: '6px', fontSize: '11px',
+                fontFamily: "'JetBrains Mono', monospace",
+                background: 'rgba(139,92,246,0.06)',
+                border: '1px solid rgba(139,92,246,0.15)',
+                color: '#a3a3a3',
+                opacity: '0', animation: 'fadeIn 0.3s ease-out ' + (0.1 + i * 0.06) + 's forwards',
+              }
+            },
+              el('span', { style: { width: '4px', height: '4px', borderRadius: '50%', background: '#8b5cf6', flexShrink: '0' } }),
+              a.name,
+              el('span', { style: { color: '#404040', fontSize: '9px' } }, a.file)
+            );
+          })
+        )
+      ),
+
+      annotation('Key insight', 'The infrastructure is shared and live. The only things that change per brand are these 9 artifacts \u2014 and agents generate all of them.')
+    );
+
+    return wrapper;
+  }
+
+  /* ═══════════════════════════════════════════
+     STAGE 3 — ENGINE GENERATES
+     ═══════════════════════════════════════════ */
+
+  function buildGenerate() {
+    var artifacts = [
+      { name: 'Website & Landing', type: 'agent', file: 'page-spec.json' },
+      { name: 'Journey Config', type: 'agent', file: 'journey-config.yaml' },
+      { name: 'FAQ & Objections', type: 'agent', file: 'faq.md' },
+      { name: 'Plan Config', type: 'agent', file: 'plan-spec.json' },
+      { name: 'Legal Docs', type: 'agent', file: 'legal.md' },
+      { name: 'Brand Voice', type: 'agent', file: 'brand.md' },
+      { name: 'Product KB', type: 'agent', file: 'product.md' },
+      { name: 'Bot Config', type: 'agent', file: 'bot-config.yaml' },
+      { name: 'Unit Economics', type: 'agent', file: 'economics.json' },
+    ];
+
+    var TASKS = [
+      { id: 'website',        name: 'Website & Landing',  lane: 'Customer Journey', type: 'agent', days: 1, deps: [] },
+      { id: 'journey_config', name: 'Journey Config',     lane: 'Customer Journey', type: 'agent', days: 1, deps: [] },
+      { id: 'faq',            name: 'FAQ & Objections',   lane: 'Customer Journey', type: 'agent', days: 1, deps: [] },
+      { id: 'plan_config',    name: 'Plan Config',        lane: 'Customer Journey', type: 'agent', days: 1, deps: [] },
+      { id: 'legal_docs',     name: 'Legal Docs',         lane: 'Customer Journey', type: 'agent', days: 1, deps: [] },
+      { id: 'domain_dns',     name: 'Domain & DNS',       lane: 'Customer Journey', type: 'human', days: 1, deps: ['website'] },
+      { id: 'brand_voice',    name: 'Brand Voice',        lane: 'Support',          type: 'agent', days: 1, deps: [] },
+      { id: 'product_kb',     name: 'Product KB',         lane: 'Support',          type: 'agent', days: 1, deps: [] },
+      { id: 'bot_deploy',     name: 'Bot Deploy',         lane: 'Support',          type: 'agent', days: 1, deps: ['brand_voice', 'journey_config'] },
+      { id: 'unit_econ',      name: 'Unit Economics',     lane: 'Support',          type: 'agent', days: 1, deps: [] },
+      { id: 'esim_test',      name: 'eSIM Smoke Test',    lane: 'Launch Gates',     type: 'human', days: 1, deps: ['plan_config'] },
+      { id: 'e2e_test',       name: 'E2E Journey Test',   lane: 'Launch Gates',     type: 'gate',  days: 1, deps: ['journey_config', 'website', 'bot_deploy', 'domain_dns', 'esim_test'] },
+      { id: 'soft_launch',    name: 'Soft Launch',        lane: 'Launch Gates',     type: 'gate',  days: 0, deps: ['e2e_test'] },
+    ];
+
+    // Resolve start days
+    var taskMap = {};
+    TASKS.forEach(function (t) { taskMap[t.id] = t; t.start = 0; });
+    function resolveStart(task) {
+      if (task._resolved) return task.start;
+      if (task.deps.length === 0) { task._resolved = true; return 0; }
+      task.start = Math.max.apply(null, task.deps.map(function (d) { return resolveStart(taskMap[d]) + taskMap[d].days; }));
+      task._resolved = true;
+      return task.start;
+    }
+    TASKS.forEach(resolveStart);
+    var totalDays = Math.max.apply(null, TASKS.map(function (t) { return t.start + t.days; }));
+
+    var DAY_W = 64;
+    var LABEL_W = 148;
+    var gridWidth = totalDays * DAY_W;
+
+    var LANE_ORDER = ['Customer Journey', 'Support', 'Launch Gates'];
+    var LANE_COLORS = { 'Customer Journey': '#7c6af0', 'Support': '#20b0d0', 'Launch Gates': '#40c060' };
+    var TYPE_COLORS = { agent: '#34d399', human: '#fbbf24', gate: '#f87171' };
+
+    // Day headers
+    var dayHeaders = el('div', { className: 'gantt-day-header', style: { marginLeft: LABEL_W + 'px', width: gridWidth + 'px' } });
+    for (var d = 0; d < totalDays; d++) {
+      dayHeaders.appendChild(el('span', { style: { width: DAY_W + 'px', textAlign: 'center', flexShrink: '0', color: '#a3a3a3' } }, 'D' + (d + 1)));
+    }
+
+    // Grid lines
+    var gridLines = el('div', { style: { position: 'absolute', top: '0', bottom: '0', left: LABEL_W + 'px', width: gridWidth + 'px', pointerEvents: 'none' } });
+    for (d = 0; d <= totalDays; d++) {
+      gridLines.appendChild(el('div', { style: { position: 'absolute', left: (d * DAY_W) + 'px', top: '0', bottom: '0', width: '1px', background: 'rgba(255,255,255,0.03)' } }));
+    }
+
+    // Build lanes
+    var lanesContainer = el('div', { style: { position: 'relative' } });
+    lanesContainer.appendChild(gridLines);
+    var animIdx = 0;
+
+    LANE_ORDER.forEach(function (laneName) {
+      var laneTasks = TASKS.filter(function (t) { return t.lane === laneName; });
+      if (laneTasks.length === 0) return;
+
+      lanesContainer.appendChild(el('div', { className: 'gantt-lane-label', style: { opacity: '0', animation: 'fadeIn 0.3s ease-out ' + (0.3 + animIdx * 0.06) + 's forwards' } },
+        el('span', { style: { color: LANE_COLORS[laneName] || '#525252' } }, laneName)
+      ));
+
+      laneTasks.forEach(function (task) {
+        var barLeft = LABEL_W + task.start * DAY_W + 2;
+        var barWidth = Math.max(task.days * DAY_W - 4, 24);
+        var delay = 0.4 + animIdx * 0.06;
+
+        var bar = el('div', { className: 'gantt-bar bar-' + task.type, style: { left: barLeft + 'px', width: '0px', top: '4px', opacity: '0' } },
+          task.days > 0 ? task.name : '\u25b6'
+        );
+        setTimeout(function (b, w) { return function () {
+          b.style.transition = 'width 0.5s ease-out, opacity 0.3s ease-out';
+          b.style.opacity = '1';
+          b.style.width = w + 'px';
+        }; }(bar, barWidth), delay * 1000);
+
+        var taskLabel = el('div', { style: {
+          width: LABEL_W + 'px', flexShrink: '0', fontSize: '11px', color: '#a3a3a3',
+          paddingLeft: '8px', opacity: '0', animation: 'fadeInRight 0.3s ease-out ' + delay + 's forwards',
+        }},
+          el('span', { style: { display: 'flex', alignItems: 'center', gap: '6px' } },
+            el('span', { style: { width: '6px', height: '6px', borderRadius: '2px', background: TYPE_COLORS[task.type], flexShrink: '0' } }),
+            task.name
+          )
+        );
+
+        var row = el('div', { className: 'gantt-row', style: { position: 'relative' } });
+        row.appendChild(taskLabel);
+        row.appendChild(bar);
+        lanesContainer.appendChild(row);
+        animIdx++;
+      });
+    });
+
+    // Legend
+    var legend = el('div', { className: 'gantt-legend' },
+      [{ color: '#34d399', label: 'Agent (engine)' }, { color: '#fbbf24', label: 'Human' }, { color: '#f87171', label: 'Gate' }].map(function (l) {
+        return el('div', { className: 'gantt-legend-item' },
+          el('span', { className: 'gantt-legend-dot', style: { background: l.color } }),
+          l.label
+        );
+      })
+    );
+
+    // Summary stats
+    var agentCount = TASKS.filter(function (t) { return t.type === 'agent'; }).length;
+    var humanCount = TASKS.filter(function (t) { return t.type === 'human'; }).length;
+    var gateCount = TASKS.filter(function (t) { return t.type === 'gate'; }).length;
+
+    var summary = el('div', { className: 'gantt-summary', style: { borderTop: 'none', marginTop: '0', paddingTop: '0', opacity: '0', animation: 'fadeIn 0.4s ease-out 0.2s forwards' } },
+      el('div', { className: 'gantt-summary-stat' },
+        el('span', { style: { fontSize: '22px', fontFamily: "'JetBrains Mono', monospace", color: '#34d399' } }, agentCount + ' artifacts'),
+        el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#525252', textTransform: 'uppercase' } }, 'Agent \u2014 day 1 (parallel)')
+      ),
+      el('div', { className: 'gantt-summary-stat' },
+        el('span', { style: { fontSize: '22px', fontFamily: "'JetBrains Mono', monospace", color: '#fbbf24' } }, humanCount + ' tasks'),
+        el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#525252', textTransform: 'uppercase' } }, 'Human (pre-launch)')
+      ),
+      el('div', { className: 'gantt-summary-stat' },
+        el('span', { style: { fontSize: '22px', fontFamily: "'JetBrains Mono', monospace", color: '#f87171' } }, gateCount + ' gates'),
+        el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#525252', textTransform: 'uppercase' } }, 'Must pass')
+      ),
+      el('div', { className: 'gantt-summary-stat' },
+        el('span', { style: { fontSize: '22px', fontFamily: "'JetBrains Mono', monospace", color: '#fff' } }, totalDays + ' days'),
+        el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#525252', textTransform: 'uppercase' } }, 'To soft launch')
+      )
+    );
+
+    // Artifacts checklist
+    var artifactCheckEls = [];
+    var artifactRows = artifacts.map(function (a, i) {
+      var checkEl = el('div', { className: 'artifact-check', style: { background: 'rgba(38,38,38,0.4)' } },
+        el('div', { className: 'spinner' })
+      );
+      artifactCheckEls.push(checkEl);
+      return el('div', { className: 'artifact-row', style: { opacity: '0', animation: 'fadeInRight 0.2s ease-out ' + (0.8 + i * 0.05) + 's forwards' } },
+        checkEl,
+        el('span', { className: 'artifact-name' }, a.name),
+        el('span', { className: 'artifact-type' }, a.file)
+      );
+    });
+
+    // Animate artifact checks
+    artifactCheckEls.forEach(function (ce, i) {
+      setTimeout(function () {
+        ce.className = 'artifact-check done';
+        ce.innerHTML = '';
+        ce.appendChild(checkSvg(12, '#34d399'));
+      }, 1200 + i * 300);
+    });
+
+    var wrapper = el('div', { className: 'fade-in' },
+      stageHeader('03', 'Launch Planning'),
+
+      el('p', { style: { color: '#a3a3a3', fontSize: '14px', lineHeight: '1.6', marginBottom: '24px' } },
+        '9 artifacts. Day 1. The only thing that takes 3 days is the human ops \u2014 domain setup, eSIM smoke test, and the final gate.'
+      ),
+
+      summary,
+
+      // Critical path
+      card({ style: { padding: '16px', marginBottom: '24px', borderColor: 'rgba(52,211,153,0.3)', opacity: '0', animation: 'fadeIn 0.4s ease-out 0.3s forwards' } },
+        el('div', { style: { display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' } },
+          el('span', { style: { width: '8px', height: '8px', borderRadius: '50%', background: '#34d399' } }),
+          el('span', { style: { fontSize: '12px', fontWeight: '500', color: '#fff' } }, 'Critical path \u2014 ' + totalDays + ' days to soft launch')
+        ),
+        el('div', { style: { display: 'flex', flexWrap: 'wrap', gap: '4px', alignItems: 'center' } },
+          ['Artifact Generation', 'Web & Bot Deploy', 'E2E Journey Test', 'Soft Launch'].map(function (name, i) {
+            var parts = [el('span', { style: { fontSize: '11px', fontFamily: "'JetBrains Mono', monospace", color: '#d4d4d4', padding: '2px 8px', background: 'rgba(52,211,153,0.1)', borderRadius: '4px' } }, name)];
+            if (i < 3) parts.push(el('span', { style: { fontSize: '10px', color: '#404040', margin: '0 2px' } }, '\u2192'));
+            return parts;
+          }).reduce(function (a, b) { return a.concat(b); }, [])
+        )
+      ),
+
+      legend,
+
+      el('div', { className: 'gantt' }, dayHeaders, lanesContainer),
+
+      annotation('AI decided', 'Every green bar is an agent working autonomously \u2014 no handoffs, no waiting. The 3-day critical path exists because humans still verify the eSIM and run the final gate. The engine itself finishes on day 1.')
+    );
+
+    return wrapper;
+  }
+
+  /* ═══════════════════════════════════════════
+     STAGE 4 — LIVE
+     ═══════════════════════════════════════════ */
+
+  function buildLive() {
+    var timers = [];
+
+    var artifacts = [
+      { name: 'Website & Landing', file: 'page-spec.json' },
+      { name: 'Bot Config', file: 'bot-config.yaml' },
+      { name: 'Journey Config', file: 'journey-config.yaml' },
+      { name: 'Brand Voice', file: 'brand.md' },
+      { name: 'Product KB', file: 'product.md' },
+      { name: 'FAQ', file: 'faq.md' },
+      { name: 'Plan Config', file: 'plan-spec.json' },
+      { name: 'Legal Docs', file: 'legal.md' },
+      { name: 'Unit Economics', file: 'economics.json' },
+    ];
+
+    // ── SECTION 1: Operator review ──
+    var reviewStatusEls = [];
+    var reviewCheckEls = [];
+    var reviewSection = el('div', { style: { marginBottom: '28px' } },
+      el('div', { style: { display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' } },
+        el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", textTransform: 'uppercase', letterSpacing: '0.1em', color: '#fff' } }, '\u25cf Operator review'),
+        el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#404040' } }, 'human checkpoint before deploy')
+      ),
+      card({ style: { padding: '0', overflow: 'hidden' } },
+        el('div', { style: { display: 'flex', justifyContent: 'space-between', padding: '10px 16px', borderBottom: '1px solid rgba(255,255,255,0.06)', fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#525252', textTransform: 'uppercase', letterSpacing: '0.05em' } },
+          el('span', null, 'Artifact'),
+          el('span', null, 'Status')
+        ),
+        artifacts.map(function (a, i) {
+          var statusBadge = el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", padding: '2px 8px', borderRadius: '4px', background: 'rgba(52,211,153,0.1)', color: '#34d399', transition: 'all 0.3s' } }, 'generated');
+          reviewStatusEls.push(statusBadge);
+          var checkMark = el('span', { style: { display: 'none', marginLeft: '8px' } }, checkSvg(12, '#34d399'));
+          reviewCheckEls.push(checkMark);
+          return el('div', {
+            style: {
+              display: 'flex', alignItems: 'center', padding: '10px 16px',
+              borderBottom: i < artifacts.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none',
+              opacity: '0', animation: 'fadeInRight 0.3s ease-out ' + (0.1 + i * 0.05) + 's forwards',
+            }
+          },
+            el('span', { style: { width: '6px', height: '6px', borderRadius: '50%', background: '#34d399', flexShrink: '0', marginRight: '12px' } }),
+            el('div', { style: { flex: '1', minWidth: '0' } },
+              el('div', { style: { display: 'flex', alignItems: 'baseline', gap: '8px' } },
+                el('span', { style: { fontSize: '13px', fontWeight: '500', color: '#e5e5e5' } }, a.name),
+                el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#404040' } }, a.file)
+              )
+            ),
+            el('div', { style: { display: 'flex', alignItems: 'center', flexShrink: '0', marginLeft: '16px' } }, statusBadge, checkMark)
+          );
+        })
+      )
+    );
+
+    // Review summary (appears after all reviewed)
+    var reviewSummary = el('div', { style: { display: 'none', textAlign: 'center', padding: '12px', marginTop: '12px', borderRadius: '8px', border: '1px solid rgba(52,211,153,0.2)', background: 'rgba(52,211,153,0.05)' } },
+      el('span', { style: { fontSize: '13px', fontFamily: "'JetBrains Mono', monospace", color: '#34d399' } }, '9/9 reviewed \u2014 approved for deploy')
+    );
+
+    // Animate review: generated → reviewed
+    artifacts.forEach(function (_, i) {
+      timers.push(setTimeout(function () {
+        reviewStatusEls[i].textContent = 'reviewed';
+        reviewStatusEls[i].style.background = 'rgba(52,211,153,0.15)';
+        reviewCheckEls[i].style.display = '';
+        if (i === artifacts.length - 1) {
+          timers.push(setTimeout(function () {
+            reviewSummary.style.display = '';
+            reviewSummary.style.opacity = '0';
+            reviewSummary.style.animation = 'fadeIn 0.4s ease-out forwards';
+          }, 300));
+        }
+      }, 800 + i * 350));
+    });
+
+    var reviewDone = 800 + artifacts.length * 350 + 600;
+
+    // ── SECTION 2: Deploy (artifacts go live) ──
+    var deployDots = [];
+    var deployChecks = [];
+    var deploySection = el('div', { style: { marginBottom: '28px', display: 'none' } },
+      el('div', { style: { display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' } },
+        el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", textTransform: 'uppercase', letterSpacing: '0.1em', color: '#34d399' } }, '\u25cf Deploying'),
+        el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#404040' } }, 'writing files + connecting services')
+      ),
+      el('div', { style: { display: 'flex', flexWrap: 'wrap', gap: '6px' } },
+        artifacts.map(function (a, i) {
+          var dot = el('span', { style: { width: '6px', height: '6px', borderRadius: '50%', background: '#525252', flexShrink: '0', transition: 'all 0.3s' } });
+          deployDots.push(dot);
+          var checkDot = el('span', { style: { width: '6px', height: '6px', borderRadius: '50%', background: '#34d399', flexShrink: '0', display: 'none', boxShadow: '0 0 4px rgba(52,211,153,0.5)' } });
+          deployChecks.push(checkDot);
+          return el('span', { style: {
+            display: 'inline-flex', alignItems: 'center', gap: '6px',
+            padding: '5px 12px', borderRadius: '6px', fontSize: '11px',
+            fontFamily: "'JetBrains Mono', monospace",
+            background: 'rgba(52,211,153,0.04)', border: '1px solid rgba(52,211,153,0.12)',
+            color: '#737373', transition: 'border-color 0.3s, color 0.3s',
+          }}, dot, checkDot, a.name);
+        })
+      )
+    );
+
+    // Show deploy after review
+    timers.push(setTimeout(function () {
+      deploySection.style.display = '';
+      deploySection.style.opacity = '0';
+      deploySection.style.animation = 'fadeIn 0.4s ease-out forwards';
+    }, reviewDone));
+
+    // Animate deploy
+    artifacts.forEach(function (_, i) {
+      timers.push(setTimeout(function () {
+        deployDots[i].style.display = 'none';
+        deployChecks[i].style.display = '';
+        var pill = deployChecks[i].parentElement;
+        pill.style.borderColor = 'rgba(52,211,153,0.3)';
+        pill.style.color = '#a3a3a3';
+      }, reviewDone + 400 + i * 150));
+    });
+
+    var deployDone = reviewDone + 400 + artifacts.length * 150 + 400;
+
+    // ── SECTION 3: Human tasks ──
+    var humanTasks = [
+      { name: 'Domain & DNS', assignee: 'Ops', days: '1d' },
+      { name: 'eSIM Smoke Test', assignee: 'QA', days: '1d' },
+    ];
+
+    var humanSpinners = [];
+    var humanChecks = [];
+    var humanSection = el('div', { style: { marginBottom: '28px', display: 'none' } },
+      el('div', { style: { display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' } },
+        el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", textTransform: 'uppercase', letterSpacing: '0.1em', color: '#fbbf24' } }, '\u25cf Human tasks'),
+        el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#404040' } }, 'assigned \u2014 in progress')
+      ),
+      el('div', { style: { display: 'flex', flexDirection: 'column', gap: '8px' } },
+        humanTasks.map(function (t, i) {
+          var spinner = el('div', { style: { width: '14px', height: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: '0' } },
+            el('div', { className: 'spinner' })
+          );
+          humanSpinners.push(spinner);
+          var chk = el('div', { style: { display: 'none', flexShrink: '0' } }, checkSvg(14, '#fbbf24'));
+          humanChecks.push(chk);
+          return el('div', { style: { display: 'flex', alignItems: 'center', gap: '10px', padding: '8px 12px', borderRadius: '8px', background: 'rgba(251,191,36,0.04)', border: '1px solid rgba(251,191,36,0.1)' } },
+            spinner, chk,
+            el('span', { style: { fontSize: '13px', color: '#d4d4d4', flex: '1' } }, t.name),
+            el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#525252' } }, t.assignee),
+            el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#404040' } }, t.days)
+          );
+        })
+      )
+    );
+
+    timers.push(setTimeout(function () {
+      humanSection.style.display = '';
+      humanSection.style.opacity = '0';
+      humanSection.style.animation = 'fadeIn 0.4s ease-out forwards';
+    }, deployDone));
+
+    humanTasks.forEach(function (_, i) {
+      timers.push(setTimeout(function () {
+        humanSpinners[i].style.display = 'none';
+        humanChecks[i].style.display = '';
+      }, deployDone + 800 + i * 600));
+    });
+
+    var humansDone = deployDone + 800 + humanTasks.length * 600 + 400;
+
+    // ── SECTION 4: Launch gates ──
+    var gates = [
+      { name: 'QA agent verifies bot voice', result: '4/4 exchanges passed' },
+      { name: 'E2E journey test', result: 'Signup \u2192 activation in 3m 42s' },
+    ];
+
+    var gateSpinners = [];
+    var gateChecks2 = [];
+    var gateResults = [];
+    var gatesSection = el('div', { style: { marginBottom: '28px', display: 'none' } },
+      el('div', { style: { display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' } },
+        el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", textTransform: 'uppercase', letterSpacing: '0.1em', color: '#f87171' } }, '\u25cf Launch gates'),
+        el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#404040' } }, 'must pass before go-live')
+      ),
+      el('div', { style: { display: 'flex', flexDirection: 'column', gap: '8px' } },
+        gates.map(function (g, i) {
+          var spinner = el('div', { style: { width: '14px', height: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: '0' } },
+            el('div', { className: 'spinner' })
+          );
+          gateSpinners.push(spinner);
+          var chk = el('div', { style: { display: 'none', flexShrink: '0' } }, checkSvg(14, '#34d399'));
+          gateChecks2.push(chk);
+          var result = el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#34d399', display: 'none' } }, g.result);
+          gateResults.push(result);
+          return el('div', { style: { display: 'flex', alignItems: 'center', gap: '10px', padding: '8px 12px', borderRadius: '8px', background: 'rgba(248,113,113,0.04)', border: '1px solid rgba(248,113,113,0.1)', transition: 'all 0.3s' } },
+            spinner, chk,
+            el('span', { style: { fontSize: '13px', color: '#d4d4d4', flex: '1' } }, g.name),
+            result
+          );
+        })
+      )
+    );
+
+    timers.push(setTimeout(function () {
+      gatesSection.style.display = '';
+      gatesSection.style.opacity = '0';
+      gatesSection.style.animation = 'fadeIn 0.4s ease-out forwards';
+    }, humansDone));
+
+    gates.forEach(function (_, i) {
+      timers.push(setTimeout(function () {
+        gateSpinners[i].style.display = 'none';
+        gateChecks2[i].style.display = '';
+        gateResults[i].style.display = '';
+        var row = gateChecks2[i].parentElement;
+        row.style.borderColor = 'rgba(52,211,153,0.2)';
+        row.style.background = 'rgba(52,211,153,0.04)';
+      }, humansDone + 800 + i * 1000));
+    });
+
+    var gatesDone = humansDone + 800 + gates.length * 1000 + 600;
+
+    // ── SECTION 5: Live card ──
+    var liveCard = el('div', { className: 'card', style: {
+      padding: '32px', marginBottom: '24px', display: 'none',
+      borderColor: 'rgba(6,95,70,0.5)', boxShadow: '0 0 40px -12px rgba(16,185,129,0.12)',
+    }},
+      el('div', { style: { textAlign: 'center' } },
+        el('h2', { style: { fontFamily: '"Instrument Serif", Georgia, serif', fontSize: '30px', color: '#fff', marginBottom: '4px' } }, 'Specter'),
+        el('p', { style: { color: '#525252', fontSize: '14px', marginBottom: '12px' } }, 'is live'),
+        el('div', { style: { display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' } },
+          el('span', { className: 'pulse-container' },
+            el('span', { className: 'pulse-ping' }),
+            el('span', { className: 'pulse-dot' })
+          ),
+          el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", textTransform: 'uppercase', letterSpacing: '0.05em', color: '#34d399' } }, 'LIVE')
+        )
+      )
+    );
+
+    timers.push(setTimeout(function () {
+      liveCard.style.display = '';
+      liveCard.style.opacity = '0';
+      liveCard.style.animation = 'fadeIn 0.5s ease-out forwards';
+    }, gatesDone));
+
+    var wrapper = el('div', { className: 'fade-in' },
+      stageHeader('04', 'Live'),
+
+      el('p', { style: { color: '#a3a3a3', fontSize: '14px', lineHeight: '1.6', marginBottom: '24px' } },
+        'Artifacts are reviewed by the operator, then deployed. Human tasks and launch gates run on the critical path. Once everything clears \u2014 Specter goes live.'
+      ),
+
+      reviewSection,
+      reviewSummary,
+      deploySection,
+      humanSection,
+      gatesSection,
+      liveCard,
+
+      annotation('Critical path', 'The engine generates on day 1. The operator reviews and approves. Human ops and gates take 2 more days. Once those clear \u2014 the brand is live.')
+    );
+
+    wrapper._cleanup = function () { timers.forEach(clearTimeout); };
+    return wrapper;
+  }
+
+  /* ═══════════════════════════════════════════
+     STAGE 5 — THE MACHINE
+     ═══════════════════════════════════════════ */
+
+  function buildMachine() {
+    var segments = [
+      { type: 'Broadbased', example: 'Pet Mobile', volume: 'High', speed: 'High', color: '#ef4444' },
+      { type: 'Identity board-based', example: 'Consumer Cellular', volume: 'Medium', speed: 'Medium', color: '#f59e0b' },
+      { type: 'Identity specific', example: 'Meow Mobile', volume: 'Low', speed: 'Slow', color: '#8b5cf6' },
+      { type: 'Life moment', example: 'Red Packet Mobile', volume: 'Low\u2013Med', speed: 'Low\u2013Med', color: '#06b6d4' },
+      { type: 'Trend / emerging', example: 'Claw Mobile', volume: 'Low', speed: 'Fast\u2192plateau', color: '#10b981' },
+    ];
+
+    var brands = [
+      { name: 'Meow Mobile', segment: 'Identity specific', status: 'live', subs: '116', mrr: '$7.3K', color: '#34d399' },
+      { name: 'Specter', segment: 'Identity specific', status: 'just launched', subs: '0', mrr: '$0', color: '#8b5cf6' },
+      { name: 'Macro Brand #1', segment: 'Broadbased', status: 'next', subs: '\u2014', mrr: '\u2014', color: '#6366f1' },
+    ];
+
+    var segmentEls = segments.map(function (s, i) {
+      return el('div', { style: {
+        display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 0',
+        borderBottom: '1px solid rgba(255,255,255,0.03)',
+        opacity: '0', animation: 'fadeInRight 0.3s ease-out ' + (0.4 + i * 0.08) + 's forwards',
+      }},
+        el('span', { style: { width: '4px', height: '24px', borderRadius: '2px', background: s.color, flexShrink: '0' } }),
+        el('div', { style: { flex: '1' } },
+          el('div', { style: { fontSize: '13px', color: '#d4d4d4', fontWeight: '500' } }, s.type),
+          el('div', { style: { fontSize: '11px', color: '#525252' } }, 'e.g. ' + s.example)
+        ),
+        el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#525252', width: '80px' } }, s.volume + ' vol'),
+        el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#525252', width: '80px' } }, s.speed)
+      );
+    });
+
+    var brandCards = brands.map(function (b, i) {
+      var cardClass = b.status === 'live' ? 'portfolio-card active-brand' : b.status === 'just launched' ? 'portfolio-card active-brand' : 'portfolio-card next-brand';
+      return el('div', { className: cardClass, style: { opacity: '0', animation: 'fadeIn 0.4s ease-out ' + (0.8 + i * 0.15) + 's forwards' } },
+        el('div', { style: { display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' } },
+          b.status === 'live' || b.status === 'just launched'
+            ? el('span', { className: 'pulse-container' }, el('span', { className: 'pulse-ping' }), el('span', { className: 'pulse-dot' }))
+            : el('span', { style: { width: '8px', height: '8px', borderRadius: '50%', background: '#404040' } }),
+          el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", textTransform: 'uppercase', color: b.status === 'next' ? '#6366f1' : '#34d399' } }, b.status)
+        ),
+        el('div', { style: { fontFamily: '"Instrument Serif", Georgia, serif', fontSize: '22px', color: '#fff', marginBottom: '4px' } }, b.name),
+        el('div', { style: { fontSize: '11px', color: '#525252', marginBottom: '12px' } }, b.segment),
+        el('div', { style: { display: 'flex', gap: '16px' } },
+          el('div', null,
+            el('span', { style: { fontSize: '16px', fontFamily: "'JetBrains Mono', monospace", color: '#fff' } }, b.subs),
+            el('span', { style: { fontSize: '9px', fontFamily: "'JetBrains Mono', monospace", color: '#404040', display: 'block' } }, 'subs')
+          ),
+          el('div', null,
+            el('span', { style: { fontSize: '16px', fontFamily: "'JetBrains Mono', monospace", color: '#fff' } }, b.mrr),
+            el('span', { style: { fontSize: '9px', fontFamily: "'JetBrains Mono', monospace", color: '#404040', display: 'block' } }, 'mrr')
+          )
+        )
+      );
+    });
+
+    var wrapper = el('div', { className: 'fade-in' },
+      stageHeader('05', 'The Machine'),
+
+      el('p', { className: 'desc' },
+        'This isn\u2019t a one-off brand launch. It\u2019s a repeatable engine. Each new brand reuses 95% of infrastructure and varies the 5 customer-facing layers. The path to 250K subscribers isn\u2019t one brand growing linearly \u2014 it\u2019s multiple brands compounding on shared rails.'
+      ),
+
+      // Portfolio view
+      el('div', { style: { marginBottom: '32px' } },
+        el('span', { style: { display: 'block', marginBottom: '16px', fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", textTransform: 'uppercase', letterSpacing: '0.1em', color: '#525252' } }, 'Portfolio'),
+        el('div', { className: 'grid-3' }, brandCards)
+      ),
+
+      // Economics
+      card({ style: { padding: '24px', marginBottom: '32px', opacity: '0', animation: 'fadeIn 0.4s ease-out 1.2s forwards' } },
+        el('span', { style: { display: 'block', marginBottom: '16px', fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", textTransform: 'uppercase', letterSpacing: '0.1em', color: '#404040' } }, 'Unit economics of the engine'),
+        el('div', { className: 'grid-4' },
+          el('div', null,
+            el('span', { style: { fontSize: '28px', fontWeight: '300', color: '#fff', display: 'block' } }, '3'),
+            el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#404040', textTransform: 'uppercase', display: 'block', marginTop: '4px' } }, 'Days to launch')
+          ),
+          el('div', null,
+            el('span', { style: { fontSize: '28px', fontWeight: '300', color: '#fff', display: 'block' } }, '95%'),
+            el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#404040', textTransform: 'uppercase', display: 'block', marginTop: '4px' } }, 'Infra reuse')
+          ),
+          el('div', null,
+            el('span', { style: { fontSize: '28px', fontWeight: '300', color: '#fff', display: 'block' } }, '9'),
+            el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#404040', textTransform: 'uppercase', display: 'block', marginTop: '4px' } }, 'Artifacts / brand')
+          ),
+          el('div', null,
+            el('span', { style: { fontSize: '28px', fontWeight: '300', color: '#fff', display: 'block' } }, '$0'),
+            el('span', { style: { fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#404040', textTransform: 'uppercase', display: 'block', marginTop: '4px' } }, 'Marginal infra cost')
+          )
+        )
+      ),
+
+      // Segment taxonomy
+      el('div', { style: { marginBottom: '24px' } },
+        el('span', { style: { display: 'block', marginBottom: '12px', fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", textTransform: 'uppercase', letterSpacing: '0.1em', color: '#525252' } }, 'Segment types the engine supports'),
+        card({ style: { padding: '16px' } }, segmentEls)
+      ),
+
+      annotation('The multiplier', 'Each brand added to the portfolio has near-zero marginal infrastructure cost. The engine generates the variable layer, the shared rails handle everything else. Meow proved the model. Specter is the first replication. The next macro brand targets high-volume segments.')
+    );
+
+    return wrapper;
+  }
+
+  /* ═══════════════════════════════════════════
+     STAGE BUILDER MAP
+     ═══════════════════════════════════════════ */
+
+  var BUILDERS = [buildBriefIn, buildInfra, buildGenerate, buildLive, buildMachine];
+
+  /* ═══════════════════════════════════════════
+     INIT
+     ═══════════════════════════════════════════ */
+
+  var container = document.getElementById('app');
+  var activeStage = 0;
+  var currentEl = null;
+  var stageButtons = [];
+  var trackFill, counterVal, slider;
+  var playing = false;
+  var playTimer = null;
+  var playBtn;
+
+  // Sidebar
+  var sidebar = el('div', { className: 'sidebar' });
+  var sidebarTop = el('div', { className: 'sidebar-top' },
+    el('span', { className: 'sidebar-label' }, 'Scene 05'),
+    el('span', { className: 'sidebar-title' }, 'Launch')
+  );
+  sidebar.appendChild(sidebarTop);
+
+  var playArea = el('div', { className: 'play-area' });
+  playBtn = html('button', { className: 'play-btn' }, '\u25b6 Play');
+  playBtn.addEventListener('click', togglePlay);
+  playArea.appendChild(playBtn);
+  sidebar.appendChild(playArea);
+
+  var timeline = el('div', { className: 'timeline' });
+  var timelineInner = el('div', { className: 'timeline-inner' });
+  timelineInner.appendChild(el('div', { className: 'track' }));
+  trackFill = el('div', { className: 'track-fill' });
+  timelineInner.appendChild(trackFill);
+
+  STAGES.forEach(function (stage, i) {
+    var btn = el('button', { className: 'node-btn' + (i === 0 ? ' active' : '') });
+    btn.addEventListener('click', function () { setStage(i); });
+    var dot = el('div', { className: 'node-dot ' + (i === 0 ? 'active-dot' : 'future') });
+    if (i === 0) dot.appendChild(el('div', { className: 'dot-inner' }));
+    else dot.appendChild(el('span', { className: 'dot-number' }, stage.number));
+    btn.appendChild(dot);
+    var label = el('div', { className: 'node-label' },
+      el('div', { className: 'node-title' + (i === 0 ? ' active-t' : '') }, stage.title),
+      el('div', { className: 'node-sub' + (i === 0 ? ' active-s' : '') }, stage.subtitle)
+    );
+    btn.appendChild(label);
+    timelineInner.appendChild(btn);
+    stageButtons.push({ btn: btn, dot: dot, title: label.children[0], sub: label.children[1] });
+  });
+  timeline.appendChild(timelineInner);
+  sidebar.appendChild(timeline);
+
+  var counter = el('div', { className: 'counter' },
+    el('div', { className: 'sidebar-label' }, 'Step')
+  );
+  counterVal = el('div', { className: 'counter-val' }, '1 / 5');
+  counter.appendChild(counterVal);
+  slider = el('input', { className: 'slider', type: 'range', min: '0', max: '4', value: '0', step: '1' });
+  slider.addEventListener('input', function () { setStage(parseInt(slider.value, 10)); });
+  counter.appendChild(slider);
+  sidebar.appendChild(counter);
+
+  // Main
+  var mainWrap = el('div', { className: 'main' });
+  var mainContent = el('div', { className: 'content' });
+  mainWrap.appendChild(mainContent);
+
+  container.appendChild(sidebar);
+  container.appendChild(mainWrap);
+
+  renderStage();
+
+  function setStage(index) {
+    if (index < 0 || index > 4) return;
+    activeStage = index;
+    updateTimeline();
+    renderStage();
+  }
+
+  function updateTimeline() {
+    stageButtons.forEach(function (s, i) {
+      var isPast = i < activeStage;
+      var isActive = i === activeStage;
+      s.btn.className = 'node-btn' + (isActive ? ' active' : '');
+      s.dot.className = 'node-dot ' + (isPast ? 'past' : isActive ? 'active-dot' : 'future');
+      s.dot.innerHTML = '';
+      if (isPast) s.dot.innerHTML = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6L5 8.5L9.5 3.5" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      else if (isActive) s.dot.appendChild(el('div', { className: 'dot-inner' }));
+      else s.dot.appendChild(el('span', { className: 'dot-number' }, STAGES[i].number));
+      s.title.className = 'node-title' + (isPast ? ' past-t' : isActive ? ' active-t' : '');
+      s.sub.className = 'node-sub' + (isActive ? ' active-s' : '');
+    });
+    var pct = stageButtons.length > 1 ? (activeStage / (stageButtons.length - 1)) * 100 : 0;
+    trackFill.style.height = pct + '%';
+    counterVal.textContent = (activeStage + 1) + ' / 5';
+    slider.value = activeStage;
+  }
+
+  function renderStage() {
+    if (currentEl && currentEl._cleanup) currentEl._cleanup();
+    mainContent.innerHTML = '';
+    currentEl = BUILDERS[activeStage]();
+    mainContent.appendChild(currentEl);
+    mainWrap.scrollTop = 0;
+  }
+
+  function togglePlay() {
+    playing = !playing;
+    if (playing) {
+      playBtn.innerHTML = '\u23F8 Pause';
+      advance();
+    } else {
+      playBtn.innerHTML = '\u25b6 Play';
+      clearTimeout(playTimer);
+    }
+  }
+
+  function advance() {
+    if (!playing) return;
+    playTimer = setTimeout(function () {
+      if (activeStage < 4) {
+        setStage(activeStage + 1);
+        advance();
+      } else {
+        playing = false;
+        playBtn.innerHTML = '\u25b6 Play';
+      }
+    }, 8000);
+  }
+})();
+</script>
+</body>
+</html>

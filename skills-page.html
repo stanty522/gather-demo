@@ -1,0 +1,3612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gather — Explore Skills</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #faf8f3;
+    --surface: #ffffff;
+    --surface-hover: #f5f0e8;
+    --border: rgba(0, 0, 0, 0.08);
+    --border-hover: rgba(0, 0, 0, 0.18);
+    --text: #1c1917;
+    --text-secondary: #57534e;
+    --text-dim: #a8a29e;
+    --emerald: #b45309;
+    --emerald-dim: rgba(180, 83, 9, 0.10);
+    --teal: #0f766e;
+    --teal-dim: rgba(15, 118, 110, 0.10);
+    --orange: #c2410c;
+    --orange-dim: rgba(194, 65, 12, 0.10);
+    --blue: #1d4ed8;
+    --blue-dim: rgba(29, 78, 216, 0.10);
+    --purple: #6d28d9;
+    --purple-dim: rgba(109, 40, 217, 0.10);
+    --red: #b91c1c;
+    --red-dim: rgba(185, 28, 28, 0.10);
+    --font: 'Source Serif 4', Georgia, serif;
+    --serif: 'Fraunces', Georgia, serif;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Nav */
+  .nav-wrapper {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    transition: all 0.25s ease;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .nav-brand {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+
+  .nav-center {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .nav-center.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav-center-title {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #fff;
+  }
+
+  .nav-center-title em {
+    font-style: italic;
+    color: var(--emerald);
+  }
+
+  .nav-center-subtitle {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  .nav-links a {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-dim);
+    text-decoration: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    transition: all 0.15s;
+  }
+
+  .nav-links a:hover { color: var(--text-secondary); }
+  .nav-links a.active { color: var(--text); background: var(--surface); }
+
+  /* Hero */
+  .hero {
+    padding: 5rem 2rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: -1px;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+
+  .hero h1 em { font-style: italic; color: var(--emerald); }
+
+  .hero p {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    max-width: 800px;
+    margin: 0 auto 2.5rem;
+    white-space: nowrap;
+  }
+
+  /* Tabs */
+  .tab-nav {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 2rem;
+  }
+
+  .tab-btn {
+    font-family: var(--font);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-dim);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .tab-btn:hover { color: var(--text-secondary); }
+  .tab-btn.active { color: var(--text); border-bottom-color: var(--emerald); }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* Skills layout: sidebar + cards + phone */
+  .skills-layout {
+    display: flex;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 3rem 4rem;
+    gap: 3rem;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .phone-column {
+    width: 250px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 7rem;
+    align-self: flex-start;
+    order: 3;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    width: 200px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 7rem;
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    order: 1;
+  }
+
+  @media (max-width: 900px) {
+    .phone-column { display: none; }
+  }
+
+  .sidebar-label {
+    font-family: var(--font);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--emerald);
+    padding: 0 0 0 14px;
+    margin-bottom: 1.25rem;
+  }
+
+  .filter-chip {
+    font-family: var(--font);
+    font-size: 0.88rem;
+    font-weight: 400;
+    color: var(--text-dim);
+    background: transparent;
+    border: none;
+    border-left: 2px solid transparent;
+    border-radius: 0;
+    padding: 6px 0 6px 14px;
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease;
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  .filter-chip:hover {
+    color: var(--text-secondary);
+    background: transparent;
+  }
+
+  .filter-chip.active {
+    color: var(--text);
+    background: transparent;
+    border-left-color: var(--emerald);
+    font-weight: 600;
+  }
+
+  .filter-chip .chip-count {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    margin-left: 0.3rem;
+  }
+
+  .filter-chip.active .chip-count {
+    color: var(--text-secondary);
+  }
+
+  /* Category sections */
+  .categories {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    order: 2;
+    overflow: visible;
+  }
+
+  /* Compact card mode for 3-col layout */
+  .skills-layout .card-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .skills-layout .skill-card {
+    padding: 1rem 1.1rem;
+    border-radius: 8px;
+  }
+
+  .skills-layout .skill-card h3 {
+    font-size: 0.92rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .skills-layout .skill-card p {
+    font-size: 0.82rem;
+    margin-bottom: 0;
+    line-height: 1.5;
+  }
+
+  .skills-layout .scenario-before {
+    display: none;
+  }
+
+  .skills-layout .category-header .build-btn {
+    display: none;
+  }
+
+  .skills-layout .category-count {
+    display: none;
+  }
+
+  .skills-layout .category {
+    margin-bottom: 9rem;
+    scroll-margin-top: 90px;
+  }
+
+  .skills-layout .category-header {
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    position: relative;
+    overflow: visible;
+  }
+
+  .skills-layout .category-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .skills-layout .category-name {
+    font-size: 1.6rem;
+    color: var(--emerald);
+  }
+
+
+  /* Filters row (used on stories tab) */
+  .filters {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 2rem;
+    padding: 0 2rem;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .filters .filter-chip {
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 0.4rem 0.9rem;
+    text-align: center;
+  }
+
+  .filters .filter-chip:hover {
+    border-color: var(--border-hover);
+  }
+
+  .filters .filter-chip.active {
+    border-color: var(--border-hover);
+  }
+
+  @media (max-width: 900px) {
+    .skills-layout {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .sidebar {
+      width: 100%;
+      position: static;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+    }
+    .sidebar-label { display: none; }
+    .sidebar .filter-chip {
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 0.35rem 0.8rem;
+      font-size: 0.8rem;
+    }
+    .sidebar .filter-chip.active { border-color: var(--border-hover); }
+  }
+
+  .category {
+    margin-bottom: 3.5rem;
+    width: 100%;
+  }
+
+  .category-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: none;
+  }
+
+  .category-header .build-btn {
+    margin-left: auto;
+    font-family: var(--font);
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--emerald);
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: 6px;
+    padding: 0.35rem 0.75rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .category-header .build-btn:hover {
+    background: rgba(16, 185, 129, 0.15);
+    border-color: rgba(16, 185, 129, 0.4);
+  }
+
+  .category-name {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .category-count {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-dim);
+    background: rgba(0,0,0,0.05);
+    padding: 0.2rem 0.55rem;
+    border-radius: 100px;
+  }
+
+  .category-moat {
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 0.2rem 0.55rem;
+    border-radius: 100px;
+    margin-left: auto;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .category-moat.network { background: var(--emerald-dim); color: var(--emerald); }
+  .category-moat.ai { background: var(--blue-dim); color: var(--blue); }
+  .category-moat.hybrid { background: var(--purple-dim); color: var(--purple); }
+
+  /* Card grid */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .skill-card {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    border-radius: 0;
+    padding: 1rem 0;
+    transition: all 0.2s;
+    cursor: default;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .skill-card:last-child {
+    border-bottom: none;
+  }
+
+  .skill-card:hover {
+    background: transparent;
+  }
+
+  .skill-card h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .skill-card p {
+    font-size: 0.9rem;
+    color: var(--text);
+    line-height: 1.6;
+    margin-bottom: 0.85rem;
+  }
+
+  .skill-card .scenario-before {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    line-height: 1.55;
+    margin-top: auto;
+    margin-bottom: 0.65rem;
+  }
+
+  /* Phone mockup — iPhone style with side buttons */
+  .phone-wrapper {
+    position: relative;
+    width: 240px;
+    height: 520px;
+    margin: 0 auto;
+  }
+
+  .phone-mockup {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 36px;
+    overflow: hidden;
+    background: #0a0300;
+    border: 3px solid #3a3a3c;
+    box-shadow: 0 0 0 2px #2a2a2c, 0 0 0 6px #1a1a1c, 0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  .phone-island {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 78px;
+    height: 23px;
+    background: #000;
+    border-radius: 100px;
+    z-index: 10;
+  }
+
+  .phone-screen {
+    background: linear-gradient(165deg, #1a1a2e 0%, #0f0f1a 100%);
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 0.4rem 0.5rem 0.5rem;
+  }
+
+  .phone-status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.2rem 0.6rem 0;
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: #fff;
+    height: 32px;
+  }
+
+  .phone-status-icons { font-size: 0.55rem; color: #fff; }
+
+  .phone-lock-time {
+    text-align: center;
+    padding: 1.8rem 0 0.6rem;
+  }
+
+  .phone-lock-time .lock-time {
+    font-size: 3.8rem;
+    font-weight: 200;
+    color: #fff;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 0.15rem;
+  }
+
+  .phone-lock-time .lock-date {
+    font-size: 0.68rem;
+    color: rgba(255,255,255,0.45);
+  }
+
+  .sms-notification {
+    background: rgba(55, 55, 58, 0.75);
+    backdrop-filter: blur(30px);
+    border-radius: 16px;
+    padding: 0.6rem 0.7rem 0.7rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    margin: 0.6rem 0.15rem 0;
+  }
+
+  .sms-header {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .sms-icon {
+    width: 20px; height: 20px;
+    border-radius: 6px;
+    background: var(--emerald);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.55rem; font-weight: 700; color: #fff; flex-shrink: 0;
+  }
+
+  .sms-app-name { font-size: 0.7rem; font-weight: 600; color: rgba(255,255,255,0.55); }
+  .sms-time { font-size: 0.6rem; color: rgba(255,255,255,0.3); margin-left: auto; }
+
+  .sms-title {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.15rem;
+  }
+
+  .sms-body { font-size: 0.72rem; color: rgba(255,255,255,0.8); line-height: 1.45; }
+  .sms-action { display: none; }
+
+  .phone-home-bar {
+    width: 80px; height: 4px;
+    background: rgba(255,255,255,0.25);
+    border-radius: 2px;
+    margin: auto auto 0.3rem;
+  }
+
+  /* Side buttons */
+  .phone-btn { position: absolute; background: #2a2a2c; }
+  .phone-btn-power { right: -7px; top: 120px; width: 4px; height: 50px; border-radius: 0 2px 2px 0; }
+  .phone-btn-vol-up { left: -7px; top: 110px; width: 4px; height: 32px; border-radius: 2px 0 0 2px; }
+  .phone-btn-vol-down { left: -7px; top: 152px; width: 4px; height: 32px; border-radius: 2px 0 0 2px; }
+  .phone-btn-silent { left: -7px; top: 78px; width: 4px; height: 18px; border-radius: 2px 0 0 2px; }
+
+  .skill-card { cursor: default; }
+
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+
+  .tag {
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .tag-network { background: var(--emerald-dim); color: var(--emerald); }
+  .tag-outbound { background: var(--orange-dim); color: var(--orange); }
+  .tag-inbound { background: var(--blue-dim); color: var(--blue); }
+  .tag-trust { background: var(--purple-dim); color: var(--purple); }
+  .tag-otp { background: var(--teal-dim); color: var(--teal); }
+  .tag-ambient { background: var(--red-dim); color: var(--red); }
+  .tag-context { background: rgba(0,0,0,0.06); color: var(--text-dim); }
+
+  /* Wizard card */
+  .skill-card.wizard-card {
+    border: 1px dashed var(--border-hover);
+    border-left: 3px dashed var(--emerald);
+    background: linear-gradient(135deg, rgba(16,185,129,0.03) 0%, var(--surface) 100%);
+    grid-column: 1 / -1;
+  }
+
+  .skill-card.wizard-card:hover {
+    border-color: var(--emerald);
+    background: linear-gradient(135deg, rgba(16,185,129,0.06) 0%, var(--surface-hover) 100%);
+  }
+
+  .skill-card.wizard-card h3 {
+    color: var(--emerald);
+  }
+
+  .wizard-examples {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+  }
+
+  .wizard-example {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    background: rgba(0,0,0,0.04);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 0.25rem 0.6rem;
+  }
+
+  /* Stories tab — persona lanes */
+  .stories-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem 4rem;
+  }
+
+  /* Discovery prompt */
+  .discovery-prompt {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .discovery-prompt h2 {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+  }
+
+  .discovery-pills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .discovery-pill {
+    font-family: var(--font);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 0.5rem 1.1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+
+  .discovery-pill:hover {
+    color: var(--text);
+    border-color: var(--emerald);
+    background: var(--emerald-dim);
+  }
+
+  /* Universal strip */
+  .universal-strip {
+    margin-bottom: 3.5rem;
+  }
+
+  .universal-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--emerald);
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .universal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .universal-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.1rem 1.25rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .universal-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: var(--emerald-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 0.85rem;
+  }
+
+  .universal-card h4 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.2rem;
+  }
+
+  .universal-card p {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  .carrier-tag {
+    font-size: 0.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--emerald);
+    opacity: 0.7;
+    margin-top: 0.35rem;
+    display: block;
+  }
+
+  /* Persona lane */
+  .persona-lane {
+    margin-bottom: 3rem;
+    scroll-margin-top: 100px;
+  }
+
+  .lane-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .lane-number {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--emerald);
+    letter-spacing: 0.05em;
+  }
+
+  .lane-title {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--text);
+  }
+
+  .lane-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    margin-bottom: 1.25rem;
+    max-width: 700px;
+  }
+
+  .lane-divider {
+    height: 1px;
+    background: var(--border);
+    margin-bottom: 1.25rem;
+  }
+
+  /* Problem → Feature → Outcome rows */
+  .pfo-table {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .pfo-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.5rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    align-items: start;
+  }
+
+  .pfo-row:last-child {
+    border-bottom: none;
+  }
+
+  .pfo-head {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .pfo-head span {
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+  }
+
+  .pfo-head span:nth-child(2) { color: var(--text-dim); }
+  .pfo-head span:nth-child(3) { color: var(--emerald); opacity: 0.7; }
+
+  .pfo-cell {
+    font-size: 0.85rem;
+    line-height: 1.55;
+  }
+
+  .pfo-cell.problem { color: var(--text-secondary); }
+  .pfo-cell.feature { color: var(--text-secondary); }
+  .pfo-cell.outcome { color: var(--text); }
+
+  .pfo-cell .moat-tag {
+    display: inline-block;
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: var(--emerald);
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0.3rem;
+  }
+
+  .lane-people {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+  }
+
+  .lane-people a {
+    color: var(--text-secondary);
+    text-decoration: underline;
+    text-decoration-color: var(--border);
+    text-underline-offset: 2px;
+    transition: color 0.15s;
+  }
+
+  .lane-people a:hover {
+    color: var(--emerald);
+    text-decoration-color: var(--emerald);
+  }
+
+  /* Skill tags */
+  .lane-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.75rem;
+  }
+
+  .lane-skill-tag {
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: var(--text-dim);
+    background: rgba(16, 185, 129, 0.06);
+    border: 1px solid rgba(16, 185, 129, 0.15);
+    border-radius: 4px;
+    padding: 0.2rem 0.5rem;
+  }
+
+  .lane-skills-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-dim);
+    margin-top: 1rem;
+    margin-bottom: 0.4rem;
+  }
+
+  /* Stories footer */
+  .stories-footer {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .stories-footer p {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    font-style: italic;
+  }
+
+  @media (max-width: 768px) {
+    .pfo-row, .pfo-head { grid-template-columns: 1fr; gap: 0.5rem; }
+    .pfo-head span:nth-child(2), .pfo-head span:nth-child(3) { display: none; }
+    .pfo-cell::before {
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+    .pfo-cell.problem::before { content: 'PROBLEM'; color: var(--text-dim); }
+    .pfo-cell.feature::before { content: 'FEATURE'; color: var(--text-dim); }
+    .pfo-cell.outcome::before { content: 'OUTCOME'; color: var(--emerald); opacity: 0.7; }
+    .pfo-row { padding: 1.25rem 0; gap: 0.75rem; }
+    .universal-grid { grid-template-columns: 1fr; }
+    .discovery-pills { gap: 0.4rem; }
+  }
+
+  /* Side panel */
+  .side-panel-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 100;
+  }
+
+  .side-panel-overlay.open {
+    display: block;
+  }
+
+  .side-panel {
+    position: fixed;
+    top: 0;
+    right: -600px;
+    width: 560px;
+    max-width: 90vw;
+    height: 100vh;
+    background: var(--bg);
+    border-left: 1px solid var(--border);
+    z-index: 101;
+    overflow-y: auto;
+    padding: 2.5rem;
+    transition: right 0.3s ease;
+  }
+
+  .side-panel.open {
+    right: 0;
+  }
+
+  .side-panel-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: 1.2rem;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+  }
+
+  .side-panel-close:hover {
+    color: var(--text);
+    border-color: var(--border-hover);
+  }
+
+  .side-panel .panel-number {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--emerald);
+    margin-bottom: 0.75rem;
+  }
+
+  .side-panel .panel-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    padding-right: 2.5rem;
+  }
+
+  .side-panel .panel-subtitle {
+    font-size: 0.95rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .side-panel .panel-pain {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+  }
+
+  .side-panel .panel-pain strong {
+    color: #f87171;
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .side-panel .panel-solution {
+    font-size: 0.95rem;
+    color: var(--text);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .side-panel .panel-solution strong {
+    color: var(--emerald);
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .side-panel .panel-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .side-panel .panel-skill-tag {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-dim);
+    background: rgba(0,0,0,0.04);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 0.25rem 0.6rem;
+  }
+
+  .story-number {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--emerald);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+  }
+
+  .story-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.3rem;
+  }
+
+  .story-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .story-pain {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+  }
+
+  .story-pain strong {
+    color: #f87171;
+    font-weight: 600;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .story-solution {
+    font-size: 0.85rem;
+    color: var(--text);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .story-solution strong {
+    color: var(--emerald);
+    font-weight: 600;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .archetype {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .archetype:last-child {
+    border-bottom: none;
+  }
+
+  .archetype-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .archetype-number {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-dim);
+    margin-bottom: 0.4rem;
+  }
+
+  .archetype-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+  }
+
+  .archetype-wedge {
+    font-size: 0.85rem;
+    color: var(--emerald);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .archetype-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 800px;
+  }
+
+  .story-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+
+  .story-skill-tag {
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: var(--text-dim);
+    background: rgba(0,0,0,0.04);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.15rem 0.45rem;
+  }
+
+  /* Build your own wrapper */
+  .build-own-wrapper {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 3rem 4rem;
+    /* Align with the categories column: offset by sidebar (200px) + gap (3rem) */
+    padding-left: calc(200px + 6rem);
+  }
+
+  .build-own-wrapper .category {
+    margin-bottom: 4rem;
+  }
+
+  .build-own-wrapper .category-name {
+    font-size: 1.6rem;
+    color: var(--emerald);
+  }
+
+  .build-own-wrapper .card-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .build-own-wrapper .skill-card {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    border-radius: 0;
+    padding: 1rem 0;
+  }
+
+  .build-own-wrapper .skill-card:last-child {
+    border-bottom: none;
+  }
+
+  .build-own-wrapper .category-header {
+    border-bottom: none;
+    position: relative;
+  }
+
+  .build-own-wrapper .category-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--border);
+  }
+
+  @media (max-width: 900px) {
+    .build-own-wrapper {
+      padding-left: 2rem;
+    }
+  }
+
+  /* Build your own section */
+  .build-your-own-section {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 4rem 2rem 6rem;
+    text-align: center;
+  }
+
+  .build-your-own-title {
+    font-family: var(--serif);
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--emerald);
+    margin-bottom: 0.75rem;
+  }
+
+  .build-your-own-desc {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+  }
+
+  .build-your-own-examples {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .build-example {
+    font-size: 0.9rem;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.85rem 1.2rem;
+    text-align: left;
+    font-style: italic;
+  }
+
+  .build-your-own-footer {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .card-grid { grid-template-columns: 1fr; }
+    .stories-grid { grid-template-columns: 1fr; }
+    .category-header { flex-wrap: wrap; }
+    .category-moat { margin-left: 0; }
+    nav { padding: 1rem; }
+    .hero { padding: 3rem 1.5rem 1.5rem; }
+    .categories { padding: 0 1.5rem 4rem; }
+    .filters { padding: 0 1.5rem; }
+  }
+
+  html { scroll-behavior: smooth; }
+
+  .side-panel .story-section {
+    margin-bottom: 1.5rem;
+  }
+
+  .side-panel .story-section h4 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.6rem;
+  }
+
+  .side-panel .story-section p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.75;
+  }
+
+  .side-panel .story-gather-section h4 {
+    color: var(--emerald);
+  }
+
+  .side-panel .story-gather-section p {
+    color: var(--text);
+  }
+
+
+  .story-card.winner {
+    border-color: var(--emerald);
+    background: linear-gradient(135deg, rgba(16,185,129,0.04) 0%, var(--surface) 100%);
+  }
+
+  .story-card.winner:hover {
+    border-color: var(--emerald);
+  }
+
+  .story-meta {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .story-meta-tag {
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--text-dim);
+    background: rgba(0,0,0,0.04);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.2rem 0.5rem;
+  }
+
+  .story-card.winner .story-meta-tag {
+    border-color: rgba(16,185,129,0.3);
+    color: var(--text-secondary);
+  }
+
+
+  .side-panel .panel-categories {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    padding: 0.75rem 1rem;
+    background: rgba(16, 185, 129, 0.06);
+    border: 1px solid rgba(16, 185, 129, 0.15);
+    border-radius: 8px;
+  }
+
+  .side-panel .panel-categories strong {
+    color: var(--emerald);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+
+  /* L1 skills — editorial light theme, matches Fraunces/Source Serif 4 */
+  .l1-toolbar {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 1rem; flex-wrap: wrap;
+    padding: 0.85rem 0; margin-bottom: 1.75rem;
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; background: var(--bg); z-index: 20;
+  }
+  .l1-toggle {
+    display: inline-flex; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 3px; gap: 2px;
+  }
+  .l1-tab {
+    font-family: var(--font); font-size: 0.82rem; font-weight: 500;
+    color: var(--text-dim); background: transparent; border: none; cursor: pointer;
+    padding: 0.45rem 0.95rem; border-radius: 6px;
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    transition: all 0.15s;
+    letter-spacing: 0.01em;
+  }
+  .l1-tab:hover { color: var(--text-secondary); }
+  .l1-tab.active { background: var(--surface-hover); color: var(--text); }
+  .l1-tab-count { font-size: 0.72rem; color: var(--text-dim); font-weight: 400; }
+  .l1-tab.active .l1-tab-count { color: var(--emerald); font-weight: 600; }
+
+  .l1-legend { display: inline-flex; gap: 0.9rem; flex-wrap: wrap; }
+  .l1-pill { display: inline-flex; align-items: center; gap: 0.38rem; font-size: 0.72rem; color: var(--text-dim); font-family: var(--font); }
+  .l1-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
+  .l1-pill.live .l1-dot { background: #047857; box-shadow: 0 0 0 3px rgba(4,120,87,0.12); }
+  .l1-pill.ready .l1-dot { background: #0d9488; }
+  .l1-pill.pending .l1-dot { background: #b45309; }
+  .l1-pill.concept .l1-dot { background: #a8a29e; }
+
+  .l1-section { margin-bottom: 4.5rem; scroll-margin-top: 100px; }
+  .l1-section-header {
+    margin-bottom: 1.1rem; padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+  }
+  .l1-section-name {
+    font-family: var(--serif);
+    font-size: 1.85rem; color: var(--emerald);
+    font-weight: 400; letter-spacing: -0.015em;
+    line-height: 1.1;
+  }
+  .l1-section-count { font-size: 0.78rem; color: var(--text-dim); font-family: var(--font); letter-spacing: 0.03em; }
+  .l1-section-empty { color: var(--text-dim); font-size: 0.85rem; padding: 0.5rem 0 1.5rem; font-style: italic; }
+
+  .l1-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 0.7rem; }
+
+  .l1-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    padding: 1rem 1.05rem; cursor: pointer;
+    transition: border-color 0.2s cubic-bezier(0.4,0,0.2,1), box-shadow 0.2s cubic-bezier(0.4,0,0.2,1), background 0.2s;
+    font-family: var(--font);
+  }
+  .l1-card:hover { border-color: var(--border-hover); box-shadow: 0 2px 10px rgba(28,25,23,0.04); }
+  .l1-card.open { border-color: var(--emerald); }
+
+  .l1-card-row1 { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.6rem; margin-bottom: 0.4rem; }
+  .l1-card-name {
+    font-family: var(--serif);
+    font-size: 1.02rem; color: var(--text); font-weight: 500; line-height: 1.3;
+    letter-spacing: -0.005em;
+  }
+  .l1-card-ready {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    font-size: 0.68rem; color: var(--text-dim);
+    white-space: nowrap; margin-top: 0.2rem; letter-spacing: 0.04em;
+  }
+  .l1-card-ready .l1-dot { width: 6px; height: 6px; }
+  .l1-card-ready.live .l1-dot { background: #047857; }
+  .l1-card-ready.ready .l1-dot { background: #0d9488; }
+  .l1-card-ready.pending .l1-dot { background: #b45309; }
+  .l1-card-ready.concept .l1-dot { background: #a8a29e; }
+
+  .l1-card-desc { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.55; margin: 0.2rem 0 0.65rem; }
+  .l1-card-meta { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .l1-meta-chip {
+    font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-dim); padding: 2px 8px;
+    border: 1px solid var(--border); border-radius: 10px;
+    font-weight: 500;
+  }
+  .l1-meta-chip.moat { border-color: var(--emerald-dim); color: var(--emerald); }
+
+  .l1-detail {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+                margin-top 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+                padding-top 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+                border-top-color 0.32s,
+                opacity 0.25s ease-out;
+    margin-top: 0; padding-top: 0;
+    border-top: 1px dashed transparent;
+    opacity: 0;
+  }
+  .l1-card.open .l1-detail {
+    grid-template-rows: 1fr;
+    margin-top: 0.9rem;
+    padding-top: 0.9rem;
+    border-top-color: var(--border);
+    opacity: 1;
+  }
+  .l1-detail-inner { overflow: hidden; min-height: 0; }
+  .l1-detail-row { font-size: 0.82rem; line-height: 1.6; color: var(--text-secondary); margin-bottom: 0.7rem; }
+  .l1-detail-label {
+    font-size: 0.62rem; font-weight: 700; letter-spacing: 0.13em;
+    text-transform: uppercase; color: var(--text-dim);
+    display: block; margin-bottom: 0.22rem;
+  }
+  .l1-blocker {
+    margin-top: 0.6rem; padding: 0.65rem 0.85rem;
+    border-left: 2px solid var(--emerald);
+    background: var(--emerald-dim);
+    border-radius: 0 6px 6px 0;
+  }
+  .l1-blocker .l1-detail-label { color: var(--emerald); }
+  .l1-blocker-body { font-size: 0.82rem; color: var(--text); line-height: 1.55; }
+
+  @media (max-width: 900px) {
+    .l1-toolbar { position: static; flex-direction: column; align-items: flex-start; }
+  }
+
+  .l1-viewmode { margin: 0 0 0.6rem; line-height: 1.5; padding: 0 0.1rem; }
+  .l1-vm {
+    font-family: var(--font); font-size: 0.82rem; font-weight: 400;
+    color: var(--text-dim); background: transparent; border: none; cursor: pointer;
+    padding: 0; transition: color 0.15s; white-space: nowrap;
+  }
+  .l1-vm:hover { color: var(--text-secondary); }
+  .l1-vm.active { color: var(--emerald); font-weight: 600; }
+  .l1-viewmode-label { margin-top: 1.1rem; }
+
+  /* Table view */
+  .l1-table-wrap { width: 100%; overflow-x: auto; }
+  .l1-table { width: 100%; border-collapse: collapse; font-family: var(--font); font-size: 0.78rem; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .l1-table thead { background: var(--surface-hover); position: sticky; top: 3.2rem; z-index: 10; }
+  .l1-table th { text-align: left; padding: 0.6rem 0.75rem; font-size: 0.64rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); font-weight: 600; border-bottom: 1px solid var(--border); cursor: pointer; user-select: none; white-space: nowrap; }
+  .l1-table th:hover { color: var(--text); }
+  .l1-table th .l1-sort-arrow { opacity: 0.4; margin-left: 0.25rem; font-size: 0.6rem; }
+  .l1-table th.sorted .l1-sort-arrow { opacity: 1; color: var(--emerald); }
+  .l1-table td { padding: 0.55rem 0.75rem; border-bottom: 1px solid var(--border); color: var(--text-secondary); vertical-align: middle; }
+  .l1-table tr:last-child td { border-bottom: none; }
+  .l1-table tr:hover { background: var(--surface-hover); }
+  .l1-table td.l1-td-name { font-family: var(--serif); color: var(--text); font-weight: 500; font-size: 0.88rem; letter-spacing: -0.005em; }
+  .l1-table .l1-pill-sm { font-size: 0.66rem; display: inline-flex; align-items: center; gap: 0.3rem; white-space: nowrap; }
+  .l1-table .l1-pill-sm .l1-dot { width: 6px; height: 6px; }
+  .l1-tier-badge { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.08em; padding: 2px 7px; border-radius: 10px; border: 1px solid var(--border); color: var(--text-dim); white-space: nowrap; }
+  .l1-tier-badge.exclusive { border-color: var(--emerald-dim); color: var(--emerald); background: var(--emerald-dim); }
+  .l1-tier-badge.advantaged { border-color: rgba(13,148,136,0.22); color: #0d9488; background: rgba(13,148,136,0.08); }
+  .l1-tier-badge.commodity { color: var(--text-dim); }
+  .l1-prim-cell { color: var(--text); font-weight: 500; }
+  .l1-view-hidden { display: none !important; }
+
+  @media (max-width: 900px) {
+    .l1-table th, .l1-table td { padding: 0.45rem 0.55rem; }
+  }
+
+  .l1-grouping { margin: 0 0 0.9rem; line-height: 1.5; padding: 0 0.1rem; }
+  .l1-group-btn {
+    font-family: var(--font); font-size: 0.82rem; font-weight: 400;
+    color: var(--text-dim); background: transparent; border: none; cursor: pointer;
+    padding: 0; transition: color 0.15s; white-space: nowrap;
+  }
+  .l1-group-btn:hover { color: var(--text-secondary); }
+  .l1-group-btn.active { color: var(--emerald); font-weight: 600; }
+  .l1-group-sep { color: var(--text-dim); opacity: 0.5; padding: 0 0.35rem; font-size: 0.78rem; }
+
+  .l1-group-nav { display: flex; flex-direction: column; gap: 0.15rem; margin-top: 0.3rem; }
+  .l1-group-nav .filter-chip { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+  .l1-group-nav .filter-chip .chip-count { opacity: 0.7; }
+
+  .l1-ready-filter { display: flex; flex-direction: column; gap: 0.12rem; }
+  .l1-ready-btn { font-family: var(--font); font-size: 0.78rem; font-weight: 500; color: var(--text-dim); background: transparent; border: none; cursor: pointer; padding: 0.38rem 0.75rem; border-radius: 6px; display: flex; align-items: center; gap: 0.45rem; transition: all 0.15s; text-align: left; width: 100%; }
+  .l1-ready-btn:hover { color: var(--text-secondary); background: var(--surface); }
+  .l1-ready-btn.active { background: var(--surface-hover); color: var(--text); }
+  .l1-ready-btn .l1-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+  .l1-ready-label { flex: 1; }
+  .l1-ready-count { font-size: 0.7rem; color: var(--text-dim); font-weight: 400; }
+  .l1-ready-btn.active .l1-ready-count { color: var(--emerald); }
+
+  .l1-filter-head { display: flex; align-items: center; justify-content: space-between; gap: 0.4rem; }
+  .l1-filter-clear { background: none; border: none; color: var(--text-dim); font-family: var(--font); font-size: 0.68rem; letter-spacing: 0.02em; text-transform: none; font-style: italic; cursor: pointer; padding: 0; transition: color 0.15s; }
+  .l1-filter-clear:hover { color: var(--text-secondary); }
+
+  .l1-dot-toggle {
+    width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex-shrink: 0;
+    border: 1.5px solid var(--text-dim); background: transparent;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .l1-ready-btn[data-color] .l1-dot-toggle { border-color: transparent; box-shadow: inset 0 0 0 1.5px var(--text-dim); }
+  .l1-ready-btn.active[data-color] .l1-dot-toggle {
+    background: var(--dot-c, var(--text));
+    box-shadow: none;
+    border-color: transparent;
+  }
+  .l1-ready-btn:not(.active) { color: var(--text-dim); }
+  .l1-ready-btn:not(.active) .l1-ready-label { opacity: 0.75; }
+
+  .l1-prim-row { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+  .l1-prim-dot {
+    font-size: 0.6rem; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 2px 7px; border-radius: 10px; font-family: var(--font);
+    font-weight: 600;
+    background: var(--p-bg, rgba(0,0,0,0.04));
+    color: var(--p-fg, var(--text-secondary));
+    border: 1px solid var(--p-br, transparent);
+  }
+  .prim-voice    { --p-bg: rgba(13,148,136,0.10); --p-fg: #0d7c72; --p-br: rgba(13,148,136,0.22); }
+  .prim-identity { --p-bg: rgba(180,83,9,0.10);   --p-fg: #b45309; --p-br: rgba(180,83,9,0.25); }
+  .prim-data     { --p-bg: rgba(29,78,216,0.09);  --p-fg: #1d4ed8; --p-br: rgba(29,78,216,0.22); }
+  .prim-presence { --p-bg: rgba(109,40,217,0.08); --p-fg: #6d28d9; --p-br: rgba(109,40,217,0.22); }
+  .prim-fraud    { --p-bg: rgba(185,28,28,0.08);  --p-fg: #b91c1c; --p-br: rgba(185,28,28,0.22); }
+  .prim-geolocation { --p-bg: rgba(194,65,12,0.09); --p-fg: #c2410c; --p-br: rgba(194,65,12,0.22); }
+  .prim-device   { --p-bg: rgba(15,118,110,0.09); --p-fg: #0f766e; --p-br: rgba(15,118,110,0.22); }
+  .prim-security { --p-bg: rgba(71,85,105,0.10);  --p-fg: #475569; --p-br: rgba(71,85,105,0.22); }
+  .prim-messaging{ --p-bg: rgba(190,24,93,0.08);  --p-fg: #be185d; --p-br: rgba(190,24,93,0.22); }
+
+  /* Moat-based left border on cards */
+  .l1-card { border-left-width: 3px; }
+  .l1-card.moat-identity { border-left-color: #b45309; }
+  .l1-card.moat-data     { border-left-color: #1d4ed8; }
+  .l1-card.moat-network  { border-left-color: #0d9488; }
+
+  .l1-detail-moat {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-family: var(--font); font-size: 0.64rem; font-weight: 700;
+    letter-spacing: 0.13em; text-transform: uppercase;
+    padding: 3px 9px; border-radius: 12px;
+    margin-bottom: 0.7rem;
+  }
+  .l1-detail-moat-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
+  .l1-detail-moat.moat-identity { background: rgba(180,83,9,0.10);  color: #b45309; }
+  .l1-detail-moat.moat-identity .l1-detail-moat-dot { background: #b45309; }
+  .l1-detail-moat.moat-data     { background: rgba(29,78,216,0.09); color: #1d4ed8; }
+  .l1-detail-moat.moat-data     .l1-detail-moat-dot { background: #1d4ed8; }
+  .l1-detail-moat.moat-network  { background: rgba(13,148,136,0.10); color: #0d7c72; }
+  .l1-detail-moat.moat-network  .l1-detail-moat-dot { background: #0d9488; }
+
+  /* Sidebar scroll + rhythm */
+  .sidebar {
+    max-height: calc(100vh - 7.5rem);
+    overflow-y: auto;
+    padding-right: 6px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-hover) transparent;
+  }
+  .sidebar::-webkit-scrollbar { width: 6px; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 3px; }
+  .sidebar::-webkit-scrollbar-track { background: transparent; }
+
+  .sidebar-label { margin-top: 0; }
+  .l1-section-divider {
+    margin-top: 1.4rem !important;
+    padding-top: 1.1rem !important;
+    border-top: 1px solid var(--border);
+  }
+  .sidebar-label.l1-viewmode-label { margin-top: 1.4rem; }
+
+  .l1-group-nav { margin: 0.35rem 0 0; }
+  .l1-group-nav .filter-chip { padding: 0.38rem 0.75rem; }
+
+  .l1-ready-filter { margin: 0.3rem 0 0; }
+  .l1-ready-btn { padding: 0.36rem 0.75rem; }
+
+  .l1-grouping, .l1-viewmode { margin-top: 0.35rem; margin-bottom: 0; padding: 0 0.75rem; }
+
+  .l1-build-own {
+    margin-top: 1.4rem;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--border);
+    color: var(--emerald) !important;
+    text-align: left;
+    width: 100%;
+  }
+
+  .l1-visual {
+    height: 40px; display: flex; align-items: center; justify-content: flex-start;
+    margin: -0.1rem 0 0.55rem; padding: 0.1rem 0;
+    opacity: 0.85;
+  }
+  .l1-visual svg { display: block; }
+
+
+  .l1-desc-full { display: none; }
+  .l1-card.open .l1-desc-short { display: none; }
+  .l1-card.open .l1-desc-full { display: block; }
+
+  .l1-visual { width: 100%; height: 120px; border-radius: 10px; background: #fafafa; overflow: hidden; position: relative; margin: -0.2rem 0 0.75rem; opacity: 1; display: block; }
+
+  /* ─────── V6 motif library (27 animations) ─────── */
+  /* SKILL CARD ANIMATIONS     */
+  /* ======================== */
+
+  /* Scam Shield */
+  .viz-scam-shield .phone {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+    width: 28px; height: 44px; border: 2px solid #111; border-radius: 6px;
+  }
+  .viz-scam-shield .shield {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%,-54%);
+    width: 20px; height: 24px;
+    border: 2px solid #111; border-radius: 3px 3px 10px 10px;
+    background: rgba(17,17,17,0.05);
+  }
+  .viz-scam-shield .dot {
+    position: absolute; width: 6px; height: 6px; background: #111; border-radius: 50%;
+    animation: bounceOff 2.4s ease-in-out infinite;
+  }
+  .viz-scam-shield .dot:nth-child(3) { left: 20%; top: 30%; animation-delay: 0s; }
+  .viz-scam-shield .dot:nth-child(4) { right: 18%; top: 20%; animation-delay: 0.6s; }
+  .viz-scam-shield .dot:nth-child(5) { left: 15%; bottom: 25%; animation-delay: 1.2s; }
+  .viz-scam-shield .dot:nth-child(6) { right: 15%; bottom: 30%; animation-delay: 1.8s; }
+  @keyframes bounceOff {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    40% { transform: scale(1) translateX(0); opacity: 1; }
+    50% { transform: scale(0.5); opacity: 0.3; }
+    60% { transform: scale(1); opacity: 0.7; }
+  }
+
+  /* Deepfake Detector */
+  .viz-deepfake .wave {
+    position: absolute; bottom: 30%; left: 10%; right: 10%; height: 40px;
+    display: flex; align-items: flex-end; gap: 2px;
+  }
+  .viz-deepfake .wave-bar {
+    flex: 1; background: #ccc; border-radius: 1px;
+    animation: waveAnim 1.6s ease-in-out infinite;
+  }
+  .viz-deepfake .scan-line {
+    position: absolute; top: 10%; left: 0; width: 2px; height: 80%;
+    background: #111; animation: scanMove 2.5s linear infinite;
+  }
+  .viz-deepfake .badge {
+    position: absolute; top: 10px; right: 10px;
+    font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 3px;
+    animation: badgeFlash 2.5s ease infinite;
+  }
+  @keyframes waveAnim {
+    0%, 100% { height: 10px; }
+    50% { height: 35px; }
+  }
+  @keyframes scanMove {
+    0% { left: 0; } 100% { left: 100%; }
+  }
+  @keyframes badgeFlash {
+    0%, 45% { background: #ddd; color: #999; }
+    50% { background: #111; color: #fff; }
+    55%, 100% { background: #e8e8e8; color: #111; }
+  }
+
+  /* SIM Swap Guard */
+  .viz-sim-guard .sim {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+    width: 24px; height: 32px; border: 2px solid #111; border-radius: 3px;
+    background: rgba(17,17,17,0.03);
+  }
+  .viz-sim-guard .sim::after {
+    content: ''; position: absolute; top: 4px; left: 4px;
+    width: 14px; height: 10px; border: 1px solid #ccc; border-radius: 1px;
+  }
+  .viz-sim-guard .lock {
+    position: absolute; left: 50%; top: 50%; transform: translate(8px,-16px);
+    width: 14px; height: 12px; background: #111; border-radius: 2px;
+  }
+  .viz-sim-guard .lock::before {
+    content: ''; position: absolute; left: 2px; top: -7px;
+    width: 8px; height: 8px; border: 2px solid #111; border-radius: 6px 6px 0 0;
+    border-bottom: none; background: transparent;
+    animation: lockClose 2s ease-in-out infinite;
+  }
+  .viz-sim-guard .pulse-ring {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+    width: 60px; height: 60px; border: 2px solid #111; border-radius: 50%;
+    animation: pulseRing 2s ease-out infinite; opacity: 0;
+  }
+  .viz-sim-guard .pulse-ring:nth-child(4) { animation-delay: 0.7s; }
+  @keyframes lockClose {
+    0%, 40% { top: -7px; } 50%, 100% { top: -9px; }
+  }
+  @keyframes pulseRing {
+    0% { width: 40px; height: 40px; opacity: 0.6; }
+    100% { width: 90px; height: 90px; opacity: 0; }
+  }
+
+  /* Smart Screener */
+  .viz-screener .funnel {
+    position: absolute; left: 50%; top: 15%; transform: translateX(-50%);
+    width: 60px; height: 60px;
+    border-left: 2px solid #111; border-right: 2px solid #111;
+    clip-path: polygon(0 0, 100% 0, 70% 100%, 30% 100%);
+    background: rgba(17,17,17,0.03);
+  }
+  .viz-screener .s-dot {
+    position: absolute; width: 5px; height: 5px; border-radius: 50%; background: #111;
+    left: 50%; transform: translateX(-50%);
+    animation: funnelDrop 2s ease-in infinite;
+  }
+  .viz-screener .s-dot:nth-child(2) { animation-delay: 0.3s; }
+  .viz-screener .s-dot:nth-child(3) { animation-delay: 0.6s; }
+  .viz-screener .s-dot:nth-child(4) { animation-delay: 0.9s; background: #ccc; }
+  .viz-screener .s-dot:nth-child(5) { animation-delay: 1.2s; }
+  @keyframes funnelDrop {
+    0% { top: 5%; opacity: 1; }
+    50% { top: 50%; opacity: 1; }
+    70% { top: 75%; opacity: 0.6; }
+    100% { top: 95%; opacity: 0; }
+  }
+
+  /* Priority Filter */
+  .viz-priority .lane {
+    position: absolute; height: 2px; background: #ddd; top: 50%;
+  }
+  .viz-priority .lane:nth-child(1) { top: 28%; left: 20%; right: 20%; }
+  .viz-priority .lane:nth-child(2) { top: 50%; left: 20%; right: 20%; }
+  .viz-priority .lane:nth-child(3) { top: 72%; left: 20%; right: 20%; }
+  .viz-priority .p-dot {
+    position: absolute; width: 8px; height: 8px; border-radius: 50%;
+    animation: laneSlide 2.5s ease-in-out infinite;
+  }
+  .viz-priority .p-dot:nth-child(4) { top: calc(28% - 3px); background: #111; animation-delay: 0s; }
+  .viz-priority .p-dot:nth-child(5) { top: calc(50% - 3px); background: #888; animation-delay: 0.4s; }
+  .viz-priority .p-dot:nth-child(6) { top: calc(72% - 3px); background: #ccc; animation-delay: 0.8s; }
+  @keyframes laneSlide {
+    0% { left: 15%; } 50% { left: 75%; } 100% { left: 15%; }
+  }
+
+  /* Business Hours Gate */
+  .viz-biz-hours .clock {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+    width: 50px; height: 50px; border: 2px solid #111; border-radius: 50%;
+  }
+  .viz-biz-hours .hand {
+    position: absolute; left: 50%; bottom: 50%; transform-origin: bottom center;
+    width: 2px; background: #111; border-radius: 1px;
+  }
+  .viz-biz-hours .hand.hour { height: 14px; animation: clockHour 8s linear infinite; }
+  .viz-biz-hours .hand.minute { height: 20px; animation: clockMinute 4s linear infinite; }
+  .viz-biz-hours .day-night {
+    position: absolute; right: 15%; top: 50%; transform: translateY(-50%);
+    width: 20px; height: 20px; border-radius: 50%;
+    animation: dayNight 4s ease-in-out infinite;
+  }
+  @keyframes clockHour { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+  @keyframes clockMinute { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+  @keyframes dayNight {
+    0%, 45% { background: #111; box-shadow: 0 0 0 3px rgba(17,17,17,0.1); }
+    50%, 95% { background: #ddd; box-shadow: 0 0 0 3px rgba(0,0,0,0.03); }
+    100% { background: #111; }
+  }
+
+  /* Family Router */
+  .viz-family .trunk {
+    position: absolute; left: 50%; top: 15%; width: 2px; height: 25px; background: #111;
+  }
+  .viz-family .branch {
+    position: absolute; top: 40%; width: 2px; height: 20px; background: #111;
+    transform-origin: top center;
+  }
+  .viz-family .branch:nth-child(2) { left: 30%; transform: rotate(-15deg); }
+  .viz-family .branch:nth-child(3) { left: 50%; }
+  .viz-family .branch:nth-child(4) { left: 70%; transform: rotate(15deg); }
+  .viz-family .node {
+    position: absolute; width: 10px; height: 10px; border-radius: 50%; border: 2px solid #111;
+    animation: nodePulse 2s ease-in-out infinite;
+  }
+  .viz-family .node:nth-child(5) { bottom: 20%; left: 26%; animation-delay: 0s; }
+  .viz-family .node:nth-child(6) { bottom: 20%; left: 47%; animation-delay: 0.3s; }
+  .viz-family .node:nth-child(7) { bottom: 20%; left: 67%; animation-delay: 0.6s; }
+  .viz-family .node-top {
+    position: absolute; top: 8%; left: 50%; transform: translateX(-50%);
+    width: 12px; height: 12px; border-radius: 50%; background: #111;
+  }
+  @keyframes nodePulse {
+    0%, 100% { background: transparent; }
+    50% { background: rgba(17,17,17,0.15); }
+  }
+
+  /* Multi-Line Split */
+  .viz-multiline .stream {
+    position: absolute; left: 10%; height: 3px; border-radius: 2px;
+    animation: streamFlow 2s ease-in-out infinite;
+  }
+  .viz-multiline .stream:nth-child(1) { top: 30%; background: #111; animation-delay: 0s; }
+  .viz-multiline .stream:nth-child(2) { top: 50%; background: #888; animation-delay: 0.3s; }
+  .viz-multiline .stream:nth-child(3) { top: 70%; background: #ccc; animation-delay: 0.6s; }
+  @keyframes streamFlow {
+    0% { width: 0; } 50% { width: 80%; } 100% { width: 0; left: 90%; }
+  }
+
+  /* Escalation Tree */
+  .viz-escalation .step {
+    position: absolute; left: 20%; height: 12px; border-radius: 3px;
+    background: #eee;
+    animation: stepLight 3s ease-in-out infinite;
+  }
+  .viz-escalation .step:nth-child(1) { top: 18%; width: 60%; animation-delay: 0s; }
+  .viz-escalation .step:nth-child(2) { top: 40%; width: 45%; left: 30%; animation-delay: 0.5s; }
+  .viz-escalation .step:nth-child(3) { top: 62%; width: 30%; left: 40%; animation-delay: 1s; }
+  .viz-escalation .arrow {
+    position: absolute; left: 50%; width: 2px; background: #ccc;
+  }
+  .viz-escalation .arrow:nth-child(4) { top: 30%; height: 10%; }
+  .viz-escalation .arrow:nth-child(5) { top: 52%; height: 10%; }
+  @keyframes stepLight {
+    0%, 20% { background: #eee; } 30%, 50% { background: #111; } 60%, 100% { background: #eee; }
+  }
+
+  /* Appointment Setter */
+  .viz-appointment .cal-grid {
+    position: absolute; top: 15%; left: 15%; right: 15%; bottom: 15%;
+    display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 1fr);
+    gap: 4px;
+  }
+  .viz-appointment .cal-cell {
+    background: #eee; border-radius: 3px;
+    animation: cellFill 3s ease-in-out infinite;
+  }
+  .viz-appointment .cal-cell:nth-child(1) { animation-delay: 0s; }
+  .viz-appointment .cal-cell:nth-child(2) { animation-delay: 0.2s; }
+  .viz-appointment .cal-cell:nth-child(3) { animation-delay: 0.4s; }
+  .viz-appointment .cal-cell:nth-child(4) { animation-delay: 0.6s; }
+  .viz-appointment .cal-cell:nth-child(5) { animation-delay: 0.8s; }
+  .viz-appointment .cal-cell:nth-child(6) { animation-delay: 1.0s; }
+  .viz-appointment .cal-cell:nth-child(7) { animation-delay: 1.2s; }
+  .viz-appointment .cal-cell:nth-child(8) { animation-delay: 1.4s; }
+  .viz-appointment .cal-cell:nth-child(9) { animation-delay: 1.6s; }
+  .viz-appointment .cal-cell:nth-child(10) { animation-delay: 1.8s; }
+  .viz-appointment .cal-cell:nth-child(11) { animation-delay: 2.0s; }
+  .viz-appointment .cal-cell:nth-child(12) { animation-delay: 2.2s; }
+  @keyframes cellFill {
+    0%, 15% { background: #eee; } 20%, 60% { background: #111; } 65%, 100% { background: #eee; }
+  }
+
+  /* Bill Negotiator */
+  .viz-bill .dollar {
+    position: absolute; left: 50%; top: 25%; transform: translateX(-50%);
+    font-size: 28px; font-weight: 800; color: #111; font-family: inherit;
+  }
+  .viz-bill .amount {
+    position: absolute; left: 50%; top: 55%; transform: translateX(-50%);
+    font-size: 16px; font-weight: 600; color: #888; font-family: 'SF Mono', monospace;
+    animation: countDown 3s ease-in-out infinite;
+  }
+  .viz-bill .bar-down {
+    position: absolute; bottom: 12%; left: 25%; right: 25%; height: 4px;
+    background: #eee; border-radius: 2px; overflow: hidden;
+  }
+  .viz-bill .bar-down::after {
+    content: ''; position: absolute; left: 0; top: 0; height: 100%;
+    background: #111; border-radius: 2px;
+    animation: barShrink 3s ease-in-out infinite;
+  }
+  @keyframes countDown {
+    0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; }
+  }
+  @keyframes barShrink {
+    0% { width: 100%; } 50% { width: 30%; } 100% { width: 100%; }
+  }
+
+  /* Prescription Refiller */
+  .viz-prescription .pill {
+    position: absolute; left: 40%; top: 35%;
+    width: 28px; height: 14px; border-radius: 7px;
+    border: 2px solid #111; overflow: hidden;
+  }
+  .viz-prescription .pill::after {
+    content: ''; position: absolute; right: 0; top: 0; width: 50%; height: 100%;
+    background: #111;
+  }
+  .viz-prescription .timer-ring {
+    position: absolute; right: 28%; top: 30%;
+    width: 28px; height: 28px; border: 2px solid #ddd; border-radius: 50%;
+    border-top-color: #111;
+    animation: timerSpin 2s linear infinite;
+  }
+  @keyframes timerSpin {
+    0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); }
+  }
+
+  /* Booking Bot */
+  .viz-booking .cal-slot {
+    position: absolute; left: 20%; right: 20%;
+    height: 14px; border-radius: 4px; background: #eee;
+  }
+  .viz-booking .cal-slot:nth-child(1) { top: 15%; }
+  .viz-booking .cal-slot:nth-child(2) { top: 35%; }
+  .viz-booking .cal-slot:nth-child(3) { top: 55%; }
+  .viz-booking .cal-slot:nth-child(4) { top: 75%; }
+  .viz-booking .cal-slot.active {
+    animation: slotPick 3s ease-in-out infinite;
+  }
+  @keyframes slotPick {
+    0%, 30% { background: #eee; } 40%, 70% { background: #111; } 80%, 100% { background: #eee; }
+  }
+
+  /* Restaurant Finder */
+  .viz-restaurant .pin {
+    position: absolute; left: 50%; top: 40%; transform: translate(-50%, -50%);
+    width: 12px; height: 16px;
+    background: #111; border-radius: 50% 50% 50% 0; transform: translate(-50%,-50%) rotate(-45deg);
+    animation: pinDrop 2s ease-out infinite;
+  }
+  .viz-restaurant .ring {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+    width: 40px; height: 40px; border: 2px solid #111; border-radius: 50%;
+    opacity: 0; animation: ringExpand 2s ease-out infinite;
+  }
+  .viz-restaurant .ring:nth-child(2) { animation-delay: 0.5s; }
+  @keyframes pinDrop {
+    0% { top: 20%; opacity: 0; } 40%, 100% { top: 40%; opacity: 1; }
+  }
+  @keyframes ringExpand {
+    0% { width: 10px; height: 10px; opacity: 0.8; }
+    100% { width: 80px; height: 80px; opacity: 0; }
+  }
+
+  /* Travel Agent */
+  .viz-travel .plane {
+    position: absolute; font-size: 16px; color: #111;
+    animation: planeFly 3s ease-in-out infinite;
+  }
+  .viz-travel .path {
+    position: absolute; top: 50%; left: 15%; right: 15%;
+    height: 2px; background: #eee; border-radius: 1px;
+  }
+  .viz-travel .path::after {
+    content: ''; position: absolute; left: 0; top: -1px;
+    width: 0; height: 4px; background: #111; border-radius: 2px;
+    animation: pathDraw 3s ease-in-out infinite;
+  }
+  @keyframes planeFly {
+    0% { left: 10%; top: 55%; } 50% { left: 50%; top: 30%; } 100% { left: 85%; top: 55%; }
+  }
+  @keyframes pathDraw {
+    0% { width: 0; } 100% { width: 100%; }
+  }
+
+  /* Voicemail Digest */
+  .viz-voicemail .msg-line {
+    position: absolute; left: 15%; height: 10px; border-radius: 5px; background: #eee;
+    animation: msgSlide 2.5s ease-out infinite;
+  }
+  .viz-voicemail .msg-line:nth-child(1) { top: 18%; width: 65%; animation-delay: 0s; }
+  .viz-voicemail .msg-line:nth-child(2) { top: 36%; width: 55%; animation-delay: 0.2s; }
+  .viz-voicemail .msg-line:nth-child(3) { top: 54%; width: 45%; animation-delay: 0.4s; }
+  .viz-voicemail .msg-line:nth-child(4) { top: 72%; width: 35%; animation-delay: 0.6s; }
+  .viz-voicemail .msg-line:nth-child(1) { background: #111; }
+  @keyframes msgSlide {
+    0% { transform: translateX(-20px); opacity: 0; }
+    30%, 80% { transform: translateX(0); opacity: 1; }
+    100% { transform: translateX(0); opacity: 0.4; }
+  }
+
+  /* Call Analytics */
+  .viz-analytics .bar {
+    position: absolute; bottom: 20%; width: 14px; border-radius: 3px 3px 0 0;
+    background: #111;
+  }
+  .viz-analytics .bar:nth-child(1) { left: 18%; }
+  .viz-analytics .bar:nth-child(2) { left: 32%; }
+  .viz-analytics .bar:nth-child(3) { left: 46%; }
+  .viz-analytics .bar:nth-child(4) { left: 60%; }
+  .viz-analytics .bar:nth-child(5) { left: 74%; }
+  .viz-analytics .bar:nth-child(1) { animation: barGrow1 2s ease-out infinite; }
+  .viz-analytics .bar:nth-child(2) { animation: barGrow2 2s ease-out infinite 0.15s; }
+  .viz-analytics .bar:nth-child(3) { animation: barGrow3 2s ease-out infinite 0.3s; }
+  .viz-analytics .bar:nth-child(4) { animation: barGrow4 2s ease-out infinite 0.45s; }
+  .viz-analytics .bar:nth-child(5) { animation: barGrow5 2s ease-out infinite 0.6s; }
+  @keyframes barGrow1 { 0%{height:0} 50%,80%{height:45px} 100%{height:45px;opacity:0.3} }
+  @keyframes barGrow2 { 0%{height:0} 50%,80%{height:65px} 100%{height:65px;opacity:0.3} }
+  @keyframes barGrow3 { 0%{height:0} 50%,80%{height:35px} 100%{height:35px;opacity:0.3} }
+  @keyframes barGrow4 { 0%{height:0} 50%,80%{height:75px} 100%{height:75px;opacity:0.3} }
+  @keyframes barGrow5 { 0%{height:0} 50%,80%{height:55px} 100%{height:55px;opacity:0.3} }
+
+  /* Sentiment Monitor */
+  .viz-sentiment .face {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+    width: 44px; height: 44px; border: 2px solid #111; border-radius: 50%;
+  }
+  .viz-sentiment .eye {
+    position: absolute; width: 4px; height: 4px; background: #111; border-radius: 50%; top: 35%;
+  }
+  .viz-sentiment .eye.left { left: 30%; }
+  .viz-sentiment .eye.right { left: 62%; }
+  .viz-sentiment .mouth {
+    position: absolute; bottom: 28%; left: 25%; width: 50%; height: 8px;
+    border: 2px solid #111; border-top: none; border-radius: 0 0 10px 10px;
+    animation: moodShift 3s ease-in-out infinite;
+  }
+  .viz-sentiment .highlight {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+    width: 54px; height: 54px; border: 2px solid #111; border-radius: 50%;
+    opacity: 0; animation: highlightPulse 3s ease-in-out infinite;
+  }
+  @keyframes moodShift {
+    0%, 40% { border-radius: 0 0 10px 10px; border-top: none; }
+    50% { border-radius: 10px 10px 0 0; border-bottom: none; border-top: 2px solid #111; }
+    60%, 100% { border-radius: 0 0 10px 10px; border-top: none; border-bottom: 2px solid #111; }
+  }
+  @keyframes highlightPulse {
+    0%, 40% { opacity: 0; } 50% { opacity: 0.6; } 60%, 100% { opacity: 0; }
+  }
+
+  /* Negotiation Coach */
+  .viz-coach .bubble {
+    position: absolute; background: #f0f0f0; border-radius: 10px; padding: 6px 10px;
+  }
+  .viz-coach .bubble.main {
+    left: 15%; top: 20%; width: 55%; height: 35%;
+    border: 1.5px solid #ddd;
+  }
+  .viz-coach .bubble.whisper {
+    right: 12%; bottom: 20%; width: 40%; height: 28%;
+    border: 1.5px solid #111; background: #111; color: #fff;
+    animation: whisperPulse 2s ease-in-out infinite;
+  }
+  .viz-coach .dot-typing {
+    position: absolute; bottom: 40%; right: 20%;
+    display: flex; gap: 3px;
+  }
+  .viz-coach .dot-typing span {
+    width: 4px; height: 4px; background: #fff; border-radius: 50%;
+    animation: typingDot 1.2s ease-in-out infinite;
+  }
+  .viz-coach .dot-typing span:nth-child(2) { animation-delay: 0.2s; }
+  .viz-coach .dot-typing span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes whisperPulse {
+    0%, 100% { transform: scale(1); opacity: 0.9; }
+    50% { transform: scale(1.03); opacity: 1; }
+  }
+  @keyframes typingDot {
+    0%, 100% { opacity: 0.3; } 50% { opacity: 1; }
+  }
+
+  /* Language Bridge */
+  .viz-language .text-block {
+    position: absolute; width: 30%; height: 18px; border-radius: 4px;
+  }
+  .viz-language .text-block.left { left: 10%; top: 42%; background: #111; }
+  .viz-language .text-block.right { right: 10%; top: 42%; background: #ccc; }
+  .viz-language .arrow-bridge {
+    position: absolute; left: 42%; top: 47%; width: 16%; height: 2px; background: #888;
+    animation: bridgePulse 2s ease-in-out infinite;
+  }
+  .viz-language .arrow-bridge::after {
+    content: ''; position: absolute; right: -4px; top: -3px;
+    width: 0; height: 0; border-left: 6px solid #888; border-top: 4px solid transparent; border-bottom: 4px solid transparent;
+  }
+  @keyframes bridgePulse {
+    0%, 100% { opacity: 0.4; } 50% { opacity: 1; }
+  }
+
+  /* Legal Advisor */
+  .viz-legal .shield-icon {
+    position: absolute; left: 38%; top: 25%;
+    width: 22px; height: 26px; border: 2px solid #111; border-radius: 3px 3px 11px 11px;
+    background: rgba(17,17,17,0.04);
+  }
+  .viz-legal .gavel {
+    position: absolute; right: 30%; top: 35%;
+    width: 4px; height: 22px; background: #111; border-radius: 2px;
+    transform-origin: bottom center;
+    animation: gavelStrike 2s ease-in-out infinite;
+  }
+  .viz-legal .gavel::before {
+    content: ''; position: absolute; top: -4px; left: -6px;
+    width: 16px; height: 8px; background: #111; border-radius: 2px;
+  }
+  .viz-legal .gavel-base {
+    position: absolute; right: 26%; top: 65%; width: 24px; height: 4px;
+    background: #ddd; border-radius: 2px;
+  }
+  @keyframes gavelStrike {
+    0%, 60% { transform: rotate(0deg); } 70% { transform: rotate(-20deg); } 80% { transform: rotate(0deg); } 100% { transform: rotate(0deg); }
+  }
+
+  /* Elder Watch */
+  .viz-elder .ecg-line {
+    position: absolute; top: 50%; left: 0; right: 0; height: 40px; transform: translateY(-50%);
+    overflow: hidden;
+  }
+  .viz-elder .ecg-path {
+    position: absolute; left: 0; top: 50%;
+    width: 200%; height: 2px; background: #ddd;
+    animation: ecgScroll 3s linear infinite;
+  }
+  .viz-elder .ecg-peak {
+    position: absolute; width: 2px; background: #111;
+    animation: ecgScroll 3s linear infinite;
+  }
+  .viz-elder .ecg-peak:nth-child(2) { left: 20%; height: 30px; top: calc(50% - 28px); }
+  .viz-elder .ecg-peak:nth-child(3) { left: 22%; height: 12px; top: calc(50% + 2px); }
+  .viz-elder .ecg-peak:nth-child(4) { left: 70%; height: 30px; top: calc(50% - 28px); }
+  .viz-elder .ecg-peak:nth-child(5) { left: 72%; height: 12px; top: calc(50% + 2px); }
+  .viz-elder .alert-dot {
+    position: absolute; right: 15%; top: 20%;
+    width: 8px; height: 8px; background: #111; border-radius: 50%;
+    animation: alertBlink 1.5s ease-in-out infinite;
+  }
+  @keyframes ecgScroll {
+    0% { transform: translateX(0); } 100% { transform: translateX(-50%); }
+  }
+  @keyframes alertBlink {
+    0%, 100% { opacity: 0.2; } 50% { opacity: 1; }
+  }
+
+  /* Wellness Check */
+  .viz-wellness .phone-outline {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+    width: 28px; height: 44px; border: 2px solid #111; border-radius: 6px;
+  }
+  .viz-wellness .check {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%,-55%);
+    width: 16px; height: 10px;
+    border-left: 2.5px solid #111; border-bottom: 2.5px solid #111;
+    transform: translate(-50%,-55%) rotate(-45deg);
+    animation: checkDraw 2s ease-in-out infinite;
+  }
+  @keyframes checkDraw {
+    0%, 40% { opacity: 0; transform: translate(-50%,-55%) rotate(-45deg) scale(0.5); }
+    50%, 80% { opacity: 1; transform: translate(-50%,-55%) rotate(-45deg) scale(1); }
+    90%, 100% { opacity: 0; }
+  }
+
+  /* Medication Reminder */
+  .viz-medication .pill-icon {
+    position: absolute; left: 35%; top: 38%;
+    width: 24px; height: 12px; border-radius: 6px; border: 2px solid #111;
+    overflow: hidden;
+  }
+  .viz-medication .pill-icon::after {
+    content: ''; position: absolute; right: 0; top: 0; width: 50%; height: 100%; background: #111;
+  }
+  .viz-medication .clock-icon {
+    position: absolute; right: 30%; top: 35%;
+    width: 24px; height: 24px; border: 2px solid #111; border-radius: 50%;
+  }
+  .viz-medication .clock-hand {
+    position: absolute; left: 50%; bottom: 50%; transform-origin: bottom center;
+    width: 2px; height: 8px; background: #111;
+    animation: medClock 2s linear infinite;
+  }
+  @keyframes medClock { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+  /* Number Lock */
+  .viz-numlock .padlock-body {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%,-45%);
+    width: 28px; height: 22px; background: #111; border-radius: 4px;
+  }
+  .viz-numlock .padlock-shackle {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%,-90%);
+    width: 18px; height: 16px; border: 3px solid #111; border-radius: 9px 9px 0 0;
+    border-bottom: none;
+    animation: shackleClose 2.5s ease-in-out infinite;
+  }
+  .viz-numlock .padlock-hole {
+    position: absolute; left: 50%; top: 52%; transform: translate(-50%,-40%);
+    width: 6px; height: 6px; background: #fff; border-radius: 50%;
+  }
+  @keyframes shackleClose {
+    0%, 30% { transform: translate(-50%,-90%) rotate(0deg); }
+    15% { transform: translate(-30%,-90%) rotate(15deg); }
+    50%, 100% { transform: translate(-50%,-90%) rotate(0deg); }
+  }
+
+  /* Caller Verify */
+  .viz-verify .scan-frame {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+    width: 40px; height: 40px; border: 2px solid transparent;
+  }
+  .viz-verify .scan-frame::before, .viz-verify .scan-frame::after {
+    content: ''; position: absolute; width: 10px; height: 10px;
+  }
+  .viz-verify .scan-frame::before {
+    top: 0; left: 0; border-top: 2px solid #111; border-left: 2px solid #111;
+  }
+  .viz-verify .scan-frame::after {
+    bottom: 0; right: 0; border-bottom: 2px solid #111; border-right: 2px solid #111;
+  }
+  .viz-verify .scan-extra::before {
+    content: ''; position: absolute; width: 10px; height: 10px;
+    top: calc(50% - 20px); right: calc(50% - 20px);
+    border-top: 2px solid #111; border-right: 2px solid #111;
+  }
+  .viz-verify .scan-extra::after {
+    content: ''; position: absolute; width: 10px; height: 10px;
+    bottom: calc(50% - 20px); left: calc(50% - 20px);
+    border-bottom: 2px solid #111; border-left: 2px solid #111;
+  }
+  .viz-verify .v-scan-line {
+    position: absolute; left: calc(50% - 18px); width: 36px; height: 2px; background: #111;
+    animation: verifyScan 2s ease-in-out infinite;
+  }
+  .viz-verify .badge-v {
+    position: absolute; right: 22%; top: 18%;
+    width: 16px; height: 16px; background: #111; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    animation: badgeAppear 2s ease-in-out infinite;
+  }
+  .viz-verify .badge-v::after {
+    content: ''; width: 6px; height: 3px;
+    border-left: 1.5px solid #fff; border-bottom: 1.5px solid #fff;
+    transform: rotate(-45deg); margin-top: -1px;
+  }
+  @keyframes verifyScan {
+    0% { top: 30%; } 50% { top: 65%; } 100% { top: 30%; }
+  }
+  @keyframes badgeAppear {
+    0%, 60% { transform: scale(0); opacity: 0; }
+    70%, 90% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(0); opacity: 0; }
+  }
+
+  /* Privacy Shield */
+  .viz-privacy .num-row {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+    display: flex; gap: 3px; font-family: 'SF Mono', monospace; font-size: 14px; font-weight: 600; color: #111;
+  }
+  .viz-privacy .num-char {
+    width: 12px; text-align: center;
+    animation: maskChar 3s ease-in-out infinite;
+  }
+  .viz-privacy .num-char:nth-child(n+5):nth-child(-n+8) { animation-delay: 0.5s; }
+  @keyframes maskChar {
+    0%, 30% { opacity: 1; }
+    40%, 70% { opacity: 0; }
+    80%, 100% { opacity: 1; }
+  }
+  .viz-privacy .mask-overlay {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+    display: flex; gap: 3px;
+  }
+  .viz-privacy .mask-dot {
+    width: 8px; height: 8px; background: #111; border-radius: 50%;
+    opacity: 0;
+    animation: maskDotAppear 3s ease-in-out infinite;
+  }
+  .viz-privacy .mask-dot:nth-child(1) { animation-delay: 0.4s; }
+  .viz-privacy .mask-dot:nth-child(2) { animation-delay: 0.5s; }
+  .viz-privacy .mask-dot:nth-child(3) { animation-delay: 0.6s; }
+  .viz-privacy .mask-dot:nth-child(4) { animation-delay: 0.7s; }
+  @keyframes maskDotAppear {
+    0%, 30% { opacity: 0; } 40%, 70% { opacity: 1; } 80%, 100% { opacity: 0; }
+  }
+
+
+  .l1-card:not(.in-view) .l1-visual * { animation-play-state: paused !important; }
+</style>
+</head>
+<body>
+
+<!-- Internal nav hidden when embedded as iframe in gather-demo -->
+<div class="nav-wrapper" style="display: none;">
+<nav>
+  <a href="/" class="nav-brand"><img src="gather-logo-light.svg" alt="Gather" style="height: 24px;"></a>
+  <div class="nav-center" id="navCenter">
+    <span class="nav-center-title" id="navCenterTitle">Explore <em>Skills</em></span>
+    <span class="nav-center-subtitle" id="navCenterSubtitle">Powered by the network, not an app</span>
+  </div>
+</nav>
+</div>
+
+<section class="hero">
+  <h1 id="heroTitle">Explore <em>Skills</em></h1>
+  <p id="heroSubtitle">Capabilities that run on your phone line. Powered by the network, not an app.</p>
+</section>
+
+<div class="tab-content active" id="tab-skills">
+
+<div class="skills-layout">
+
+<div class="sidebar" id="primitiveNav">
+  <div class="sidebar-label">Agent job</div>
+  <div id="groupNav" class="l1-group-nav"></div>
+
+  <div class="sidebar-label l1-filter-head l1-section-divider">Filter by moat <button class="l1-filter-clear" id="clearMoat" title="Reset filter">reset</button></div>
+  <div class="l1-ready-filter" role="group" aria-label="Moat filter (multi-select)">
+    <button class="l1-ready-btn active l1-moat-btn" data-moat="Identity" data-color="#b45309"><span class="l1-dot-toggle"></span><span class="l1-ready-label">Identity moat</span><span class="l1-ready-count" data-mcount="Identity">42</span></button>
+    <button class="l1-ready-btn active l1-moat-btn" data-moat="Data" data-color="#1d4ed8"><span class="l1-dot-toggle"></span><span class="l1-ready-label">Data moat</span><span class="l1-ready-count" data-mcount="Data">15</span></button>
+    <button class="l1-ready-btn active l1-moat-btn" data-moat="Network" data-color="#0d9488"><span class="l1-dot-toggle"></span><span class="l1-ready-label">Network moat</span><span class="l1-ready-count" data-mcount="Network">49</span></button>
+  </div>
+
+    <div class="sidebar-label l1-filter-head l1-section-divider">Filter by readiness <button class="l1-filter-clear" id="clearReady" title="Reset filter">reset</button></div>
+  <div class="l1-ready-filter" role="group" aria-label="Readiness filter (multi-select)">
+    <button class="l1-ready-btn active" data-ready="live" data-color="#047857"><span class="l1-dot-toggle"></span><span class="l1-ready-label">Live</span><span class="l1-ready-count" data-rcount="live">5</span></button>
+    <button class="l1-ready-btn active" data-ready="ready" data-color="#0d9488"><span class="l1-dot-toggle"></span><span class="l1-ready-label">Ready</span><span class="l1-ready-count" data-rcount="ready">40</span></button>
+    <button class="l1-ready-btn active" data-ready="pending" data-color="#b45309"><span class="l1-dot-toggle"></span><span class="l1-ready-label">Pending access</span><span class="l1-ready-count" data-rcount="pending">35</span></button>
+    <button class="l1-ready-btn active" data-ready="concept" data-color="#a8a29e"><span class="l1-dot-toggle"></span><span class="l1-ready-label">Concept</span><span class="l1-ready-count" data-rcount="concept">26</span></button>
+  </div>
+
+  <button class="filter-chip l1-build-own" onclick="document.getElementById('buildYourOwn').scrollIntoView({behavior:'smooth'})">+ Build your own</button>
+</div>
+
+<div class="categories" id="skillsMain">
+  <div class="l1-toolbar">
+    <div class="l1-toggle" role="tablist">
+      <button class="l1-tab active" data-tier="all">All <span class="l1-tab-count">106</span></button>
+      <button class="l1-tab" data-tier="advantaged">We do it better <span class="l1-tab-count">30</span></button>
+      <button class="l1-tab" data-tier="exclusive">Only us <span class="l1-tab-count">63</span></button>
+    </div>
+  </div>
+  <div id="l1Sections"></div>
+</div>
+
+
+
+</div><!-- end skills-layout -->
+
+<div class="build-own-wrapper">
+<div class="category" data-category="build-your-own" id="buildYourOwn">
+  <div class="category-header">
+    <span class="category-name">Build your own</span>
+  </div>
+  <div class="card-grid">
+    <div class="skill-card">
+      <p style="color: var(--text-secondary);">The skills above come pre-built. Developers build the next 1,000 on our network. Full carrier-level access that no API-only company can offer.</p>
+    </div>
+    <div class="skill-card">
+      <h3>Make a call with an objective</h3>
+      <p style="color: var(--text-dim); font-size: 0.78rem;">Any AI company can do this.</p>
+<pre style="background: #1c1c1e; border-radius: 8px; padding: 1rem; font-size: 0.72rem; color: #e5e5e5; overflow-x: auto; line-height: 1.6; font-family: 'SF Mono', 'Fira Code', monospace;"><span style="color: #60a5fa;">POST</span> /v1/calls
+{
+  <span style="color: #60a5fa;">"to"</span>: <span style="color: #4ade80;">"+15125550142"</span>,
+  <span style="color: #60a5fa;">"objective"</span>: <span style="color: #4ade80;">"Cancel gym membership. Get confirmation #."</span>,
+  <span style="color: #60a5fa;">"on_complete"</span>: <span style="color: #4ade80;">"sms_summary"</span>
+}
+
+<span style="color: #999;">// Result</span>
+{ <span style="color: #60a5fa;">"outcome"</span>: <span style="color: #4ade80;">"achieved"</span>, <span style="color: #60a5fa;">"confirmation"</span>: <span style="color: #4ade80;">"#GX-44891"</span> }</pre>
+    </div>
+    <div class="skill-card">
+      <h3>Screen inbound calls at the network</h3>
+      <p style="color: var(--text-dim); font-size: 0.78rem;">Only a carrier can do this. Calls are filtered before they ring.</p>
+<pre style="background: #1c1c1e; border-radius: 8px; padding: 1rem; font-size: 0.72rem; color: #e5e5e5; overflow-x: auto; line-height: 1.6; font-family: 'SF Mono', 'Fira Code', monospace;"><span style="color: #60a5fa;">POST</span> /v1/screen
+{
+  <span style="color: #60a5fa;">"line"</span>: <span style="color: #4ade80;">"+14345550093"</span>,
+  <span style="color: #60a5fa;">"allow"</span>: [<span style="color: #4ade80;">"contacts"</span>, <span style="color: #4ade80;">"medical"</span>],
+  <span style="color: #60a5fa;">"screen"</span>: [<span style="color: #4ade80;">"unknown"</span>],
+  <span style="color: #60a5fa;">"block"</span>: [<span style="color: #4ade80;">"spam"</span>],
+  <span style="color: #60a5fa;">"after_hours"</span>: <span style="color: #4ade80;">"voicemail_digest"</span>
+}</pre>
+    </div>
+    <div class="skill-card">
+      <h3>Whisper into a live call</h3>
+      <p style="color: var(--text-dim); font-size: 0.78rem;">AI coaches the user in real time. The other party can't hear it.</p>
+<pre style="background: #1c1c1e; border-radius: 8px; padding: 1rem; font-size: 0.72rem; color: #e5e5e5; overflow-x: auto; line-height: 1.6; font-family: 'SF Mono', 'Fira Code', monospace;"><span style="color: #60a5fa;">POST</span> /v1/calls/{call_id}/whisper
+{
+  <span style="color: #60a5fa;">"mode"</span>: <span style="color: #4ade80;">"coaching"</span>,
+  <span style="color: #60a5fa;">"triggers"</span>: [<span style="color: #4ade80;">"pricing_objection"</span>, <span style="color: #4ade80;">"budget_mention"</span>],
+  <span style="color: #60a5fa;">"style"</span>: <span style="color: #4ade80;">"concise"</span>
+}
+
+<span style="color: #999;">// Webhook fired mid-call</span>
+{ <span style="color: #60a5fa;">"whisper"</span>: <span style="color: #4ade80;">"They mentioned budget twice. Offer annual discount."</span> }</pre>
+    </div>
+    <div class="skill-card">
+      <h3>Allocate a network slice</h3>
+      <p style="color: var(--text-dim); font-size: 0.78rem;">Dedicated bandwidth for agent calls. Only possible at the carrier layer.</p>
+<pre style="background: #1c1c1e; border-radius: 8px; padding: 1rem; font-size: 0.72rem; color: #e5e5e5; overflow-x: auto; line-height: 1.6; font-family: 'SF Mono', 'Fira Code', monospace;"><span style="color: #60a5fa;">POST</span> /v1/slices
+{
+  <span style="color: #60a5fa;">"line"</span>: <span style="color: #4ade80;">"+14345550093"</span>,
+  <span style="color: #60a5fa;">"type"</span>: <span style="color: #4ade80;">"priority_voice"</span>,
+  <span style="color: #60a5fa;">"qos"</span>: <span style="color: #4ade80;">"guaranteed"</span>,
+  <span style="color: #60a5fa;">"apply_to"</span>: [<span style="color: #4ade80;">"agent_calls"</span>, <span style="color: #4ade80;">"auth_calls"</span>]
+}</pre>
+    </div>
+    <div class="skill-card">
+      <h3>Monitor a line for anomalies</h3>
+      <p style="color: var(--text-dim); font-size: 0.78rem;">Passive pattern detection across days and weeks. No app install on the monitored phone.</p>
+<pre style="background: #1c1c1e; border-radius: 8px; padding: 1rem; font-size: 0.72rem; color: #e5e5e5; overflow-x: auto; line-height: 1.6; font-family: 'SF Mono', 'Fira Code', monospace;"><span style="color: #60a5fa;">POST</span> /v1/monitor
+{
+  <span style="color: #60a5fa;">"line"</span>: <span style="color: #4ade80;">"+19165550421"</span>,
+  <span style="color: #60a5fa;">"watch"</span>: [<span style="color: #4ade80;">"call_frequency"</span>, <span style="color: #4ade80;">"911"</span>, <span style="color: #4ade80;">"inactivity"</span>],
+  <span style="color: #60a5fa;">"alert"</span>: <span style="color: #4ade80;">"+15035550187"</span>,
+  <span style="color: #60a5fa;">"baseline_days"</span>: <span style="color: #facc15;">30</span>
+}</pre>
+    </div>
+    <div class="skill-card">
+      <h3>Real-time threat detection</h3>
+      <p style="color: var(--text-dim); font-size: 0.78rem;">Subscribe to live threat events on any call. Intervene programmatically.</p>
+<pre style="background: #1c1c1e; border-radius: 8px; padding: 1rem; font-size: 0.72rem; color: #e5e5e5; overflow-x: auto; line-height: 1.6; font-family: 'SF Mono', 'Fira Code', monospace;"><span style="color: #60a5fa;">POST</span> /v1/calls/{call_id}/threats
+{
+  <span style="color: #60a5fa;">"detect"</span>: [<span style="color: #4ade80;">"coercion"</span>, <span style="color: #4ade80;">"financial_pressure"</span>, <span style="color: #4ade80;">"deepfake"</span>],
+  <span style="color: #60a5fa;">"on_threat"</span>: <span style="color: #4ade80;">"whisper_warning"</span>,
+  <span style="color: #60a5fa;">"threshold"</span>: <span style="color: #facc15;">0.85</span>,
+  <span style="color: #60a5fa;">"escalate_to"</span>: <span style="color: #4ade80;">"+15035550187"</span>
+}</pre>
+    </div>
+  </div>
+</div>
+
+</div><!-- end build-own-wrapper -->
+
+</div><!-- end tab-skills -->
+
+<div class="tab-content" id="tab-stories">
+
+<section class="stories-section">
+
+<!-- Discovery prompt -->
+<div class="discovery-prompt">
+  <h2>What's your biggest phone frustration?</h2>
+  <div class="discovery-pills">
+    <a href="#lane-guardian" class="discovery-pill">I worry about someone I love getting scammed</a>
+    <a href="#lane-parent" class="discovery-pill">I have a kid with a phone</a>
+    <a href="#lane-busy" class="discovery-pill">I waste hours on hold and phone trees</a>
+    <a href="#lane-freelancer" class="discovery-pill">I miss client calls while working</a>
+  </div>
+</div>
+
+<!-- Universal strip -->
+<div class="universal-strip">
+  <div class="universal-label">Everyone gets this — built into every line</div>
+  <div class="universal-grid">
+    <div class="universal-card">
+      <div class="universal-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div>
+        <h4>Scam call detection</h4>
+        <p>AI listens for coercion, urgency cues, and financial pressure mid-call. Warns the caller in real time.</p>
+        <span class="carrier-tag">Carrier-only: mid-call analysis</span>
+      </div>
+    </div>
+    <div class="universal-card">
+      <div class="universal-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      </div>
+      <div>
+        <h4>Spam blocking</h4>
+        <p>Screens unknown callers before the phone rings. Real callers get through. Junk never reaches you.</p>
+        <span class="carrier-tag">Carrier-only: pre-ring screening</span>
+      </div>
+    </div>
+    <div class="universal-card">
+      <div class="universal-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
+      </div>
+      <div>
+        <h4>Deepfake voice detection</h4>
+        <p>Matches voice against real voiceprint from months of calls. Detects synthetic audio in seconds.</p>
+        <span class="carrier-tag">Carrier-only: voiceprint baseline</span>
+      </div>
+    </div>
+    <div class="universal-card">
+      <div class="universal-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+      </div>
+      <div>
+        <h4>SIM swap protection</h4>
+        <p>Blocks unauthorized number transfers. Alerts you immediately if someone tries to port your line.</p>
+        <span class="carrier-tag">Carrier-only: subscriber registry</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Lane 1: Guardian -->
+<div class="persona-lane" id="lane-guardian">
+  <div class="lane-header">
+    <span class="lane-number">01</span>
+    <span class="lane-title">Protect someone who won't protect themselves</span>
+  </div>
+  <div class="lane-subtitle">They won't wear a pendant. They won't install an app. They won't be tracked. The only thing they won't refuse is their phone plan.</div>
+  <div class="lane-divider"></div>
+  <div class="pfo-table">
+    <div class="pfo-head"><span>Problem</span><span>Feature</span><span>Outcome</span></div>
+    <div class="pfo-row">
+      <div class="pfo-cell problem">Mom wired $3,000 to an IRS scammer. Caller ID said "US Government." T-Mobile Scam Shield didn't flag it.</div>
+      <div class="pfo-cell feature">Live call analysis detects coercion patterns, urgency cues, and financial pressure mid-conversation.</div>
+      <div class="pfo-cell outcome">AI whispers "this sounds like a scam, hang up" 90 seconds in. You get an alert with the transcript.<div class="moat-tag">Only a carrier can listen inside a live call</div></div>
+    </div>
+    <div class="pfo-row">
+      <div class="pfo-cell problem">Mom called 911 at 2am after a fall. You found out at 2pm the next day. She was alone in the ER for 10 hours.</div>
+      <div class="pfo-cell feature">911 event detection triggers instant family notification with location.</div>
+      <div class="pfo-cell outcome">You know at 2:01am. Not the next afternoon.<div class="moat-tag">Only a carrier sees 911 call events</div></div>
+    </div>
+    <div class="pfo-row">
+      <div class="pfo-cell problem">Wife has early Alzheimer's. She agreed to a $4,000 home warranty she doesn't remember. Taking her phone means cutting her off from friends.</div>
+      <div class="pfo-cell feature">Financial trigger detection on live calls. Intervenes when someone asks for account numbers or pressures a commitment.</div>
+      <div class="pfo-cell outcome">Protection without surveillance. Friends call normally. Scammers get blocked. Daily summary to caregiver, not transcripts.<div class="moat-tag">Mid-call intervention is carrier-only</div></div>
+    </div>
+    <div class="pfo-row">
+      <div class="pfo-cell problem">Dad has 4 doctors. Siblings have opinions. Nobody recorded what the neurologist actually said. Argument follows.</div>
+      <div class="pfo-cell feature">Every medical call transcribed and summarized automatically. What was discussed, what changed, what happens next.</div>
+      <div class="pfo-cell outcome">Same summary, word for word, shared with all siblings. The argument about what the doctor said doesn't happen.</div>
+    </div>
+    <div class="pfo-row">
+      <div class="pfo-cell problem">Mom's phone has been off since 8am. You don't notice until evening. Drive over in a panic. She forgot to charge it.</div>
+      <div class="pfo-cell feature">Pattern analysis on daily call activity. Detects breaks from routine and escalates automatically.</div>
+      <div class="pfo-cell outcome">"Margaret's phone has been off since 8am. She usually calls Linda by 10. Want me to call her neighbor Helen?"<div class="moat-tag">Only a carrier sees phone power state</div></div>
+    </div>
+  </div>
+  <div class="lane-skills-label">Skills activated</div>
+  <div class="lane-skills">
+    <span class="lane-skill-tag">Threat Scanner</span>
+    <span class="lane-skill-tag">Link Shield</span>
+    <span class="lane-skill-tag">Health Guardian</span>
+    <span class="lane-skill-tag">Pattern Memory</span>
+    <span class="lane-skill-tag">Call Summarizer</span>
+    <span class="lane-skill-tag">Daily Digest</span>
+    <span class="lane-skill-tag">Push Alerts</span>
+    <span class="lane-skill-tag">Content Moderation</span>
+  </div>
+  <div class="lane-people">Stories: Margaret, 74 · Sarah, 42 · Karen, 58 · Robert, 67 — <em>54M Americans 65+ · 53M US caregivers</em></div>
+</div>
+
+<!-- Lane 2: Parent -->
+<div class="persona-lane" id="lane-parent">
+  <div class="lane-header">
+    <span class="lane-number">02</span>
+    <span class="lane-title">Know your kid's phone is safe without spying</span>
+  </div>
+  <div class="lane-subtitle">You gave her a phone so she could reach you. Now you worry about who's reaching her. Bark monitors texts and apps. Nobody monitors the voice channel.</div>
+  <div class="lane-divider"></div>
+  <div class="pfo-table">
+    <div class="pfo-head"><span>Problem</span><span>Feature</span><span>Outcome</span></div>
+    <div class="pfo-row">
+      <div class="pfo-cell problem">12-year-old's number gets calls from numbers nobody recognizes. Can't tell friends' parents from strangers.</div>
+      <div class="pfo-cell feature">Unknown callers screened by AI before the phone rings. Numbers not in contacts don't ring during school hours.</div>
+      <div class="pfo-cell outcome">Same iPhone, same number, same iMessage. Unknown callers never reach her. You didn't install a spy app.</div>
+    </div>
+    <div class="pfo-row">
+      <div class="pfo-cell problem">After 9pm, the phone should be quiet. But you can't block everything — what if it's the school or a friend's parent?</div>
+      <div class="pfo-cell feature">After-hours rules: only saved contacts ring through. Everyone else gets screened and held until morning.</div>
+      <div class="pfo-cell outcome">Phone is quiet at night. Emergency calls from known numbers still get through.</div>
+    </div>
+    <div class="pfo-row">
+      <div class="pfo-cell problem">You want to know she's safe. You don't want to read her messages or listen to her calls. That's the line.</div>
+      <div class="pfo-cell feature">Daily digest of call activity: who called, how long, any flags. No transcripts. No recordings.</div>
+      <div class="pfo-cell outcome">"We didn't want to spy on her. We wanted to know she's safe without her knowing we're watching."<div class="moat-tag">Network-level screening, not an app she can delete</div></div>
+    </div>
+  </div>
+  <div class="lane-skills-label">Skills activated</div>
+  <div class="lane-skills">
+    <span class="lane-skill-tag">Security Scanner</span>
+    <span class="lane-skill-tag">Link Shield</span>
+    <span class="lane-skill-tag">Caller Verification</span>
+    <span class="lane-skill-tag">Daily Digest</span>
+    <span class="lane-skill-tag">Skill Audit</span>
+  </div>
+  <div class="lane-people">Stories: Rachel & James, parents in Austin — <em>73M US parents</em></div>
+</div>
+
+<!-- Lane 3: Busy Life -->
+<div class="persona-lane" id="lane-busy">
+  <div class="lane-header">
+    <span class="lane-number">03</span>
+    <span class="lane-title">Stop drowning in phone calls you can't make</span>
+  </div>
+  <div class="lane-subtitle">You have a list. You complete two calls a week. The rest roll to tomorrow. Every call is 20–60 minutes of hold time, phone trees, and spelling your address again.</div>
+  <div class="lane-divider"></div>
+  <div class="pfo-table">
+    <div class="pfo-head"><span>Problem</span><span>Feature</span><span>Outcome</span></div>
+    <div class="pfo-row">
+      <div class="pfo-cell problem">Phone is on silent 9–5. At 5pm: three voicemails, a missed insurance update, a gym that won't let you cancel.</div>
+      <div class="pfo-cell feature">AI screens inbound calls during meetings. Answers, handles scheduling, gets details, texts you a summary.</div>
+      <div class="pfo-cell outcome">5pm check: dentist rebooked, insurance claim approved, gym cancelled (confirmation #GX-44891).</div>
+    </div>
+    <div class="pfo-row">
+      <div class="pfo-cell problem">Gym charged $237 over 3 months. You've tried to cancel twice. 20+ minutes of hold each time, then a "retention specialist."</div>
+      <div class="pfo-cell feature">AI calls from your real number, handles the retention script, confirms cancellation, texts you the confirmation number.</div>
+      <div class="pfo-cell outcome">Cancelled. No hold time. No arguing. Confirmation texted.</div>
+    </div>
+    <div class="pfo-row">
+      <div class="pfo-cell problem">Moved from Mexico City 8 months ago. Engineering degree. 23 admin calls on a list. Completed 6 in 2 months. Phone English is exhausting.</div>
+      <div class="pfo-cell feature">AI calls utilities, insurance, bank. Navigates phone trees, waits on hold, handles verification codes routed through your number.</div>
+      <div class="pfo-cell outcome">23 calls → 3 that genuinely need your voice. Summary in English and Spanish.<div class="moat-tag">Carrier-only: verification code routing</div></div>
+    </div>
+    <div class="pfo-row">
+      <div class="pfo-cell problem">Divorced 3 months ago. Sticky note on the mirror: 23 calls to dismantle a shared life. Completed 4 in 3 weeks.</div>
+      <div class="pfo-cell feature">AI works through the list: address changes, account transfers, subscription cancellations. Handles verification codes and retention scripts.</div>
+      <div class="pfo-cell outcome">Sticky note goes from 23 → 3 (the ones that need your voice). Comes off the mirror on a Tuesday.</div>
+    </div>
+    <div class="pfo-row">
+      <div class="pfo-cell problem">Landlord said the tile was already cracked. You mentioned it on the move-in call. He says he doesn't remember. $200 charge.</div>
+      <div class="pfo-cell feature">Every call transcribed and stored as searchable text. Date, time, exact words.</div>
+      <div class="pfo-cell outcome">You have the transcript. "Yeah, that was already there." The conversation is no longer he-said-he-said.</div>
+    </div>
+    <div class="pfo-row">
+      <div class="pfo-cell problem">Find a dinner reservation for Saturday. It's Thursday evening. You have two hours and no energy to call 5 restaurants.</div>
+      <div class="pfo-cell feature">AI calls restaurants from your real number, finds availability, books it, handles the confirmation code.</div>
+      <div class="pfo-cell outcome">Reservation at 7:30pm. Your wife asks "Did you find a restaurant?" You say yes without making a single call.<div class="moat-tag">Carrier-only: confirmation code routing</div></div>
+    </div>
+  </div>
+  <div class="lane-skills-label">Skills activated</div>
+  <div class="lane-skills">
+    <span class="lane-skill-tag">AI Calling</span>
+    <span class="lane-skill-tag">Voice Agent</span>
+    <span class="lane-skill-tag">Call Summarizer</span>
+    <span class="lane-skill-tag">Action Extractor</span>
+    <span class="lane-skill-tag">Appointment Booker</span>
+    <span class="lane-skill-tag">Translation</span>
+    <span class="lane-skill-tag">Task Planner</span>
+    <span class="lane-skill-tag">Health Guardian</span>
+    <span class="lane-skill-tag">E-Signatures</span>
+    <span class="lane-skill-tag">Email Triage</span>
+    <span class="lane-skill-tag">Family Tasks</span>
+  </div>
+  <div class="lane-people">Stories: David, 38 · Lisa, 41 · Carlos, 34 · Meg, 36 · Andre, 26 · Diane, 52 — <em>Every household with a phone on silent</em></div>
+</div>
+
+<!-- Lane 4: Freelancer -->
+<div class="persona-lane" id="lane-freelancer">
+  <div class="lane-header">
+    <span class="lane-number">04</span>
+    <span class="lane-title">Never lose a client to voicemail again</span>
+  </div>
+  <div class="lane-subtitle">One phone. One number. Every missed call is money. Every spam call is a distraction. And you're too awkward to chase unpaid invoices.</div>
+  <div class="lane-divider"></div>
+  <div class="pfo-table">
+    <div class="pfo-head"><span>Problem</span><span>Feature</span><span>Outcome</span></div>
+    <div class="pfo-row">
+      <div class="pfo-cell problem">$4,500 client called while you were driving. She hired someone else because you didn't pick up.</div>
+      <div class="pfo-cell feature">AI answers instantly on your real number. Qualifies the lead (budget, timeline, scope), books a callback, texts you the summary.</div>
+      <div class="pfo-cell outcome">Client described the project. Callback booked for 2pm. You already know the budget before you dial.</div>
+    </div>
+    <div class="pfo-row">
+      <div class="pfo-cell problem">$2,800 in unpaid invoices. One client ghosted. The other said "will send this week" three weeks ago. You won't chase — it's awkward.</div>
+      <div class="pfo-cell feature">AI calls each client from your real number. "Marcus Design Studio" on their screen, not "Spam Likely." Professional, persistent.</div>
+      <div class="pfo-cell outcome">$1,000 payment confirmed. $1,800 client scheduled payment for Friday. You didn't have an awkward conversation about money.<div class="moat-tag">Carrier-only: verified caller ID on real number</div></div>
+    </div>
+    <div class="pfo-row">
+      <div class="pfo-cell problem">6–8 spam calls a day mixed with real client calls. Can't silence unknowns. Can't answer everything while driving for Uber.</div>
+      <div class="pfo-cell feature">AI screens unknown callers before the phone rings. Real prospects get qualified and connected. Spam never rings.</div>
+      <div class="pfo-cell outcome">One number, fully protected. Clients reach you. Spam doesn't. No second line needed.</div>
+    </div>
+  </div>
+  <div class="lane-skills-label">Skills activated</div>
+  <div class="lane-skills">
+    <span class="lane-skill-tag">AI Calling</span>
+    <span class="lane-skill-tag">Voice Agent</span>
+    <span class="lane-skill-tag">Invoice Tracker</span>
+    <span class="lane-skill-tag">Overdue Reminders</span>
+    <span class="lane-skill-tag">Call Summarizer</span>
+    <span class="lane-skill-tag">Caller Screening</span>
+  </div>
+  <div class="lane-people">Stories: Marcus, 31, Denver — <em>64M US freelancers</em></div>
+</div>
+
+<div class="stories-footer">
+  <p>56 skills and counting. Any developer on our network can build the next 100.</p>
+</div>
+
+</section>
+
+</div><!-- end tab-stories REPLACEMENT ENDS HERE -->
+
+<!-- OLD STORIES TAB — hidden, preserved for reference -->
+<div style="display:none">
+<div class="story-card" onclick="openPanel(this)">
+    <div class="story-number">01</div><div class="story-chevron">&#9662;</div>
+    <div class="story-title">Protection from scam calls her carrier missed</div>
+    <div class="story-subtitle">Lives alone since her husband passed in 2021. Answers every call because her cardiologist's office calls from different numbers.</div>
+    <div class="story-meta"><span class="story-meta-tag">1 category</span><span class="story-meta-tag">54M Americans 65+</span></div>
+    <div class="story-detail">
+<div class="panel-categories"><strong>Categories covered: </strong>Aging parents</div>
+<div class="story-section"><h4>About Margaret</h4><p>Margaret Chen retired from teaching high school English in 2019. Her husband David passed in 2021. She lives alone in the house they bought in 1987, in a quiet neighborhood in Sacramento where she knows most of her neighbors by name.<br><br>She's sharp. She reads two novels a week. She walks the neighborhood every morning. She is not the stereotype of a confused elderly person. But her phone has become a problem she doesn't know how to solve.</p></div>
+<div class="story-section"><h4>The Challenge</h4><p>Margaret answers every call. She has to. Her cardiologist's office calls from three different numbers. Her pharmacy calls when prescriptions are ready. Her daughter Sarah calls from Portland every morning at 9am. If Margaret stops answering unknown numbers, she misses the calls that matter.<br><br>Last March, someone called claiming to be from the IRS. The caller ID said "US Government." The man on the phone knew her address, knew she'd filed her taxes in February, and told her she owed $3,000 in back taxes or would face arrest within 48 hours. Margaret wired the money that afternoon.<br><br>Her daughter found out three days later. T-Mobile Scam Shield didn't flag it because the caller ID looked legitimate. The scam wasn't a robocall. It was a real person, running a conversation designed to create panic.</p></div>
+<div class="story-section"><h4>What She's Tried</h4><p>Sarah bought Margaret a Medical Guardian pendant after the incident. Margaret wore it for a week. "It made me feel old," she told Sarah. "Like I'm waiting to fall." It went in a drawer.<br><br>Sarah suggested Life360 on Margaret's phone. Margaret said no. "I'm not being tracked like a teenager."<br><br>Sarah looked into ElliQ, the companion robot for seniors. $250 plus $60 a month. Margaret's reaction: "I don't need a robot. I need people to stop calling me pretending to be the government."<br><br>Nothing Sarah found addressed the actual problem: Margaret's phone rings, she answers, and nobody is watching what happens on the call.</p></div>
+<div class="story-section story-gather-section"><h4>What Changes with Gather</h4><p>Gather sits inside Margaret's phone plan. Nothing to wear, install, or accept. The AI listens to every call in real time. Not recording. Listening for patterns.<br><br>The IRS call would have triggered a warning 90 seconds in. The AI detects urgency cues ("immediate action required"), financial pressure ("wire transfer"), and isolation tactics ("don't tell anyone about this"). It whispers into Margaret's ear: "This sounds like a scam. Hang up." At the same time, Sarah gets an alert with a transcript.<br><br>If Margaret dials 911 at 3am after a fall, Sarah knows at 3:01am. Not the next afternoon.<br><br>Spam calls from spoofed numbers never ring. Calls from Margaret's cardiologist always ring through. The AI knows the difference because it has the full history of every call on the line.<br><br>Margaret doesn't have to change anything about how she uses her phone. She just answers it, the way she always has. The difference is that someone is watching now.</p></div>
+</div>
+</div>
+
+
+
+<div class="story-card" data-story="safety" onclick="openPanel(this)">
+    <div class="story-number">02</div><div class="story-chevron">&#9662;</div>
+    <div class="story-title">Shielding a 12-year-old's phone without spying on her</div>
+    <div class="story-subtitle">Gave their 12-year-old daughter a phone for middle school. Regretted it within a month.</div>
+    <div class="story-meta"><span class="story-meta-tag">1 category</span><span class="story-meta-tag">73M US parents</span></div>
+    <div class="story-detail">
+<div class="panel-categories"><strong>Categories covered: </strong>Kids' phones</div>
+<div class="story-section"><h4>About Rachel and James</h4><p>Rachel teaches fourth grade. James manages a warehouse for a logistics company. Their daughter Lily turned 12 in September and started middle school. They gave her an iPhone for her birthday because she walks home from school and they wanted her to be reachable.<br><br>They regretted it within a month.</p></div>
+<div class="story-section"><h4>The Challenge</h4><p>Lily's number started getting calls from numbers nobody recognized. Some were automated. Some weren't. Rachel and James couldn't tell which were friends' parents calling from work phones and which were something else entirely.<br><br>Reading Lily's texts felt invasive. They'd promised her privacy. But not knowing who was calling her felt irresponsible. Taking the phone away meant Lily couldn't call home after school.<br><br>Rachel described it: "We gave her a phone so she could reach us. Now we worry about who's reaching her."</p></div>
+<div class="story-section"><h4>What They Tried</h4><p>They installed Bark, which monitors app activity, social media, and texts for concerning content. It works well for what it does. But Bark doesn't monitor phone calls. The voice channel is a complete blind spot.<br><br>They considered a second SIM or a kids' phone like Gabb, but Lily needed iMessage for her friend group. Switching her off an iPhone meant social isolation in middle school.<br><br>James looked into parental controls on the carrier side. T-Mobile's Family Allowances lets you block numbers and set time limits. But it can't screen unknown callers, can't tell you who called after hours, and can't intervene if something goes wrong on a live call.</p></div>
+<div class="story-section story-gather-section"><h4>What Changes with Gather</h4><p>Lily's phone plan moves to Gather. Outwardly, nothing changes. Same iPhone, same number, same iMessage.<br><br>Behind the line: unknown callers get screened by the AI before the phone rings. Numbers not in Lily's contacts don't ring through during school hours. After 9pm, only saved contacts get through.<br><br>Rachel and James get a daily digest: who called, how long, any flags. Not transcripts. Not recordings. Just enough to know nothing concerning happened. They don't read her messages. They don't listen to her calls. They know who's reaching her phone line without violating the trust they promised.<br><br>If something dangerous happens on a live call, the AI can intervene or alert Rachel and James in real time.<br><br>"We didn't want to spy on her. We wanted to know she's safe without her knowing we're watching. That's the line."</p></div>
+</div>
+</div>
+
+
+
+<div class="story-card winner" onclick="openPanel(this)">
+    <div class="story-number">03</div><div class="story-chevron">&#9662;</div>
+    <div class="story-title">Peace of mind about Mom, 600 miles away</div>
+    <div class="story-subtitle">Mom is Margaret (card 01). Lives 600 miles away. Calls every morning at 9am just to hear her voice.</div>
+    <div class="story-meta"><span class="story-meta-tag">4 categories</span><span class="story-meta-tag">53M US caregivers</span></div>
+    <div class="story-detail">
+<div class="panel-categories"><strong>Categories covered: </strong>Aging parents, Healthcare, Incoming calls, Personal safety</div>
+<div class="story-section"><h4>About Sarah</h4><p>Sarah runs product marketing for a SaaS company in Portland. She's good at her job, organized, focused, the person everyone relies on to keep things moving.<br><br>She's also the person who calls her mother Margaret (see story 01) every single morning at 9am, just to hear her voice.</p></div>
+<div class="story-section"><h4>The Challenge</h4><p>The daily call started after David died. It was a comfort thing at first. Now it's an anxiety ritual. If Margaret doesn't pick up by the second ring, Sarah's stomach drops. If she picks up and sounds tired, Sarah spends the rest of her morning distracted.<br><br>Last November, Margaret called 911 at 2am after a fall in the bathroom. Paramedics came. Margaret was treated in the ER and released by noon. Sarah didn't find out until Margaret called her at 2pm the next day. Ten hours alone in the ER. Nobody in the family knew.<br><br>Sarah has two siblings. Her brother Mike lives in Tampa. Her sister Jennifer lives in San Diego. Neither calls Margaret regularly. Both have opinions about her care.</p></div>
+<div class="story-section"><h4>What She's Tried</h4><p>Sarah has researched everything. Life360: Margaret won't install it. Apple Watch: Margaret doesn't want "a computer on her wrist." Medical Guardian pendant: worn for a week, then drawer. ElliQ companion robot: "I don't need a friend that plugs into the wall."<br><br>Every solution requires Margaret to do something, wear something, or accept something. Margaret rejects all of them. Not because she's difficult. Because she's independent and doesn't want to feel monitored.<br><br>"I've looked at every product on the market. They all require Mom to cooperate. Mom won't cooperate. That's the whole problem."</p></div>
+<div class="story-section story-gather-section"><h4>What Changes with Gather</h4><p>Sarah switches Margaret's phone plan to Gather. That's it. No device. No app. No pendant. No conversation where Sarah has to convince Margaret to accept help.<br><br>The AI learns Margaret's daily patterns. Calls her sister Linda by 10am most days. Phone is on by 7am. Goes quiet around 9pm.<br><br>When the pattern breaks, the AI responds. Phone off at noon on a Tuesday? AI calls Margaret. No answer? Sarah gets an alert: "Margaret's phone has been off since 8am. She usually calls Linda by 10am. No 911 activity detected. Want me to call her neighbor Helen?"<br><br>When Margaret called 911 last November, Sarah would have known at 2:01am. Not 2pm the next day.<br><br>Doctor calls get summarized and texted to Sarah. When Margaret's cardiologist changes her medication, Sarah doesn't hear about it filtered through Margaret's memory two days later. She gets the summary that evening.<br><br>The daily 9am call doesn't stop. But the anxiety behind it gets smaller. Sarah knows that if something goes wrong between calls, she won't be the last to find out.</p></div>
+</div>
+</div>
+
+
+
+<div class="story-card" data-story="caregiver" onclick="openPanel(this)">
+    <div class="story-number">04</div><div class="story-chevron">&#9662;</div>
+    <div class="story-title">Stopping the sibling arguments about Dad's care</div>
+    <div class="story-subtitle">Oldest of three siblings. Dad has dementia. She's the one who makes all the calls, but her brother and sister second-guess every decision.</div>
+    <div class="story-meta"><span class="story-meta-tag">2 categories</span><span class="story-meta-tag">53M US caregivers</span></div>
+    <div class="story-detail">
+<div class="panel-categories"><strong>Categories covered: </strong>Healthcare, Aging parents</div>
+<div class="story-section"><h4>About Karen</h4><p>Karen Lindgren is the oldest of three siblings. Her brother Steve lives in Tampa. Her sister Jennifer lives in Denver. Their father, Harold, 83, has vascular dementia. He lives in a memory care community in Edina, a suburb of Minneapolis, about 20 minutes from Karen's house.<br><br>Karen is Harold's primary point of contact. She's the one who shows up. She's the one who calls.</p></div>
+<div class="story-section"><h4>The Challenge</h4><p>Harold has four doctors: a neurologist, a primary care physician, a cardiologist, and a urologist. He has a home aide through a care agency. He has a pharmacy that delivers. Each one calls Karen's phone when something needs attention.<br><br>Karen spends six or more hours a week on care-related calls. Scheduling, rescheduling, confirming, following up, refilling, verifying insurance coverage, coordinating between doctors who don't talk to each other.<br><br>The real problem isn't the time. It's the siblings.<br><br>Steve calls every Sunday afternoon. "How's Dad?" Karen gives him the update. Steve says "Okay, sounds like you've got it handled." He means it kindly. It lands like abandonment.<br><br>Jennifer calls less often but has stronger opinions. When the neurologist adjusted Harold's medication last month, Jennifer disagreed with the change. She wasn't on the call. She heard Karen's summary of the call, filtered through exhaustion, at 9pm after a long day. Jennifer's version of what happened and Karen's version of what happened diverged. An argument followed.<br><br>"We're fighting about what the doctor said. Nobody wrote it down. Nobody recorded it. We're going from memory, and my memory at 9pm after seven calls is not reliable."</p></div>
+<div class="story-section"><h4>What She's Tried</h4><p>Karen considered hiring a care coordinator. $150-200/hour for geriatric care management. For ongoing coordination, that's $2,000+/month.<br><br>She tried shared Google Docs to keep everyone updated. Steve doesn't read them. Jennifer reads them but adds comments Karen doesn't have time to respond to.<br><br>She asked the neurologist's office to send visit summaries by email. They do, but they arrive 5-7 business days later and are written in medical language that doesn't answer the questions the siblings actually have.</p></div>
+<div class="story-section story-gather-section"><h4>What Changes with Gather</h4><p>Every call between Karen and a doctor gets transcribed and summarized automatically. Not recorded and stored. Summarized into: what was discussed, what changed, what happens next.<br><br>When the neurologist adjusts Harold's medication, Karen shares the summary with Steve and Jennifer. Same information. Word for word. No filtering, no memory gaps, no 9pm exhaustion distortion.<br><br>"He said to reduce the Donepezil from 10mg to 5mg over two weeks, and start Memantine at 5mg. Follow-up in 6 weeks. Call if agitation increases." That's what the doctor said. Both siblings can read it. The argument doesn't happen.<br><br>AI refills Harold's prescriptions by calling the pharmacy. Confirms the aide schedule by calling the agency. Books the follow-up with the cardiologist. Karen gets a daily summary of everything that was handled and everything that still needs her.<br><br>Steve still calls on Sunday. But now he can read the transcript from Thursday's neurology appointment before he calls. The question shifts from "How's Dad?" to "I saw the Memantine change. How's he responding?"<br><br>Karen doesn't feel less tired. But she feels less alone.</p></div>
+</div>
+</div>
+
+
+
+<div class="story-card" data-story="safety" onclick="openPanel(this)">
+    <div class="story-number">05</div><div class="story-chevron">&#9662;</div>
+    <div class="story-title">When a date wouldn't stop calling</div>
+    <div class="story-subtitle">Lives alone. Active on Hinge. Gets calls from numbers she doesn't recognize and has to decide in 2 rings whether to answer.</div>
+    <div class="story-meta"><span class="story-meta-tag">1 category</span><span class="story-meta-tag">67M single adults</span></div>
+    <div class="story-detail">
+<div class="panel-categories"><strong>Categories covered: </strong>Personal safety</div>
+<div class="story-section"><h4>About Priya</h4><p>Priya Sharma works in UX design at a fintech startup in Manhattan. She lives alone in a one-bedroom in Williamsburg. She's been in New York for four years, originally from Chicago.<br><br>She's active on Hinge. She has a healthy social life. She's not anxious by nature. But her phone has started to feel like a liability.</p></div>
+<div class="story-section"><h4>The Challenge</h4><p>Three months ago, Priya went on two dates with a guy named Chris. She decided she wasn't interested and told him so. Chris didn't accept it. He called her five times the next day. She blocked his number. He called from a different one.<br><br>She changed her voicemail greeting to sound like she lives with someone. She considered getting a Google Voice number to give out on dates instead of her real one, but managing two numbers felt like too much overhead. She thought about changing her number entirely, but it's tied to her bank, her two-factor authentication, her family's group chat, and four years of contacts.<br><br>"I shouldn't have to get a new number because one person won't stop calling me."<br><br>After reading about SIM swapping on Reddit, she realized her phone number is also a security vulnerability. Her brokerage account, her crypto wallet, her email recovery, all tied to the same number that strangers from dating apps now have.</p></div>
+<div class="story-section"><h4>What She's Tried</h4><p>She turned on T-Mobile's Scam Shield. It blocks known robocall numbers. It does nothing about a real person calling from a real number. She set her phone to silence unknown callers, but that meant she missed a call from her doctor's office and a delivery driver trying to reach her.<br><br>There's no good middle ground between "answer everything" and "silence everything."</p></div>
+<div class="story-section story-gather-section"><h4>What Changes with Gather</h4><p>Gather screens unknown callers at the network level before the phone rings. If a number isn't in Priya's contacts, the AI picks up and asks who's calling and why. Real callers (doctor's office, delivery driver, her landlord) get connected. Everyone else gets filtered.<br><br>Chris calling from a new number? The AI doesn't just match phone numbers. It recognizes calling patterns. Repeated calls from different numbers to the same person, within a short timeframe, from the same area code, get flagged.<br><br>After 10pm, only saved contacts ring through. Period.<br><br>SIM swap protection: if someone tries to transfer Priya's number to a new device, Gather blocks it and alerts her immediately. Her number stays on her phone.<br><br>One number. Fully protected. No second line, no constant blocking, no anxiety about who might call next.</p></div>
+</div>
+</div>
+
+
+
+<div class="story-card" data-story="delegation life-event" onclick="openPanel(this)">
+    <div class="story-number">06</div><div class="story-chevron">&#9662;</div>
+    <div class="story-title">23 admin calls in a week instead of a month</div>
+    <div class="story-subtitle">Moved from Mexico City 8 months ago. Engineering degree. English is functional but phone calls in English are exhausting.</div>
+    <div class="story-meta"><span class="story-meta-tag">5 categories</span><span class="story-meta-tag">47M foreign-born in US</span></div>
+    <div class="story-detail">
+<div class="panel-categories"><strong>Categories covered: </strong>Waiting on hold, Identity & verification, Search & book, Bills & subscriptions, Healthcare</div>
+<div class="story-section"><h4>About Carlos</h4><p>Carlos Reyes is a mechanical engineer. He has a degree from UNAM in Mexico City, five years of experience at a manufacturing firm, and solid English. Solid enough for work, for friends, for daily life.<br><br>Not solid enough for phone calls with American bureaucracy.<br><br>He moved to Houston eight months ago for a job at a petrochemical company. His wife Ana and their three-year-old daughter Sofia joined him two months later.</p></div>
+<div class="story-section"><h4>The Challenge</h4><p>Carlos has a list on his phone's notes app. Twenty-three items. Each one is a phone call he needs to make.<br><br>Set up car insurance. Register the car. Get renters insurance. Set up electricity. Set up water. Internet. Find a dentist. Find a pediatrician for Sofia. Transfer his Mexican driving record. Verify his work visa status with USCIS. Set up a bank account for Ana.<br><br>He's completed six in two months.<br><br>The car insurance call took three hours across two days. The automated menu had eight options and none matched what he needed. He got transferred four times. He had to spell his address letter by letter: "R as in Romeo, E as in Echo, Y as in Yankee..." One agent put him on hold for 40 minutes. He gave up, called back the next day, and started over.<br><br>"In Mexico City, I managed a team of twelve engineers. Here, I can't set up my electricity without losing an afternoon."</p></div>
+<div class="story-section"><h4>What He's Tried</h4><p>Ana suggested he use Google Translate's conversation mode during calls. He tried it. The latency made the conversation awkward, the translations were approximate, and the customer service agent got confused by the pauses.<br><br>He asked a coworker to help with one call. It worked but he can't ask his coworker to make 23 phone calls on his behalf.</p></div>
+<div class="story-section story-gather-section"><h4>What Changes with Gather</h4><p>Carlos tells the AI what he needs in plain language. "Set up electricity at this address. My account number is this. My move-in date was this." The AI calls the utility company, navigates the phone tree in seconds, waits on hold (the electric company had a 35-minute wait), talks to the agent, handles the verification code they send to his number, and completes the setup.<br><br>Carlos gets a text summary in English and Spanish: account confirmed, first bill due date, amount.<br><br>The notes app list goes from 23 to 17 overnight. Then to 11. Then to 3, the ones that genuinely need him on the phone in person (his visa verification, his Texas driver's license appointment, Ana's bank account which requires her signature).<br><br>Five calls done in a morning instead of five calls done in a month.</p></div>
+</div>
+</div>
+
+
+
+<div class="story-card winner" onclick="openPanel(this)">
+    <div class="story-number">07</div><div class="story-chevron">&#9662;</div>
+    <div class="story-title">Gym cancelled, dinner booked, dentist rescheduled. All while in meetings.</div>
+    <div class="story-subtitle">Product manager. Back-to-back meetings 9am to 5pm. Phone is on silent all day.</div>
+    <div class="story-meta"><span class="story-meta-tag">4 categories</span><span class="story-meta-tag">Every professional with a phone on silent</span></div>
+    <div class="story-detail">
+<div class="panel-categories"><strong>Categories covered: </strong>Incoming calls, Search & book, Bills & subscriptions, Disputes & refunds</div>
+<div class="story-section"><h4>About David</h4><p>David Kim is a product manager at a mid-size B2B SaaS company. He's good at his job. He runs three product lines. He's in meetings from 9am to 5pm most days.<br><br>His phone is on silent from 9:01am to 5:00pm, five days a week. Everything personal goes to voicemail.</p></div>
+<div class="story-section"><h4>The Challenge</h4><p>When David checks his phone at 5pm on a Tuesday, he finds: three voicemails from his dentist's office (appointment rescheduled), one from his insurance company (claim update he's been waiting on), a missed call from an Italian restaurant (confirming his anniversary dinner reservation for Saturday), and a notification that his gym charged him $79 again even though he's been trying to cancel for two months.<br><br>He returns the dentist call on Thursday. The slot he wanted is gone. He calls the insurance company back during lunch on Wednesday, waits on hold for 22 minutes, gets disconnected, doesn't try again for another week. He never calls the restaurant back; the reservation holds, but he doesn't know that until he shows up.<br><br>The gym: he's called twice. Both times he sat through 20+ minutes of hold time followed by a "retention specialist" whose job is to make cancellation as painful as possible. He gave up both times. He's now paid $237 for a gym he hasn't visited since October.<br><br>His wife asked him to find a dinner reservation for Saturday. It's Thursday evening. He has two hours.</p></div>
+<div class="story-section"><h4>What He's Tried</h4><p>He set his phone to focus mode with breakthrough rules for his wife and his daughter's school. That helps for emergencies but doesn't solve the daily pile of missed calls and unfinished admin.<br><br>He looked into hiring a virtual assistant. $25/hour, minimum 10 hours/month. For scheduling dentist appointments and canceling gym memberships, it felt excessive.</p></div>
+<div class="story-section story-gather-section"><h4>What Changes with Gather</h4><p>Gather screens David's inbound calls during meetings. His dentist calls? The AI answers, handles the rescheduling, books the next available Tuesday at 4pm, and texts David a confirmation. Insurance call? AI picks up, gets the claim update, and texts David the summary.<br><br>For the gym, David tells the AI: "Cancel my membership at Equinox. Account number is in my last email from them." The AI calls from David's real number, handles the retention script ("I understand you'd like to cancel. I'm confirming on David's behalf."), and texts David the cancellation confirmation number.<br><br>Dinner reservation: David says "Find me an Italian restaurant for two, Saturday at 7:30pm, near Lincoln Park." The AI calls three places, finds one with availability, books it, handles the confirmation code they text to hold the table.<br><br>David checks his phone at 5pm: dentist rebooked for Tuesday, insurance claim approved ($340 reimbursement coming), gym cancelled (confirmation #GX-44891), reservation at 7:30pm at Monteverde.<br><br>His wife asks: "Did you find a restaurant?" He says yes without mentioning he didn't make a single call.</p></div>
+</div>
+</div>
+
+
+
+<div class="story-card winner" onclick="openPanel(this)">
+    <div class="story-number">08</div><div class="story-chevron">&#9662;</div>
+    <div class="story-title">An impossible week of doctor calls, refills, and refunds</div>
+    <div class="story-subtitle">Two kids (8 and 12), aging mother, husband travels for work. She manages everything.</div>
+    <div class="story-meta"><span class="story-meta-tag">5 categories</span><span class="story-meta-tag">Every household with kids + aging parent</span></div>
+    <div class="story-detail">
+<div class="panel-categories"><strong>Categories covered: </strong>Healthcare, Search & book, Disputes & refunds, Incoming calls, Aging parents</div>
+<div class="story-section"><h4>About Lisa</h4><p>Lisa Washington works full-time as an operations manager at a logistics company. Her husband Jerome travels for work three weeks out of every four. They have two kids: Maya (12) and Elijah (8).<br><br>Lisa's mother Dorothy, 71, lives 45 minutes away in Decatur. Dorothy is healthy but has high blood pressure and takes four medications. She lives alone.<br><br>Lisa is the person who holds everything together. The schedules. The appointments. The prescriptions. The school pickups. The insurance calls.</p></div>
+<div class="story-section"><h4>The Challenge</h4><p>Lisa's week looks like this:<br><br>Monday: Call the pediatrician about Elijah's rash that appeared over the weekend. The office opens at 8am. Lisa is in a meeting at 8am. She calls at lunch. The next available appointment is Thursday.<br><br>Tuesday: Check whether Dorothy's new cardiologist is in-network before booking. This requires calling the insurance company. Hold time: 28 minutes. The answer: "We need the provider's NPI number." Lisa doesn't know what an NPI number is. She has to call the cardiologist's office to get it, then call the insurance company back.<br><br>Wednesday: Chase a $240 refund from an airline for a flight Maya missed due to illness. She's been going back and forth for three weeks. Each call is 40 minutes.<br><br>Thursday: Refill Dorothy's blood pressure medication. The pharmacy closes at 6pm. Lisa gets out of work at 5:30pm. She calls from the car. Hold. Gets disconnected. Calls back. Dorothy is out of Lisinopril for two days.<br><br>Friday: Coordinate with Maya's school about a change in pickup schedule. The school's main line goes to voicemail. She calls three times.<br><br>Each call is 15 to 45 minutes. She works full-time. Jerome is in Dallas. There aren't enough hours.<br><br>"Every day I have a list of calls to make. Every day I make one or two. The rest roll to tomorrow."</p></div>
+<div class="story-section"><h4>What She's Tried</h4><p>She tried delegating to Jerome over the phone. He's willing but not organized enough. "I'd spend more time explaining what to say than just making the call myself."<br><br>She considered a virtual assistant service. The ones that handle medical scheduling are $200+/month and require HIPAA-compliant onboarding. For calling a pharmacy and an airline, it felt like overkill.</p></div>
+<div class="story-section story-gather-section"><h4>What Changes with Gather</h4><p>Lisa tells the AI: "Book Elijah with Dr. Patel, earliest available." AI calls the office from Lisa's number at 8am. Books Tuesday at 2pm. Texts Lisa the confirmation.<br><br>For Dorothy's cardiologist: AI calls the insurance company, provides the NPI number (which it got by calling the cardiologist's office first), confirms in-network status, then books the appointment. Two calls, coordinated, done before lunch.<br><br>The airline refund: AI calls, waits on hold (34 minutes), provides the booking reference and the doctor's note Lisa uploaded, gets a confirmation that the refund will be processed in 5-7 business days. Texts Lisa the reference number.<br><br>Dorothy's prescription: AI calls the pharmacy at 2pm, well before the 6pm close. Confirms the refill. Texts Dorothy: "Your Lisinopril is ready for pickup at CVS by 4pm."<br><br>Lisa gets a summary of everything handled, with a short list of the calls that still need her voice: Jerome's life insurance beneficiary change (requires both of them on the line), and a conversation with Maya's teacher that's personal, not transactional.<br><br>The daily list stops growing faster than she can work through it.</p></div>
+</div>
+</div>
+
+
+
+<div class="story-card" data-story="delegation caregiver" onclick="openPanel(this)">
+    <div class="story-number">09</div><div class="story-chevron">&#9662;</div>
+    <div class="story-title">Six doctors, one patient, zero coordination. Until now.</div>
+    <div class="story-subtitle">Type 2 diabetes, hypertension, and a torn rotator cuff. Three specialists, a primary care doctor, a physical therapist, and a pharmacy.</div>
+    <div class="story-meta"><span class="story-meta-tag">2 categories</span><span class="story-meta-tag">133M with chronic conditions</span></div>
+    <div class="story-detail">
+<div class="panel-categories"><strong>Categories covered: </strong>Healthcare, Incoming calls</div>
+<div class="story-section"><h4>About Diane</h4><p>Diane Torres is a paralegal at a mid-size law firm in Center City, Philadelphia. She's been there 14 years. She's good at managing complexity at work.<br><br>Managing her own health is a different story.</p></div>
+<div class="story-section"><h4>The Challenge</h4><p>Diane has Type 2 diabetes, hypertension, and a torn rotator cuff from a fall last year. She sees an endocrinologist for the diabetes, a cardiologist for the blood pressure, a primary care doctor for everything else, an orthopedic surgeon for the shoulder, and a physical therapist twice a week. She fills prescriptions at CVS.<br><br>That's six providers. Six different offices. Six different phone trees. Six different scheduling systems that don't talk to each other.<br><br>Last Tuesday, her endocrinologist changed her insulin dosage. She called her cardiologist's office to let them know because the two drugs interact. The cardiologist's office was closed. She called back Wednesday. Hold time: 25 minutes. The nurse said she'd relay the message. Diane has no idea if the cardiologist actually knows.<br><br>Her PT appointment on Thursday conflicts with a follow-up the orthopedic surgeon's office rescheduled without asking her. She found out from a text reminder on Wednesday night.<br><br>The pharmacy called about a refill on Monday. Diane was in a deposition. She missed the call. She forgot to call back. She ran out of metformin for two days before she remembered.<br><br>"I am literally coordinating my own care because nobody else will. Every doctor's office is an island. I'm the bridge between all of them, and the bridge is held together with sticky notes and anxiety."</p></div>
+<div class="story-section"><h4>What She's Tried</h4><p>She tried a patient portal app that consolidates records from multiple providers. It shows test results and visit notes, but it doesn't make phone calls, doesn't coordinate scheduling conflicts, and doesn't refill prescriptions.<br><br>She asked her primary care doctor to act as coordinator. He agreed in principle but his office doesn't have the bandwidth. The calls between offices don't happen.</p></div>
+<div class="story-section story-gather-section"><h4>What Changes with Gather</h4><p>The AI maintains a running summary of every medical call. When the cardiologist's office calls, the AI has context: "Diane's endocrinologist changed her insulin dosage on Tuesday. Here are the details." No more playing telephone between offices.<br><br>The pharmacy call on Monday? AI picks up, confirms the metformin refill, and gets a pickup time. Texts Diane: "Metformin ready at CVS by 3pm."<br><br>The PT-surgeon scheduling conflict? Diane tells the AI: "Sort out my Thursday." The AI calls the surgeon's office, reschedules the follow-up to the following Monday, then confirms the PT appointment. Texts Diane the updated schedule.<br><br>Insurance verification before every new appointment happens automatically. No more surprise bills from out-of-network providers.<br><br>Diane still goes to every appointment. She still talks to every doctor. The difference is that the phone calls between appointments, the coordination, the hold times, the pharmacy refills, the insurance checks, those happen without her.<br><br>"I just want to be a patient, not a project manager."</p></div>
+</div>
+</div>
+
+
+
+<div class="story-card winner" onclick="openPanel(this)">
+    <div class="story-number">10</div><div class="story-chevron">&#9662;</div>
+    <div class="story-title">$4,500 client saved. $2,800 in invoices collected.</div>
+    <div class="story-subtitle">Drives for Uber mornings. Freelance graphic design afternoons. One phone for everything.</div>
+    <div class="story-meta"><span class="story-meta-tag">3 categories</span><span class="story-meta-tag">64M US freelancers</span></div>
+    <div class="story-detail">
+<div class="panel-categories"><strong>Categories covered: </strong>Waiting on hold, Bills & subscriptions, Disputes & refunds, Identity & verification, Healthcare, Search & book</div>
+<div class="panel-categories"><strong>Categories covered: </strong>Incoming calls, Small business, Disputes & refunds</div>
+<div class="story-section"><h4>About Marcus</h4><p>Marcus Williams drives for Uber in the mornings. From about 6am to noon, he's in his car, picking up rides across Denver. In the afternoons, he does freelance graphic design from his apartment. Logo work, brand identity, the occasional full website. He makes more from design than from driving, but Uber pays the rent while the freelance pipeline fills.<br><br>One phone. One number. Everything.</p></div>
+<div class="story-section"><h4>The Challenge</h4><p>In February, Marcus got a call while driving on I-25. The number wasn't in his contacts. He couldn't pick up. It went to voicemail. No message.<br><br>He called back three hours later. The woman on the other end said she'd found him on Dribbble and wanted to discuss a rebranding project. Budget: $4,500. But she'd already hired someone else. "I needed to move fast and you didn't pick up."<br><br>$4,500, gone to voicemail.<br><br>Marcus gets 6 to 8 spam calls a day. They're mixed in with real client calls, Uber support, his landlord, and his mom. He can't silence unknown numbers because clients call from numbers he's never seen before. He can't answer while driving. He can't afford to miss the calls that pay.<br><br>He also has $2,800 in unpaid invoices from two freelance clients. One owes $1,800 from November. The other owes $1,000 from January. He's texted both. One replied "will send this week" three weeks ago. The other hasn't responded. Marcus won't call them. "It's awkward. They know me. I designed their logo. I don't want to be the guy chasing money."</p></div>
+<div class="story-section"><h4>What He's Tried</h4><p>He tried Google Voice as a business line. The problem: clients saved his personal number from earlier projects. Giving out a new number meant losing the established contact. And Google Voice calls show up as "Google Voice" on caller ID, not as a business.<br><br>He considered Beside but it's $30-50/month for what's basically a better voicemail. He doesn't need a message taken. He needs the $4,500 client to stay on the line.</p></div>
+<div class="story-section story-gather-section"><h4>What Changes with Gather</h4><p>The Dribbble client calls. Marcus is driving. The AI answers instantly: "Hi, you've reached Marcus Design Studio. Marcus is with a client right now. Can I take some details about your project so he can get back to you today?"<br><br>The client describes the rebranding project. The AI qualifies it (budget, timeline, scope), books a callback for 2pm when Marcus is home, and texts Marcus the summary. When Marcus calls back at 2pm, he already knows what she wants, what the budget is, and that she's a serious lead.<br><br>For the unpaid invoices: AI calls each client from Marcus's real number. "Marcus Design Studio" shows on their screen, not "Spam Likely." The call is professional, warm, and persistent. "Hi, this is calling on behalf of Marcus Design Studio regarding invoice #1247, dated November 15th. The balance of $1,800 is currently outstanding. Would you like to arrange payment by card, or should I schedule a time for Marcus to discuss?"<br><br>Marcus checks his phone between rides: lead qualified, callback booked for 2pm, $1,000 payment confirmed from the January client. The November client scheduled a payment for Friday.<br><br>He didn't make a single call. He didn't have an awkward conversation about money. The AI handled the friction he couldn't bring himself to face.</p></div>
+</div>
+</div>
+
+
+
+<div class="story-card" data-story="safety caregiver" onclick="openPanel(this)">
+    <div class="story-number">11</div><div class="story-chevron">&#9662;</div>
+    <div class="story-title">Protecting Ellen from phone scams without taking her phone away</div>
+    <div class="story-subtitle">His wife Ellen was diagnosed with early-stage Alzheimer's 14 months ago. He's the full-time caregiver and doesn't call it that.</div>
+    <div class="story-meta"><span class="story-meta-tag">2 categories</span><span class="story-meta-tag">11M Alzheimer's caregivers</span></div>
+    <div class="story-detail">
+<div class="panel-categories"><strong>Categories covered: </strong>Aging parents, Incoming calls</div>
+<div class="story-section"><h4>About Robert</h4><p>Robert Navarro retired from teaching high school history in 2023. His wife Ellen, 65, was diagnosed with early-stage Alzheimer's disease 14 months ago. Robert doesn't use the word "caregiver." He says "I'm her husband."<br><br>Ellen still drives to the grocery store. She still calls her friends. She still reads the newspaper every morning. Most days, you wouldn't know anything was wrong.</p></div>
+<div class="story-section"><h4>The Challenge</h4><p>Last month, Ellen agreed to a $4,000 home warranty service over the phone. The salesperson was persistent and professional. Ellen didn't remember the call when Robert found the charge on their credit card statement.<br><br>Two weeks before that, someone called claiming to be from Medicare. Ellen gave them her Social Security number and their joint checking account routing number "to verify her enrollment." Robert caught it because the bank called to confirm an unusual authorization. $600 was already gone.<br><br>Ellen's phone is her last connection to independence. She calls her friend Patricia every Tuesday. She calls her sister in Phoenix on weekends. She orders prescriptions by phone. Taking the phone away would cut those connections. Robert won't do it.<br><br>"Every time the phone rings, I tense up. I can't listen to every call. I can't stand next to her every time she picks up. But I also can't let her give our savings to the next person who calls and sounds official."</p></div>
+<div class="story-section"><h4>What He's Tried</h4><p>Robert put Ellen's phone on T-Mobile's Scam Shield. It blocks known robocall numbers. The Medicare scammer called from a legitimate-looking number. Scam Shield didn't flag it.<br><br>He considered taking the phone and screening calls himself. Ellen noticed immediately. "Why are you answering my phone?" It felt like surveillance. It damaged trust between them at a moment when trust is the only thing holding their daily life together.<br><br>He looked into apps that monitor calls. All of them require installing something on Ellen's phone, and most send notifications she would see. None of them can intervene during a live call.</p></div>
+<div class="story-section story-gather-section"><h4>What Changes with Gather</h4><p>Gather listens to Ellen's calls in real time. Calls to Patricia, her sister, the pharmacy, these go through normally. The AI knows her regular contacts.<br><br>When someone asks Ellen for a credit card number, an account number, or pressures her into a financial commitment, the AI intervenes. It can whisper a warning into Ellen's ear ("You might want to check with Robert before sharing that information"), alert Robert immediately, or in extreme cases, drop the call entirely.<br><br>Robert gets a daily summary of call activity. Not transcripts of every conversation. A summary: who called, how long, any flags. If Ellen's calling patterns change, fewer calls, shorter durations, more confusion, the AI flags it as a trend.<br><br>Calls to friends go through without interruption. The AI only activates on financial triggers and calls from unknown numbers. Ellen doesn't know it's there. She doesn't need to. Patricia still calls on Tuesday. The phone still works the way it always has.<br><br>Protection without surveillance. Robert's phrase, not ours.</p></div>
+</div>
+</div>
+
+
+
+<div class="story-card" data-story="delegation life-event" onclick="openPanel(this)">
+    <div class="story-number">12</div><div class="story-chevron">&#9662;</div>
+    <div class="story-title">A paper trail with the landlord he never planned to build</div>
+    <div class="story-subtitle">Renting his first apartment. Landlord doesn't respond to texts. Everything has to be a phone call.</div>
+    <div class="story-meta"><span class="story-meta-tag">2 categories</span><span class="story-meta-tag">44M US renters</span></div>
+    <div class="story-detail">
+<div class="panel-categories"><strong>Categories covered: </strong>Waiting on hold, Disputes & refunds</div>
+<div class="story-section"><h4>About Andre</h4><p>Andre Jackson graduated from Cal State East Bay last year with a degree in urban planning. He got a job at a small architecture firm in Oakland. He moved into his first apartment in September, a one-bedroom in Temescal that costs more than he's comfortable thinking about.<br><br>His landlord is a man named Gerald who owns three buildings and manages them himself. Gerald does not text. Gerald calls, sometimes.</p></div>
+<div class="story-section"><h4>The Challenge</h4><p>The heater broke in January. Andre called Gerald. Voicemail. Called again the next day. Voicemail. Called a third time, left a message explaining that it was 48 degrees in his apartment. Gerald called back four days later. "I'll send someone." Someone came the following week.<br><br>Andre needed to set up PG&E when he moved in. The phone call took 45 minutes, most of it on hold. He had to verify his identity by providing information that matched what PG&E had on file from the previous tenant's account closure. It took two calls because the first one got disconnected during the transfer.<br><br>Now Gerald has added a $200 charge to Andre's rent for "damage to the bathroom tile." The tile was cracked when Andre moved in. He knows this because he mentioned it to Gerald during the move-in walkthrough. Over the phone. Gerald said, "Yeah, that was already there."<br><br>Andre has no recording. No transcript. No proof. Gerald says he doesn't remember the conversation.<br><br>"I wish I'd written it down. I wish I'd recorded the call. But who records a phone call with their landlord on move-in day?"</p></div>
+<div class="story-section"><h4>What He's Tried</h4><p>Andre looked into apps that record phone calls. In California, two-party consent is required. He'd have to tell Gerald he's recording. That would make the relationship adversarial. For a first apartment with a landlord who already takes four days to return calls, adversarial is not a strategy.</p></div>
+<div class="story-section story-gather-section"><h4>What Changes with Gather</h4><p>Every call between Andre and Gerald is transcribed and stored. Not recorded as audio, transcribed as text. The move-in walkthrough call where Gerald said "yeah, that was already there" is searchable.<br><br>For the $200 dispute, Andre has the transcript. Date, time, Gerald's exact words. The conversation is no longer "he said, he said."<br><br>When the heater breaks, Andre tells the AI: "Call Gerald about the heater. Tell him it's 48 degrees and this is the third time I've called." The AI calls from Andre's number. Gerald's phone shows Andre's name. If Gerald doesn't pick up, the AI follows up the next day. And the day after that. Professionally, persistently, without Andre having to feel like a nag.<br><br>PG&E setup: AI calls, waits on hold, handles the identity verification, sets up the account. Summary texted.<br><br>Andre has a paper trail without trying to build one. Every conversation is documented. Every follow-up happens. Every hold time is someone else's problem.</p></div>
+</div>
+</div>
+
+
+
+<div class="story-card" data-story="delegation life-event" onclick="openPanel(this)">
+    <div class="story-number">13</div><div class="story-chevron">&#9662;</div>
+    <div class="story-title">The sticky note with 23 calls that came off the mirror</div>
+    <div class="story-subtitle">Divorced 3 months ago. Moved to a new apartment. New job starts in 2 weeks. Everything in her life needs a phone call.</div>
+    <div class="story-meta"><span class="story-meta-tag">6 categories</span><span class="story-meta-tag">Millions in life transitions/yr</span></div>
+    <div class="story-detail">
+<div class="story-section"><h4>About Meg</h4><p>Meg Patterson is a marketing manager at a healthcare company in Dallas. She's good at her job. She's organized, efficient, and used to managing complex projects with lots of stakeholders.<br><br>Three months ago, her husband told her he wanted a divorce. Six weeks ago, she moved into a new apartment. Her new job starts in two weeks. Everything in her life changed at once, and every single change requires a phone call.</p></div>
+<div class="story-section"><h4>The Challenge</h4><p>Meg has a list. She wrote it on a sticky note and stuck it to her bathroom mirror so she'd see it every morning. It has 23 items.<br><br>Update address with the bank. Update address with three credit cards. Update address with her car insurance. Update address with the DMV. Set up electricity at the new apartment. Set up internet. Cancel the joint gym membership. Transfer the car insurance to her name only. Find a new dentist who's in-network. Dispute the final phone bill from the shared account. Get her name off the old lease. Cancel the joint Costco membership. Transfer the Netflix account.<br><br>Each call is 20 to 60 minutes. Most involve hold time. Several require verification codes. Two require speaking to a "retention specialist" whose job is to talk her out of canceling. One (the lease) requires a three-way call with her lawyer and the landlord.<br><br>She's completed four in three weeks. The rest sit on the sticky note. She looks at it every morning while brushing her teeth.<br><br>"I know exactly what I need to do. Every item on the list is clear. I just can't face another 40-minute call where I spell my new address for the fifth time and explain that yes, I really do want to cancel."</p></div>
+<div class="story-section"><h4>What She's Tried</h4><p>She blocked off a Saturday to power through the list. She completed two calls in four hours (the bank and one credit card). Both had hold times over 30 minutes. By the third call, she was crying in her kitchen, not because the call was hard, but because the cumulative weight of dismantling a shared life, one phone call at a time, is heavier than anyone prepares you for.<br><br>She considered hiring a virtual assistant. $25/hour. For 23 calls averaging 40 minutes each, that's roughly $380. She'd pay it, but a VA can't handle verification codes sent to her phone, and half the calls require identity verification that a stranger can't complete.</p></div>
+<div class="story-section story-gather-section"><h4>What Changes with Gather</h4><p>Meg gives the AI the list. All 23 items.<br><br>The AI works through them. Calls the bank, handles the verification code (it routes to the AI, not Meg's phone screen), updates the address. Calls the car insurance company, transfers the policy, waits on hold. Calls the gym, handles the retention script, confirms cancellation, texts Meg the confirmation number. Calls the credit card companies one by one.<br><br>Each completed task gets a text summary. "Bank of America: address updated. New statements will go to 4217 Cedar Springs Rd, Apt 3B."<br><br>The sticky note goes from 23 to 15 after the first day. Then to 8. Then to 3, the ones that genuinely need Meg's voice: the lease conversation with her lawyer, a personal call to her dentist's office where she's been a patient for 10 years, and a conversation with her ex about the Costco membership that's technically in both their names.<br><br>Meg handles the human calls. The AI handles the ones that just need patience, hold time, and someone who doesn't cry when they have to spell their new address for the seventh time.<br><br>The sticky note comes off the mirror on a Tuesday. Meg doesn't replace it with anything.</p></div>
+</div>
+
+</div>
+</section>
+
+</div><!-- end hidden old stories -->
+
+<!-- Side Panel -->
+<div class="side-panel-overlay" onclick="closePanel()"></div>
+<div class="side-panel" id="storyPanel">
+  <button class="side-panel-close" onclick="closePanel()">&times;</button>
+  <div class="panel-number" id="panelNumber"></div>
+  <div class="panel-title" id="panelTitle"></div>
+  <div class="panel-subtitle" id="panelSubtitle"></div>
+  <div class="panel-pain" id="panelPain"></div>
+  <div class="panel-solution" id="panelSolution"></div>
+  <div class="panel-skills" id="panelSkills"></div>
+</div>
+
+
+<script>
+function openWizard() {
+  document.getElementById('wizardOverlay').classList.add('open');
+  document.getElementById('wizardPanel').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeWizard() {
+  document.getElementById('wizardOverlay').classList.remove('open');
+  document.getElementById('wizardPanel').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+var heroNotifs = {
+  'stop-dangerous-calls': { title: "Scam detected on Mom's line", body: "Caller claimed to be IRS, demanded $3,000 wire. AI warned her at 0:47. She hung up.", time: "now" },
+  'know-whos-calling': { title: "Screened call from (312) 555-0189", body: "Sarah Chen, rebranding project, $4,500 budget. Callback booked for 2pm today.", time: "10:23 AM" },
+  'never-miss': { title: "School call routed to James", body: "Early pickup requested. You're in a meeting. Routed to James. He confirmed, on his way.", time: "11:15 AM" },
+  'get-time-back': { title: "Comcast bill negotiated", body: "Previous rate: $89/mo. New rate: $59/mo for 12 months. Annual savings: $360.", time: "11:42 AM" },
+  'calls-im-avoiding': { title: "Invoice #1247 follow-up complete", body: "Client confirmed payment of $1,800 scheduled for Friday, April 18 via bank transfer.", time: "1:05 PM" },
+  'find-and-book': { title: "Reservation confirmed", body: "Monteverde, table for 2, Saturday 7:30 PM. Confirmation code sent and accepted.", time: "6:45 PM" },
+  'understand-calls': { title: "Call summary ready", body: "Spoke with Jen at Allstate, 14 min. Policy renews March 1. Quote by Friday. Action: respond by Feb 28.", time: "3:14 PM" },
+  'get-better': { title: "Coaching whisper", body: "Prospect mentioned budget twice. Suggest annual discount (saves 20%). They paused after pricing. Let them speak first.", time: "live" },
+  'protect-someone': { title: "911 call detected", body: "Margaret called 911 at 2:01 AM. Paramedics dispatched to 4821 Elm St, Sacramento.", time: "2:01 AM" },
+  'coordinate-care': { title: "Prescription refilled", body: "Lisinopril 10mg, 90-day supply. Ready for pickup at CVS (Elm St) by 4:00 PM. Also texted Margaret.", time: "2:15 PM" },
+  'run-business': { title: "Urgent: flooded basement", body: "742 Oak Ave. Customer: Janet Morris. Routed to you now. Quote request from Tom Lee booked for Tuesday.", time: "now" },
+  'keep-identity-safe': { title: "OTP handled for Chase", body: "Picked up your verification code (8294) and completed the sign-in. New card order confirmed.", time: "10:08 AM" }
+};
+
+function switchHeroPill(pill, cat) {
+  document.querySelectorAll('.hero-pill').forEach(function(p) { p.classList.remove('active'); });
+  pill.classList.add('active');
+
+  var data = heroNotifs[cat];
+  if (data) {
+    var notif = document.getElementById('heroNotification');
+    notif.style.opacity = '0';
+    notif.style.transform = 'translateY(8px)';
+    setTimeout(function() {
+      document.getElementById('heroTitle2').textContent = data.title;
+      document.getElementById('heroBody').textContent = data.body;
+      document.getElementById('heroTime').textContent = data.time;
+      notif.style.opacity = '1';
+      notif.style.transform = 'translateY(0)';
+    }, 150);
+  }
+
+  // Also filter the grid below
+  filterCategory(cat);
+  document.querySelectorAll('.sidebar .filter-chip').forEach(function(c) {
+    c.classList.remove('active');
+    if (c.textContent.toLowerCase().indexOf(cat.replace(/-/g, ' ').substring(0, 8)) !== -1) c.classList.add('active');
+  });
+}
+
+function switchTab(tab) {
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  event.target.classList.add('active');
+
+  if (tab === 'stories') {
+    document.getElementById('heroTitle').innerHTML = 'Who is this <em>for?</em>';
+    document.getElementById('heroSubtitle').textContent = 'Universal protection on every line. Persona-specific capabilities layered on top.';
+    document.getElementById('navCenterTitle').innerHTML = 'Who is this <em>for?</em>';
+    document.getElementById('navCenterSubtitle').textContent = 'Universal protection + persona-specific capabilities';
+  } else {
+    document.getElementById('heroTitle').innerHTML = 'Explore <em>Skills</em>';
+    document.getElementById('heroSubtitle').textContent = 'Capabilities that run on your phone line. Powered by the network, not an app.';
+    document.getElementById('navCenterTitle').innerHTML = 'Explore <em>Skills</em>';
+    document.getElementById('navCenterSubtitle').textContent = 'Powered by the network, not an app';
+  }
+}
+
+function filterCategory(cat) {
+  // Scroll to the category with offset for sticky header
+  var target;
+  if (cat === 'all') {
+    target = document.querySelector('.categories');
+  } else {
+    target = document.querySelector('[data-category="' + cat + '"]');
+  }
+  if (target) {
+    var offset = 90; // sticky header height + breathing room
+    var top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+    window.scrollTo({ top: top, behavior: 'smooth' });
+  }
+}
+
+function updatePhoneForCategory(cat) {
+  if (heroNotifs[cat]) {
+    var data = heroNotifs[cat];
+    var notif = document.getElementById('heroNotification');
+    notif.style.opacity = '0';
+    notif.style.transform = 'translateY(8px)';
+    setTimeout(function() {
+      document.getElementById('heroTitle2').textContent = data.title;
+      document.getElementById('heroBody').textContent = data.body;
+      document.getElementById('heroTime').textContent = data.time;
+      notif.style.opacity = '1';
+      notif.style.transform = 'translateY(0)';
+    }, 150);
+  }
+}
+
+function highlightSidebar(cat) {
+  document.querySelectorAll('.sidebar .filter-chip').forEach(function(c) {
+    c.classList.remove('active');
+    if (c.getAttribute('onclick') && c.getAttribute('onclick').indexOf("'" + cat + "'") !== -1) {
+      c.classList.add('active');
+    }
+  });
+}
+
+// Scroll spy: highlight sidebar + update phone based on visible category
+var lastActiveCat = 'stop-dangerous-calls';
+var scrollSpyObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      var cat = entry.target.dataset.category;
+      if (cat && cat !== lastActiveCat) {
+        lastActiveCat = cat;
+        highlightSidebar(cat);
+        updatePhoneForCategory(cat);
+      }
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+
+document.querySelectorAll('.category').forEach(function(el) {
+  scrollSpyObserver.observe(el);
+});
+
+// Hide phone when "Build your own" is in view
+var phoneCol = document.querySelector('.phone-column');
+var buildSection = document.querySelector('[data-category="build-your-own"]');
+if (buildSection && phoneCol) {
+}
+
+function filterStory(tag) {
+  document.querySelectorAll('#tab-stories .filter-chip').forEach(c => c.classList.remove('active'));
+  event.target.classList.add('active');
+
+  document.querySelectorAll('.story-card').forEach(el => {
+    if (tag === 'all' || (el.dataset.story && el.dataset.story.includes(tag))) {
+      el.style.display = '';
+    } else {
+      el.style.display = 'none';
+    }
+  });
+}
+
+function openPanel(card) {
+  var num = card.querySelector('.story-number');
+  var title = card.querySelector('.story-title');
+  var subtitle = card.querySelector('.story-subtitle');
+  var detail = card.querySelector('.story-detail');
+
+  document.getElementById('panelNumber').textContent = num ? num.textContent : '';
+  document.getElementById('panelTitle').textContent = title ? title.textContent : '';
+  document.getElementById('panelSubtitle').textContent = subtitle ? subtitle.textContent : '';
+
+  // Clear old content
+  document.getElementById('panelPain').innerHTML = '';
+  document.getElementById('panelSolution').innerHTML = '';
+  document.getElementById('panelSkills').innerHTML = '';
+
+  if (detail) {
+    // Grab everything inside story-detail: categories + sections
+    document.getElementById('panelPain').innerHTML = detail.innerHTML;
+  }
+
+  document.querySelector('.side-panel-overlay').classList.add('open');
+  document.getElementById('storyPanel').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePanel() {
+  document.querySelector('.side-panel-overlay').classList.remove('open');
+  document.getElementById('storyPanel').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') { closePanel(); closeWizard(); }
+});
+
+// Collapse hero into nav on scroll
+var heroEl = document.querySelector('.hero');
+var navCenterEl = document.getElementById('navCenter');
+
+window.addEventListener('scroll', function() {
+  var heroBottom = heroEl.getBoundingClientRect().bottom;
+  if (heroBottom < 60) {
+    navCenterEl.classList.add('visible');
+  } else {
+    navCenterEl.classList.remove('visible');
+  }
+});
+</script>
+
+
+<script>
+(function(){
+  var READY_LABELS = {live:'Live', ready:'Ready', pending:'Pending access', concept:'Concept'};
+  var PRIM_ORDER = ['Voice','Identity','Data','Presence','Fraud','Geolocation','Device','Security','Messaging'];
+  var PRIM_LABEL = {Voice:'Voice', Identity:'Identity & Auth', Data:'Data & Slicing', Presence:'Presence', Fraud:'Fraud Management', Geolocation:'Geolocation', Device:'Device Management', Security:'Security', Messaging:'Messaging'};
+
+
+  var PRIM_ABBR = {Voice:'Voice', Identity:'Identity', Data:'Data', Presence:'Presence', Fraud:'Fraud', Geolocation:'Location', Device:'Device', Security:'Security', Messaging:'SMS'};
+  var SKILLS = [];
+  var activeTier = 'all';
+
+  function esc(s){ return String(s||'').replace(/[&<>"]/g, function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  function trunc(s,n){ s=String(s||''); return s.length>n ? s.slice(0,n).replace(/\s+\S*$/,'')+'…' : s; }
+
+  var JOB_VERB = {Verify:'For verification', Reach:'For outreach', Protect:'For protection', Respond:'For response', Orchestrate:'For orchestration', Sense:'For intelligence'};
+  function jobVerb(j){ return JOB_VERB[j] || j; }
+
+
+  var VIZ_MAP = {
+    "voice_verification": "deepfake",
+    "caller_background_check": "verify",
+    "whos_calling": "verify",
+    "live_trust_score": "sentiment",
+    "identity_verification": "verify",
+    "sim_swap_protection": "sim-guard",
+    "device_swap_check": "sim-guard",
+    "imei_lookup": "multiline",
+    "device_clone_check": "sim-guard",
+    "kyc_match": "verify",
+    "age_verification": "numlock",
+    "line_tenure": "analytics",
+    "number_recycling_check": "sim-guard",
+    "call_forwarding_detect": "screener",
+    "network_location_verify": "analytics",
+    "insurance_check": "legal",
+    "verification_codes": "numlock",
+    "act_as_you": "verify",
+    "make_call_with_objective": "screener",
+    "hold_for_you": "booking",
+    "phone_tree_navigator": "screener",
+    "bill_negotiator": "bill",
+    "cancel_anything": "bill",
+    "dispute_charge": "bill",
+    "get_refund": "bill",
+    "invoice_followup": "bill",
+    "multi_quote": "restaurant",
+    "find_available": "restaurant",
+    "compare_prices": "travel",
+    "book_dispatch": "booking",
+    "appointment_reminders": "appointment",
+    "book_doctor": "medication",
+    "refill_prescriptions": "prescription",
+    "sms_whatsapp": "voicemail",
+    "chat_companion": "family",
+    "e_signatures": "legal",
+    "webrtc_handoff": "family",
+    "after_hours_answering": "biz-hours",
+    "carrier_billing_checkout": "bill",
+    "kyc_fill": "legal",
+    "smart_call_screening": "screener",
+    "intent_detection": "screener",
+    "voice_otp": "deepfake",
+    "scam_call_protection": "scam-shield",
+    "emergency_call_block": "scam-shield",
+    "spam_blocker": "scam-shield",
+    "link_screening": "screener",
+    "screen_inbound_at_network": "scam-shield",
+    "dos_blackhole": "privacy",
+    "threat_isolation": "privacy",
+    "dpi_redirect": "screener",
+    "realtime_threat_detection": "scam-shield",
+    "financial_fraud_monitor": "scam-shield",
+    "remote_device_lock": "sim-guard",
+    "family_911_alert": "family",
+    "priority_line": "priority",
+    "hd_voice_slice": "priority",
+    "allocate_network_slice": "priority",
+    "remote_camera_activation": "wellness",
+    "activity_log": "voicemail",
+    "agent_permissions": "legal",
+    "task_planner": "voicemail",
+    "restricted_line": "privacy",
+    "separate_business_line": "multiline",
+    "iot_lifecycle_mgmt": "multiline",
+    "care_team_sharing": "family",
+    "family_task_sharing": "voicemail",
+    "smart_routing": "screener",
+    "esim_provision": "multiline",
+    "qos_booking": "priority",
+    "sponsored_data": "priority",
+    "traffic_steering_edge": "priority",
+    "dedicated_5g_slice": "priority",
+    "carrier_vpn": "privacy",
+    "bandwidth_throttle": "priority",
+    "network_access_policy": "privacy",
+    "esim_revoke": "sim-guard",
+    "call_transcription": "deepfake",
+    "call_notes": "voicemail",
+    "doctor_call_summary": "medication",
+    "live_translation": "language",
+    "voicemail_digest": "voicemail",
+    "daily_brief": "analytics",
+    "isolation_watch": "elder",
+    "behavior_change_alerts": "analytics",
+    "daily_checkin": "wellness",
+    "monitor_line_anomalies": "analytics",
+    "connectivity_insights": "analytics",
+    "predictive_connectivity": "analytics",
+    "connected_network_type": "analytics",
+    "lawful_intercept": "privacy",
+    "device_data_volume": "analytics",
+    "edge_discovery": "analytics",
+    "visit_history": "analytics",
+    "frequent_locations": "analytics",
+    "region_device_count": "analytics",
+    "proximity_match": "family",
+    "geofence_alert": "analytics",
+    "device_wake_trigger": "wellness",
+    "live_coaching": "coach",
+    "date_coaching": "coach",
+    "whisper_into_live_call": "coach",
+    "community_match": "family",
+    "secure_auth_slice": "priority",
+    "persistent_followup": "escalation",
+    "urgency_triage": "escalation"
+  };
+
+  var VIZ_HTML = {
+    "scam-shield": "<div class=\"phone\"></div>\n            <div class=\"shield\"></div>\n            <div class=\"dot\"></div><div class=\"dot\"></div><div class=\"dot\"></div><div class=\"dot\"></div>",
+    "deepfake": "<div class=\"wave\">\n              <div class=\"wave-bar\" style=\"animation-delay:0s\"></div>\n              <div class=\"wave-bar\" style=\"animation-delay:0.1s\"></div>\n              <div class=\"wave-bar\" style=\"animation-delay:0.2s\"></div>\n              <div class=\"wave-bar\" style=\"animation-delay:0.3s\"></div>\n              <div class=\"wave-bar\" style=\"animation-delay:0.4s\"></div>\n              <div class=\"wave-bar\" style=\"animation-delay:0.5s\"></div>\n              <div class=\"wave-bar\" style=\"animation-delay:0.6s\"></div>\n              <div class=\"wave-bar\" style=\"animation-delay:0.7s\"></div>\n              <div class=\"wave-bar\" style=\"animation-delay:0.8s\"></div>\n              <div class=\"wave-bar\" style=\"animation-delay:0.9s\"></div>\n              <div class=\"wave-bar\" style=\"animation-delay:1.0s\"></div>\n              <div class=\"wave-bar\" style=\"animation-delay:1.1s\"></div>\n              <div class=\"wave-bar\" style=\"animation-delay:1.2s\"></div>\n              <div class=\"wave-bar\" style=\"animation-delay:1.3s\"></div>\n              <div class=\"wave-bar\" style=\"animation-delay:1.4s\"></div>\n            </div>\n            <div class=\"scan-line\"></div>\n            <div class=\"badge\">REAL</div>",
+    "sim-guard": "<div class=\"sim\"></div>\n            <div class=\"lock\"></div>\n            <div class=\"pulse-ring\"></div>\n            <div class=\"pulse-ring\"></div>",
+    "screener": "<div class=\"funnel\"></div>\n            <div class=\"s-dot\"></div><div class=\"s-dot\"></div><div class=\"s-dot\"></div><div class=\"s-dot\"></div><div class=\"s-dot\"></div>",
+    "priority": "<div class=\"lane\"></div><div class=\"lane\"></div><div class=\"lane\"></div>\n            <div class=\"p-dot\"></div><div class=\"p-dot\"></div><div class=\"p-dot\"></div>",
+    "biz-hours": "<div class=\"clock\">\n              <div class=\"hand hour\"></div>\n              <div class=\"hand minute\"></div>\n            </div>\n            <div class=\"day-night\"></div>",
+    "family": "<div class=\"trunk\"></div>\n            <div class=\"branch\"></div><div class=\"branch\"></div><div class=\"branch\"></div>\n            <div class=\"node\"></div><div class=\"node\"></div><div class=\"node\"></div>\n            <div class=\"node-top\"></div>",
+    "multiline": "<div class=\"stream\"></div><div class=\"stream\"></div><div class=\"stream\"></div>",
+    "escalation": "<div class=\"step\"></div><div class=\"step\"></div><div class=\"step\"></div>\n            <div class=\"arrow\"></div><div class=\"arrow\"></div>",
+    "appointment": "<div class=\"cal-grid\">\n              <div class=\"cal-cell\"></div><div class=\"cal-cell\"></div><div class=\"cal-cell\"></div><div class=\"cal-cell\"></div>\n              <div class=\"cal-cell\"></div><div class=\"cal-cell\"></div><div class=\"cal-cell\"></div><div class=\"cal-cell\"></div>\n              <div class=\"cal-cell\"></div><div class=\"cal-cell\"></div><div class=\"cal-cell\"></div><div class=\"cal-cell\"></div>\n            </div>",
+    "bill": "<div class=\"dollar\">$</div>\n            <div class=\"amount\">127.40</div>\n            <div class=\"bar-down\"></div>",
+    "prescription": "<div class=\"pill\"></div>\n            <div class=\"timer-ring\"></div>",
+    "booking": "<div class=\"cal-slot\"></div>\n            <div class=\"cal-slot\"></div>\n            <div class=\"cal-slot active\"></div>\n            <div class=\"cal-slot\"></div>",
+    "restaurant": "<div class=\"pin\"></div>\n            <div class=\"ring\"></div><div class=\"ring\"></div>",
+    "travel": "<div class=\"path\"></div>\n            <div class=\"plane\">&#9992;</div>",
+    "voicemail": "<div class=\"msg-line\"></div><div class=\"msg-line\"></div><div class=\"msg-line\"></div><div class=\"msg-line\"></div>",
+    "analytics": "<div class=\"bar\"></div><div class=\"bar\"></div><div class=\"bar\"></div><div class=\"bar\"></div><div class=\"bar\"></div>",
+    "sentiment": "<div class=\"face\">\n              <div class=\"eye left\"></div>\n              <div class=\"eye right\"></div>\n              <div class=\"mouth\"></div>\n            </div>\n            <div class=\"highlight\"></div>",
+    "coach": "<div class=\"bubble main\"></div>\n            <div class=\"bubble whisper\">\n              <div class=\"dot-typing\"><span></span><span></span><span></span></div>\n            </div>",
+    "language": "<div class=\"text-block left\"></div>\n            <div class=\"arrow-bridge\"></div>\n            <div class=\"text-block right\"></div>",
+    "legal": "<div class=\"shield-icon\"></div>\n            <div class=\"gavel\"></div>\n            <div class=\"gavel-base\"></div>",
+    "elder": "<div class=\"ecg-line\">\n              <div class=\"ecg-path\"></div>\n              <div class=\"ecg-peak\"></div><div class=\"ecg-peak\"></div><div class=\"ecg-peak\"></div><div class=\"ecg-peak\"></div>\n            </div>\n            <div class=\"alert-dot\"></div>",
+    "wellness": "<div class=\"phone-outline\"></div>\n            <div class=\"check\"></div>",
+    "medication": "<div class=\"pill-icon\"></div>\n            <div class=\"clock-icon\">\n              <div class=\"clock-hand\"></div>\n            </div>",
+    "numlock": "<div class=\"padlock-shackle\"></div>\n            <div class=\"padlock-body\"></div>\n            <div class=\"padlock-hole\"></div>",
+    "verify": "<div class=\"scan-frame\"></div>\n            <div class=\"scan-extra\"></div>\n            <div class=\"v-scan-line\"></div>\n            <div class=\"badge-v\"></div>",
+    "privacy": "<div class=\"num-row\">\n              <span class=\"num-char\">5</span>\n              <span class=\"num-char\">5</span>\n              <span class=\"num-char\">5</span>\n              <span class=\"num-char\">-</span>\n              <span class=\"num-char\">0</span>\n              <span class=\"num-char\">1</span>\n              <span class=\"num-char\">2</span>\n              <span class=\"num-char\">3</span>\n            </div>\n            <div class=\"mask-overlay\" style=\"margin-top: 20px;\">\n              <div class=\"mask-dot\"></div><div class=\"mask-dot\"></div><div class=\"mask-dot\"></div><div class=\"mask-dot\"></div>\n            </div>"
+  };
+
+  function hash32(str){ var h=5381; for(var i=0;i<str.length;i++){ h=((h<<5)+h+str.charCodeAt(i))|0; } return Math.abs(h); }
+
+  var _io = null;
+  function attachObserver(){
+    if (_io) _io.disconnect();
+    _io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ en.target.classList.toggle('in-view', en.isIntersecting); });
+    }, { rootMargin: '120px 0px', threshold: 0 });
+    document.querySelectorAll('.l1-card').forEach(function(c){ _io.observe(c); });
+  }
+
+  function visualFor(s){
+    var viz = VIZ_MAP[s.id] || 'verify';
+    var inner = VIZ_HTML[viz] || '';
+    if(!inner) return '';
+    // stable phase jitter via animation-delay on the container
+    var h = hash32(s.id);
+    var delay = -((h % 150) / 100).toFixed(2) + 's';
+    return '<div class="l1-visual viz-'+viz+'" style="--viz-delay:'+delay+'" aria-hidden="true">' + inner + '</div>';
+  }
+
+  function cardHTML(s){
+    var blocker = (s.ready==='pending' || s.ready==='concept') && s.blocker
+      ? '<div class="l1-blocker"><span class="l1-detail-label">Unlocks with</span><div class="l1-blocker-body">'+esc(s.blocker)+'</div></div>' : '';
+    var moatClass = s.moat ? ' moat-'+s.moat.toLowerCase() : '';
+    var primDots = (s.prims||[s.prim]).map(function(p){
+      return '<span class="l1-prim-dot prim-'+p.toLowerCase()+'" title="'+esc(PRIM_LABEL[p]||p)+'">'+esc(PRIM_ABBR[p]||p.slice(0,3))+'</span>';
+    }).join('');
+    var visual = visualFor(s);
+    return '<div class="l1-card'+moatClass+'" data-id="'+esc(s.id)+'">'
+      + visual
+      + '<div class="l1-card-row1">'
+        + '<div class="l1-card-name">'+esc(s.name)+'</div>'
+        + '<span class="l1-card-ready '+s.ready+'"><span class="l1-dot"></span>'+READY_LABELS[s.ready]+'</span>'
+      + '</div>'
+      + '<div class="l1-card-desc"><span class="l1-desc-short">'+esc(trunc(s.mech,130))+'</span><span class="l1-desc-full">'+esc(s.mech)+'</span></div>'
+      + '<div class="l1-prim-row">'+primDots+'</div>'
+      + '<div class="l1-detail"><div class="l1-detail-inner">'
+        + (s.moat?'<div class="l1-detail-moat moat-'+s.moat.toLowerCase()+'"><span class="l1-detail-moat-dot"></span>'+esc(s.moat)+' moat</div>':'')
+        + '<div class="l1-detail-row"><span class="l1-detail-label">Example use cases</span>'+esc(s.uses)+'</div>'
+        + '<div class="l1-detail-row"><span class="l1-detail-label">Why only we can do this</span>'+esc(s.moat_note)+'</div>'
+        + blocker
+      + '</div></div>'
+    + '</div>';
+  }
+
+  var activeView = 'cards';
+  var sortCol = 'prim';
+  var sortDir = 1;
+  var activeGroup = 'job';
+  var activeReady = new Set(['live','ready','pending','concept']);
+  var activeMoat = new Set(['Identity','Data','Network']);
+
+  var GROUP_DEFS = {
+    prim: { keys: PRIM_ORDER, label: PRIM_LABEL, field: 'prim' },
+    job: {
+      keys: ['Verify','Reach','Protect','Respond','Orchestrate','Sense'],
+      label: {Verify:'For verification', Reach:'For outreach', Protect:'For protection', Respond:'For response', Orchestrate:'For orchestration', Sense:'For intelligence'},
+      field: 'job'
+    },
+    moat: {
+      keys: ['Identity','Data','Network'],
+      label: {Identity:'Identity moat', Data:'Data moat', Network:'Network moat'},
+      field: 'moat'
+    }
+  };
+
+  function applyFilters(list){
+    return list.filter(function(s){
+      if (activeTier!=='all' && s.tier!==activeTier) return false;
+      if (activeReady.size === 0) return false;
+      if (!activeReady.has(s.ready)) return false;
+      if (activeMoat.size === 0) return false;
+      if (s.moat && !activeMoat.has(s.moat)) return false;
+      return true;
+    });
+  }
+
+  function render(){
+    var container = document.getElementById('l1Sections');
+    if(!container) return;
+    var filtered = applyFilters(SKILLS);
+
+    // update readiness counts — filtered by tier only (so toggling readiness shows tier-filtered totals)
+    var tierFiltered = activeTier==='all' ? SKILLS : SKILLS.filter(function(s){return s.tier===activeTier;});
+    var rCounts = {all: tierFiltered.length, live:0, ready:0, pending:0, concept:0};
+    tierFiltered.forEach(function(s){rCounts[s.ready]=(rCounts[s.ready]||0)+1;});
+    ['live','ready','pending','concept'].forEach(function(k){
+      var el = document.querySelector('[data-rcount="'+k+'"]'); if(el) el.textContent = rCounts[k];
+    });
+    // moat counts scale with tier too
+    var mCounts = {Identity:0, Data:0, Network:0};
+    tierFiltered.forEach(function(s){ if(s.moat && s.moat in mCounts) mCounts[s.moat]++; });
+    ['Identity','Data','Network'].forEach(function(k){
+      var el = document.querySelector('[data-mcount="'+k+'"]'); if(el) el.textContent = mCounts[k];
+    });
+
+    // render grouping sidebar
+    renderGroupNav(filtered);
+
+    if (activeView === 'table') {
+      container.innerHTML = renderTable(filtered);
+      bindTableSort();
+    } else {
+      var def = GROUP_DEFS[activeGroup];
+      container.innerHTML = def.keys.map(function(k){
+        var skills = filtered.filter(function(s){return s[def.field]===k;});
+        var cards = skills.length
+          ? '<div class="l1-cards">'+skills.map(cardHTML).join('')+'</div>'
+          : '<div class="l1-section-empty">No skills in this view.</div>';
+        return '<section class="l1-section" id="sec-'+esc(k)+'" data-group="'+esc(k)+'">'
+          + '<div class="l1-section-header"><div class="l1-section-name">'+esc(def.label[k]||k)+'</div><div class="l1-section-count">'+skills.length+' skills</div></div>'
+          + cards + '</section>';
+      }).join('');
+      container.querySelectorAll('.l1-card').forEach(function(card){
+        card.addEventListener('click', function(e){
+          e.stopPropagation();
+          var willOpen = !card.classList.contains('open');
+          container.querySelectorAll('.l1-card.open').forEach(function(c){ if(c!==card) c.classList.remove('open'); });
+          card.classList.toggle('open', willOpen);
+        });
+      });
+      attachObserver();
+    }
+  }
+
+  function renderGroupNav(filtered){
+    var nav = document.getElementById('groupNav');
+    if(!nav) return;
+    var def = GROUP_DEFS[activeGroup];
+    var counts = {}; def.keys.forEach(function(k){counts[k]=0;});
+    filtered.forEach(function(s){ var v=s[def.field]; if(v in counts) counts[v]++; });
+    nav.innerHTML = def.keys.map(function(k){
+      return '<button class="filter-chip" data-group-key="'+esc(k)+'">'+esc(def.label[k]||k)+' <span class="chip-count">'+counts[k]+'</span></button>';
+    }).join('');
+    nav.querySelectorAll('.filter-chip').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var k = btn.dataset.groupKey;
+        var sec = document.getElementById('sec-'+k);
+        if(sec) sec.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+  }
+
+  function renderTable(list){
+    var ready_rank = {live:0, ready:1, pending:2, concept:3};
+    var tier_rank = {exclusive:0, advantaged:1, commodity:2};
+    var prim_rank = {}; PRIM_ORDER.forEach(function(p,i){prim_rank[p]=i;});
+    var sorted = list.slice().sort(function(a,b){
+      var va, vb;
+      if (sortCol==='prim') { va=prim_rank[a.prim]; vb=prim_rank[b.prim]; }
+      else if (sortCol==='name') { va=a.name.toLowerCase(); vb=b.name.toLowerCase(); }
+      else if (sortCol==='job') { va=a.job; vb=b.job; }
+      else if (sortCol==='moat') { va=a.moat||''; vb=b.moat||''; }
+      else if (sortCol==='ready') { va=ready_rank[a.ready]; vb=ready_rank[b.ready]; }
+      else if (sortCol==='tier') { va=tier_rank[a.tier]; vb=tier_rank[b.tier]; }
+      if (va<vb) return -1*sortDir;
+      if (va>vb) return 1*sortDir;
+      // secondary: name
+      return a.name.localeCompare(b.name);
+    });
+    var arrow = function(c){ return sortCol===c ? (sortDir===1?'&#9650;':'&#9660;') : ''; };
+    var head = '<thead><tr>'
+      + '<th data-col="name" class="'+(sortCol==='name'?'sorted':'')+'">Skill <span class="l1-sort-arrow">'+arrow('name')+'</span></th>'
+      + '<th data-col="prim" class="'+(sortCol==='prim'?'sorted':'')+'">Primitive <span class="l1-sort-arrow">'+arrow('prim')+'</span></th>'
+      + '<th data-col="job" class="'+(sortCol==='job'?'sorted':'')+'">For <span class="l1-sort-arrow">'+arrow('job')+'</span></th>'
+      + '<th data-col="moat" class="'+(sortCol==='moat'?'sorted':'')+'">Moat <span class="l1-sort-arrow">'+arrow('moat')+'</span></th>'
+      + '<th data-col="ready" class="'+(sortCol==='ready'?'sorted':'')+'">Readiness <span class="l1-sort-arrow">'+arrow('ready')+'</span></th>'
+      + '<th data-col="tier" class="'+(sortCol==='tier'?'sorted':'')+'">Differentiation <span class="l1-sort-arrow">'+arrow('tier')+'</span></th>'
+    + '</tr></thead>';
+    var body = '<tbody>'+sorted.map(function(s){
+      return '<tr>'
+        + '<td class="l1-td-name" title="'+esc(s.mech)+'">'+esc(s.name)+'</td>'
+        + '<td class="l1-prim-cell">'+esc(PRIM_LABEL[s.prim])+'</td>'
+        + '<td>'+esc((JOB_VERB[s.job]||s.job))+'</td>'
+        + '<td>'+esc(s.moat||'')+'</td>'
+        + '<td><span class="l1-pill-sm"><span class="l1-dot" style="background:'+readyColor(s.ready)+'"></span>'+READY_LABELS[s.ready]+'</span></td>'
+        + '<td><span class="l1-tier-badge '+s.tier+'">'+tierLabel(s.tier)+'</span></td>'
+      + '</tr>';
+    }).join('')+'</tbody>';
+    return '<div class="l1-table-wrap"><table class="l1-table">'+head+body+'</table></div>';
+  }
+
+  function readyColor(r){ return {live:'#047857', ready:'#0d9488', pending:'#b45309', concept:'#a8a29e'}[r]; }
+  function tierLabel(t){ return {exclusive:'Only us', advantaged:'We do it better', commodity:'Commodity'}[t]; }
+
+  function bindTableSort(){
+    document.querySelectorAll('.l1-table th[data-col]').forEach(function(th){
+      th.addEventListener('click', function(){
+        var c = th.dataset.col;
+        if (sortCol===c) sortDir = -sortDir; else { sortCol = c; sortDir = 1; }
+        render();
+      });
+    });
+  }
+
+  document.querySelectorAll('.l1-tab').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.l1-tab').forEach(function(b){b.classList.remove('active');});
+      btn.classList.add('active');
+      activeTier = btn.dataset.tier;
+      render();
+    });
+  });
+
+  document.querySelectorAll('.l1-vm').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.l1-vm').forEach(function(b){b.classList.remove('active');});
+      btn.classList.add('active');
+      activeView = btn.dataset.view;
+      render();
+      // hide sidebar nav in table mode for full width
+      var sb = document.getElementById('primitiveNav');
+      if (sb) sb.style.display = (activeView==='table') ? 'none' : '';
+    });
+  });
+
+
+
+  document.querySelectorAll('.l1-ready-btn:not(.l1-moat-btn)').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var k = btn.dataset.ready;
+      if (activeReady.has(k)) activeReady.delete(k); else activeReady.add(k);
+      btn.classList.toggle('active');
+      render();
+    });
+  });
+  var clearBtn = document.getElementById('clearReady');
+  if (clearBtn) clearBtn.addEventListener('click', function(){
+    activeReady = new Set(['live','ready','pending','concept']);
+    document.querySelectorAll('.l1-ready-btn:not(.l1-moat-btn)').forEach(function(b){b.classList.add('active');});
+    render();
+  });
+
+  document.querySelectorAll('.l1-moat-btn').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.stopImmediatePropagation();
+      var k = btn.dataset.moat;
+      if (activeMoat.has(k)) activeMoat.delete(k); else activeMoat.add(k);
+      btn.classList.toggle('active');
+      render();
+    }, true);
+  });
+  var clearMoatBtn = document.getElementById('clearMoat');
+  if (clearMoatBtn) clearMoatBtn.addEventListener('click', function(){
+    activeMoat = new Set(['Identity','Data','Network']);
+    document.querySelectorAll('.l1-moat-btn').forEach(function(b){b.classList.add('active');});
+    render();
+  });
+
+
+  
+  // Color dot-toggles by data-color
+  document.querySelectorAll('.l1-ready-btn[data-color]').forEach(function(btn){
+    btn.style.setProperty('--dot-c', btn.dataset.color);
+  });
+
+  fetch('skills.json').then(function(r){return r.json();}).then(function(data){
+    SKILLS = data; render();
+  });
+})();
+</script>
+
+</body>
+</html>

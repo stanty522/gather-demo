@@ -1,0 +1,1869 @@
+[
+ {
+  "id": "scam_call_protection",
+  "name": "Scam Call Protection",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Fraud",
+   "Identity"
+  ],
+  "job": "Protect",
+  "moat": "Network",
+  "tier": "advantaged",
+  "ready": "ready",
+  "blocker": "",
+  "mech": "Listens to the live call audio at the carrier's voice switch. Runs the transcript through a manipulation-tactics classifier in real time. Cross-checks who is actually calling against the carrier-verified caller ID.",
+  "uses": "Eldercare scam interception; banking fraud prevention mid-call; romance-scam alerting",
+  "moat_note": "Twilio sees only its own VoIP calls; cannot tap PSTN-to-PSTN media path. App-layer apps cannot insert into the call without 3-way bridging that drops fidelity."
+ },
+ {
+  "id": "voice_verification",
+  "name": "Voice Verification",
+  "prim": "Identity",
+  "prims": [
+   "Identity",
+   "Voice",
+   "Fraud"
+  ],
+  "job": "Verify",
+  "moat": "Identity",
+  "tier": "exclusive",
+  "ready": "live",
+  "blocker": "",
+  "mech": "Pulls a 3-second voice sample from the live call. Compares it against the subscriber's voiceprint, which the carrier built from years of legitimate call history. Confirms whether the speaker matches the registered account holder.",
+  "uses": "Senior protection (cloned-voice grandparent scam); high-value transaction voice-gate; political deepfake defense",
+  "moat_note": "No app vendor has lifetime call-history voiceprints. Carriers do."
+ },
+ {
+  "id": "financial_fraud_monitor",
+  "name": "Financial Fraud Monitor",
+  "prim": "Fraud",
+  "prims": [
+   "Fraud",
+   "Voice",
+   "Identity"
+  ],
+  "job": "Protect",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "ready",
+  "blocker": "",
+  "mech": "Streams the live call transcript. Tags any spoken credit card numbers, account numbers, CVVs, gift card serials, or wire instructions. Confirms the subscriber is the one speaking, not someone coercing them.",
+  "uses": "Dementia-protection (spouse alerts); elder financial abuse; corporate wire fraud",
+  "moat_note": "Requires live in-band media access \u2014 Twilio cannot tap PSTN; Truecaller has no media access at all."
+ },
+ {
+  "id": "emergency_call_block",
+  "name": "Emergency Call Block",
+  "prim": "Fraud",
+  "prims": [
+   "Fraud",
+   "Voice",
+   "Identity"
+  ],
+  "job": "Protect",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "ready",
+  "blocker": "",
+  "mech": "Sends a hangup command through the carrier's call control to drop both sides of the call within half a second. Triggered only when the scam score crosses the threshold. Notifies the subscriber's enrolled emergency contact.",
+  "uses": "Kill-switch on confirmed scam; coerced-elder protection; teen safety",
+  "moat_note": "Only carriers can drop a live PSTN call. Apps can only mute the speaker on the user's device."
+ },
+ {
+  "id": "link_screening",
+  "name": "Link Screening",
+  "prim": "Fraud",
+  "prims": [
+   "Fraud",
+   "Messaging",
+   "Security",
+   "Identity"
+  ],
+  "job": "Protect",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "pending",
+  "blocker": "SMSC-level message interception at partner carrier",
+  "mech": "Intercepts inbound text messages at the carrier's SMS center before they reach the device. Detonates any URLs in a sandbox and checks them against threat-intelligence feeds. Reputation-checks the sender's number.",
+  "uses": "Banking phishing block; package-delivery scam SMS; teen scam protection",
+  "moat_note": "Requires SMSC-level interception. Apps only see SMS post-delivery (iOS sandboxes them entirely)."
+ },
+ {
+  "id": "threat_isolation",
+  "name": "Threat Isolation",
+  "prim": "Data",
+  "prims": [
+   "Data",
+   "Security",
+   "Voice"
+  ],
+  "job": "Protect",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "pending",
+  "blocker": "PCRF slice control + 5G SA radio on partner network",
+  "mech": "Moves the suspicious call or session onto a quarantine network slice that's separated from the subscriber's normal traffic. Turns on deep packet inspection and routes call media through a monitoring proxy.",
+  "uses": "Suspicious-caller honeypotting; malware-suspect device containment",
+  "moat_note": "PCRF + slicing is 5G core function; no app vendor has policy control."
+ },
+ {
+  "id": "spam_blocker",
+  "name": "Spam Blocker",
+  "prim": "Fraud",
+  "prims": [
+   "Fraud",
+   "Voice"
+  ],
+  "job": "Protect",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "pending",
+  "blocker": "Pre-ring routing control at partner S-CSCF",
+  "mech": "Looks up the incoming number in the carrier's call-pattern database. Cross-references network-level robocall fingerprints. Blocks or diverts the call before the subscriber's phone ever rings.",
+  "uses": "Robocall elimination; senior protection; SMB inbox hygiene",
+  "moat_note": "Carrier-aggregated patterns beat any single-app dataset. Pre-ring blocking only possible network-side."
+ },
+ {
+  "id": "whos_calling",
+  "name": "Who's Calling",
+  "prim": "Identity",
+  "prims": [
+   "Identity",
+   "Fraud"
+  ],
+  "job": "Verify",
+  "moat": "Identity",
+  "tier": "advantaged",
+  "ready": "ready",
+  "blocker": "",
+  "mech": "Looks up the caller's number in the carrier subscriber registry to get the registered name. Checks the subscriber's call history for prior contact. Flags any spoofing or recent SIM swap.",
+  "uses": "Unknown-number identification; sales lead qualification; eldercare",
+  "moat_note": "Truecaller has crowdsourced data + needs app install; carrier has authoritative HLR data without app."
+ },
+ {
+  "id": "smart_call_screening",
+  "name": "Smart Call Screening",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Identity"
+  ],
+  "job": "Reach",
+  "moat": "Network",
+  "tier": "advantaged",
+  "ready": "ready",
+  "blocker": "",
+  "mech": "Diverts the inbound call to a network-side AI before it reaches the subscriber's phone. The AI answers, asks who's calling and why, and only bridges the real ones through.",
+  "uses": "Personal AI receptionist; SMB front desk; teen safety",
+  "moat_note": "Apps require call-forwarding setup per device; carrier deploys instantly to all subscribers."
+ },
+ {
+  "id": "intent_detection",
+  "name": "Intent Detection",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Fraud"
+  ],
+  "job": "Sense",
+  "moat": "Network",
+  "tier": "advantaged",
+  "ready": "ready",
+  "blocker": "",
+  "mech": "Transcribes the screening dialog. Classifies the caller's intent (emergency, sales, scam, personal, booking). Adjusts where the call routes based on the result.",
+  "uses": "Receptionist routing; emergency triage; SMB lead routing",
+  "moat_note": "Requires inline media tap during screening. App-layer can only post-hoc analyze recordings."
+ },
+ {
+  "id": "caller_background_check",
+  "name": "Caller Background Check",
+  "prim": "Identity",
+  "prims": [
+   "Identity",
+   "Fraud"
+  ],
+  "job": "Verify",
+  "moat": "Identity",
+  "tier": "advantaged",
+  "ready": "ready",
+  "blocker": "",
+  "mech": "Resolves the calling number to a registered identity using the cross-carrier number-portability registry. Enriches with public records, business registries, and sanctions lists. Reads the carrier-issued caller-verification level.",
+  "uses": "SMB lead vetting; dating safety; financial-services KYC",
+  "moat_note": "Authoritative MSISDN-to-identity binding only carriers can resolve."
+ },
+ {
+  "id": "smart_routing",
+  "name": "Smart Routing",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Presence",
+   "Identity"
+  ],
+  "job": "Reach",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "pending",
+  "blocker": "iFC rule injection at partner HSS",
+  "mech": "Tells the carrier's call control where to send incoming calls based on who's calling, the time of day, and calendar state. Checks which device is currently idle. Confirms the routing rule applies to this caller.",
+  "uses": "Multi-device household routing; SMB on-call rotation; family-line routing",
+  "moat_note": "Network-side routing means no device app needed; apps require always-on background process."
+ },
+ {
+  "id": "voicemail_digest",
+  "name": "Voicemail Digest",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Messaging"
+  ],
+  "job": "Sense",
+  "moat": "Network",
+  "tier": "advantaged",
+  "ready": "ready",
+  "blocker": "",
+  "mech": "Pulls voicemails from the carrier's voicemail platform. Transcribes and summarizes them. Pushes the digest to the subscriber as a text message.",
+  "uses": "Eldercare; busy professional; SMB",
+  "moat_note": "Voicemail platform is carrier-owned; visual voicemail apps only mirror, don't replace."
+ },
+ {
+  "id": "priority_line",
+  "name": "Priority Line",
+  "prim": "Data",
+  "prims": [
+   "Data",
+   "Voice",
+   "Presence"
+  ],
+  "job": "Respond",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "pending",
+  "blocker": "PCRF/PCF QoS control at partner carrier",
+  "mech": "Tells the carrier's policy controller to assign the subscriber's voice traffic to a high-priority lane with guaranteed bandwidth. Prioritizes call setup signaling. Verifies the subscriber's device is on a 5G network that supports slicing.",
+  "uses": "Telemedicine; first responder; executive critical calls",
+  "moat_note": "QCI/slice control is carrier-only. Twilio cannot guarantee PSTN call quality."
+ },
+ {
+  "id": "sms_whatsapp",
+  "name": "SMS & WhatsApp",
+  "prim": "Messaging",
+  "prims": [
+   "Messaging",
+   "Identity"
+  ],
+  "job": "Reach",
+  "moat": "Identity",
+  "tier": "advantaged",
+  "ready": "ready",
+  "blocker": "",
+  "mech": "Sends outbound texts from the carrier's SMS center as if the subscriber sent them, with no device required. Adds verified-sender attestation for RCS. Maintains one inbox across SMS, RCS, and OTT channels tied to the subscriber's identity.",
+  "uses": "Multi-channel personal assistant; SMB customer comms",
+  "moat_note": "Truecaller and apps cannot send SMS as subscriber identity from another device."
+ },
+ {
+  "id": "hold_for_you",
+  "name": "Wait on Hold for You",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Messaging"
+  ],
+  "job": "Reach",
+  "moat": "Identity",
+  "tier": "advantaged",
+  "ready": "live",
+  "blocker": "",
+  "mech": "Places an outbound call from the subscriber's real number so the receiving business sees a verified caller ID. Listens to the call audio to detect when a human picks up versus an IVR. Texts the subscriber to hand off the call.",
+  "uses": "Customer service hold; insurance claims; benefits enrollment",
+  "moat_note": "Apps must originate from VoIP and lose carrier ID; carriers can place call AS subscriber natively."
+ },
+ {
+  "id": "phone_tree_navigator",
+  "name": "Skip the Phone Tree",
+  "prim": "Voice",
+  "prims": [
+   "Voice"
+  ],
+  "job": "Reach",
+  "moat": "Network",
+  "tier": "advantaged",
+  "ready": "live",
+  "blocker": "",
+  "mech": "Places an outbound call from the subscriber's number. Sends DTMF tones at the carrier's session border controller based on detected IVR menus. Listens for menu prompts to map the tree.",
+  "uses": "All hold/IVR use cases; medical billing; gov services",
+  "moat_note": "DTMF + media tap requires SIP-level access. App workarounds break on regional IVRs."
+ },
+ {
+  "id": "bill_negotiator",
+  "name": "Lower Your Bills",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Identity"
+  ],
+  "job": "Reach",
+  "moat": "Identity",
+  "tier": "advantaged",
+  "ready": "ready",
+  "blocker": "STIR/SHAKEN A-attestation as subscriber",
+  "mech": "Places the call from the subscriber's real number so the business sees the actual account holder. Presents full caller-verification attestation proving the subscriber authorized the agent. Runs negotiation policy against the live call transcript.",
+  "uses": "Cable/internet/insurance/phone bill renegotiation",
+  "moat_note": "Bill negotiation REQUIRES caller ID = account holder. App vendors cannot do this without 3-way conferencing the user in."
+ },
+ {
+  "id": "cancel_anything",
+  "name": "Cancel Anything",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Identity"
+  ],
+  "job": "Reach",
+  "moat": "Identity",
+  "tier": "advantaged",
+  "ready": "ready",
+  "blocker": "STIR/SHAKEN A-attestation as subscriber",
+  "mech": "Calls from the subscriber's real number. Passes the account-verification gate using one-time codes intercepted via the messaging primitive. Handles the retention loop with negotiation policy.",
+  "uses": "Gym, subscription, insurance, telco cancellations",
+  "moat_note": "Same as bill_negotiator \u2014 requires acting AS subscriber with verified identity, not via 3-way call."
+ },
+ {
+  "id": "task_planner",
+  "name": "Task Planner",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Messaging",
+   "Identity"
+  ],
+  "job": "Orchestrate",
+  "moat": "Identity",
+  "tier": "commodity",
+  "ready": "ready",
+  "blocker": "",
+  "mech": "Transcribes the subscriber's voice dump into a structured task list. Sends SMS confirmations as work progresses. Logs every action against the subscriber's identity for audit.",
+  "uses": "Personal productivity; SMB ops",
+  "moat_note": "Identity-bound action ledger requires carrier-anchored auth."
+ },
+ {
+  "id": "dispute_charge",
+  "name": "Dispute a Charge",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Identity"
+  ],
+  "job": "Reach",
+  "moat": "Identity",
+  "tier": "advantaged",
+  "ready": "ready",
+  "blocker": "STIR/SHAKEN A-attestation as subscriber",
+  "mech": "Calls the bank from the subscriber's real number. Passes the bank's voice-biometric gate because the caller ID and attestation are real. Runs the dispute script.",
+  "uses": "Credit card disputes; bank charge reversals",
+  "moat_note": "Banks reject calls that don't pass caller-ID + voice-bio. App vendors fail this gate."
+ },
+ {
+  "id": "get_refund",
+  "name": "Get Your Refund",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Messaging"
+  ],
+  "job": "Reach",
+  "moat": "Identity",
+  "tier": "commodity",
+  "ready": "ready",
+  "blocker": "",
+  "mech": "Calls the merchant from the subscriber's real number. Negotiates with customer service live. Follows up by SMS if the call doesn't close it.",
+  "uses": "Consumer refunds; subscription cancellations",
+  "moat_note": "Same \u2014 caller ID = account holder is mandatory at most CS lines."
+ },
+ {
+  "id": "invoice_followup",
+  "name": "Invoice Follow-Up",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Identity",
+   "Messaging"
+  ],
+  "job": "Reach",
+  "moat": "Identity",
+  "tier": "advantaged",
+  "ready": "ready",
+  "blocker": "Verified-business attestation",
+  "mech": "Calls the debtor from the SMB owner's real business number so the client recognizes who's calling. Presents the registered-business attestation so it doesn't display as spam. Falls back to SMS if no answer.",
+  "uses": "SMB collections; freelancer invoices",
+  "moat_note": "Display-name + verified-caller-as-business is carrier function (RCS Business Messaging + STIR)."
+ },
+ {
+  "id": "persistent_followup",
+  "name": "Persistent Follow-Up",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Presence",
+   "Messaging"
+  ],
+  "job": "Reach",
+  "moat": "Identity",
+  "tier": "commodity",
+  "ready": "ready",
+  "blocker": "",
+  "mech": "Schedules recurring outbound calls from the subscriber's number on a defined cadence. Only attempts when the destination is reachable. Falls back to SMS after a set number of voice attempts.",
+  "uses": "Sales follow-up; collections; medical compliance",
+  "moat_note": "Presence (reachability) data is carrier-only; cuts wasted attempt rate substantially."
+ },
+ {
+  "id": "multi_quote",
+  "name": "Get Multiple Quotes",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Identity"
+  ],
+  "job": "Reach",
+  "moat": "Identity",
+  "tier": "commodity",
+  "ready": "ready",
+  "blocker": "",
+  "mech": "Originates multiple parallel outbound calls from the subscriber's number. Transcribes each leg live and extracts comparable structured quotes. The subscriber-as-caller identity means vendors return real prices, not lead-form prices.",
+  "uses": "Home services; insurance; medical procedures",
+  "moat_note": "Parallel outbound at carrier scale; apps would hit per-account rate limits or VoIP blocks."
+ },
+ {
+  "id": "find_available",
+  "name": "Find Who's Available",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Messaging"
+  ],
+  "job": "Reach",
+  "moat": "Identity",
+  "tier": "commodity",
+  "ready": "ready",
+  "blocker": "",
+  "mech": "Calls each candidate from the subscriber's number. Extracts availability slots from the response. Sends an SMS confirmation to the chosen vendor.",
+  "uses": "Restaurant booking; doctor/dentist; contractors",
+  "moat_note": "Caller ID = subscriber matters because some businesses block VoIP/anonymous numbers."
+ },
+ {
+  "id": "compare_prices",
+  "name": "Compare Prices",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Identity"
+  ],
+  "job": "Sense",
+  "moat": "Identity",
+  "tier": "commodity",
+  "ready": "ready",
+  "blocker": "",
+  "mech": "Places parallel outbound calls from the subscriber's number. Extracts prices from each call's transcript. Subscriber identity prevents vendor anti-bot rejection so the prices are real.",
+  "uses": "Insurance shopping; service shopping",
+  "moat_note": "Same as multi_quote."
+ },
+ {
+  "id": "call_transcription",
+  "name": "Call Transcription",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Identity"
+  ],
+  "job": "Sense",
+  "moat": "Network",
+  "tier": "commodity",
+  "ready": "live",
+  "blocker": "",
+  "mech": "Taps both sides of any call the subscriber is on at the carrier's session border controller. Runs speech recognition with speaker labeling. Binds the transcript to the subscriber's identity for access control.",
+  "uses": "All call-history use cases; CRM ingestion; medical records",
+  "moat_note": "Network-side capture works for PSTN, VoIP, mobile uniformly. Apps only capture VoIP or device-side recordings (with notification)."
+ },
+ {
+  "id": "call_notes",
+  "name": "Call Notes & Digest",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Messaging"
+  ],
+  "job": "Sense",
+  "moat": "Network",
+  "tier": "commodity",
+  "ready": "live",
+  "blocker": "",
+  "mech": "Takes the captured call audio and transcript. Summarizes with action items extracted. Pushes the digest by SMS or RCS.",
+  "uses": "Sales CRM; eldercare family briefing; medical",
+  "moat_note": "Carrier-side capture means no microphone permission, no battery drain, works across devices."
+ },
+ {
+  "id": "doctor_call_summary",
+  "name": "Doctor Call Summary",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Messaging"
+  ],
+  "job": "Sense",
+  "moat": "Network",
+  "tier": "commodity",
+  "ready": "ready",
+  "blocker": "",
+  "mech": "Captures the call with the doctor. Summarizes in medical-domain terms with terminology, dosing, and next steps. Shares with the subscriber and any designated family.",
+  "uses": "Eldercare; chronic disease management; pediatric",
+  "moat_note": "Capturing the FAR end of the call (doctor's voice) requires network tap. Phone apps only get the user's mic."
+ },
+ {
+  "id": "live_translation",
+  "name": "Live Translation",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Data"
+  ],
+  "job": "Reach",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "pending",
+  "blocker": "SBC media injection at partner SBC",
+  "mech": "Taps both call legs in real time. Runs speech recognition, translation, and text-to-speech, then injects the translated audio back into the call. Uses a network slice to keep round-trip latency under 200ms.",
+  "uses": "Cross-border family calls; ESL healthcare; SMB international sales",
+  "moat_note": "Real-time injection back into PSTN media path requires SBC-level access. Apps cannot insert audio into PSTN call."
+ },
+ {
+  "id": "hd_voice_slice",
+  "name": "HD Voice Slice",
+  "prim": "Data",
+  "prims": [
+   "Data",
+   "Voice",
+   "Presence"
+  ],
+  "job": "Respond",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "pending",
+  "blocker": "PCF codec policy at partner 5G core",
+  "mech": "Tells the policy controller to assign the call a wideband codec on a dedicated bearer. Negotiates full-band audio at call setup. Confirms the device is on 5G or VoLTE so slicing works.",
+  "uses": "Medical telephony; live translation; coaching",
+  "moat_note": "QoS + codec selection at call setup is IMS-only. OTT apps cannot influence PSTN codec."
+ },
+ {
+  "id": "live_coaching",
+  "name": "Live Coaching",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Data"
+  ],
+  "job": "Reach",
+  "moat": "Network",
+  "tier": "advantaged",
+  "ready": "pending",
+  "blocker": "SBC whisper-channel injection",
+  "mech": "Listens one-way to the subscriber's live call. Whispers prompts that only the subscriber can hear. Uses a network slice to keep prompt latency under 300ms so coaching feels real-time.",
+  "uses": "Sales coaching; difficult conversations; negotiations",
+  "moat_note": "One-way whisper-channel injection only carriers can do at PSTN layer. Apps require headset trickery."
+ },
+ {
+  "id": "live_trust_score",
+  "name": "Live Trust Score",
+  "prim": "Identity",
+  "prims": [
+   "Identity",
+   "Fraud",
+   "Voice"
+  ],
+  "job": "Verify",
+  "moat": "Identity",
+  "tier": "exclusive",
+  "ready": "ready",
+  "blocker": "",
+  "mech": "Combines caller attestation, line age, and number portability for an identity score. Adds real-time call-pattern and voice-deepfake scoring. Surfaces the result to the subscriber as a whisper or visual overlay.",
+  "uses": "High-stakes calls; eldercare; financial",
+  "moat_note": "Combining attestation + voice-bio + behavior in real time is multi-primitive \u2014 no app has all three."
+ },
+ {
+  "id": "date_coaching",
+  "name": "Date Coaching",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Identity"
+  ],
+  "job": "Reach",
+  "moat": "Network",
+  "tier": "advantaged",
+  "ready": "pending",
+  "blocker": "SBC whisper-channel injection",
+  "mech": "Taps the call audio. Generates conversational prompts in dating context, delivered via whisper channel. Restricts access to the subscriber only.",
+  "uses": "Consumer dating; social-anxiety support",
+  "moat_note": "Same whisper-channel requirement; carrier-only."
+ },
+ {
+  "id": "daily_checkin",
+  "name": "Daily Check-In",
+  "prim": "Presence",
+  "prims": [
+   "Presence",
+   "Voice",
+   "Messaging"
+  ],
+  "job": "Sense",
+  "moat": "Data",
+  "tier": "advantaged",
+  "ready": "ready",
+  "blocker": "",
+  "mech": "Polls the device's network state and last activity timestamps to see if the phone has been used in 24 hours. Places an outbound check-in call from a familiar family number. Falls back to SMS if no answer.",
+  "uses": "Eldercare; living alone; recovery monitoring",
+  "moat_note": "Network-level inactivity signals (no calls, no data, no SMS) only carriers see \u2014 apps can't tell you if the OTHER person's phone is dead."
+ },
+ {
+  "id": "family_911_alert",
+  "name": "911 Family Alert",
+  "prim": "Geolocation",
+  "prims": [
+   "Geolocation",
+   "Voice",
+   "Messaging"
+  ],
+  "job": "Respond",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "pending",
+  "blocker": "MSC emergency-call event feed + GMLC access",
+  "mech": "Receives a real-time event from the carrier's mobile switching center the moment the subscriber dials 911. Pulls the network-derived location at the moment of the dial. Pushes alerts to enrolled family contacts.",
+  "uses": "Eldercare; teen safety; chronic-condition",
+  "moat_note": "911 call event + GMLC location is core network telemetry. Apps cannot intercept 911 dialing."
+ },
+ {
+  "id": "isolation_watch",
+  "name": "Isolation Watch",
+  "prim": "Presence",
+  "prims": [
+   "Presence",
+   "Voice",
+   "Fraud"
+  ],
+  "job": "Sense",
+  "moat": "Data",
+  "tier": "exclusive",
+  "ready": "pending",
+  "blocker": "CDR feed from partner carrier",
+  "mech": "Maintains a 28-day rolling baseline of the subscriber's call and SMS volume. Counts outbound calls per day. Flags anomalous drops from baseline (e.g., zero outbound for five days when the norm is twelve per day).",
+  "uses": "Eldercare; mental health; recovery",
+  "moat_note": "Network-level CDR baseline is carrier-exclusive."
+ },
+ {
+  "id": "behavior_change_alerts",
+  "name": "Behavior Change Alerts",
+  "prim": "Presence",
+  "prims": [
+   "Presence",
+   "Voice",
+   "Fraud"
+  ],
+  "job": "Sense",
+  "moat": "Data",
+  "tier": "exclusive",
+  "ready": "pending",
+  "blocker": "CDR + in-call analytics feed",
+  "mech": "Monitors call duration, response latency, and time-of-day shifts. With consent, analyzes in-call speech for confusion or hesitation markers. Flags deviations from a 90-day baseline.",
+  "uses": "Cognitive decline early detection; depression monitoring",
+  "moat_note": "Cross-call behavioral baseline only carriers can build."
+ },
+ {
+  "id": "restricted_line",
+  "name": "Restricted Line",
+  "prim": "Device",
+  "prims": [
+   "Device",
+   "Voice",
+   "Messaging",
+   "Data"
+  ],
+  "job": "Orchestrate",
+  "moat": "Network",
+  "tier": "advantaged",
+  "ready": "pending",
+  "blocker": "S-CSCF policy rules at partner carrier",
+  "mech": "Sets a carrier policy that allows inbound and outbound calls only to a defined whitelist. Applies the same whitelist to SMS at the SMS center. Optionally restricts data destinations and bandwidth.",
+  "uses": "Child first phone; dementia patient; recovery support",
+  "moat_note": "Network-level allowlist with carrier enforcement. Parental-control apps depend on the user not uninstalling."
+ },
+ {
+  "id": "daily_brief",
+  "name": "Daily Brief",
+  "prim": "Presence",
+  "prims": [
+   "Presence",
+   "Voice",
+   "Messaging"
+  ],
+  "job": "Sense",
+  "moat": "Data",
+  "tier": "commodity",
+  "ready": "ready",
+  "blocker": "",
+  "mech": "Compiles a daily summary of the subscriber's phone activity, who called when. Adds call-history summarization. Sends to family via email or SMS.",
+  "uses": "Eldercare; remote family; care coordination",
+  "moat_note": "Activity log spanning all channels (voice/SMS/data) only at carrier."
+ },
+ {
+  "id": "chat_companion",
+  "name": "Chat Companion",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Messaging",
+   "Identity"
+  ],
+  "job": "Reach",
+  "moat": "Identity",
+  "tier": "commodity",
+  "ready": "ready",
+  "blocker": "",
+  "mech": "Places outbound conversational calls as a consistent companion persona. Maintains an SMS thread between calls. Uses a stable persona phone number across sessions for relational continuity.",
+  "uses": "Senior loneliness; mental wellness",
+  "moat_note": "Persistent persona MSISDN + cross-channel state requires carrier-anchored identity."
+ },
+ {
+  "id": "community_match",
+  "name": "Community Match",
+  "prim": "Presence",
+  "prims": [
+   "Presence",
+   "Identity",
+   "Voice",
+   "Geolocation"
+  ],
+  "job": "Reach",
+  "moat": "Identity",
+  "tier": "advantaged",
+  "ready": "concept",
+  "blocker": "",
+  "mech": "Matches subscribers by interest profile from an opted-in directory. Brokers an introduction call between matched numbers without exposing them to each other. Optionally filters by proximity.",
+  "uses": "Senior community; new-mover networking",
+  "moat_note": "Cross-subscriber matchmaking + number masking is carrier function."
+ },
+ {
+  "id": "book_doctor",
+  "name": "Book a Doctor",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Identity",
+   "Messaging"
+  ],
+  "job": "Reach",
+  "moat": "Identity",
+  "tier": "advantaged",
+  "ready": "ready",
+  "blocker": "",
+  "mech": "Calls the provider from the subscriber's real number. Presents the insurance member ID via carrier-bound auth so it passes the provider's gate. Sends an SMS confirmation to the subscriber.",
+  "uses": "Healthcare access; SDOH; eldercare",
+  "moat_note": "Caller ID + insurance ID together is carrier-mediated trust chain."
+ },
+ {
+  "id": "refill_prescriptions",
+  "name": "Refill Prescriptions",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Messaging"
+  ],
+  "job": "Reach",
+  "moat": "Identity",
+  "tier": "advantaged",
+  "ready": "ready",
+  "blocker": "",
+  "mech": "Calls the pharmacy IVR from the subscriber's real number. Sends DTMF tones for the Rx number and date of birth. Forwards the pharmacy's ready-text to the subscriber.",
+  "uses": "Chronic care; eldercare",
+  "moat_note": "Pharmacy IVR auth requires real subscriber caller ID."
+ },
+ {
+  "id": "insurance_check",
+  "name": "Insurance Check",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Identity"
+  ],
+  "job": "Verify",
+  "moat": "Identity",
+  "tier": "advantaged",
+  "ready": "ready",
+  "blocker": "Carrier-bound auth for insurer voice-bio gate",
+  "mech": "Calls the insurer from the subscriber's real number. Passes the insurer's voice-biometric gate because the caller ID and attestation are real. Extracts coverage details from the response.",
+  "uses": "Pre-visit eligibility; surprise-bill prevention",
+  "moat_note": "Insurer voice-bio gates only pass with real subscriber identity."
+ },
+ {
+  "id": "care_team_sharing",
+  "name": "Care Team Sharing",
+  "prim": "Presence",
+  "prims": [
+   "Presence",
+   "Identity",
+   "Messaging",
+   "Voice"
+  ],
+  "job": "Orchestrate",
+  "moat": "Identity",
+  "tier": "advantaged",
+  "ready": "ready",
+  "blocker": "",
+  "mech": "Issues subscriber-authorized access tokens scoped to specific family members or clinicians. Distributes call summaries to authorized recipients via SMS. Audits every share.",
+  "uses": "Eldercare; chronic disease; pediatric",
+  "moat_note": "Identity-bound consent + audit chain only at carrier auth layer."
+ },
+ {
+  "id": "family_task_sharing",
+  "name": "Family Task Sharing",
+  "prim": "Presence",
+  "prims": [
+   "Presence",
+   "Identity",
+   "Messaging",
+   "Voice"
+  ],
+  "job": "Orchestrate",
+  "moat": "Identity",
+  "tier": "commodity",
+  "ready": "ready",
+  "blocker": "",
+  "mech": "Binds tasks to a family-group identity. Notifies assignees by SMS. Escalates by phone call if SMS goes unread.",
+  "uses": "Multi-sibling eldercare; co-parenting",
+  "moat_note": "Group identity + multi-channel escalation requires carrier-side identity graph."
+ },
+ {
+  "id": "urgency_triage",
+  "name": "Urgency Triage",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Fraud"
+  ],
+  "job": "Sense",
+  "moat": "Network",
+  "tier": "advantaged",
+  "ready": "ready",
+  "blocker": "",
+  "mech": "AI answers the business inbound and transcribes the caller's statement. Classifies urgency (emergency vs. quote vs. sales). Routes based on urgency to owner, voicemail, or next-day callback.",
+  "uses": "Plumbers, HVAC, locksmiths, vets",
+  "moat_note": "Pre-ring intent detection only at network IVR layer."
+ },
+ {
+  "id": "book_dispatch",
+  "name": "Book and Dispatch",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Messaging",
+   "Identity"
+  ],
+  "job": "Reach",
+  "moat": "Identity",
+  "tier": "advantaged",
+  "ready": "ready",
+  "blocker": "Verified-business attestation",
+  "mech": "Calls the customer back from the registered business number to confirm. Sends SMS with ETA and the assigned tech's name. Business attestation ensures the call doesn't display as spam.",
+  "uses": "Field services; trade SMBs",
+  "moat_note": "Business-as-caller display requires registered business + carrier attestation."
+ },
+ {
+  "id": "after_hours_answering",
+  "name": "After-Hours Answering",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Messaging"
+  ],
+  "job": "Reach",
+  "moat": "Network",
+  "tier": "advantaged",
+  "ready": "ready",
+  "blocker": "",
+  "mech": "Sets a time-based routing rule at the carrier's call control to divert after-hours calls to AI. AI captures intent and produces a structured message. SMS the owner with summary and escalate if urgent.",
+  "uses": "Trade SMBs; clinics; legal",
+  "moat_note": "Time-based routing at S-CSCF, not at device. App receptionists fail when phone is off."
+ },
+ {
+  "id": "appointment_reminders",
+  "name": "Appointment Reminders",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Messaging",
+   "Presence"
+  ],
+  "job": "Reach",
+  "moat": "Identity",
+  "tier": "commodity",
+  "ready": "ready",
+  "blocker": "",
+  "mech": "Calls clients from the registered business number so they recognize who's calling. SMS reminder as fallback. Only attempts when the customer is reachable to avoid wasted outreach.",
+  "uses": "Healthcare; salons; trades",
+  "moat_note": "Caller-ID-as-business + presence-aware = lower no-show rate."
+ },
+ {
+  "id": "separate_business_line",
+  "name": "Separate Business Line",
+  "prim": "Device",
+  "prims": [
+   "Device",
+   "Voice",
+   "Identity",
+   "Messaging"
+  ],
+  "job": "Orchestrate",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "pending",
+  "blocker": "Multi-MSISDN provisioning at partner HSS",
+  "mech": "Provisions a second phone number bound to the same SIM or eSIM. Each line has distinct caller-verification attestation for business vs. personal routing. SMS inboxes are kept separate.",
+  "uses": "Sole proprietors; consultants; freelancers",
+  "moat_note": "Multi-line on single SIM is carrier provisioning. App \"second line\" services lose attestation."
+ },
+ {
+  "id": "sim_swap_protection",
+  "name": "SIM Swap Protection",
+  "prim": "Fraud",
+  "prims": [
+   "Fraud",
+   "Identity",
+   "Messaging"
+  ],
+  "job": "Protect",
+  "moat": "Identity",
+  "tier": "exclusive",
+  "ready": "pending",
+  "blocker": "SIM-swap event feed from partner HSS",
+  "mech": "Queries the carrier's SIM-swap event log. Alerts in real time on any IMSI change for high-risk subscribers. Notifies the subscriber and paired apps via a secondary channel.",
+  "uses": "Crypto custody; banking; high-net-worth",
+  "moat_note": "SIM-swap event ledger is carrier-internal. Apps can only react after the swap, not block it."
+ },
+ {
+  "id": "verification_codes",
+  "name": "Verification Codes",
+  "prim": "Messaging",
+  "prims": [
+   "Messaging",
+   "Identity",
+   "Security"
+  ],
+  "job": "Verify",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "pending",
+  "blocker": "SMSC-level OTP interception",
+  "mech": "Intercepts inbound OTP texts at the SMS center before delivery. Verifies the OTP came from the claimed sender (e.g., a real bank short code). Releases the OTP only to the authorized agent context.",
+  "uses": "Agent-driven workflows requiring 2FA; bill negotiation; account access",
+  "moat_note": "SMS OTP interception at SMSC level, not via SIM toolkit. Apps need SMS read permission and still see post-delivery."
+ },
+ {
+  "id": "identity_verification",
+  "name": "Identity Verification",
+  "prim": "Identity",
+  "prims": [
+   "Identity",
+   "Fraud"
+  ],
+  "job": "Verify",
+  "moat": "Identity",
+  "tier": "exclusive",
+  "ready": "pending",
+  "blocker": "HLR/HSS authoritative identity query",
+  "mech": "Queries the carrier subscriber registry for the IMSI-to-number binding. Confirms recent SIM-swap clean and line age. Adds the caller-verification attestation level.",
+  "uses": "KYC; bill negotiation; account recovery; gov services",
+  "moat_note": "Authoritative identity resolution requires HLR/HSS access \u2014 carrier-only."
+ },
+ {
+  "id": "act_as_you",
+  "name": "Act As You",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Identity",
+   "Messaging"
+  ],
+  "job": "Reach",
+  "moat": "Identity",
+  "tier": "exclusive",
+  "ready": "ready",
+  "blocker": "STIR/SHAKEN A-attestation as subscriber",
+  "mech": "Outbound calls present the subscriber's number as the verified caller ID. Full caller-verification attestation proves the subscriber authorized the agent. Outbound SMS sends from the subscriber's number with no device required.",
+  "uses": "Universal \u2014 every concierge/SMB/healthcare agent uses this",
+  "moat_note": "THE foundational primitive. Apps cannot present subscriber MSISDN with full attestation. This is the carrier moat."
+ },
+ {
+  "id": "activity_log",
+  "name": "Activity Log",
+  "prim": "Identity",
+  "prims": [
+   "Identity",
+   "Voice",
+   "Messaging"
+  ],
+  "job": "Orchestrate",
+  "moat": "Identity",
+  "tier": "advantaged",
+  "ready": "ready",
+  "blocker": "",
+  "mech": "Binds every agent action to the subscriber's number and the specific agent ID for an audit trail. Includes call recording links as evidence. Includes message archive links.",
+  "uses": "Compliance; dispute resolution; family transparency",
+  "moat_note": "Network-side ledger is tamper-evident; app logs live on device."
+ },
+ {
+  "id": "agent_permissions",
+  "name": "Agent Permissions",
+  "prim": "Identity",
+  "prims": [
+   "Identity",
+   "Security"
+  ],
+  "job": "Orchestrate",
+  "moat": "Identity",
+  "tier": "advantaged",
+  "ready": "ready",
+  "blocker": "",
+  "mech": "Subscriber defines per-agent scopes (read-only, book-only, spend cap) enforced at the network. Tokens issued and revocable in seconds, tied to the subscriber's number. Calls and SMS get gated by scope.",
+  "uses": "Agent governance for all categories",
+  "moat_note": "Network-enforced scopes survive even if device is lost; app-layer scopes die with the app."
+ },
+ {
+  "id": "e_signatures",
+  "name": "E-Signatures",
+  "prim": "Identity",
+  "prims": [
+   "Identity",
+   "Voice",
+   "Messaging"
+  ],
+  "job": "Reach",
+  "moat": "Identity",
+  "tier": "advantaged",
+  "ready": "ready",
+  "blocker": "Voice-to-identity binding via carrier attestation",
+  "mech": "Captures verbal agreement from the in-call audio with timestamp. Binds it to the verified subscriber identity so it's legally attributable. Sends a follow-up signature link by SMS.",
+  "uses": "SMB contracts; consumer service agreements; consent capture",
+  "moat_note": "Voice + identity binding makes verbal agreements enforceable. Apps cannot bind voice to verified MSISDN."
+ },
+ {
+  "id": "secure_auth_slice",
+  "name": "Secure Auth Slice",
+  "prim": "Data",
+  "prims": [
+   "Data",
+   "Security",
+   "Messaging"
+  ],
+  "job": "Protect",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "pending",
+  "blocker": "PCRF isolated slice provisioning",
+  "mech": "Assigns OTP and authentication traffic to an encrypted, isolated network slice. Deep packet inspection and encryption guarantees on the slice. OTP texts route exclusively over the slice.",
+  "uses": "Banking; gov; healthcare auth flows",
+  "moat_note": "Network slicing is 5G core, carrier-only."
+ },
+ {
+  "id": "make_call_with_objective",
+  "name": "Make a call with an objective",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Identity"
+  ],
+  "job": "Reach",
+  "moat": "Identity",
+  "tier": "advantaged",
+  "ready": "ready",
+  "blocker": "STIR/SHAKEN A-attestation as subscriber",
+  "mech": "Originates an outbound call as the subscriber via the carrier's IMS. Adds caller-verification attestation. Runs a live ASR plus LLM dialog policy aimed at the objective.",
+  "uses": "Foundational \u2014 any outbound agent task",
+  "moat_note": "Outbound AS subscriber with attestation is carrier-only."
+ },
+ {
+  "id": "screen_inbound_at_network",
+  "name": "Screen inbound calls at the network",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Identity"
+  ],
+  "job": "Protect",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "pending",
+  "blocker": "S-CSCF pre-ring intercept at partner carrier",
+  "mech": "Intercepts the inbound call at the carrier's call control before it rings. Verifies and scores the caller. Diverts, answers with AI, or drops based on policy.",
+  "uses": "Foundational \u2014 all screening agents",
+  "moat_note": "Pre-ring control only at IMS S-CSCF. App-side cannot intervene before ring."
+ },
+ {
+  "id": "whisper_into_live_call",
+  "name": "Whisper into a live call",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Data"
+  ],
+  "job": "Reach",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "pending",
+  "blocker": "SBC media injection at partner SBC",
+  "mech": "Taps the live call media for bidirectional access. Mixes whisper-channel audio audible only to the subscriber's side. Network slice keeps coaching latency real-time.",
+  "uses": "Coaching, translation, trust-score overlay",
+  "moat_note": "Per-leg media injection at SBC. Apps cannot do this on PSTN calls."
+ },
+ {
+  "id": "allocate_network_slice",
+  "name": "Allocate a network slice",
+  "prim": "Data",
+  "prims": [
+   "Data",
+   "Presence",
+   "Geolocation"
+  ],
+  "job": "Respond",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "pending",
+  "blocker": "NSSF slice control at partner 5G core",
+  "mech": "Assigns the subscriber to a named slice (emergency, HD-voice, secure-auth, etc.). Confirms 5G eligibility. Bounds the slice to a geographic coverage zone.",
+  "uses": "Emergencies, HD voice, telemedicine, secure auth",
+  "moat_note": "5G core function. Carrier-only."
+ },
+ {
+  "id": "monitor_line_anomalies",
+  "name": "Monitor a line for anomalies",
+  "prim": "Fraud",
+  "prims": [
+   "Fraud",
+   "Presence",
+   "Identity"
+  ],
+  "job": "Sense",
+  "moat": "Data",
+  "tier": "exclusive",
+  "ready": "pending",
+  "blocker": "CDR/EDR feed from partner carrier",
+  "mech": "Continuous CDR and activity monitoring builds a behavior baseline. Anomaly detection on volume, destination, and time-of-day. Flags IMSI changes and sudden location jumps as account-takeover signals.",
+  "uses": "Eldercare; security; account protection",
+  "moat_note": "Cross-channel CDR monitoring requires carrier data feed."
+ },
+ {
+  "id": "realtime_threat_detection",
+  "name": "Real-time threat detection",
+  "prim": "Fraud",
+  "prims": [
+   "Fraud",
+   "Voice"
+  ],
+  "job": "Protect",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "ready",
+  "blocker": "",
+  "mech": "Streams the live call transcript. Runs multi-model scoring (scam plus deepfake plus financial-PII). Triggers downstream skills like terminate, alert, or isolate.",
+  "uses": "Foundational \u2014 orchestrates protect-class skills",
+  "moat_note": "Multi-primitive composite scoring with sub-second latency only feasible at network."
+ },
+ {
+  "id": "qos_booking",
+  "name": "Schedule Future QoS Window",
+  "prim": "Data",
+  "prims": [
+   "Data",
+   "Presence"
+  ],
+  "job": "Orchestrate",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "concept",
+  "blocker": "PCF scheduling API at partner 5G core",
+  "mech": "Reserves a high-quality network window in advance for a planned event (telemedicine appointment, live broadcast). Confirms the subscriber will be on a 5G-capable network at that time. Notifies them when the slice activates.",
+  "uses": "Scheduled telehealth visits; live event broadcast; planned remote-surgery prep",
+  "moat_note": "Future-window QoS booking is 5G core (PCF) function. CPaaS has no scheduling primitive against the radio."
+ },
+ {
+  "id": "sponsored_data",
+  "name": "Zero-Rate App Traffic",
+  "prim": "Data",
+  "prims": [
+   "Data",
+   "Identity"
+  ],
+  "job": "Orchestrate",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "concept",
+  "blocker": "OCS billing integration at partner carrier",
+  "mech": "Tells the carrier's policy and charging system to not count traffic to a specific app against the subscriber's data cap. The cost is billed to the app developer instead. Tracks zero-rated bytes separately for reconciliation.",
+  "uses": "Healthcare app on Medicaid sponsorship; field-worker tools; emergency-services apps",
+  "moat_note": "Sponsored data is OCS+PCRF function. Apps cannot influence carrier billing."
+ },
+ {
+  "id": "traffic_steering_edge",
+  "name": "Steer Traffic to Edge",
+  "prim": "Data",
+  "prims": [
+   "Data",
+   "Geolocation",
+   "Presence"
+  ],
+  "job": "Orchestrate",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "concept",
+  "blocker": "UPF steering rules at partner 5G core",
+  "mech": "Tells the carrier's data plane to route a specific app's traffic to the closest edge compute node instead of the public internet. Picks the best edge based on the subscriber's current cell. Falls back to cloud if the edge is unreachable.",
+  "uses": "AR/VR; cloud gaming; real-time AI inference; remote control",
+  "moat_note": "Traffic steering at UPF is 5G core only. CDN/edge providers can't steer at the radio level."
+ },
+ {
+  "id": "connectivity_insights",
+  "name": "Historical Connectivity Quality",
+  "prim": "Data",
+  "prims": [
+   "Data",
+   "Geolocation",
+   "Presence"
+  ],
+  "job": "Sense",
+  "moat": "Data",
+  "tier": "exclusive",
+  "ready": "concept",
+  "blocker": "OSS analytics feed",
+  "mech": "Pulls historical network quality metrics for the subscriber from OSS analytics. Joins them with cell coverage maps to show where service is poor. Highlights recurring problem windows.",
+  "uses": "Customer churn prediction; SLA reporting; coverage complaints",
+  "moat_note": "OSS data is carrier-internal. Speedtest only sees what the user runs."
+ },
+ {
+  "id": "predictive_connectivity",
+  "name": "Forecast Coverage on Route",
+  "prim": "Data",
+  "prims": [
+   "Data",
+   "Geolocation",
+   "Presence"
+  ],
+  "job": "Sense",
+  "moat": "Data",
+  "tier": "exclusive",
+  "ready": "concept",
+  "blocker": "NWDAF analytics feed",
+  "mech": "Uses 5G core analytics to forecast network quality along a planned route. Returns expected throughput and signal strength per segment. Predicts where the subscriber will lose signal.",
+  "uses": "Pre-trip route planning; logistics dispatch; field-service routing",
+  "moat_note": "NWDAF is 5G analytics function \u2014 carrier-only. Map apps cannot predict signal."
+ },
+ {
+  "id": "device_data_volume",
+  "name": "Real-Time Data Usage",
+  "prim": "Data",
+  "prims": [
+   "Data",
+   "Identity",
+   "Messaging"
+  ],
+  "job": "Sense",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "concept",
+  "blocker": "OCS/CHF live counter API",
+  "mech": "Reads the subscriber's live data usage from the carrier's online charging system. Compares against their cap policy. Pushes a warning text at configurable thresholds.",
+  "uses": "Family plan management; IoT fleet monitoring; B2B enterprise reporting",
+  "moat_note": "OCS real-time counter is carrier-only. App-layer sees only its own bytes."
+ },
+ {
+  "id": "edge_discovery",
+  "name": "Find Nearest Edge",
+  "prim": "Data",
+  "prims": [
+   "Data",
+   "Geolocation",
+   "Presence"
+  ],
+  "job": "Sense",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "concept",
+  "blocker": "MEC orchestrator access",
+  "mech": "Asks the MEC orchestrator for the closest edge compute node. Ranks candidates by latency and current load. Confirms the chosen node is healthy.",
+  "uses": "Cloud gaming; AR/VR; real-time AI; industrial control",
+  "moat_note": "MEC orchestrator visibility into RAN-attached compute is carrier-only."
+ },
+ {
+  "id": "dedicated_5g_slice",
+  "name": "Provision Private Slice",
+  "prim": "Data",
+  "prims": [
+   "Data",
+   "Identity",
+   "Security"
+  ],
+  "job": "Orchestrate",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "concept",
+  "blocker": "NSSF provisioning at partner 5G core",
+  "mech": "Carves out a private 5G slice for an enterprise customer with isolation guarantees. Binds it to a tenant identity. Provides cryptographic proof the slice is isolated from public traffic.",
+  "uses": "Manufacturing; ports; mining; hospital campus; private 5G",
+  "moat_note": "NSSF slice provisioning is 5G core. No CPaaS player operates 5G core."
+ },
+ {
+  "id": "carrier_vpn",
+  "name": "Carrier-Managed VPN",
+  "prim": "Data",
+  "prims": [
+   "Data",
+   "Security",
+   "Identity"
+  ],
+  "job": "Orchestrate",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "concept",
+  "blocker": "SD-WAN/SBC VPN provisioning",
+  "mech": "Provisions an encrypted tunnel from the subscriber's line to a customer's cloud, managed by the carrier. Rotates keys automatically. Tied to the subscriber's identity, not a device app.",
+  "uses": "Remote workforce; field engineers; secure healthcare access",
+  "moat_note": "Carrier-anchored VPN survives device wipes; app VPNs require install."
+ },
+ {
+  "id": "bandwidth_throttle",
+  "name": "Throttle Subscriber Bandwidth",
+  "prim": "Data",
+  "prims": [
+   "Data",
+   "Presence",
+   "Identity"
+  ],
+  "job": "Orchestrate",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "concept",
+  "blocker": "PCRF per-subscriber policy control",
+  "mech": "Tells the carrier's policy controller to cap the subscriber's bandwidth on a schedule (e.g., bedtime throttle). Enforced at the network, not on the device, so it can't be uninstalled.",
+  "uses": "Parental controls; corporate device policy; rehab/recovery support",
+  "moat_note": "PCRF-enforced. Parental-control apps depend on device-side enforcement that kids bypass."
+ },
+ {
+  "id": "network_location_verify",
+  "name": "Verify Device Near Coordinates",
+  "prim": "Geolocation",
+  "prims": [
+   "Geolocation",
+   "Identity",
+   "Fraud"
+  ],
+  "job": "Verify",
+  "moat": "Data",
+  "tier": "exclusive",
+  "ready": "pending",
+  "blocker": "GMLC/LCS access at partner carrier",
+  "mech": "A cheap fraud-gating call: gives the carrier coordinates and a radius and gets back a yes/no. Doesn't reveal the actual location, just confirms presence. Cross-references with the claimed transaction location.",
+  "uses": "Card-present fraud gating; gig-worker verification; insurance check-in",
+  "moat_note": "Network-derived location works without GPS or app install. Fraud-grade."
+ },
+ {
+  "id": "geofence_alert",
+  "name": "Geofence Crossing Alerts",
+  "prim": "Geolocation",
+  "prims": [
+   "Geolocation",
+   "Messaging"
+  ],
+  "job": "Sense",
+  "moat": "Data",
+  "tier": "exclusive",
+  "ready": "pending",
+  "blocker": "GMLC event subscription at partner carrier",
+  "mech": "Subscribes to live location updates from the carrier's location server. Fires an event when the subscriber crosses a defined boundary. Pushes alerts to enrolled recipients.",
+  "uses": "Child safety (left school); eldercare (wandering); fleet management",
+  "moat_note": "Network-side geofencing works on any phone without app install. Life360 requires install + battery."
+ },
+ {
+  "id": "visit_history",
+  "name": "Location Visit History",
+  "prim": "Geolocation",
+  "prims": [
+   "Geolocation",
+   "Identity",
+   "Fraud"
+  ],
+  "job": "Sense",
+  "moat": "Data",
+  "tier": "exclusive",
+  "ready": "concept",
+  "blocker": "GMLC analytics feed with consent framework",
+  "mech": "Asks the carrier whether the subscriber visited a specific area within a time range. Always consent-bound. Useful for correlating with reported events like crimes or accidents.",
+  "uses": "Insurance claim validation; legal alibi; contact tracing",
+  "moat_note": "Network-derived visit history is authoritative; app-derived can be spoofed."
+ },
+ {
+  "id": "frequent_locations",
+  "name": "Top Dwell Locations",
+  "prim": "Geolocation",
+  "prims": [
+   "Geolocation",
+   "Fraud",
+   "Identity"
+  ],
+  "job": "Sense",
+  "moat": "Data",
+  "tier": "exclusive",
+  "ready": "concept",
+  "blocker": "GMLC dwell analytics",
+  "mech": "Computes the subscriber's top dwell locations (home, work, frequents). Used as a fraud baseline: a transaction at an unusual location flags as anomalous.",
+  "uses": "Fraud baselining; lifestyle analytics; advertising targeting",
+  "moat_note": "Cross-day location pattern from network signaling \u2014 apps drain battery and miss most of it."
+ },
+ {
+  "id": "region_device_count",
+  "name": "Region Device Count",
+  "prim": "Geolocation",
+  "prims": [
+   "Geolocation",
+   "Presence",
+   "Identity"
+  ],
+  "job": "Sense",
+  "moat": "Data",
+  "tier": "exclusive",
+  "ready": "concept",
+  "blocker": "GMLC aggregate count API",
+  "mech": "Counts how many subscribers are in a polygon at a moment in time. Fully aggregated, no individual identities. Useful for foot-traffic analytics and event sizing.",
+  "uses": "Retail foot traffic; event attendance; urban planning; emergency response",
+  "moat_note": "Aggregated subscriber count across all devices is carrier-only."
+ },
+ {
+  "id": "proximity_match",
+  "name": "Find Subscribers Nearby",
+  "prim": "Geolocation",
+  "prims": [
+   "Geolocation",
+   "Identity",
+   "Voice"
+  ],
+  "job": "Sense",
+  "moat": "Data",
+  "tier": "exclusive",
+  "ready": "concept",
+  "blocker": "GMLC + consented directory",
+  "mech": "Finds opted-in subscribers within a radius of the user. Returns anonymized IDs, not phone numbers. Brokers a bridged call between matches without exposing numbers to either side.",
+  "uses": "Community/dating; emergency-response volunteer match; lost-pet network",
+  "moat_note": "Cross-subscriber location queries with number masking only at carrier."
+ },
+ {
+  "id": "imei_lookup",
+  "name": "Verified Device Identity",
+  "prim": "Identity",
+  "prims": [
+   "Identity",
+   "Device",
+   "Fraud"
+  ],
+  "job": "Verify",
+  "moat": "Identity",
+  "tier": "exclusive",
+  "ready": "pending",
+  "blocker": "EIR query access at partner carrier",
+  "mech": "Looks up the device IMEI bound to the subscriber's number. Returns make, model, and registration history. Checks against the stolen-device blacklist.",
+  "uses": "Insurance verification; device-resale fraud check; warranty",
+  "moat_note": "EIR is carrier registry. Apps cannot read IMEI on iOS at all."
+ },
+ {
+  "id": "device_clone_check",
+  "name": "Detect Cloned Device",
+  "prim": "Identity",
+  "prims": [
+   "Identity",
+   "Device",
+   "Fraud"
+  ],
+  "job": "Verify",
+  "moat": "Identity",
+  "tier": "exclusive",
+  "ready": "pending",
+  "blocker": "Cross-carrier EIR registry access",
+  "mech": "Checks the carrier's equipment registry for duplicate IMEIs across the network. Cross-references the inter-carrier clone registry. Binds the result to the subscriber for audit.",
+  "uses": "High-value account protection; corporate device fleet integrity",
+  "moat_note": "Cross-network IMEI uniqueness check is GSMA-level, carrier-only."
+ },
+ {
+  "id": "esim_provision",
+  "name": "Remote eSIM Provisioning",
+  "prim": "Device",
+  "prims": [
+   "Device",
+   "Identity"
+  ],
+  "job": "Orchestrate",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "concept",
+  "blocker": "SM-DP+ API credentials at eSIM host",
+  "mech": "Pushes an eSIM profile to a target device using the carrier's remote SIM provisioning system. Activates the new MSISDN at the subscriber registry. Confirms with a test call or SMS.",
+  "uses": "Travel eSIM; instant device swap; teen first-phone setup; lost-device replacement",
+  "moat_note": "SM-DP+/SM-SR is carrier infrastructure. App vendors can't issue SIM profiles."
+ },
+ {
+  "id": "esim_revoke",
+  "name": "Kill eSIM Remotely",
+  "prim": "Device",
+  "prims": [
+   "Device",
+   "Identity",
+   "Messaging"
+  ],
+  "job": "Protect",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "pending",
+  "blocker": "SM-SR API + HSS suspend at partner carrier",
+  "mech": "Revokes the eSIM profile from a lost or stolen device. Suspends service at the subscriber registry. Notifies the subscriber via a backup channel (email or partner phone).",
+  "uses": "Lost/stolen device; corporate offboarding; child-handover",
+  "moat_note": "Killing the SIM credential, not the session. Apps can only sign out a session."
+ },
+ {
+  "id": "remote_camera_activation",
+  "name": "Remote Camera Activation",
+  "prim": "Device",
+  "prims": [
+   "Device",
+   "Identity"
+  ],
+  "job": "Respond",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "concept",
+  "blocker": "OMA-DM/MDM channel on partner device fleet",
+  "mech": "Activates a camera on an enrolled device (grandma's tablet, kid's watch) via the carrier's device-management channel. Requires pre-enrolled consent and emergency-context authorization. Family is notified the moment it activates.",
+  "uses": "Eldercare emergency check; teen safety; lost-device recovery",
+  "moat_note": "Carrier-side device control survives app uninstall and device lock."
+ },
+ {
+  "id": "remote_device_lock",
+  "name": "Remote Device Lock",
+  "prim": "Device",
+  "prims": [
+   "Device",
+   "Geolocation"
+  ],
+  "job": "Protect",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "pending",
+  "blocker": "EIR lock API + OMA-DM channel",
+  "mech": "Pushes a lock command to the device through the carrier's management channel. Marks the device as locked in the equipment registry so it can't be re-activated on another carrier. Logs location at the moment of locking.",
+  "uses": "Lost/stolen device; corporate offboarding",
+  "moat_note": "EIR cross-carrier lock means thieves can't just pop in a different SIM."
+ },
+ {
+  "id": "iot_lifecycle_mgmt",
+  "name": "IoT Fleet Lifecycle",
+  "prim": "Device",
+  "prims": [
+   "Device",
+   "Data",
+   "Presence"
+  ],
+  "job": "Orchestrate",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "concept",
+  "blocker": "BSS bulk-provisioning API at partner carrier",
+  "mech": "Manages an enterprise IoT fleet at scale: activate, suspend, or terminate SIMs in bulk. Applies fleet-wide policy templates for data caps and geographic restrictions. Reports real-time status per device.",
+  "uses": "IoT enterprise; logistics fleet; smart-city sensors",
+  "moat_note": "Bulk SIM lifecycle is carrier BSS function. No app substitute."
+ },
+ {
+  "id": "carrier_billing_checkout",
+  "name": "Charge to Mobile Bill",
+  "prim": "Identity",
+  "prims": [
+   "Identity",
+   "Messaging"
+  ],
+  "job": "Reach",
+  "moat": "Identity",
+  "tier": "exclusive",
+  "ready": "concept",
+  "blocker": "OCS billing integration + silent network auth",
+  "mech": "Charges a purchase to the subscriber's monthly mobile bill instead of a credit card. Requires carrier-bound authentication that can't be phished. Sends an SMS receipt.",
+  "uses": "App purchases (vs Apple/Google 30%); donations; micropayments",
+  "moat_note": "Direct-to-bill is carrier billing relationship. Stripe/Apple cannot bill to mobile carrier."
+ },
+ {
+  "id": "kyc_match",
+  "name": "KYC PII Match",
+  "prim": "Identity",
+  "prims": [
+   "Identity",
+   "Fraud",
+   "Security"
+  ],
+  "job": "Verify",
+  "moat": "Identity",
+  "tier": "exclusive",
+  "ready": "pending",
+  "blocker": "BSS KYC data access at partner carrier",
+  "mech": "Submits a customer's PII (name, address, DOB) and gets back a match score against what the carrier has on file. Combines with line tenure and SIM-swap status for a composite score.",
+  "uses": "Banking onboarding; gov benefits; lending KYC",
+  "moat_note": "Carrier subscriber-of-record is authoritative PII source."
+ },
+ {
+  "id": "kyc_fill",
+  "name": "Pre-Fill Forms",
+  "prim": "Identity",
+  "prims": [
+   "Identity",
+   "Security"
+  ],
+  "job": "Reach",
+  "moat": "Identity",
+  "tier": "exclusive",
+  "ready": "concept",
+  "blocker": "BSS KYC data access + consent framework",
+  "mech": "Returns the subscriber's PII to pre-fill forms after consent. Token is time-bound and scoped. Every disclosure is logged for audit.",
+  "uses": "Account opening; gov forms; insurance applications",
+  "moat_note": "Authoritative pre-fill from carrier of record. Reduces account-opening drop-off."
+ },
+ {
+  "id": "age_verification",
+  "name": "Age Verification",
+  "prim": "Identity",
+  "prims": [
+   "Identity",
+   "Security"
+  ],
+  "job": "Verify",
+  "moat": "Identity",
+  "tier": "exclusive",
+  "ready": "pending",
+  "blocker": "BSS DOB query at partner carrier",
+  "mech": "Returns a simple yes/no: is the subscriber over the age threshold? No date of birth disclosed. Privacy-preserving by design and consent-bound.",
+  "uses": "Adult content; alcohol delivery; gambling; age-gated apps",
+  "moat_note": "Carrier-of-record DOB is authoritative + privacy-preserving. Massive regulatory tailwind (UK/EU/US age-verification laws)."
+ },
+ {
+  "id": "voice_otp",
+  "name": "Voice OTP Delivery",
+  "prim": "Identity",
+  "prims": [
+   "Identity",
+   "Voice"
+  ],
+  "job": "Verify",
+  "moat": "Identity",
+  "tier": "advantaged",
+  "ready": "ready",
+  "blocker": "STIR/SHAKEN attestation on delivery",
+  "mech": "Delivers a one-time code as a voice call instead of an SMS. The voice call carries cryptographic attestation so it can't be phished. Useful for accessibility and SMS-fraud-resistant flows.",
+  "uses": "Accessibility (visually impaired); SMS-fraud-resistant 2FA; international (where SMS is unreliable)",
+  "moat_note": "Voice OTP with carrier attestation can't be SIM-swap intercepted via SMS."
+ },
+ {
+  "id": "device_swap_check",
+  "name": "Detect Recent IMEI Change",
+  "prim": "Fraud",
+  "prims": [
+   "Fraud",
+   "Identity"
+  ],
+  "job": "Verify",
+  "moat": "Identity",
+  "tier": "exclusive",
+  "ready": "pending",
+  "blocker": "EIR change log access at partner carrier",
+  "mech": "Queries the equipment registry for the last time the device IMEI changed. Cross-references provisioning records to determine if the customer initiated it. Escalates risk if combined with a recent SIM swap.",
+  "uses": "Banking high-value gate; account recovery; crypto withdrawal",
+  "moat_note": "EIR change log is carrier-internal."
+ },
+ {
+  "id": "line_tenure",
+  "name": "Line Age as Trust Signal",
+  "prim": "Identity",
+  "prims": [
+   "Identity",
+   "Fraud"
+  ],
+  "job": "Verify",
+  "moat": "Data",
+  "tier": "exclusive",
+  "ready": "pending",
+  "blocker": "BSS provisioning history access",
+  "mech": "Returns how long the number has been on the carrier (and original activation if ported in). Freshly-activated numbers are statistically much higher fraud risk.",
+  "uses": "Account opening; lending; fraud baselining",
+  "moat_note": "BSS provisioning history is carrier-only."
+ },
+ {
+  "id": "number_recycling_check",
+  "name": "Number Recycling Check",
+  "prim": "Identity",
+  "prims": [
+   "Identity",
+   "Fraud"
+  ],
+  "job": "Verify",
+  "moat": "Identity",
+  "tier": "exclusive",
+  "ready": "pending",
+  "blocker": "Authoritative reassignment data from partner carrier",
+  "mech": "Checks whether a phone number has been reassigned to a new subscriber since a given date. Critical for TCPA compliance and preventing wrong-recipient transactions.",
+  "uses": "TCPA compliance; account-takeover prevention; do-not-call list hygiene",
+  "moat_note": "Authoritative reassignment data is carrier-only."
+ },
+ {
+  "id": "call_forwarding_detect",
+  "name": "Detect Call Forwarding",
+  "prim": "Identity",
+  "prims": [
+   "Identity",
+   "Fraud",
+   "Voice"
+  ],
+  "job": "Verify",
+  "moat": "Identity",
+  "tier": "exclusive",
+  "ready": "pending",
+  "blocker": "HSS CFU/CFB flag query",
+  "mech": "Queries the subscriber registry to see if call forwarding is active on the number. Recently-enabled forwarding is a strong scam indicator. Can block high-value calls if forwarding is active.",
+  "uses": "Banking fraud gate; account takeover detection",
+  "moat_note": "HSS forwarding flags are carrier registry. Apps can't see them."
+ },
+ {
+  "id": "dos_blackhole",
+  "name": "Drop Attack Traffic at SBC",
+  "prim": "Security",
+  "prims": [
+   "Security",
+   "Voice",
+   "Fraud"
+  ],
+  "job": "Protect",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "concept",
+  "blocker": "SBC blackhole rule API at partner",
+  "mech": "Drops attack traffic at the carrier's session border controller before it reaches the subscriber. Logs the attack pattern so the network learns and protects other subscribers.",
+  "uses": "Telephony DoS attack mitigation; targeted harassment campaigns",
+  "moat_note": "SBC-level blackhole is carrier infrastructure."
+ },
+ {
+  "id": "lawful_intercept",
+  "name": "Lawful Intercept",
+  "prim": "Security",
+  "prims": [
+   "Security",
+   "Identity"
+  ],
+  "job": "Sense",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "concept",
+  "blocker": "LI gateway integration (regulated)",
+  "mech": "Provides regulated lawful intercept capability for law enforcement under court order. Strict warrant-bound authorization with full audit trail. Captures voice, messaging, and data per warrant scope.",
+  "uses": "Law enforcement compliance (regulatory requirement)",
+  "moat_note": "Lawful intercept is carrier obligation; only carriers can do it legally."
+ },
+ {
+  "id": "network_access_policy",
+  "name": "Per-App Network ACL",
+  "prim": "Security",
+  "prims": [
+   "Security",
+   "Data",
+   "Identity"
+  ],
+  "job": "Orchestrate",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "concept",
+  "blocker": "AAA policy API at partner carrier",
+  "mech": "Installs a network-level access policy that blocks or allows specific apps and destinations for the subscriber. Enforced at the user plane, not on the device.",
+  "uses": "Corporate device policy; parental controls; addiction recovery",
+  "moat_note": "Network-level ACL survives device wipe."
+ },
+ {
+  "id": "dpi_redirect",
+  "name": "DPI-Based Redirect",
+  "prim": "Security",
+  "prims": [
+   "Security",
+   "Data",
+   "Messaging"
+  ],
+  "job": "Protect",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "concept",
+  "blocker": "DPI/UPF rule API at partner carrier",
+  "mech": "Uses deep packet inspection at the user plane to match suspicious traffic patterns and redirect to a captive portal (e.g., warning page or quarantine). Notifies the subscriber.",
+  "uses": "Phishing-domain interception; malware C2 blocking",
+  "moat_note": "DPI at UPF is carrier core. App-layer DNS filters can be bypassed."
+ },
+ {
+  "id": "connected_network_type",
+  "name": "Network Attach Type",
+  "prim": "Presence",
+  "prims": [
+   "Presence",
+   "Data",
+   "Voice"
+  ],
+  "job": "Sense",
+  "moat": "Data",
+  "tier": "exclusive",
+  "ready": "pending",
+  "blocker": "PCF attach-type query",
+  "mech": "Returns the subscriber's current radio attachment type (5G, 4G, 3G, Wi-Fi calling). Determines what slicing and HD-voice features are available right now.",
+  "uses": "Adaptive UX for app capability; coverage diagnostics; 5G upsell",
+  "moat_note": "Real-time RAN attach is carrier signaling."
+ },
+ {
+  "id": "device_wake_trigger",
+  "name": "Wake Idle Device",
+  "prim": "Presence",
+  "prims": [
+   "Presence",
+   "Identity",
+   "Data"
+  ],
+  "job": "Reach",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "concept",
+  "blocker": "NEF device-triggering API at partner 5G core",
+  "mech": "Wakes a device from idle without needing push-notification infrastructure (Apple/Google). Bound to subscriber and app identity. Delivers a small payload via low-power signaling.",
+  "uses": "IoT wakeup; cross-platform notifications without APNs/FCM; low-power devices",
+  "moat_note": "NEF device-triggering is 5G core. Bypasses Apple/Google push monopolies."
+ },
+ {
+  "id": "webrtc_handoff",
+  "name": "Carrier WebRTC Bridge",
+  "prim": "Voice",
+  "prims": [
+   "Voice",
+   "Identity",
+   "Data"
+  ],
+  "job": "Reach",
+  "moat": "Network",
+  "tier": "exclusive",
+  "ready": "concept",
+  "blocker": "Carrier WebRTC gateway integration",
+  "mech": "Bridges a browser-based WebRTC call to the PSTN, presenting the subscriber's verified identity. Adds a QoS slice for HD audio. Useful for click-to-call from web apps with carrier-grade trust.",
+  "uses": "Click-to-call from web; remote workforce; tele-medicine",
+  "moat_note": "Carrier WebRTC gateway with attestation: WebRTC-only providers can't sign STIR/SHAKEN."
+ }
+]

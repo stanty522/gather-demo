@@ -1,1084 +1,527 @@
-// scene-1-personas.js — Persona Explorer (Scene 1)
-// Self-contained module. Call initScene1(container) to mount.
+// scene-1-personas.js — "Who we serve"
+// 5-persona investor narrative. Self-contained. Call initScene1(container) to mount.
 
 async function initScene1(container) {
+
   // ─── DATA ───────────────────────────────────────────────────────────────────
 
-  const [surgePersonas, microPersonas, macroPersonas] = await Promise.all([
-    fetch('personas-surge.json').then(r => r.json()),
-    fetch('personas-micro.json').then(r => r.json()),
-    fetch('personas-macro.json').then(r => r.json())
-  ]);
-  const personas = [...surgePersonas, ...microPersonas, ...macroPersonas];
+  const HERO_IMG = 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1600&q=80&fit=crop&auto=format';
 
+  const personas = [
+    {
+      id: 'p-elderly',
+      navLabel: 'Aging parents',
+      photo: 'https://images.pexels.com/photos/3768131/pexels-photo-3768131.jpeg?w=1200&fit=crop',
+      photoPos: 'center 35%',
+      moduleName: 'Shield',
+      moduleSkills: 'Scam detection · Spam blocking · Deepfake detection · SIM swap protection · Call notes · Real-time translation',
+      title: 'Shield for Aging Parents',
+      sub: 'Margaret, 74 · 54M Americans 65+',
+      context: "She's 74. She lives alone. She's sharp, reads two novels a week, walks the neighborhood every morning. But her phone has become a problem she can't solve. She answers every call because her doctor calls from different numbers. Last March, someone called pretending to be the IRS.",
+      quote: {
+        text: "They told me I'd be arrested in 48 hours if I didn't wire the money. I believed them.",
+        attr: 'Margaret, after the call'
+      },
+      rows: [
+        { before: 'IRS scammer calls. Caller ID says "US Government." She wires $3,000 that afternoon. Daughter finds out 3 days later.', skill: 'Scam detection', skillDesc: 'Spots manipulation tactics mid-call', after: "AI whispers at 0:47: \"Sounds like a scam. You don't have to stay on.\" She hangs up. Her savings stay hers." },
+        { before: 'Falls at 2am. Calls 911. Goes to the ER alone. Family finds out at 2pm the next day.', skill: '911 family alert', skillDesc: '911 events trigger instant family notification', after: "Paramedics arrive with her medical history, meds, and emergency contacts already pulled. She's not alone in the ER." },
+        { before: 'Phone has been off since 8am. Nobody notices until evening.', skill: 'Daily check-in', skillDesc: 'Detects breaks in routine, escalates automatically', after: "The AI calls her first. She answers, says she slept in. No false alarm, no family panic. If she hadn't answered, help would already be on the way." },
+        { before: 'Mom calls after a doctor\'s appointment: "They changed one of my medications but I can\'t remember which one or why."', skill: 'Call notes', skillDesc: 'Summary texted after every call. Searchable history.', after: "Text to Margaret: \"Dr. Park changed Lisinopril to 20mg. Refill at CVS Friday. Follow-up April 28.\" She doesn't have to hold it in her head." }
+      ],
+      also: 'Deepfake detection · SIM swap protection'
+    },
 
+    {
+      id: 'p-caregiver',
+      navLabel: 'Caregiver',
+      photo: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=1200&q=80&fit=crop&auto=format',
+      photoPos: 'center 30%',
+      moduleName: 'Shield + Guardian',
+      moduleSkills: '911 alerts · Daily check-in · Doctor summaries · Care sharing · Rx refills · Behavior alerts',
+      title: 'Guardian for the Caregiver',
+      sub: 'Sarah, 42 · 53M US caregivers',
+      context: "She calls her mom every morning at 9am just to hear her voice. If Mom doesn't pick up by the second ring, her stomach drops. She's tried Life360 (Mom won't install it), Apple Watch (Mom won't wear it), Medical Guardian pendant (drawer after one week).",
+      quote: {
+        text: "I've looked at every product on the market. They all require [her] to cooperate. She doesn't want to feel watched. I just want to know she's okay.",
+        attr: 'Sarah, interview'
+      },
+      rows: [
+        { before: 'Mom called 911 at 2am. She was in the ER for 10 hours alone. Daughter found out at 2pm the next day.', skill: '911 family alert', skillDesc: 'Mom calls 911, you know in 60 seconds', after: "Daughter's phone buzzes at 2:01am. No app on Mom's phone. No device. No cooperation required. Just the phone plan." },
+        { before: "Neurologist changed Dad's meds. Karen told siblings at 9pm from memory. Versions diverged. Argument followed.", skill: 'Doctor call summary', skillDesc: 'Plain-English recap shared with every sibling', after: "Same summary sent to all three siblings: \"Donepezil 10mg to 5mg. Start Memantine 5mg. Follow-up 6 weeks.\" The argument doesn't happen." },
+        { before: "Mom's blood pressure meds ran out. Pharmacy closes at 6. She forgot to call. Two days without Lisinopril.", skill: 'Prescription refill', skillDesc: 'Calls the pharmacy, confirms the refill', after: "AI calls CVS at 2pm. Text to Mom: \"Lisinopril ready for pickup by 4pm.\" Text to daughter: \"Refill handled.\"" },
+        { before: "Mom's phone hasn't moved since breakfast. Daughter keeps calling. No answer. Drives 40 minutes to check.", skill: 'Daily check-in', skillDesc: 'Detects when the phone goes quiet', after: "Text at 11am: \"Margaret hasn't used her phone since 7am. Usually calls Linda by 10. Want me to check in?\"" },
+        { before: "Mom used to call three friends a week. It's been a month. Daughter only notices at Thanksgiving.", skill: 'Isolation watch', skillDesc: 'Flags drop-off in calls and texts', after: "\"Margaret's outgoing calls dropped 70% over 3 weeks. She hasn't called Linda or Doris. Worth a visit.\"" }
+      ],
+      also: 'Care team sharing'
+    },
 
-  // ─── CONSTANTS ──────────────────────────────────────────────────────────────
+    {
+      id: 'p-family',
+      navLabel: 'Parents of pre-teens',
+      photo: 'https://images.pexels.com/photos/1620760/pexels-photo-1620760.jpeg?w=1200&fit=crop',
+      photoPos: 'center 20%',
+      moduleName: 'Shield + Family',
+      moduleSkills: 'Restricted line · Call screening · Daily brief · Caller background check · Community match',
+      title: 'Family for Parents of Pre-teens',
+      sub: 'Rachel & James · 73M US parents',
+      context: "They gave their 12-year-old a phone for middle school so she could reach them. They regretted it within a month. Unknown numbers calling. They can't tell which are friends' parents from work phones and which are something else. Reading her texts feels invasive. They promised privacy. Taking the phone away means she can't call home.",
+      quote: null,
+      rows: [
+        { before: "Unknown numbers call after school. Can't tell friends' parents from strangers. No way to screen voice calls.", skill: 'Call screening', skillDesc: 'Unknown callers screened before phone rings', after: "Unknown callers screened at the network. Numbers not in contacts don't ring during school hours." },
+        { before: "Phone rings at 11pm. You installed a parental control app. She deleted it.", skill: 'Restricted line', skillDesc: 'Approved contacts and hours, network-level', after: "After 9pm, only saved contacts ring through. Network-level. No app to delete." },
+        { before: '"We didn\'t want to spy on her. But not knowing who\'s calling her feels irresponsible."', skill: 'Daily brief', skillDesc: 'Who called, how long, any flags. No transcripts.', after: "Daily digest: 4 calls today. 2 saved contacts. 2 screened (1 survey, 1 spam). No flags. No transcripts. Just enough." },
+        { before: "Strange 917 number calls three times. Can't tell if it's a classmate's dad or someone she shouldn't talk to.", skill: 'Caller background check', skillDesc: 'Cross-references unknown numbers', after: "Flag in the daily brief: \"917 number: registered to Mark Chen, parent at Lincoln Middle. Likely safe.\"" },
+        { before: "New town, no friends yet. She sits in her room on Discord talking to strangers on the internet.", skill: 'Community match', skillDesc: 'Finds kids nearby with shared interests', after: "Text to Mom: \"3 kids at Lincoln Middle also into anime and soccer. Two moms opted in. Want intros?\"" }
+      ],
+      also: null
+    },
 
-  const PIPE_COLORS = { surge: '#e17055', micro: '#74b9ff', macro: '#a29bfe' };
-  const PIPE_LABELS = { surge: 'Surge', micro: 'Micro', macro: 'Macro' };
-  const AMBER = '#f0c27a';
-  const GREEN = '#10b981';
+    {
+      id: 'p-professional',
+      navLabel: 'Busy professional',
+      photo: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=1200&q=80&fit=crop&auto=format',
+      photoPos: 'center 25%',
+      moduleName: 'Shield + Autopilot',
+      moduleSkills: 'Wait on hold · Cancel anything · Lower bills · Find & book · Call notes · Voicemail digest',
+      title: 'Autopilot for the Busy Professional',
+      sub: 'David, 38 · Phone on silent 9 to 5',
+      context: "By the time he checks his phone at the end of the day, the dentist, pharmacy, insurance, bank, and gym have all closed too. The only time he can call is the time he can't. Weekends, everyone's closed. The list rolls to next week.",
+      quote: null,
+      rows: [
+        { before: 'Gym charged $237 over 3 months. Two cancellation attempts. Retention pitch both times. Gave up.', skill: 'Cancel anything', skillDesc: 'Handles retention scripts, gets confirmation', after: "AI calls, survives the retention pitch. Text: \"Cancelled. Confirmation #GX-44891. No further charges.\"" },
+        { before: 'Internet bill jumped to $89/mo. Kept meaning to call. 4 months of overpaying. $120 gone.', skill: 'Lower your bills', skillDesc: 'Calls provider, negotiates a better rate', after: "AI calls Comcast, talks to retentions. Text: \"New rate: $59/mo for 12 months. Annual savings: $360.\"" },
+        { before: 'Wife asked for a dinner reservation. Thursday evening. No energy to call 5 restaurants.', skill: 'Find & book', skillDesc: 'Calls restaurants and books availability', after: "AI calls 5 restaurants. Text: \"Monteverde, 7:30 Saturday, table for 2. Confirmed.\" Wife asks if he found a place. He says yes." },
+        { before: 'Insurance claim. 45 minutes on hold. He hangs up after 20. Tries again next day. Same result.', skill: 'Wait on hold', skillDesc: 'AI holds the line, texts when a human picks up', after: "AI dials, waits 38 minutes. Text: \"Agent on the line, tap to connect.\" He joins in 3 seconds." },
+        { before: 'Five voicemails at 5pm. Dentist, insurance, the gym again, two unknown. No time to listen to all of them.', skill: 'Voicemail digest', skillDesc: 'Summarizes and prioritizes voicemails', after: "One text: \"Dentist needs to reschedule Tue. Insurance approved claim, check mail. Gym = spam. Skip the rest.\"" }
+      ],
+      also: 'Call notes'
+    },
 
-  // ─── STATE ──────────────────────────────────────────────────────────────────
-
-  let activeFilter = 'macro';
-  let activeSort = 'score';
-  let deepDivePersona = null;
-  let typewriterTimer = null;
-
-  // ─── HELPERS ────────────────────────────────────────────────────────────────
-
-  function fmt(n) {
-    if (n >= 1e6) return (n / 1e6).toFixed(1) + 'M';
-    if (n >= 1e3) return (n / 1e3).toFixed(0) + 'K';
-    return n.toString();
-  }
-
-  function esc(s) {
-    var d = document.createElement('div');
-    d.textContent = s;
-    return d.innerHTML;
-  }
-
-  function intensityDots(n) {
-    var out = '';
-    for (var i = 0; i < 5; i++) {
-      out += '<span class="s1-dot' + (i < n ? ' s1-dot--on' : '') + '"></span>';
+    {
+      id: 'p-business',
+      navLabel: 'Small business',
+      photo: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?w=1200&q=80&fit=crop&auto=format',
+      photoPos: 'center 30%',
+      moduleName: 'Shield + Autopilot + Business Line',
+      moduleSkills: 'Smart screening · Invoice follow-up · After-hours · Urgency triage · Book & dispatch',
+      title: 'Business Line for the Operator',
+      sub: 'Marcus, 31 · 64M US freelancers',
+      context: "Drives for Uber mornings. Freelance graphic design afternoons. One phone for everything. In February, a $4,500 client called while he was driving on I-25. Went to voicemail. No message. She hired someone else. He also has $2,800 in unpaid invoices he won't chase because it's awkward.",
+      quote: null,
+      rows: [
+        { before: '$4,500 client called while driving. Voicemail. No message. She hired someone else.', skill: 'Smart screening', skillDesc: 'AI answers, qualifies, texts you the summary', after: "AI answered as \"Marcus Design Studio.\" Qualified the lead: $4,500 rebrand, 3-week timeline. Callback booked for 2pm." },
+        { before: '$1,800 invoice outstanding since November. He designed their logo. Can\'t bring himself to chase the money.', skill: 'Invoice follow-up', skillDesc: 'Calls clients about overdue invoices', after: "AI calls from his number: \"Calling on behalf of Marcus Design Studio regarding invoice #1247.\" Payment scheduled for Friday." },
+        { before: '10pm Saturday. Customer calls about a broken AC. Voicemail. They call his competitor.', skill: 'After-hours answering', skillDesc: 'Answers the business line nights and weekends', after: "AI picks up as \"Marcus Design Studio.\" Takes the details, promises a callback Monday 9am. Customer doesn't shop around." },
+        { before: "Eight voicemails Monday morning. Three are emergencies, five are quote requests. He can't tell until he listens to all of them.", skill: 'Urgency triage', skillDesc: 'Sorts emergencies from quote requests', after: "Text: \"2 urgent (logo revision due today, client sign-off needed). 5 quotes, no rush. 1 spam.\" Emergencies handled first." },
+        { before: 'Client wants to book a consult. Back-and-forth texts about calendar slots. Takes 3 days to pin down a time.', skill: 'Book & dispatch', skillDesc: 'Checks calendar, books, sends confirmation', after: "AI offers 3 slots live on the call. Books Wednesday 2pm. Confirmation text sent. Calendar blocked. Done." },
+        { before: 'Uber riders texting personal cell. Clients calling at midnight. One phone, two lives blurring together.', skill: 'Separate business line', skillDesc: 'One phone, two lines, separate rules', after: "Business line rings until 7pm, then AI takes over. Personal line stays quiet. Same device, different worlds." }
+      ],
+      also: null
     }
-    return out;
-  }
-
-  function getFiltered() {
-    var list = activeFilter === 'all' ? personas.slice() : personas.filter(function(p) { return p.pipe === activeFilter; });
-    if (activeSort === 'score') list.sort(function(a, b) { return b.score - a.score; });
-    else if (activeSort === 'pop') list.sort(function(a, b) { return b.popNum - a.popNum; });
-    else if (activeSort === 'intensity') list.sort(function(a, b) { return b.intensity - a.intensity; });
-    else if (activeSort === 'name') list.sort(function(a, b) { return a.name.localeCompare(b.name); });
-    return list;
-  }
+  ];
 
   // ─── CSS ────────────────────────────────────────────────────────────────────
 
-  var css = `
-/* ── Scene 1 Scoped Styles ── */
-.scene1 {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  color: #e2e2f0;
-  position: relative;
-  padding: 0;
-  overflow-y: auto;
+  const css = `
+.scene1-root {
   height: 100%;
-  display: flex;
+  overflow-y: auto;
+  color: #1c1917;
+  background: #faf8f3;
+  font-family: 'Source Serif 4', Georgia, serif;
+  -webkit-font-smoothing: antialiased;
 }
-.scene1 *, .scene1 *::before, .scene1 *::after { box-sizing: border-box; }
+.scene1-root *, .scene1-root *::before, .scene1-root *::after { box-sizing: border-box; }
 
-/* Layout: main + sidebar */
-.s1-main {
-  flex: 1; min-width: 0; padding: 40px 0 60px; overflow-y: auto;
+/* ── Hero ── */
+.s1-hero {
+  position: relative;
+  min-height: 56vh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  background: #f5f0e8;
+}
+.s1-hero-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: saturate(0.55) brightness(0.95);
+  opacity: 0.55;
+}
+.s1-hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(250,248,243,0.2) 0%, rgba(250,248,243,0.55) 50%, rgba(250,248,243,0.92) 100%);
+}
+.s1-hero-inner {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 96px 32px 72px;
+  width: 100%;
+}
+.s1-hero-eyebrow {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: #b45309;
+  margin-bottom: 20px;
+}
+.s1-hero-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 64px; font-weight: 700;
+  color: #1c1917;
+  line-height: 1.05;
+  letter-spacing: -1.5px;
+  margin-bottom: 20px;
+  max-width: 680px;
+}
+.s1-hero-title em { color: #b45309; font-style: italic; font-weight: 400; }
+.s1-hero-sub {
+  font-size: 19px;
+  color: #57534e;
+  max-width: 560px;
+  line-height: 1.65;
+}
+
+/* ── Personas layout ── */
+.s1-personas-wrap {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 72px 32px 100px;
+}
+.s1-personas-row {
+  display: flex;
+  gap: 56px;
+  position: relative;
 }
 .s1-sidebar {
-  width: 380px; flex-shrink: 0; border-left: 1px solid rgba(255,255,255,0.06);
-  overflow-y: hidden; display: flex; flex-direction: column;
-  background: rgba(255,255,255,0.01);
-}
-.s1-sidebar-header {
-  padding: 20px 20px 12px; border-bottom: 1px solid rgba(255,255,255,0.06);
-}
-.s1-sidebar-header h3 {
-  font-family: 'Instrument Serif', Georgia, serif;
-  font-size: 20px; font-weight: 400; color: #e2e2f0; margin: 0 0 4px;
-}
-.s1-sidebar-header .s1-sidebar-sub {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px; color: #555; letter-spacing: 0.08em; text-transform: uppercase;
-}
-
-/* Header */
-.s1-header { text-align: left; margin-bottom: 16px; padding-left: 24px; }
-.s1-header h2 {
-  font-family: 'Instrument Serif', Georgia, serif;
-  font-size: 36px; font-weight: 400; margin: 0 0 4px; color: #e2e2f0;
-  letter-spacing: -0.5px;
-}
-.s1-header .s1-subtitle {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px; color: #737373; letter-spacing: 2px; text-transform: uppercase;
-}
-
-/* Filter Bar */
-.s1-filterbar {
-  display: flex; align-items: center; justify-content: center; gap: 12px;
-  margin-bottom: 16px; flex-wrap: wrap;
-}
-.s1-pill {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px; padding: 6px 16px; border-radius: 20px;
-  background: transparent; border: 1px solid rgba(255,255,255,0.08);
-  color: #737373; cursor: pointer; transition: all 0.2s ease;
-  user-select: none; letter-spacing: 0.5px;
-}
-.s1-pill:hover { color: #e2e2f0; border-color: rgba(255,255,255,0.18); }
-.s1-pill--active { color: #e2e2f0; background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.2); }
-.s1-pill--surge.s1-pill--active { color: #e17055; border-color: rgba(225,112,85,0.4); background: rgba(225,112,85,0.08); }
-.s1-pill--micro.s1-pill--active { color: #74b9ff; border-color: rgba(116,185,255,0.4); background: rgba(116,185,255,0.08); }
-.s1-pill--macro.s1-pill--active { color: #a29bfe; border-color: rgba(162,155,254,0.4); background: rgba(162,155,254,0.08); }
-
-.s1-pipeline-desc {
-  max-width: 1100px; margin: 0 auto 20px; padding: 0 24px; text-align: left;
-  font-size: 12px; line-height: 1.6; color: #666; font-style: italic;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-}
-
-.s1-sort-wrap { margin-left: 16px; }
-.s1-sort {
-  font-family: 'JetBrains Mono', monospace; font-size: 12px;
-  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
-  color: #e2e2f0; padding: 6px 12px; border-radius: 8px; cursor: pointer;
-  appearance: none; -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23737373'/%3E%3C/svg%3E");
-  background-repeat: no-repeat; background-position: right 10px center;
-  padding-right: 28px;
-}
-.s1-sort option { background: #1a1a2e; color: #e2e2f0; }
-.s1-pipeline-link {
-  margin-left: 16px; font-family: 'JetBrains Mono', monospace; font-size: 12px;
-  background: none; border: 1px solid rgba(16,185,129,0.3); color: #10b981;
-  padding: 6px 16px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease;
-  letter-spacing: 0.5px;
-}
-.s1-pipeline-link:hover { color: #10b981; border-color: rgba(16,185,129,0.6); background: rgba(16,185,129,0.06); }
-
-/* Context Panels */
-.s1-context { margin-bottom: 40px; max-width: 1100px; margin-left: auto; margin-right: auto; padding: 0 24px; }
-.s1-context-tabs {
-  display: flex; gap: 0; margin-bottom: 0; border-bottom: 1px solid rgba(255,255,255,0.06);
-}
-.s1-context-tab {
-  font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 1px;
-  text-transform: uppercase; color: #737373; padding: 10px 20px; cursor: pointer;
-  border-bottom: 2px solid transparent; transition: all 0.2s ease; user-select: none;
-}
-.s1-context-tab:hover { color: #e2e2f0; }
-.s1-context-tab--active { color: #e2e2f0; border-bottom-color: ${AMBER}; }
-.s1-context-body {
-  background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
-  border-top: none; border-radius: 0 0 12px 12px; padding: 24px;
-  max-height: 420px; overflow-y: auto;
-}
-.s1-context-body::-webkit-scrollbar { width: 4px; }
-.s1-context-body::-webkit-scrollbar-track { background: transparent; }
-.s1-context-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
-
-/* Trigger Events Table */
-.s1-trigger-row {
-  display: grid; grid-template-columns: 40px 1fr 80px 90px 100px 100px;
-  gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
-  align-items: center; font-size: 13px; transition: background 0.15s;
-}
-.s1-trigger-row:hover { background: rgba(255,255,255,0.02); }
-.s1-trigger-rank {
-  font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #737373;
-  text-align: center;
-}
-.s1-trigger-name { color: #e2e2f0; font-weight: 500; }
-.s1-trigger-composite {
-  font-family: 'JetBrains Mono', monospace; font-size: 12px; color: ${AMBER};
-  text-align: center;
-}
-.s1-trigger-type {
-  font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.5px;
-  text-transform: uppercase; color: #737373;
-}
-.s1-trigger-vol {
-  font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #737373;
-}
-.s1-trigger-emotion { font-size: 11px; color: #737373; font-style: italic; }
-.s1-trigger-header {
-  display: grid; grid-template-columns: 40px 1fr 80px 90px 100px 100px;
-  gap: 12px; padding: 0 0 8px; border-bottom: 1px solid rgba(255,255,255,0.08);
-  font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #404040;
-  text-transform: uppercase; letter-spacing: 1px;
-}
-
-/* Macro/Micro Trend rows */
-.s1-trend-row {
-  display: grid; grid-template-columns: 60px 1fr 90px 100px 90px;
-  gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
-  align-items: center; font-size: 13px;
-}
-.s1-trend-id { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #404040; }
-.s1-trend-name { color: #e2e2f0; font-weight: 500; }
-.s1-trend-signal {
-  font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #737373;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
-.s1-trend-conf {
-  font-family: 'JetBrains Mono', monospace; font-size: 12px; color: ${GREEN};
-}
-.s1-trend-extra {
-  font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #737373;
-}
-.s1-trend-header {
-  display: grid; grid-template-columns: 60px 1fr 90px 100px 90px;
-  gap: 12px; padding: 0 0 8px; border-bottom: 1px solid rgba(255,255,255,0.08);
-  font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #404040;
-  text-transform: uppercase; letter-spacing: 1px;
-}
-
-/* Surge panel */
-.s1-surge-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
-.s1-surge-card {
-  background: rgba(225,112,85,0.04); border: 1px solid rgba(225,112,85,0.12);
-  border-radius: 10px; padding: 16px; transition: border-color 0.2s;
-}
-.s1-surge-card:hover { border-color: rgba(225,112,85,0.3); }
-.s1-surge-card h4 { font-size: 14px; color: #e2e2f0; margin: 0 0 6px; font-weight: 500; }
-.s1-surge-card .s1-surge-meta {
-  font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #e17055;
-  margin-bottom: 8px;
-}
-.s1-surge-card p { font-size: 12px; color: #737373; margin: 0; line-height: 1.5; }
-
-/* Score & Select Section (sidebar) */
-.s1-scoring-section {
-  display: flex; flex-direction: column; height: 100%;
-}
-.s1-score-btn-wrap {
-  padding: 20px 20px 16px; border-bottom: 1px solid rgba(255,255,255,0.06);
-}
-.s1-score-btn {
-  font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600;
-  padding: 10px 20px; border-radius: 8px; cursor: pointer; width: 100%;
-  border: 1px solid rgba(16,185,129,0.3); background: rgba(16,185,129,0.08);
-  color: #10b981; transition: all 0.3s; letter-spacing: 0.03em;
-}
-.s1-score-btn:hover { background: rgba(16,185,129,0.18); border-color: rgba(16,185,129,0.5); }
-.s1-score-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-
-.s1-scoring-panel {
-  display: none; text-align: left; flex: 1; overflow-y: auto;
-}
-.s1-scoring-panel.visible { display: flex; flex-direction: column; }
-
-.s1-scoring-header {
-  padding: 16px 20px 12px; border-bottom: 1px solid rgba(255,255,255,0.06);
-  display: flex; align-items: center; gap: 10px; flex-shrink: 0;
-}
-.s1-scoring-header h3 {
-  font-family: 'Instrument Serif', Georgia, serif;
-  font-size: 18px; font-weight: 400; color: #e2e2f0; margin: 0;
-}
-.s1-scoring-status {
-  font-family: 'JetBrains Mono', monospace; font-size: 10px;
-  color: #10b981; letter-spacing: 0.05em;
-}
-
-.s1-scoring-terminal {
-  padding: 12px 16px; font-family: 'JetBrains Mono', monospace;
-  font-size: 10px; color: #737373; line-height: 1.7;
-  max-height: 100px; overflow-y: auto; border-bottom: 1px solid rgba(255,255,255,0.06);
+  width: 200px;
   flex-shrink: 0;
+  display: none;
 }
-.s1-scoring-terminal .s1-term-line { opacity: 0; animation: s1TermFade 0.3s forwards; }
-@keyframes s1TermFade { to { opacity: 1; } }
-.s1-scoring-terminal .s1-term-line .s1-term-accent { color: #10b981; }
-
-.s1-scoring-rows { padding: 4px 0; flex: 1; overflow-y: auto; }
-
-.s1-scoring-row {
-  display: grid; grid-template-columns: 1fr 50px 56px;
-  gap: 8px; align-items: center; padding: 10px 16px;
-  border-bottom: 1px solid rgba(255,255,255,0.03);
-  opacity: 0; transform: translateY(8px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+@media (min-width: 1024px) { .s1-sidebar { display: block; } }
+.s1-sidebar-inner {
+  position: sticky;
+  top: 32px;
 }
-.s1-scoring-row.revealed { opacity: 1; transform: translateY(0); }
-.s1-scoring-row.winner {
-  background: rgba(16,185,129,0.06);
-  border-left: 3px solid #10b981;
+.s1-sidebar-label {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: #b45309;
+  margin-bottom: 20px;
 }
-.s1-scoring-row-name {
-  font-size: 12px; color: #e2e2f0; font-weight: 500;
+.s1-sidebar-list { display: flex; flex-direction: column; gap: 4px; }
+.s1-sidebar-link {
+  font-size: 14px; font-weight: 400;
+  color: #a8a29e;
+  padding: 6px 0 6px 14px;
+  border-left: 2px solid transparent;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+  text-decoration: none;
 }
-.s1-scoring-row-pipe {
-  font-family: 'JetBrains Mono', monospace; font-size: 9px;
-  display: block; margin-top: 2px; padding: 1px 6px;
-  border-radius: 3px; width: fit-content;
-}
-.s1-scoring-row-bars {
-  display: flex; gap: 3px; align-items: center; height: 20px;
-}
-.s1-scoring-bar-group { display: flex; flex-direction: column; gap: 2px; flex: 1; }
-.s1-scoring-bar-track {
-  height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px;
-  overflow: hidden; position: relative;
-}
-.s1-scoring-bar-fill {
-  height: 100%; border-radius: 2px; width: 0%;
-  transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.s1-scoring-composite {
-  font-family: 'JetBrains Mono', monospace; font-size: 14px;
-  font-weight: 600; color: #404040; text-align: right;
-  transition: color 0.3s;
-}
-.s1-scoring-composite.scored { color: #e2e2f0; }
-.s1-scoring-composite.top { color: #10b981; }
-.s1-scoring-badge {
-  font-family: 'JetBrains Mono', monospace; font-size: 9px;
-  text-transform: uppercase; letter-spacing: 0.06em;
-  text-align: right; color: #404040;
-}
-.s1-scoring-badge.selected {
-  color: #10b981;
-}
-.s1-scoring-badge.passed {
-  color: #f0c27a;
-}
-.s1-scoring-badge.failed {
-  color: #ef4444;
+.s1-sidebar-link:hover { color: #57534e; }
+.s1-sidebar-link.active {
+  color: #1c1917;
+  border-left-color: #b45309;
+  font-weight: 600;
 }
 
-.s1-scoring-verdict {
-  padding: 16px; border-top: 1px solid rgba(255,255,255,0.06);
-  display: flex; align-items: flex-start; gap: 12px;
-  opacity: 0; transition: opacity 0.5s ease; flex-shrink: 0;
-}
-.s1-scoring-verdict.visible { opacity: 1; }
-.s1-scoring-verdict-icon {
-  width: 32px; height: 32px; border-radius: 50%;
-  background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 14px; flex-shrink: 0;
-}
-.s1-scoring-verdict-text h4 {
-  font-size: 12px; color: #10b981; font-weight: 600; margin: 0 0 4px;
-}
-.s1-scoring-verdict-text p {
-  font-size: 11px; color: #737373; margin: 0; line-height: 1.5;
+.s1-main {
+  flex: 1;
+  min-width: 0;
 }
 
-/* Card Grid */
-.s1-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 16px; max-width: 1100px; margin: 0 auto; padding: 0 24px;
+/* ── Persona block ── */
+.s1-persona {
+  margin-bottom: 144px;
+  scroll-margin-top: 32px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
-.s1-card {
-  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 12px; padding: 20px 20px 20px 24px; cursor: pointer;
-  transition: all 0.25s ease; position: relative; overflow: hidden;
-}
-.s1-card::before {
-  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
-  border-radius: 12px 0 0 12px;
-}
-.s1-card--surge::before { background: #e17055; }
-.s1-card--micro::before { background: #74b9ff; }
-.s1-card--macro::before { background: #a29bfe; }
-.s1-card:hover {
-  border-color: rgba(255,255,255,0.16);
-  background: rgba(255,255,255,0.05);
-  transform: translateY(-2px);
-}
-.s1-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
-.s1-card-pipe {
-  font-family: 'JetBrains Mono', monospace; font-size: 10px;
-  letter-spacing: 1px; text-transform: uppercase; padding: 2px 8px;
-  border-radius: 4px;
-}
-.s1-card-pipe--surge { color: #e17055; background: rgba(225,112,85,0.1); }
-.s1-card-pipe--micro { color: #74b9ff; background: rgba(116,185,255,0.1); }
-.s1-card-pipe--macro { color: #a29bfe; background: rgba(162,155,254,0.1); }
-.s1-card-score {
-  font-family: 'JetBrains Mono', monospace; font-size: 20px; font-weight: 700;
-  color: ${AMBER}; line-height: 1;
-}
-.s1-card h3 { font-size: 16px; font-weight: 600; margin: 0 0 6px; color: #e2e2f0; line-height: 1.3; }
-.s1-card-desc { font-size: 13px; color: #737373; line-height: 1.5; margin-bottom: 12px; }
-.s1-card-meta {
-  display: flex; gap: 16px; font-family: 'JetBrains Mono', monospace;
-  font-size: 11px; color: #737373;
-}
-.s1-card-meta span { display: flex; align-items: center; gap: 4px; }
-.s1-card-pop { color: #e2e2f0; }
-.s1-card-intensity { display: flex; align-items: center; gap: 3px; }
-.s1-dot {
-  width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.1);
-  display: inline-block;
-}
-.s1-dot--on { background: ${AMBER}; }
+.s1-persona.visible { opacity: 1; transform: translateY(0); }
 
-/* Deep Dive Overlay */
-.s1-overlay {
-  position: fixed; inset: 0; z-index: 9999;
-  background: rgba(0,0,0,0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-  display: none; overflow-y: auto;
-  animation: s1FadeIn 0.25s ease;
-}
-.s1-overlay--open { display: flex; }
-@keyframes s1FadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-.s1-deepdive {
-  width: 100%; max-width: 1100px; margin: 40px auto; padding: 0 24px;
-}
-.s1-dd-close {
-  position: fixed; top: 24px; right: 32px; width: 36px; height: 36px;
-  border-radius: 50%; border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.05); color: #e2e2f0; font-size: 18px;
-  cursor: pointer; display: flex; align-items: center; justify-content: center;
-  transition: all 0.2s; z-index: 10000;
-}
-.s1-dd-close:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.25); }
-
-/* Identity Card */
-.s1-dd-identity {
-  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 12px; padding: 32px; margin-bottom: 24px;
-}
-.s1-dd-identity-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
-.s1-dd-identity h2 {
-  font-family: 'Instrument Serif', Georgia, serif; font-size: 32px; font-weight: 400;
-  margin: 0 0 8px; color: #e2e2f0; letter-spacing: -0.3px; line-height: 1.2;
-}
-.s1-dd-identity .s1-dd-desc { font-size: 15px; color: #737373; line-height: 1.6; max-width: 600px; }
-.s1-dd-scorebox { text-align: right; }
-.s1-dd-scorebox .s1-dd-score-val {
-  font-family: 'JetBrains Mono', monospace; font-size: 48px; font-weight: 700;
-  color: ${AMBER}; line-height: 1;
-}
-.s1-dd-scorebox .s1-dd-score-label {
-  font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #737373;
-  text-transform: uppercase; letter-spacing: 1px;
-}
-
-.s1-dd-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px; }
-@media (max-width: 700px) { .s1-dd-grid { grid-template-columns: 1fr; } }
-
-.s1-dd-section-title {
-  font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #404040;
-  text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px;
-}
-.s1-dd-markers { list-style: none; padding: 0; margin: 0; }
-.s1-dd-markers li {
-  font-size: 13px; color: #e2e2f0; padding: 4px 0; position: relative;
-  padding-left: 14px;
-}
-.s1-dd-markers li::before {
-  content: ''; position: absolute; left: 0; top: 10px;
-  width: 4px; height: 4px; border-radius: 50%; background: #737373;
-}
-.s1-dd-communities { display: flex; flex-wrap: wrap; gap: 6px; }
-.s1-dd-comm-tag {
-  font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #737373;
-  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 6px; padding: 3px 10px;
-}
-
-/* Confidence Bars */
-.s1-dd-confidence { margin-top: 24px; }
-.s1-dd-conf-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
-.s1-dd-conf-label {
-  font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #737373;
-  width: 80px; text-align: right;
-}
-.s1-dd-conf-track {
-  flex: 1; height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px;
+.s1-photo {
+  position: relative;
+  height: 340px;
+  border-radius: 12px;
   overflow: hidden;
+  margin-bottom: 36px;
+  border: 1px solid rgba(0,0,0,0.06);
 }
-.s1-dd-conf-fill { height: 100%; border-radius: 2px; transition: width 0.6s ease; }
-.s1-dd-conf-fill--identity { background: #74b9ff; }
-.s1-dd-conf-fill--price { background: ${AMBER}; }
-.s1-dd-conf-fill--channel { background: ${GREEN}; }
-.s1-dd-conf-val {
-  font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #e2e2f0; width: 36px;
+.s1-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: saturate(0.7) brightness(0.95);
+}
+.s1-photo-fade {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(28,25,23,0.25) 0%, transparent 55%);
+}
+.s1-module-pill {
+  position: absolute;
+  bottom: 14px; left: 20px;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background: rgba(250,248,243,0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 7px 12px;
+  border-radius: 4px;
+  border: 1px solid rgba(0,0,0,0.04);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+.s1-module-pill .s1-module-name { color: #1c1917; font-weight: 700; }
+.s1-module-pill .s1-module-skills { color: #b45309; }
+
+.s1-persona-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 36px; font-weight: 700;
+  color: #1c1917;
+  margin-bottom: 12px;
+  letter-spacing: -0.8px;
+  line-height: 1.15;
+}
+.s1-persona-sub {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: #b45309;
+  margin-bottom: 20px;
+}
+.s1-persona-context {
+  font-size: 17px;
+  color: #57534e;
+  line-height: 1.7;
+  margin-bottom: 36px;
+  max-width: 640px;
 }
 
-/* Moment */
-.s1-dd-moment {
-  margin-top: 24px; padding: 16px; border-radius: 10px;
-  background: rgba(240,194,122,0.04); border: 1px solid rgba(240,194,122,0.12);
+.s1-quote {
+  border-left: 2px solid #b45309;
+  padding: 10px 0 10px 28px;
+  margin-bottom: 44px;
+  max-width: 680px;
 }
-.s1-dd-moment-label {
-  font-family: 'JetBrains Mono', monospace; font-size: 10px; color: ${AMBER};
-  text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;
+.s1-quote-text {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 24px; font-style: italic;
+  font-weight: 400;
+  color: #1c1917;
+  line-height: 1.4;
 }
-.s1-dd-moment-text { font-size: 14px; color: #e2e2f0; line-height: 1.5; }
-.s1-dd-moment-window {
-  font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #737373; margin-top: 6px;
-}
-
-/* Population / Source */
-.s1-dd-pop-row {
-  display: flex; gap: 24px; margin-top: 20px;
-  font-family: 'JetBrains Mono', monospace; font-size: 12px;
-}
-.s1-dd-pop-val { color: #e2e2f0; }
-.s1-dd-pop-src { color: #404040; }
-
-/* Interview Panel */
-.s1-dd-interview {
-  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 12px; padding: 32px; margin-bottom: 24px;
-}
-.s1-dd-interview h3 {
-  font-family: 'Instrument Serif', Georgia, serif; font-size: 22px; font-weight: 400;
-  margin: 0 0 24px; color: #e2e2f0;
-}
-.s1-dd-interview-empty {
-  font-size: 14px; color: #404040; font-style: italic; text-align: center; padding: 40px 0;
-}
-.s1-dd-qa { margin-bottom: 28px; }
-.s1-dd-qa:last-child { margin-bottom: 0; }
-.s1-dd-q {
-  font-size: 13px; color: #737373; margin-bottom: 8px; font-weight: 500;
-  padding-left: 12px; border-left: 2px solid rgba(255,255,255,0.08);
-}
-.s1-dd-a {
-  font-size: 14px; color: #e2e2f0; line-height: 1.7; margin-bottom: 10px;
-  min-height: 20px;
-}
-.s1-dd-a .s1-cursor {
-  display: inline-block; width: 2px; height: 14px; background: ${AMBER};
-  margin-left: 2px; vertical-align: text-bottom;
-  animation: s1Blink 0.8s step-end infinite;
-}
-@keyframes s1Blink { 50% { opacity: 0; } }
-.s1-dd-insight {
-  font-family: 'JetBrains Mono', monospace; font-size: 11px; color: ${GREEN};
-  background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.12);
-  border-radius: 8px; padding: 10px 14px; line-height: 1.6;
+.s1-quote-attr {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #a8a29e;
+  margin-top: 14px;
 }
 
-/* No interview available */
-.s1-no-interview {
-  font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #404040;
-  text-align: center; padding: 48px 24px;
+.s1-changes-header {
+  border-top: 1px solid rgba(0,0,0,0.08);
+  padding-top: 28px;
+  margin-bottom: 24px;
+}
+.s1-changes-label {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: #b45309;
 }
 
-/* Responsive */
+.s1-table-head {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 12px;
+}
+.s1-th {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: #a8a29e;
+}
+.s1-th.s1-th-after { color: #b45309; }
+
+.s1-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  padding: 18px 0;
+  border-top: 1px solid rgba(0,0,0,0.06);
+}
+.s1-row-cell { font-size: 15px; line-height: 1.6; padding-right: 16px; }
+.s1-row-before { color: #a8a29e; }
+.s1-row-skill-name { color: #1c1917; font-weight: 600; line-height: 1.3; }
+.s1-row-skill-desc { color: #a8a29e; font-size: 14px; margin-top: 4px; line-height: 1.5; }
+.s1-row-after { color: #1c1917; }
+
+.s1-also {
+  font-size: 13px;
+  color: #a8a29e;
+  margin-top: 28px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(0,0,0,0.05);
+}
+.s1-also-label { color: #57534e; font-weight: 600; }
+
 @media (max-width: 768px) {
-  .s1-grid { grid-template-columns: 1fr; padding: 0 16px; }
-  .s1-header h2 { font-size: 32px; }
-  .s1-dd-identity-top { flex-direction: column; }
-  .s1-dd-scorebox { text-align: left; margin-top: 12px; }
-  .s1-trigger-row { grid-template-columns: 30px 1fr 60px; }
-  .s1-trigger-row .s1-trigger-type,
-  .s1-trigger-row .s1-trigger-vol,
-  .s1-trigger-row .s1-trigger-emotion { display: none; }
-  .s1-trigger-header { grid-template-columns: 30px 1fr 60px; }
-  .s1-trigger-header span:nth-child(n+4) { display: none; }
+  .s1-hero-title { font-size: 40px; }
+  .s1-photo { height: 240px; }
+  .s1-table-head, .s1-row { grid-template-columns: 1fr; }
+  .s1-personas-wrap { padding: 40px 20px; }
 }
 `;
 
-  // ─── INJECT CSS ─────────────────────────────────────────────────────────────
+  // ─── HELPERS ────────────────────────────────────────────────────────────────
 
-  var styleEl = document.createElement('style');
-  styleEl.textContent = css;
-  document.head.appendChild(styleEl);
-
-  // ─── BUILD DOM ──────────────────────────────────────────────────────────────
-
-  container.innerHTML = '';
-  container.classList.add('scene1');
-
-  // Main content area
-  var mainArea = document.createElement('div');
-  mainArea.className = 's1-main';
-
-  // Sidebar
-  var sidebarArea = document.createElement('div');
-  sidebarArea.className = 's1-sidebar';
-
-  // Header
-  var header = document.createElement('div');
-  header.className = 's1-header';
-  header.innerHTML = '<h2>Persona Explorer</h2><div class="s1-subtitle">Pipeline Intelligence \u00b7 ' + personas.length + ' Personas</div>';
-  mainArea.appendChild(header);
-
-  // Filter bar
-  var filterBar = document.createElement('div');
-  filterBar.className = 's1-filterbar';
-  var filters = [
-    { key: 'macro', label: 'Macro', cls: 's1-pill--macro' },
-    { key: 'micro', label: 'Micro', cls: 's1-pill--micro' },
-    { key: 'surge', label: 'Surge', cls: 's1-pill--surge' }
-  ];
-  filters.forEach(function(f) {
-    var pill = document.createElement('button');
-    pill.className = 's1-pill ' + f.cls + (f.key === activeFilter ? ' s1-pill--active' : '');
-    pill.textContent = f.label;
-    pill.dataset.filter = f.key;
-    pill.addEventListener('click', function() {
-      activeFilter = f.key;
-      renderFilters();
-      renderGrid();
-    });
-    filterBar.appendChild(pill);
-  });
-
-  var sortWrap = document.createElement('div');
-  sortWrap.className = 's1-sort-wrap';
-  var sortSel = document.createElement('select');
-  sortSel.className = 's1-sort';
-  [['score','Score'],['pop','Population'],['intensity','Intensity'],['name','Name']].forEach(function(o) {
-    var opt = document.createElement('option');
-    opt.value = o[0]; opt.textContent = o[1];
-    sortSel.appendChild(opt);
-  });
-  sortSel.value = activeSort;
-  sortSel.addEventListener('change', function() { activeSort = sortSel.value; renderGrid(); });
-  sortWrap.appendChild(sortSel);
-  filterBar.appendChild(sortWrap);
-
-  var pipelineLink = document.createElement('button');
-  pipelineLink.className = 's1-pipeline-link';
-  pipelineLink.textContent = 'View Market Intelligence Run';
-  pipelineLink.addEventListener('click', function() {
-    var scenes = document.querySelectorAll('.scene');
-    scenes.forEach(function(s) { s.classList.remove('active'); });
-    var scene1 = document.getElementById('scene-1');
-    if (scene1) scene1.classList.add('active');
-  });
-  filterBar.appendChild(pipelineLink);
-  mainArea.appendChild(filterBar);
-
-  // Pipeline descriptions
-  var pipelineDescs = {
-    macro: 'Identifies structural societal shifts (3\u201330+ years) through institutionally-weighted PESTEL analysis with 5-10 year deep lookback \u2014 scanning census data, policy evolution, and demographic projections to surface durable identity communities. Scores trends through a proprietary 5-dimension Identity Community Scan, then qualifies only signals with Ansoff Level 3+ strength and Rogers Early Adopter positioning.',
-    micro: 'Detects emerging consumer waves (3 months \u2013 3 years) by scanning PESTEL signals, scoring velocity through Ansoff frameworks, and cross-referencing life-transition events with real community formation. Stress-tests signals through a Sustainability Assessment that separates noise from structural demand, and pinpoints the exact window on the Rogers adoption curve.',
-    surge: 'Captures demand spikes in real-time (< 3 months) through velocity-first scanning \u2014 tracking social trending, search volume breakouts, app store surges, and spend evidence with 3x recency weighting on signals from the last 30 days. Classifies each surge by sub-type (Opportunity-Window, Escalating, Structural, Innovation Wave), projects the enduring demand window through comparable precedent analysis.'
-  };
-  var descEl = document.createElement('div');
-  descEl.className = 's1-pipeline-desc';
-  descEl.textContent = pipelineDescs[activeFilter] || '';
-  mainArea.appendChild(descEl);
-
-  // Grid
-  var grid = document.createElement('div');
-  grid.className = 's1-grid';
-  mainArea.appendChild(grid);
-
-  // Overlay
-  var overlay = document.createElement('div');
-  overlay.className = 's1-overlay';
-  overlay.addEventListener('click', function(e) { if (e.target === overlay) closeDeepDive(); });
-
-  var ddContent = document.createElement('div');
-  ddContent.className = 's1-deepdive';
-  overlay.appendChild(ddContent);
-
-  var closeBtn = document.createElement('button');
-  closeBtn.className = 's1-dd-close';
-  closeBtn.innerHTML = '&#215;';
-  closeBtn.addEventListener('click', closeDeepDive);
-  overlay.appendChild(closeBtn);
-
-  mainArea.appendChild(overlay);
-
-  container.appendChild(mainArea);
-
-  // ─── RENDER FUNCTIONS ───────────────────────────────────────────────────────
-
-  function renderFilters() {
-    var pills = filterBar.querySelectorAll('.s1-pill');
-    pills.forEach(function(p) {
-      p.classList.toggle('s1-pill--active', p.dataset.filter === activeFilter);
-    });
-    descEl.textContent = pipelineDescs[activeFilter] || '';
+  function esc(s) {
+    var d = document.createElement('div');
+    d.textContent = s == null ? '' : s;
+    return d.innerHTML;
   }
 
-  function renderGrid() {
-    var list = getFiltered();
-    grid.innerHTML = '';
-    list.forEach(function(p) {
-      var card = document.createElement('div');
-      card.className = 's1-card s1-card--' + p.pipe;
-      card.innerHTML =
-        '<div class="s1-card-top">' +
-          '<span class="s1-card-pipe s1-card-pipe--' + p.pipe + '">' + PIPE_LABELS[p.pipe] + '</span>' +
-          '<span class="s1-card-score">' + p.score.toFixed(1) + '</span>' +
-        '</div>' +
-        '<h3>' + esc(p.name) + '</h3>' +
-        '<div class="s1-card-desc">' + esc(p.desc) + '</div>' +
-        '<div class="s1-card-meta">' +
-          '<span class="s1-card-pop">' + esc(p.pop) + '</span>' +
-          '<span class="s1-card-intensity">' + intensityDots(p.intensity) + '</span>' +
-        '</div>';
-      card.addEventListener('click', function() { openDeepDive(p); });
-      grid.appendChild(card);
-    });
+  function renderPersona(p) {
+    const quoteHtml = p.quote ? `
+      <div class="s1-quote">
+        <p class="s1-quote-text">"${esc(p.quote.text)}"</p>
+        <p class="s1-quote-attr">${esc(p.quote.attr)}</p>
+      </div>
+    ` : '';
+
+    const alsoHtml = p.also ? `
+      <p class="s1-also"><span class="s1-also-label">Also includes:</span> ${esc(p.also)}</p>
+    ` : '';
+
+    const rowsHtml = p.rows.map(r => `
+      <div class="s1-row">
+        <p class="s1-row-cell s1-row-before">${esc(r.before)}</p>
+        <div class="s1-row-cell">
+          <p class="s1-row-skill-name">${esc(r.skill)}</p>
+          <p class="s1-row-skill-desc">${esc(r.skillDesc)}</p>
+        </div>
+        <p class="s1-row-cell s1-row-after">${esc(r.after)}</p>
+      </div>
+    `).join('');
+
+    return `
+      <div id="${p.id}" class="s1-persona">
+        <div class="s1-photo">
+          <img src="${esc(p.photo)}" alt="${esc(p.title)}" style="object-position: ${esc(p.photoPos)};">
+          <div class="s1-photo-fade"></div>
+          <div class="s1-module-pill">
+            <span class="s1-module-name">${esc(p.moduleName)}</span>
+            <span class="s1-module-skills"> · ${esc(p.moduleSkills)}</span>
+          </div>
+        </div>
+
+        <h3 class="s1-persona-title">${esc(p.title)}</h3>
+        <p class="s1-persona-sub">${esc(p.sub)}</p>
+        <p class="s1-persona-context">${esc(p.context)}</p>
+
+        ${quoteHtml}
+
+        <div class="s1-changes-header">
+          <p class="s1-changes-label">What changes</p>
+        </div>
+        <div class="s1-table-head">
+          <p class="s1-th">Before</p>
+          <p class="s1-th">Skill</p>
+          <p class="s1-th s1-th-after">After</p>
+        </div>
+        <div>${rowsHtml}</div>
+
+        ${alsoHtml}
+      </div>
+    `;
   }
 
-  // ─── DEEP DIVE ──────────────────────────────────────────────────────────────
+  // ─── RENDER ─────────────────────────────────────────────────────────────────
 
-  function openDeepDive(p) {
-    deepDivePersona = p;
-    if (typewriterTimer) { clearTimeout(typewriterTimer); typewriterTimer = null; }
-    overlay.classList.add('s1-overlay--open');
-    document.body.style.overflow = 'hidden';
+  const sidebarHtml = personas.map(p =>
+    `<a class="s1-sidebar-link" data-target="${p.id}" href="#${p.id}">${esc(p.navLabel)}</a>`
+  ).join('');
 
-    var pipeColor = PIPE_COLORS[p.pipe];
+  const personasHtml = personas.map(renderPersona).join('');
 
-    var html = '';
+  container.innerHTML = `
+    <style>${css}</style>
+    <div class="scene1-root">
+      <section class="s1-hero">
+        <img class="s1-hero-img" src="${HERO_IMG}" alt="">
+        <div class="s1-hero-overlay"></div>
+        <div class="s1-hero-inner">
+          <p class="s1-hero-eyebrow">Who we serve</p>
+          <h1 class="s1-hero-title">Your number.<br><em>Now with a brain.</em></h1>
+          <p class="s1-hero-sub">Not an app. Not a service. The number itself becomes intelligent.</p>
+        </div>
+      </section>
 
-    // Identity card
-    html += '<div class="s1-dd-identity" style="border-left: 3px solid ' + pipeColor + ';">';
-    html += '<div class="s1-dd-identity-top">';
-    html += '<div>';
-    html += '<span class="s1-card-pipe s1-card-pipe--' + p.pipe + '" style="margin-bottom:8px;display:inline-block;">' + PIPE_LABELS[p.pipe] + ' Pipeline</span>';
-    html += '<h2>' + esc(p.name) + '</h2>';
-    html += '<div class="s1-dd-desc">' + esc(p.desc) + '</div>';
-    html += '</div>';
-    html += '<div class="s1-dd-scorebox">';
-    html += '<div class="s1-dd-score-val">' + p.score.toFixed(1) + '</div>';
-    html += '<div class="s1-dd-score-label">Priority Score</div>';
-    html += '</div>';
-    html += '</div>';
+      <section class="s1-personas-wrap">
+        <div class="s1-personas-row">
+          <aside class="s1-sidebar">
+            <div class="s1-sidebar-inner">
+              <p class="s1-sidebar-label">Personas</p>
+              <div class="s1-sidebar-list">${sidebarHtml}</div>
+            </div>
+          </aside>
 
-    // Pop + source
-    html += '<div class="s1-dd-pop-row">';
-    html += '<span class="s1-dd-pop-val">' + esc(p.pop) + '</span>';
-    html += '<span class="s1-dd-pop-src">' + esc(p.popSource) + '</span>';
-    html += '</div>';
+          <div class="s1-main">${personasHtml}</div>
+        </div>
+      </section>
+    </div>
+  `;
 
-    // Two column: markers + communities
-    html += '<div class="s1-dd-grid">';
-    html += '<div>';
-    html += '<div class="s1-dd-section-title">Identity Markers</div>';
-    html += '<ul class="s1-dd-markers">';
-    p.markers.forEach(function(m) { html += '<li>' + esc(m) + '</li>'; });
-    html += '</ul>';
-    html += '</div>';
-    html += '<div>';
-    html += '<div class="s1-dd-section-title">Communities</div>';
-    html += '<div class="s1-dd-communities">';
-    p.community.forEach(function(c) { html += '<span class="s1-dd-comm-tag">' + esc(c) + '</span>'; });
-    html += '</div>';
-    html += '</div>';
-    html += '</div>';
+  // ─── INTERACTIVITY ──────────────────────────────────────────────────────────
 
-    // Confidence bars
-    html += '<div class="s1-dd-confidence">';
-    html += '<div class="s1-dd-section-title">Confidence Scores</div>';
-    ['identity', 'price', 'channel'].forEach(function(key) {
-      html += '<div class="s1-dd-conf-row">';
-      html += '<span class="s1-dd-conf-label">' + key.charAt(0).toUpperCase() + key.slice(1) + '</span>';
-      html += '<div class="s1-dd-conf-track"><div class="s1-dd-conf-fill s1-dd-conf-fill--' + key + '" style="width:0%;"></div></div>';
-      html += '<span class="s1-dd-conf-val">' + p.confidence[key] + '%</span>';
-      html += '</div>';
-    });
-    html += '</div>';
+  const root = container.querySelector('.scene1-root');
+  const sections = container.querySelectorAll('.s1-persona');
+  const links = container.querySelectorAll('.s1-sidebar-link');
 
-    // Moment
-    html += '<div class="s1-dd-moment">';
-    html += '<div class="s1-dd-moment-label">Capture Moment</div>';
-    html += '<div class="s1-dd-moment-text">' + esc(p.moment) + '</div>';
-    html += '<div class="s1-dd-moment-window">Window: ' + esc(p.momentWindow) + '</div>';
-    html += '</div>';
-
-    html += '</div>'; // end identity
-
-    // Interview panel
-    html += '<div class="s1-dd-interview">';
-    html += '<h3>Interview Synthesis</h3>';
-    if (p.interview && p.interview.length > 0) {
-      p.interview.forEach(function(item, idx) {
-        html += '<div class="s1-dd-qa">';
-        html += '<div class="s1-dd-q">' + esc(item.q) + '</div>';
-        html += '<div class="s1-dd-a" data-tw-idx="' + idx + '"></div>';
-        html += '<div class="s1-dd-insight" style="opacity:0;transition:opacity 0.5s;" data-insight-idx="' + idx + '">' + esc(item.insight) + '</div>';
-        html += '</div>';
-      });
-    } else {
-      html += '<div class="s1-no-interview">No interview data available for this persona.<br>Interviews are conducted for priority personas only.</div>';
-    }
-    html += '</div>';
-
-    ddContent.innerHTML = html;
-
-    // Animate confidence bars
-    setTimeout(function() {
-      ['identity', 'price', 'channel'].forEach(function(key) {
-        var fill = ddContent.querySelector('.s1-dd-conf-fill--' + key);
-        if (fill) fill.style.width = p.confidence[key] + '%';
-      });
-    }, 50);
-
-    // Typewriter effect
-    if (p.interview && p.interview.length > 0) {
-      runTypewriter(p.interview, 0);
-    }
-  }
-
-  function runTypewriter(interviews, idx) {
-    if (idx >= interviews.length) return;
-    var el = ddContent.querySelector('[data-tw-idx="' + idx + '"]');
-    if (!el) return;
-    var text = interviews[idx].a;
-    var charIdx = 0;
-    el.innerHTML = '<span class="s1-cursor"></span>';
-
-    function type() {
-      if (charIdx < text.length) {
-        el.innerHTML = esc(text.substring(0, charIdx + 1)) + '<span class="s1-cursor"></span>';
-        charIdx++;
-        var delay = 12;
-        if (text[charIdx - 1] === '.' || text[charIdx - 1] === '?' || text[charIdx - 1] === '!') delay = 200;
-        else if (text[charIdx - 1] === ',') delay = 80;
-        else if (text[charIdx - 1] === '\u2026') delay = 150;
-        typewriterTimer = setTimeout(type, delay);
-      } else {
-        el.innerHTML = esc(text);
-        // Show insight
-        var insightEl = ddContent.querySelector('[data-insight-idx="' + idx + '"]');
-        if (insightEl) insightEl.style.opacity = '1';
-        // Next question after brief pause
-        typewriterTimer = setTimeout(function() { runTypewriter(interviews, idx + 1); }, 400);
+  // Fade-in on scroll
+  const fadeObs = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        fadeObs.unobserve(entry.target);
       }
-    }
-    type();
-  }
+    });
+  }, { threshold: 0.08, root: root });
+  sections.forEach(s => fadeObs.observe(s));
 
-  function closeDeepDive() {
-    overlay.classList.remove('s1-overlay--open');
-    document.body.style.overflow = '';
-    if (typewriterTimer) { clearTimeout(typewriterTimer); typewriterTimer = null; }
-    deepDivePersona = null;
-  }
+  // Scroll spy: highlight sidebar link for persona closest to top of viewport
+  const spyObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const id = entry.target.id;
+        const active = container.querySelector(`.s1-sidebar-link[data-target="${id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { root: root, rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => spyObs.observe(s));
 
-  // ESC key
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && deepDivePersona) closeDeepDive();
+  // Sidebar click → smooth scroll within the scene
+  links.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = link.getAttribute('data-target');
+      const target = container.querySelector('#' + id);
+      if (!target || !root) return;
+      const rootRect = root.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
+      const top = root.scrollTop + (targetRect.top - rootRect.top) - 24;
+      root.scrollTo({ top, behavior: 'smooth' });
+    });
   });
-
-  // ─── SCORING SECTION ───────────────────────────────────────────────────────
-
-  var scoringSection = document.createElement('div');
-  scoringSection.className = 's1-scoring-section';
-
-  var scoreBtnWrap = document.createElement('div');
-  scoreBtnWrap.className = 's1-score-btn-wrap';
-  var scoreBtn = document.createElement('button');
-  scoreBtn.className = 's1-score-btn';
-  scoreBtn.textContent = 'Score & Select for Brand Creation';
-  scoreBtnWrap.appendChild(scoreBtn);
-  scoringSection.appendChild(scoreBtnWrap);
-
-  var scoringPanel = document.createElement('div');
-  scoringPanel.className = 's1-scoring-panel';
-  scoringSection.appendChild(scoringPanel);
-
-  var sidebarHeader = document.createElement('div');
-  sidebarHeader.className = 's1-sidebar-header';
-  sidebarHeader.innerHTML = '<h3>Brand Selection</h3><div class="s1-sidebar-sub">Score personas for brand creation</div>';
-  sidebarArea.appendChild(sidebarHeader);
-
-  sidebarArea.appendChild(scoringSection);
-  container.appendChild(sidebarArea);
-
-  // Candidate personas mapped to brands for scoring
-  var scoringCandidates = [
-    { persona: 'm8', brand: 'Specter', scores: { identity: 82, market: 68, confidence: 78, switching: 85, channel: 70 }, composite: 8.4, verdict: 'selected' },
-    { persona: 'M1', brand: 'Kin Mobile', scores: { identity: 85, market: 90, confidence: 55, switching: 45, channel: 55 }, composite: 7.8, verdict: 'passed' },
-    { persona: 'm1', brand: 'Solo', scores: { identity: 78, market: 75, confidence: 68, switching: 52, channel: 68 }, composite: 7.5, verdict: 'passed' },
-    { persona: 's4', brand: 'Soloist', scores: { identity: 71, market: 82, confidence: 60, switching: 65, channel: 60 }, composite: 7.2, verdict: 'passed' },
-    { persona: 'm6', brand: 'Mutt Mobile', scores: { identity: 75, market: 70, confidence: 62, switching: 48, channel: 62 }, composite: 6.9, verdict: 'passed' },
-    { persona: 'M2', brand: 'Vault', scores: { identity: 68, market: 55, confidence: 48, switching: 60, channel: 48 }, composite: 6.5, verdict: 'passed' },
-    { persona: 's2', brand: '—', scores: { identity: 55, market: 72, confidence: 45, switching: 38, channel: 45 }, composite: 5.8, verdict: 'failed' },
-    { persona: 's5', brand: '—', scores: { identity: 35, market: 58, confidence: 30, switching: 30, channel: 42 }, composite: 4.2, verdict: 'failed' },
-  ];
-
-  var dimColors = { identity: '#a29bfe', market: '#74b9ff', confidence: '#f0c27a', switching: '#e17055', channel: '#10b981' };
-  var dimLabels = { identity: 'Identity', market: 'Market', confidence: 'Confidence', switching: 'Switching', channel: 'Channel' };
-
-  function findPersona(id) {
-    for (var i = 0; i < personas.length; i++) { if (personas[i].id === id) return personas[i]; }
-    return null;
-  }
-
-  var scoringRunning = false;
-
-  scoreBtn.addEventListener('click', function() {
-    if (scoringRunning) return;
-    scoringRunning = true;
-    scoreBtn.disabled = true;
-    runScoringAnimation();
-  });
-
-  function runScoringAnimation() {
-    scoringPanel.innerHTML = '';
-    scoringPanel.classList.add('visible');
-
-    // Header
-    var header = document.createElement('div');
-    header.className = 's1-scoring-header';
-    header.innerHTML = '<h3>Brand Creation Selection</h3><span class="s1-scoring-status">Evaluating...</span>';
-    scoringPanel.appendChild(header);
-
-    var statusEl = header.querySelector('.s1-scoring-status');
-
-    // Terminal
-    var terminal = document.createElement('div');
-    terminal.className = 's1-scoring-terminal';
-    scoringPanel.appendChild(terminal);
-
-    // Rows container
-    var rowsContainer = document.createElement('div');
-    rowsContainer.className = 's1-scoring-rows';
-    scoringPanel.appendChild(rowsContainer);
-
-    // Build rows (hidden initially)
-    var rowEls = [];
-    var compositeEls = [];
-    var badgeEls = [];
-    var barFills = [];
-
-    scoringCandidates.forEach(function(c) {
-      var p = findPersona(c.persona);
-      var row = document.createElement('div');
-      row.className = 's1-scoring-row';
-
-      var nameCell = document.createElement('div');
-      var pipeClass = p ? p.pipe : 'micro';
-      var pipeColor = PIPE_COLORS[pipeClass] || '#74b9ff';
-      nameCell.innerHTML = '<span class="s1-scoring-row-name">' + esc(p ? p.name : c.persona) + '</span>' +
-        '<span class="s1-scoring-row-pipe" style="color:' + pipeColor + ';background:' + pipeColor + '15;border:1px solid ' + pipeColor + '30;">' + (p ? PIPE_LABELS[p.pipe] : '') + '</span>';
-
-      var barsCell = document.createElement('div');
-      barsCell.className = 's1-scoring-row-bars';
-      var fills = {};
-      Object.keys(dimColors).forEach(function(dim) {
-        var group = document.createElement('div');
-        group.className = 's1-scoring-bar-group';
-        group.title = dimLabels[dim] + ': ' + c.scores[dim] + '%';
-        var track = document.createElement('div');
-        track.className = 's1-scoring-bar-track';
-        var fill = document.createElement('div');
-        fill.className = 's1-scoring-bar-fill';
-        fill.style.background = dimColors[dim];
-        track.appendChild(fill);
-        group.appendChild(track);
-        barsCell.appendChild(group);
-        fills[dim] = fill;
-      });
-
-      var compCell = document.createElement('div');
-      compCell.className = 's1-scoring-composite';
-      compCell.textContent = '—';
-
-      var badgeCell = document.createElement('div');
-      badgeCell.className = 's1-scoring-badge';
-      badgeCell.textContent = c.brand !== '—' ? c.brand : '—';
-
-      row.appendChild(nameCell);
-      row.appendChild(barsCell);
-      row.appendChild(compCell);
-      row.appendChild(badgeCell);
-      rowsContainer.appendChild(row);
-
-      rowEls.push(row);
-      compositeEls.push(compCell);
-      badgeEls.push(badgeCell);
-      barFills.push(fills);
-    });
-
-    // Verdict area
-    var verdict = document.createElement('div');
-    verdict.className = 's1-scoring-verdict';
-    verdict.innerHTML = '<div class="s1-scoring-verdict-icon">&#10003;</div>' +
-      '<div class="s1-scoring-verdict-text">' +
-      '<h4>Specter selected as primary brand candidate</h4>' +
-      '<p>Highest composite score (8.4) driven by exceptional identity intensity and switching readiness. 6 brands total passed threshold for Brand Creation pipeline.</p>' +
-      '</div>';
-    scoringPanel.appendChild(verdict);
-
-    // Terminal lines
-    var termLines = [
-      'Initializing brand creation selection model...',
-      'Loading <span class="s1-term-accent">' + scoringCandidates.length + ' persona candidates</span> from pipeline output',
-      'Scoring dimensions: Identity Intensity (25%) · Market Size (20%) · Confidence (20%) · Switching Readiness (20%) · Channel Fit (15%)',
-      'Running composite scoring across all candidates...',
-      'Applying brand viability threshold: <span class="s1-term-accent">composite ≥ 6.0</span>',
-    ];
-
-    var delay = 0;
-
-    // Phase 1: Terminal typing
-    termLines.forEach(function(line, i) {
-      setTimeout(function() {
-        var lineEl = document.createElement('div');
-        lineEl.className = 's1-term-line';
-        lineEl.innerHTML = '> ' + line;
-        terminal.appendChild(lineEl);
-        terminal.scrollTop = terminal.scrollHeight;
-      }, delay);
-      delay += 600;
-    });
-
-    // Phase 2: Reveal rows one by one with bar animations
-    delay += 400;
-    scoringCandidates.forEach(function(c, i) {
-      var revealDelay = delay + i * 500;
-
-      // Reveal row
-      setTimeout(function() {
-        rowEls[i].classList.add('revealed');
-
-        // Terminal update
-        var p = findPersona(c.persona);
-        var lineEl = document.createElement('div');
-        lineEl.className = 's1-term-line';
-        lineEl.innerHTML = '> Scoring: <span class="s1-term-accent">' + esc(p ? p.name : c.persona) + '</span> → ' + c.composite.toFixed(1);
-        terminal.appendChild(lineEl);
-        terminal.scrollTop = terminal.scrollHeight;
-      }, revealDelay);
-
-      // Animate bars
-      setTimeout(function() {
-        Object.keys(dimColors).forEach(function(dim) {
-          barFills[i][dim].style.width = c.scores[dim] + '%';
-        });
-      }, revealDelay + 100);
-
-      // Show composite score
-      setTimeout(function() {
-        compositeEls[i].textContent = c.composite.toFixed(1);
-        compositeEls[i].classList.add('scored');
-        if (i === 0) compositeEls[i].classList.add('top');
-
-        // Show verdict badge
-        badgeEls[i].classList.add(c.verdict);
-      }, revealDelay + 800);
-    });
-
-    // Phase 3: Final verdict
-    var finalDelay = delay + scoringCandidates.length * 500 + 1200;
-    setTimeout(function() {
-      // Highlight winner row
-      rowEls[0].classList.add('winner');
-
-      // Terminal verdict
-      var lineEl = document.createElement('div');
-      lineEl.className = 's1-term-line';
-      lineEl.innerHTML = '> <span class="s1-term-accent">Selection complete.</span> 6 brands passed threshold. Specter leads with composite 8.4.';
-      terminal.appendChild(lineEl);
-      terminal.scrollTop = terminal.scrollHeight;
-
-      statusEl.textContent = 'Complete';
-    }, finalDelay);
-
-    setTimeout(function() {
-      verdict.classList.add('visible');
-      verdict.scrollIntoView({ behavior: 'smooth', block: 'end' });
-    }, finalDelay + 500);
-
-    setTimeout(function() {
-      scoringRunning = false;
-    }, finalDelay + 800);
-  }
-
-  // ─── INITIAL RENDER ─────────────────────────────────────────────────────────
-
-  renderGrid();
 }
+
+window.initScene1 = initScene1;
